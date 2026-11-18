@@ -1,0 +1,759 @@
+<title>Жолдош попутки</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: phone-shaped single column app shell, sticky top bar, fixed bottom tab bar */
+:root{
+  --bg:#f3f6f4; --surface:#ffffff; --field:#eaefec; --fg:#14201a; --muted:#66756d; --line:#dfe6e2;
+  --accent:#1fbf6b; --accent-strong:#14a159; --accent-soft:#e3f6eb; --on-accent:#ffffff;
+  --danger:#e5534b; --warn-bg:#fff8dc; --warn-line:#f0dc8a; --star:#f5b301;
+  --shadow:0 1px 2px rgba(20,40,30,.06),0 4px 14px rgba(20,40,30,.06);
+  --f-display:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1512; --surface:#18211c; --field:#222d27; --fg:#e8efe9; --muted:#93a39a; --line:#2a352f;
+  --accent:#2fd17c; --accent-strong:#25b86b; --accent-soft:#1c3427; --on-accent:#06150c;
+  --danger:#f0716a; --warn-bg:#2d2a17; --warn-line:#5a5020; --star:#f7c23a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1512; --surface:#18211c; --field:#222d27; --fg:#e8efe9; --muted:#93a39a; --line:#2a352f;
+  --accent:#2fd17c; --accent-strong:#25b86b; --accent-soft:#1c3427; --on-accent:#06150c;
+  --danger:#f0716a; --warn-bg:#2d2a17; --warn-line:#5a5020; --star:#f7c23a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.45;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.app{max-width:480px;margin:0 auto;min-height:100%;background:var(--bg);display:flex;flex-direction:column}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);
+  display:grid;grid-template-columns:44px 1fr 44px;align-items:center;min-height:54px;
+  padding-left:max(6px,env(safe-area-inset-left,0px));padding-right:max(6px,env(safe-area-inset-right,0px))}
+.topbar h1{margin:0;text-align:center;font:700 16px/1.2 var(--f-display);text-wrap:balance}
+.topbar .sub{display:block;font:500 12px var(--f-body);color:var(--muted)}
+.icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;color:var(--accent)}
+.icon-btn:hover{background:var(--accent-soft)}
+main{flex:1;padding-block:16px 110px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+.tabs nav{max-width:480px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 9px;font-size:11px;color:var(--muted);position:relative}
+.tab svg{width:24px;height:24px}
+.tab.on{color:var(--accent)}
+.tab .dot{position:absolute;top:5px;left:calc(50% + 7px);min-width:16px;height:16px;border-radius:8px;background:var(--danger);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;padding:0 4px}
+h2{font:700 22px/1.25 var(--f-display);margin:4px 0 0;text-wrap:balance}
+h3{font:700 16px/1.3 var(--f-display);margin:0}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.card{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:16px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.field{display:flex;align-items:center;gap:10px;background:var(--field);border-radius:12px;padding:0 14px;min-height:50px;position:relative}
+.field svg{color:var(--accent);flex:none;width:20px;height:20px}
+.field input,.field select,.field textarea{flex:1;min-width:0;width:100%;border:0;background:transparent;outline:none;padding:13px 0;font-size:15px}
+.field textarea{resize:vertical;min-height:84px}
+.field:focus-within{box-shadow:0 0 0 2px var(--accent)}
+label.lbl{font-size:13px;color:var(--muted);font-weight:500}
+.route-fields{position:relative;display:flex;flex-direction:column;gap:8px}
+.swap{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--surface);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--accent);z-index:2}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.grid2>*{min-width:0}
+.counter{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-height:50px;background:var(--surface)}
+.counter button{height:100%;color:var(--accent);font-size:20px;display:grid;place-items:center}
+.counter button:disabled{color:var(--muted);opacity:.5}
+.counter span{text-align:center;font-weight:600;background:var(--field);height:100%;display:flex;align-items:center;justify-content:center;gap:6px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:8px 14px;border-radius:999px;background:var(--field);font-weight:500;font-size:14px}
+.chip.on{background:var(--accent);color:var(--on-accent)}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted)}
+.toggle{width:64px;height:32px;border-radius:16px;background:var(--line);position:relative;flex:none;transition:background .2s}
+.toggle::after{content:attr(data-label);position:absolute;right:10px;top:7px;font-size:11px;font-weight:700;color:var(--muted)}
+.toggle i{position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s}
+.toggle.on{background:var(--accent)}
+.toggle.on::after{left:10px;right:auto;color:var(--on-accent)}
+.toggle.on i{left:35px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:12px;background:var(--accent);color:var(--on-accent);font:700 16px var(--f-display);letter-spacing:.02em;width:100%;padding:0 16px}
+.btn:hover{background:var(--accent-strong)}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn.ghost:hover{background:var(--accent-soft)}
+.btn.danger{background:var(--danger);color:#fff}
+.btn.sm{min-height:38px;font-size:14px;width:auto}
+.btn:disabled{opacity:.5;cursor:default}
+.guide{display:flex;flex-direction:column;gap:8px}
+.guide .card{padding:12px 14px}
+.guide b{font-family:var(--f-display);font-size:14px}
+.guide p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+/* trip card */
+.trip{display:grid;grid-template-columns:1fr 1px 1.15fr;gap:14px;text-align:left;width:100%}
+.trip .sep{background:var(--line)}
+.tl{display:grid;grid-template-columns:22px 1fr;column-gap:8px}
+.tl .rail{display:flex;flex-direction:column;align-items:center;grid-row:1/3}
+.tl .rail .dots{flex:1;border-left:2px dotted var(--accent);margin:4px 0;min-height:22px}
+.tl .rail svg{width:20px;height:20px;color:var(--accent)}
+.tl .stop .d{font-size:12px;color:var(--muted)}
+.tl .stop .t{font:600 22px/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.tl .stop .c{font-size:14px}
+.tl .stop+.stop{margin-top:6px}
+.who{display:flex;flex-direction:column;gap:10px;min-width:0}
+.who .p{display:flex;gap:10px;align-items:center;min-width:0}
+.who .p div{min-width:0}
+.who .n{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.who .s{font-size:12px;color:var(--muted)}
+.seats{display:flex;gap:3px;color:var(--muted)}
+.seats svg{width:16px;height:16px}
+.seats .taken{color:var(--line)}
+.price{font:700 20px var(--f-display);color:var(--accent);text-decoration:underline;text-underline-offset:3px;font-variant-numeric:tabular-nums}
+.avatar{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;font:700 17px var(--f-display);color:#fff}
+.avatar.lg{width:104px;height:104px;font-size:38px}
+.avatar.sm{width:36px;height:36px;font-size:14px}
+.carpic{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--field);color:var(--muted)}
+.carpic svg{width:26px;height:26px}
+.stars{display:inline-flex;gap:1px;color:var(--star);vertical-align:-2px}
+.stars svg{width:15px;height:15px}
+.stars .off{color:var(--line)}
+.banner{background:var(--warn-bg);border:1.5px solid var(--warn-line);border-radius:12px;padding:12px 14px;font-size:14px;display:flex;gap:10px;align-items:center}
+.kv{display:flex;flex-direction:column;gap:4px}
+.list{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.li{display:flex;align-items:center;gap:14px;padding:15px 16px;width:100%;text-align:left;font-size:15px}
+.li+.li{border-top:1px solid var(--line)}
+.li svg.ic{width:22px;height:22px;color:var(--accent);flex:none}
+.li .grow{flex:1;min-width:0}
+.chev{color:var(--muted);width:18px;height:18px;flex:none}
+.li.danger,.li.danger svg.ic{color:var(--danger)}
+.section-title{font:700 13px var(--f-display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:6px 2px -4px}
+.hero-profile{background:var(--accent);color:var(--on-accent);border-radius:20px;padding:18px;display:flex;gap:14px;align-items:center;width:100%;text-align:left}
+.hero-profile .avatar{background:rgba(255,255,255,.25)!important;border:2px solid rgba(255,255,255,.6)}
+.hero-profile b{font:700 18px var(--f-display);display:block}
+.ratingbox{background:var(--accent-soft);border:1px solid var(--line);border-radius:14px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left}
+.ratingbox b{font:700 20px var(--f-display);margin-right:6px}
+.dist{display:grid;grid-template-columns:auto 1fr auto;gap:6px 12px;align-items:center;font-size:13px;font-variant-numeric:tabular-nums}
+.bar{height:6px;border-radius:3px;background:var(--field);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--star)}
+.review+.review{border-top:1px solid var(--line);padding-top:12px}
+.review p{margin:6px 0 0;font-size:14px}
+.colors{display:flex;gap:6px;flex-wrap:wrap}
+.swatch{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center}
+.swatch.on{outline:2.5px solid var(--fg);outline-offset:2px}
+.swatch svg{width:18px;height:18px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg button{min-height:46px;border-radius:12px;border:1.5px solid var(--line);font-weight:600;color:var(--muted);background:var(--surface)}
+.seg button.on{border-color:var(--accent);color:var(--fg)}
+.empty{text-align:center;padding:32px 16px;color:var(--muted)}
+.empty svg{width:48px;height:48px;color:var(--accent);opacity:.7}
+.notif{display:flex;gap:12px;align-items:flex-start}
+.notif .ic{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.notif .ic svg{width:20px;height:20px}
+.notif.unread{border-left:3px solid var(--accent)}
+.pill{display:inline-block;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent-strong);letter-spacing:.03em}
+.pill.grey{background:var(--field);color:var(--muted)}
+.pill.red{background:color-mix(in srgb,var(--danger) 15%,transparent);color:var(--danger)}
+.contact{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);margin:12px -16px -16px}
+.contact a,.contact button{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;color:var(--accent);text-decoration:none;font-weight:500}
+.contact a+a,.contact a+button{border-left:1px solid var(--line)}
+.contact svg{width:20px;height:20px}
+.sheet-wrap{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);width:100%;max-width:480px;border-radius:22px 22px 0 0;padding:20px max(16px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:14px;max-height:85vh;overflow:auto;animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(30px);opacity:.4}}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:11px 18px;border-radius:12px;font-weight:500;font-size:14px;z-index:60;max-width:calc(100% - 32px);box-shadow:var(--shadow)}
+.stargrab{display:flex;gap:6px;justify-content:center;color:var(--star)}
+.stargrab button svg{width:36px;height:36px}
+.stargrab button.off{color:var(--line)}
+.citylist{max-height:50vh;overflow:auto;display:flex;flex-direction:column}
+.citylist button{text-align:left;padding:12px 4px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center}
+.citylist svg{width:18px;height:18px;color:var(--accent)}
+.tag-demo{font-size:11px;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="app">
+  <header class="topbar" id="topbar"></header>
+  <main id="screen"></main>
+</div>
+<div class="tabs"><nav id="tabs"></nav></div>
+<div id="overlay"></div>
+
+<script>
+(() => {
+// ---------- icons ----------
+const I = {
+  pin:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>',
+  pinO:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-6.5-7.2-6.5-12a6.5 6.5 0 0 1 13 0c0 4.8-6.5 12-6.5 12Z"/><circle cx="12" cy="9" r="2.3"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  swap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M8 4v14M4 8l4-4 4 4M16 20V6M12 16l4 4 4-4"/></svg>',
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>',
+  users:'<svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><circle cx="9" cy="8" r="4"/><path d="M1.5 20c0-3.9 3.4-6.5 7.5-6.5s7.5 2.6 7.5 6.5Z"/><circle cx="17" cy="7" r="3"/><path d="M17.5 12c3 .2 5 2.3 5 5.5h-4.6a8 8 0 0 0-2.7-5.2c.7-.2 1.5-.3 2.3-.3Z"/></svg>',
+  seat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="3.5"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6Z"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
+  plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4Z"/><path d="M10 21h4"/></svg>',
+  road:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 21 10 3M17 21 14 3M12 6v2M12 11v2M12 16v2"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="m15 5-7 7 7 7"/></svg>',
+  chev:'<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg>',
+  star:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg>',
+  car:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 11 6.6 6.5A2.3 2.3 0 0 1 8.8 5h6.4a2.3 2.3 0 0 1 2.2 1.5L19 11a2.5 2.5 0 0 1 2 2.4V17a1 1 0 0 1-1 1h-1a2 2 0 0 1-4 0H9a2 2 0 0 1-4 0H4a1 1 0 0 1-1-1v-3.6A2.5 2.5 0 0 1 5 11Zm2.2-.2h9.6l-1.2-3.5a.9.9 0 0 0-.8-.5H9.2a.9.9 0 0 0-.8.5ZM7 15.3a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6Zm10 0a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6Z"/></svg>',
+  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 3h3.5l1.7 4.5-2.2 1.4a11 11 0 0 0 7.1 7.1l1.4-2.2L21 15.5V19a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4Z"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke-linecap="round" stroke-width="3"/></svg>',
+  info:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 11v6M12 7.5v.01"/></svg>',
+  shield:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg>',
+  doc:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6Z"/><path d="M9 12h6M9 16h6"/></svg>',
+  lock:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>',
+  edit:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16Z"/><path d="m13 7 4 4"/></svg>',
+  contact:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="4"/><circle cx="12" cy="10" r="2.5"/><path d="M8 16c.7-1.5 2.2-2.3 4-2.3s3.3.8 4 2.3"/></svg>',
+  starO:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></svg>',
+  out:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4H6v16h8M10 12h11M17 8l4 4-4 4"/></svg>',
+  trash:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14"/></svg>',
+  bulb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="22" height="22" style="color:var(--star)"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.3 1 2.1h5c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>',
+  wallet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M16 13h.01M3 10h18" stroke-linecap="round"/></svg>',
+  plate:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 12h3M12 12h6" stroke-linecap="round"/></svg>',
+  hash:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9h14M5 15h14M10 4 8 20M16 4l-2 16"/></svg>',
+};
+
+// ---------- data ----------
+const CITIES = ["Бишкек","Ош","Жалал-Абад","Каракол","Чолпон-Ата","Балыкчы","Нарын","Талас","Баткен","Токмок","Кара-Балта","Кант","Узген","Кара-Суу","Кочкор","Боконбаево","Тамчы","Бостери","Токтогул","Кербен","Таш-Кумыр","Майлуу-Суу","Кызыл-Кия","Сулюкта","Ат-Башы","Чаек","Базар-Коргон","Сузак","Ноокат","Кемин","Беловодское","Сокулук","Кызыл-Суу","Джети-Огуз","Казарман"];
+const COLORS = [["Чёрный","#1d1d1d"],["Белый","#ffffff"],["Серый","#9e9e9e"],["Красный","#e53935"],["Синий","#1e88e5"],["Зелёный","#43a047"],["Жёлтый","#fdd835"],["Фиолетовый","#8e24aa"]];
+const AV = ["#1fbf6b","#1e88e5","#f4511e","#8e24aa","#00897b","#c0ca33","#fb8c00","#5e35b1","#e91e63","#3949ab"];
+const MONTHS = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
+const MON_S = ["янв.","фев.","мар.","апр.","мая","июн.","июл.","авг.","сен.","окт.","ноя.","дек."];
+const DAYS = ["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
+const DAY_S = ["вс","пн","вт","ср","чт","пт","сб"];
+const KEY = "joldosh-v1";
+
+const iso = d => { const z=new Date(d.getTime()-d.getTimezoneOffset()*60000); return z.toISOString().slice(0,10); };
+const addDays = (n) => { const d=new Date(); d.setDate(d.getDate()+n); return iso(d); };
+const parse = s => { const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d); };
+const TODAY = () => iso(new Date());
+const uid = () => Math.random().toString(36).slice(2,10);
+
+function seed(){
+  const drivers = [
+    {id:"u1",name:"Иса",phone:"+996 555 12 34 56",age:34,gender:"м",reg:"2024-04",car:{brand:"Lexus",model:"LX600",year:2022,color:"Зелёный",wheel:"Левый"}},
+    {id:"u2",name:"Ахмед",phone:"+996 700 98 76 54",age:41,gender:"м",reg:"2023-09",car:{brand:"Mercedes-Benz",model:"W211",year:2011,color:"Синий",wheel:"Левый"}},
+    {id:"u3",name:"Темирбек",phone:"+996 777 22 33 44",age:27,gender:"м",reg:"2025-02",car:{brand:"BMW",model:"X5",year:2019,color:"Чёрный",wheel:"Левый"}},
+    {id:"u4",name:"Айгерим",phone:"+996 550 45 67 89",age:30,gender:"ж",reg:"2024-11",car:{brand:"Toyota",model:"Camry",year:2018,color:"Белый",wheel:"Левый"}},
+    {id:"u5",name:"Нурлан",phone:"+996 705 11 22 33",age:38,gender:"м",reg:"2023-06",car:{brand:"Honda",model:"Odyssey",year:2008,color:"Серый",wheel:"Правый"}},
+    {id:"u6",name:"Бакыт",phone:"+996 772 66 55 44",age:45,gender:"м",reg:"2022-12",car:{brand:"Hyundai",model:"Sonata",year:2020,color:"Белый",wheel:"Левый"}},
+  ];
+  const routes = [["Бишкек","Чолпон-Ата",4,400],["Бишкек","Ош",10,1800],["Бишкек","Каракол",6,700],["Бишкек","Нарын",5,600],["Бишкек","Талас",5,600],["Бишкек","Балыкчы",3,350],["Ош","Бишкек",10,1800],["Чолпон-Ата","Бишкек",4,400],["Бишкек","Жалал-Абад",9,1500],["Бишкек","Токмок",1,150],["Ош","Жалал-Абад",2,250],["Каракол","Бишкек",6,700]];
+  const times = ["06:00","07:30","09:00","10:30","12:00","14:00","16:30","18:00","20:00"];
+  const trips=[]; let k=0;
+  for(let day=0; day<4; day++){
+    routes.forEach((r,ri)=>{
+      const n = (ri<2?3:ri%3===0?2:1);
+      for(let j=0;j<n;j++){
+        const d=drivers[(k++)%drivers.length];
+        const dep=times[(ri*2+j*3+day)%times.length];
+        const [h,m]=dep.split(":").map(Number);
+        const ah=(h+r[2])%24;
+        const seats = d.car.model==="Odyssey"?6:4;
+        const bookedN = (k*7)%3;
+        trips.push({id:"t"+k,driverId:d.id,from:r[0],to:r[1],date:addDays(day),dep,arr:String(ah).padStart(2,"0")+":"+String(m).padStart(2,"0"),
+          price:r[3]+((k%3)-1)*50,seats,booked:bookedN?[{userId:"demo",name:"Пассажир",count:bookedN}]:[],payment:"Наличными",
+          comment:["Выезжаю ровно по времени, место встречи — у старой площади. Звоните заранее.","Багаж до 1 сумки на человека. Не курим в машине.","Могу забрать по пути в черте города. Кондиционер есть.","Выезд от Западного автовокзала. Пишите в WhatsApp."][k%4]});
+      }
+    });
+  }
+  const R = (to,from,rating,text,d)=>({id:uid(),toId:to,fromName:from,rating,text,date:d});
+  const reviews=[
+    R("u1","Темирбек",5,"Отличный водитель. После бронирования сразу перезвонил и уточнил место встречи.","2026-10-26"),
+    R("u1","Шамс",5,"Доехали быстро и спокойно. Советую!","2026-10-12"),
+    R("u1","Лена",4,"Немного опоздали со стартом, но поездка понравилась.","2026-09-30"),
+    R("u2","Айбек",3,"Машина старая, но довёз нормально.","2026-10-02"),
+    R("u2","Жанара",3,"Долго собирал пассажиров.","2026-09-18"),
+    R("u4","Мээрим",5,"Очень аккуратно водит, в машине чисто.","2026-11-01"),
+    R("u4","Улан",5,"Всё по времени, рекомендую.","2026-10-21"),
+    R("u5","Эрлан",4,"Просторно, места для багажа хватило.","2026-10-08"),
+    R("u6","Динара",5,"Вежливый водитель, приятная музыка.","2026-11-05"),
+    R("u6","Руслан",4,"Хорошая поездка.","2026-10-15"),
+  ];
+  return {v:1,me:null,users:drivers,trips,reviews,notifs:[],requests:[]};
+}
+
+let S;
+function load(){ try{ const raw=localStorage.getItem(KEY); if(raw){ S=JSON.parse(raw); return; } }catch(e){} S=seed(); }
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} }
+load();
+// keep demo trips fresh: if seed is stale (no trips today or later) reseed demo data but keep the user
+(function refresh(){ const t=TODAY(); if(!S.trips.some(x=>x.date>=t && x.driverId!=="me")){ const me=S.me, mine=S.trips.filter(x=>x.driverId==="me"), n=S.notifs; const fresh=seed(); S={...fresh,me,notifs:n,trips:[...fresh.trips,...mine]}; save(); } })();
+
+// ---------- helpers ----------
+const $ = s => document.querySelector(s);
+const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const user = id => id==="me"?S.me:S.users.find(u=>u.id===id);
+const avColor = s => AV[[...String(s)].reduce((a,c)=>a+c.charCodeAt(0),0)%AV.length];
+const avatar = (u,cls="") => `<div class="avatar ${cls}" style="background:${avColor(u?.name||"?")}">${esc((u?.name||"?").trim()[0]||"?").toUpperCase()}</div>`;
+const reviewsOf = id => S.reviews.filter(r=>r.toId===id);
+const ratingOf = id => { const r=reviewsOf(id); return r.length? r.reduce((a,b)=>a+b.rating,0)/r.length : 0; };
+const stars = (v) => `<span class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=Math.round(v)?"":"off"}">${I.star}</span>`).join("")}</span>`;
+const plural = (n,a,b,c)=>{ const m10=n%10,m100=n%100; return m10===1&&m100!==11?a:(m10>=2&&m10<=4&&(m100<10||m100>=20)?b:c); };
+const reviewsWord = n => `${n} ${plural(n,"отзыв","отзыва","отзывов")}`;
+const seatsLeft = t => t.seats - t.booked.reduce((a,b)=>a+b.count,0);
+const myBooking = t => t.booked.find(b=>b.userId==="me");
+const dShort = s => { const d=parse(s); return `${d.getDate()} ${MON_S[d.getMonth()]} ${DAY_S[d.getDay()]}`; };
+const dLong = s => { const d=parse(s); return `${d.getDate()} ${MONTHS[d.getMonth()]}, ${DAYS[d.getDay()]}`; };
+const dRel = s => s===TODAY()?"Сегодня":s===addDays(1)?"Завтра":dShort(s);
+const regTxt = s => { if(!s) return ""; const [y,m]=s.split("-").map(Number); return `${MON_S[m-1].replace(".","")[0].toUpperCase()+MON_S[m-1].slice(1)} ${y}`; };
+const isPast = t => (t.date+"T"+t.dep) < (TODAY()+"T"+new Date().toTimeString().slice(0,5));
+const carTxt = c => c? `${esc(c.brand)} ${esc(c.model)}${c.year?", "+esc(c.year):""}`:"";
+const colorHex = name => (COLORS.find(c=>c[0]===name)||[,"#9e9e9e"])[1];
+const tripsCount = id => S.trips.filter(t=>t.driverId===id && isPast(t)).length;
+
+function toast(msg){ const el=document.createElement("div"); el.className="toast"; el.textContent=msg; document.body.appendChild(el); setTimeout(()=>el.remove(),2400); }
+function notify(text,icon="bell",tripId=null){ S.notifs.unshift({id:uid(),text,icon,tripId,at:Date.now(),read:false}); }
+
+function sheet(html, onMount){
+  const ov=$("#overlay");
+  ov.innerHTML=`<div class="sheet-wrap"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`;
+  const wrap=ov.firstElementChild;
+  wrap.addEventListener("click",e=>{ if(e.target===wrap) closeSheet(); });
+  onMount && onMount(wrap.firstElementChild);
+}
+function closeSheet(){ $("#overlay").innerHTML=""; }
+function confirmSheet(title,text,okLabel,onOk,danger=true){
+  sheet(`<h3>${esc(title)}</h3><p class="muted" style="margin:0">${esc(text)}</p>
+    <button class="btn ${danger?"danger":""}" id="cOk">${esc(okLabel)}</button><button class="btn ghost" id="cNo">Отмена</button>`, el=>{
+    el.querySelector("#cOk").onclick=()=>{ closeSheet(); onOk(); };
+    el.querySelector("#cNo").onclick=closeSheet;
+  });
+}
+function citySheet(current,onPick){
+  sheet(`<h3>Выберите город</h3>
+    <div class="field">${I.search}<input id="cq" placeholder="Начните вводить…" autocomplete="off" value=""></div>
+    <div class="citylist" id="cl"></div>`, el=>{
+    const q=el.querySelector("#cq"), cl=el.querySelector("#cl");
+    const draw=()=>{ const v=q.value.trim().toLowerCase(); const list=CITIES.filter(c=>c.toLowerCase().includes(v));
+      const extra = v && !CITIES.some(c=>c.toLowerCase()===v) ? `<button data-c="${esc(q.value.trim())}">${I.pinO}<span>«${esc(q.value.trim())}»</span></button>`:"";
+      cl.innerHTML = list.map(c=>`<button data-c="${esc(c)}">${I.pinO}<span>${esc(c)}</span>${c===current?'<span class="pill" style="margin-left:auto">выбран</span>':""}</button>`).join("")+extra; };
+    q.oninput=draw; draw(); setTimeout(()=>q.focus(),50);
+    cl.onclick=e=>{ const b=e.target.closest("button"); if(b){ closeSheet(); onPick(b.dataset.c); } };
+  });
+}
+
+// ---------- navigation ----------
+let tab="search";
+let stack=[]; // [{name, params}]
+const search = {from:"Бишкек",to:"Чолпон-Ата",date:TODAY(),pax:1,all:false};
+const draft = {from:"Бишкек",to:"",date:TODAY(),dep:"09:00",arr:"",seats:3,price:"",payment:"Наличными",comment:""};
+
+function go(name,params={}){ stack.push({name,params}); render(); window.scrollTo(0,0); }
+function back(){ stack.pop(); render(); }
+function switchTab(t){ tab=t; stack=[]; render(); window.scrollTo(0,0); }
+
+function topbar(title,{sub="",canBack=false,right=""}={}){
+  $("#topbar").innerHTML = `<div>${canBack?`<button class="icon-btn" id="bk" aria-label="Назад">${I.back}</button>`:""}</div>
+  <h1>${esc(title)}${sub?`<span class="sub">${esc(sub)}</span>`:""}</h1><div>${right}</div>`;
+  const b=$("#bk"); if(b) b.onclick=back;
+}
+function renderTabs(){
+  const unread=S.notifs.filter(n=>!n.read).length;
+  const items=[["trips","Поездки",I.road],["search","Поиск",I.search],["create","Создать",I.plus],["notifs","Уведомления",I.bell],["profile","Профиль",I.user]];
+  $("#tabs").innerHTML = items.map(([k,l,ic])=>`<button class="tab ${tab===k?"on":""}" data-t="${k}" aria-label="${l}">${ic}<span>${l}</span>${k==="notifs"&&unread?`<b class="dot">${unread}</b>`:""}</button>`).join("");
+  $("#tabs").onclick=e=>{ const b=e.target.closest(".tab"); if(b) switchTab(b.dataset.t); };
+}
+
+function render(){
+  save();
+  if(!S.me){ $(".tabs").hidden=true; return screens.welcome(); }
+  $(".tabs").hidden=false;
+  renderTabs();
+  const top=stack[stack.length-1];
+  if(top) return screens[top.name](top.params);
+  return screens[tab]();
+}
+
+// ---------- components ----------
+function tripCard(t){
+  const d=user(t.driverId), left=seatsLeft(t), r=ratingOf(t.driverId), rc=reviewsOf(t.driverId).length;
+  const seatIcons = Array.from({length:Math.min(t.seats,6)},(_,i)=>`<span class="${i<t.seats-left?"taken":""}">${I.seat}</span>`).join("");
+  return `<button class="card trip" data-trip="${t.id}" aria-label="${esc(t.from)} — ${esc(t.to)}, ${t.dep}">
+    <div class="tl">
+      <div class="rail">${I.pinO}<span class="dots"></span>${I.pin}</div>
+      <div class="stop"><div class="d">${dShort(t.date)}</div><div class="t">${t.dep}</div><div class="c">${esc(t.from)}</div></div>
+      <div class="stop"><div class="d">${dShort(t.date)}</div><div class="t">${t.arr||"—"}</div><div class="c">${esc(t.to)}</div></div>
+    </div>
+    <div class="sep"></div>
+    <div class="who">
+      <div class="p">${avatar(d)}<div><div class="n">${esc(d?.name)}${t.driverId==="me"?' <span class="pill">вы</span>':""}</div><div class="s">${rc?`<span style="color:var(--star)">★</span> ${r.toFixed(1)}`:"0 отзывов"}</div></div></div>
+      <div class="p"><div class="carpic">${I.car}</div><div><div class="n">${esc(d?.car?.brand||"Авто")}</div><div class="s">${esc(d?.car?.model||"")}${d?.car?.year?", "+d.car.year:""}</div></div></div>
+      <div class="row between"><div class="seats" title="Свободно мест: ${left}">${seatIcons}</div><div class="price">${t.price} с</div></div>
+    </div>
+  </button>`;
+}
+function bindTrips(root=document){ root.querySelectorAll("[data-trip]").forEach(b=>b.onclick=()=>go("trip",{id:b.dataset.trip})); }
+
+// ---------- screens ----------
+const screens = {};
+
+screens.welcome = () => {
+  $("#topbar").innerHTML=`<div></div><h1>Жолдош</h1><div></div>`;
+  $("#screen").innerHTML = `
+  <div class="hero-profile" style="flex-direction:column;align-items:flex-start;gap:8px;padding:22px">
+    <span class="pill" style="background:rgba(255,255,255,.2);color:inherit">попутки по Кыргызстану</span>
+    <b style="font-size:24px;line-height:1.2">Найдите попутчика или свободное место в машине</b>
+    <span style="opacity:.9">Бишкек, Ош, Иссык-Куль, Нарын — договоритесь с водителем напрямую и разделите расходы на дорогу.</span>
+  </div>
+  <form class="card stack" id="reg">
+    <h3>Вход</h3>
+    <label class="lbl" for="rName">Ваше имя</label>
+    <div class="field">${I.user}<input id="rName" required maxlength="30" placeholder="Например, Айбек" autocomplete="given-name"></div>
+    <label class="lbl" for="rPhone">Номер телефона</label>
+    <div class="field">${I.phone}<input id="rPhone" required inputmode="tel" placeholder="+996 555 00 00 00" value="+996 " autocomplete="tel"></div>
+    <p class="small muted" style="margin:0">Номер увидят только водители и пассажиры ваших поездок.</p>
+    <button class="btn" type="submit">Продолжить</button>
+  </form>
+  <p class="tag-demo">Демо-версия: данные хранятся только на этом устройстве, SMS не отправляется.</p>`;
+  $("#reg").onsubmit = e => { e.preventDefault();
+    const name=$("#rName").value.trim(), phone=$("#rPhone").value.trim();
+    if(name.length<2){ toast("Введите имя"); return; }
+    if(phone.replace(/\D/g,"").length<9){ toast("Проверьте номер телефона"); return; }
+    S.me={id:"me",name,phone,age:"",gender:"",reg:TODAY().slice(0,7),car:null};
+    notify(`Добро пожаловать, ${name}! Найдите поездку или создайте свою.`,"bell");
+    tab="search"; render();
+  };
+};
+
+screens.search = () => {
+  topbar("Поиск поездки");
+  const s=search;
+  $("#screen").innerHTML = `
+  <h2>Куда вы хотите поехать?</h2>
+  <div class="stack">
+    <div class="route-fields">
+      <button class="field" id="sFrom" style="text-align:left">${I.pin}<span style="padding:13px 0">${esc(s.from)||'<span class="muted">Откуда</span>'}</span></button>
+      <button class="field" id="sTo" style="text-align:left">${I.pin}<span style="padding:13px 0">${esc(s.to)||'<span class="muted">Куда</span>'}</span></button>
+      <button class="swap" id="sSwap" aria-label="Поменять города местами">${I.swap}</button>
+    </div>
+    <div class="grid2">
+      <label class="field" for="sDate">${I.cal}<input type="date" id="sDate" min="${TODAY()}" value="${s.date}" aria-label="Дата"></label>
+      <div class="counter"><button id="pm" aria-label="Меньше" ${s.pax<=1?"disabled":""}>−</button><span>${I.users} ${s.pax}</span><button id="pp" aria-label="Больше" ${s.pax>=6?"disabled":""}>+</button></div>
+    </div>
+    <div class="chips">${[["Сегодня",TODAY()],["Завтра",addDays(1)],["Послезавтра",addDays(2)]].map(([l,v])=>`<button class="chip ${s.date===v?"on":""}" data-d="${v}">${l}</button>`).join("")}</div>
+    <div class="switch"><span>Отправить запрос всем водителям по этому маршруту?</span><button class="toggle ${s.all?"on":""}" id="sAll" role="switch" aria-checked="${s.all}" data-label="${s.all?"Да":"Нет"}"><i></i></button></div>
+    <button class="btn" id="sGo">${I.search.replace('<svg','<svg width="20" height="20"')} Найти поездку</button>
+  </div>
+  <div class="guide">
+    <h3>Как пользоваться</h3>
+    <div class="card"><b>1. Найдите поездку</b><p>Укажите города, дату и количество мест. Выберите поездку и позвоните водителю до бронирования.</p></div>
+    <div class="card"><b>2. Выбирайте крупные города</b><p>Так больше шансов найти машину: например, Жалал-Абад вместо Базар-Коргона.</p></div>
+    <div class="card"><b>3. Забронируйте место</b><p>Если планы поменялись, отмените бронь заранее и предупредите водителя.</p></div>
+  </div>`;
+  $("#sFrom").onclick=()=>citySheet(s.from,c=>{s.from=c;render();});
+  $("#sTo").onclick=()=>citySheet(s.to,c=>{s.to=c;render();});
+  $("#sSwap").onclick=()=>{[s.from,s.to]=[s.to,s.from];render();};
+  $("#sDate").onchange=e=>{ if(e.target.value){s.date=e.target.value;render();} };
+  document.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{s.date=b.dataset.d;render();});
+  $("#pm").onclick=()=>{s.pax=Math.max(1,s.pax-1);render();};
+  $("#pp").onclick=()=>{s.pax=Math.min(6,s.pax+1);render();};
+  $("#sAll").onclick=()=>{s.all=!s.all;render();};
+  $("#sGo").onclick=()=>{
+    if(!s.from||!s.to){ toast("Выберите города отправления и прибытия"); return; }
+    if(s.from===s.to){ toast("Города должны отличаться"); return; }
+    if(s.all){
+      const drivers=new Set(S.trips.filter(t=>t.from===s.from&&t.to===s.to&&t.driverId!=="me").map(t=>t.driverId));
+      S.requests.push({id:uid(),from:s.from,to:s.to,date:s.date,pax:s.pax});
+      notify(`Запрос ${s.from} → ${s.to} на ${dRel(s.date).toLowerCase()} отправлен ${drivers.size||"всем"} ${plural(drivers.size,"водителю","водителям","водителям")}. Они свяжутся с вами.`,"bell");
+      toast("Запрос отправлен водителям");
+    }
+    go("results");
+  };
+};
+
+screens.results = () => {
+  const s=search;
+  const list=S.trips.filter(t=>t.from===s.from&&t.to===s.to&&t.date===s.date&&!isPast(t)&&seatsLeft(t)>=s.pax).sort((a,b)=>a.dep.localeCompare(b.dep));
+  topbar(`${list.length} ${plural(list.length,"поездка","поездки","поездок")}`,{sub:`${s.from} — ${s.to}, ${dRel(s.date).toLowerCase()}`,canBack:true});
+  if(!list.length){
+    const other=S.trips.filter(t=>t.from===s.from&&t.to===s.to&&t.date>s.date&&seatsLeft(t)>=s.pax).sort((a,b)=>(a.date+a.dep).localeCompare(b.date+b.dep));
+    $("#screen").innerHTML = `<div class="card empty">${I.road}<h3 style="margin-top:8px">На эту дату поездок нет</h3><p>Попробуйте другую дату или включите «Отправить запрос всем водителям» — вам позвонят, когда появится машина.</p></div>
+    ${other.length?`<div class="section-title">Ближайшие по этому маршруту</div>`+other.slice(0,5).map(tripCard).join(""):""}`;
+  } else {
+    $("#screen").innerHTML = list.map(tripCard).join("");
+  }
+  bindTrips();
+};
+
+screens.trip = ({id}) => {
+  const t=S.trips.find(x=>x.id===id);
+  if(!t){ back(); return; }
+  const d=user(t.driverId), mine=t.driverId==="me", bk=myBooking(t), left=seatsLeft(t), past=isPast(t);
+  const rc=reviewsOf(t.driverId).length, r=ratingOf(t.driverId);
+  topbar("Поездка",{canBack:true});
+  const passengers=t.booked.filter(b=>b.userId!=="demo" || mine);
+  const reviewed = S.reviews.some(x=>x.tripId===t.id && x.fromId==="me");
+  $("#screen").innerHTML = `
+  ${mine?`<div class="banner">${I.bulb}<span>Это ваша поездка</span></div>`:bk?`<div class="banner">${I.bulb}<span>Вы забронировали ${bk.count} ${plural(bk.count,"место","места","мест")}</span></div>`:""}
+  <div class="card stack">
+    <h2 style="margin:0">${dLong(t.date)}</h2>
+    <div class="tl">
+      <div class="rail">${I.pinO}<span class="dots"></span>${I.pin}</div>
+      <div class="stop"><b>${t.dep} ${esc(t.from)}</b></div>
+      <div class="stop" style="margin-top:14px"><b>${t.arr||"—"} ${esc(t.to)}</b></div>
+    </div>
+    <div class="muted small">Оплата: ${esc(t.payment)}</div>
+    <div><span class="price" style="font-size:18px">${t.price} с</span> <span class="muted small">за 1 место, ${left?`осталось ${left} ${plural(left,"место","места","мест")}`:"мест нет"}</span></div>
+  </div>
+  <div class="section-title">Водитель</div>
+  <div class="card">
+    <button class="row" style="width:100%;text-align:left" id="drv">${avatar(d)}<div style="flex:1;min-width:0"><b>${esc(d.name)}</b><div class="small muted">${rc?stars(r)+" "+reviewsWord(rc):"Пока нет отзывов"}</div></div>${I.chev}</button>
+    ${mine?"":`<div class="contact"><a href="tel:${esc(d.phone.replace(/\s/g,""))}">${I.phone} Позвонить</a><a href="https://wa.me/${esc(d.phone.replace(/\D/g,""))}" target="_blank" rel="noopener">${I.chat} Написать</a></div>`}
+  </div>
+  ${mine?"":`<div class="small muted" style="margin-top:-8px;text-align:center">Телефон: <b style="user-select:all;color:var(--fg)">${esc(d.phone)}</b> <button class="pill" id="cp">Скопировать</button></div>`}
+  ${t.comment?`<div class="section-title">Детали поездки</div><div class="card small">${esc(t.comment)}</div>`:""}
+  <div class="section-title">Авто</div>
+  <div class="card row"><div class="carpic">${I.car}</div><div><b style="font-weight:500">${carTxt(d.car)||"Не указано"}</b>${d.car?.color?`<div class="small muted row" style="gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:${colorHex(d.car.color)};border:1px solid var(--line)"></span>${esc(d.car.color)}${d.car.wheel?" · руль "+esc(d.car.wheel.toLowerCase()):""}</div>`:""}</div></div>
+  ${mine?`<div class="section-title">Пассажиры</div>
+    ${passengers.length?`<div class="list">${passengers.map(p=>`<div class="li">${avatar({name:p.name},"sm")}<div class="grow">${esc(p.name)}<div class="small muted">${p.count} ${plural(p.count,"место","места","мест")}</div></div>${p.phone?`<a class="pill" href="tel:${esc(p.phone.replace(/\s/g,""))}">${esc(p.phone)}</a>`:""}</div>`).join("")}</div>`:`<div class="card muted small">У вас ещё нет пассажиров</div>`}
+    ${past?"":`<button class="btn danger" id="del">Удалить поездку</button>`}`
+  : past ? (bk && !reviewed ? `<button class="btn" id="rev">Оценить водителя</button>` : `<div class="card muted small" style="text-align:center">Поездка уже состоялась</div>`)
+  : bk ? `<button class="btn ghost" id="cancel">Отменить бронирование</button>`
+  : left ? `<div class="row between"><span class="muted">Мест:</span><div class="counter" style="width:160px"><button id="bm" aria-label="Меньше">−</button><span id="bn">${Math.min(search.pax,left)}</span><button id="bp" aria-label="Больше">+</button></div></div>
+     <button class="btn" id="book">Забронировать за <span id="bsum">${t.price*Math.min(search.pax,left)}</span> с</button>
+     <p class="small muted" style="margin:-6px 0 0;text-align:center">Совет: позвоните водителю перед бронированием</p>`
+  : `<div class="card muted" style="text-align:center">Свободных мест нет</div>`}`;
+  $("#drv").onclick=()=>go("user",{id:t.driverId});
+  const cp=$("#cp"); if(cp) cp.onclick=()=>{ navigator.clipboard?.writeText(d.phone).then(()=>toast("Номер скопирован"),()=>toast("Выделите номер и скопируйте")); };
+  let n=Math.min(search.pax,left)||1;
+  const upd=()=>{ $("#bn").textContent=n; $("#bsum").textContent=t.price*n; };
+  if($("#bm")){ $("#bm").onclick=()=>{n=Math.max(1,n-1);upd();}; $("#bp").onclick=()=>{n=Math.min(left,n+1);upd();}; }
+  if($("#book")) $("#book").onclick=()=>confirmSheet("Подтвердите бронь",`${t.from} → ${t.to}, ${dLong(t.date)}, ${t.dep}. ${n} ${plural(n,"место","места","мест")} — ${t.price*n} с, оплата водителю наличными.`,"Забронировать",()=>{
+    t.booked.push({userId:"me",name:S.me.name,phone:S.me.phone,count:n});
+    notify(`Вы забронировали ${n} ${plural(n,"место","места","мест")}: ${t.from} → ${t.to}, ${dShort(t.date)} в ${t.dep}. Водитель: ${d.name}, ${d.phone}.`,"check",t.id);
+    toast("Место забронировано"); render();
+  },false);
+  if($("#cancel")) $("#cancel").onclick=()=>confirmSheet("Отменить бронь?","Водитель увидит, что место освободилось. Лучше предупредите его звонком.","Отменить бронь",()=>{
+    t.booked=t.booked.filter(b=>b.userId!=="me"); notify(`Бронь отменена: ${t.from} → ${t.to}, ${dShort(t.date)}.`,"bell",t.id); toast("Бронь отменена"); render();
+  });
+  if($("#del")) $("#del").onclick=()=>confirmSheet("Удалить поездку?","Поездка исчезнет из поиска. Пассажиров с бронью нужно предупредить самостоятельно.","Удалить",()=>{
+    S.trips=S.trips.filter(x=>x.id!==t.id); notify(`Поездка ${t.from} → ${t.to} (${dShort(t.date)}) удалена.`,"bell"); toast("Поездка удалена"); back();
+  });
+  if($("#rev")) $("#rev").onclick=()=>reviewSheet(t);
+};
+
+function reviewSheet(t){
+  let val=5;
+  const d=user(t.driverId);
+  sheet(`<h3>Как прошла поездка с ${esc(d.name)}?</h3>
+    <div class="stargrab" id="sg">${[1,2,3,4,5].map(i=>`<button data-v="${i}" aria-label="${i}">${I.star}</button>`).join("")}</div>
+    <div class="field"><textarea id="rt" maxlength="300" placeholder="Расскажите другим попутчикам (необязательно)"></textarea></div>
+    <button class="btn" id="rs">Отправить отзыв</button>`, el=>{
+    const paint=()=>el.querySelectorAll("#sg button").forEach(b=>b.classList.toggle("off",+b.dataset.v>val));
+    el.querySelector("#sg").onclick=e=>{ const b=e.target.closest("button"); if(b){val=+b.dataset.v;paint();} }; paint();
+    el.querySelector("#rs").onclick=()=>{ S.reviews.unshift({id:uid(),toId:t.driverId,fromId:"me",tripId:t.id,fromName:S.me.name,rating:val,text:el.querySelector("#rt").value.trim(),date:TODAY()});
+      closeSheet(); toast("Спасибо за отзыв!"); render(); };
+  });
+}
+
+screens.user = ({id}) => {
+  const u=user(id); const rv=reviewsOf(id); const r=ratingOf(id);
+  topbar(id==="me"?"Мои отзывы":"Профиль водителя",{canBack:true});
+  const dist=[5,4,3,2,1].map(s=>({s,n:rv.filter(x=>x.rating===s).length}));
+  $("#screen").innerHTML = `
+  <div class="card stack">
+    <div class="row">${avatar(u)}<div><h3>${esc(u.name)}</h3><div class="small">${rv.length?`<b style="color:var(--accent)">${r.toFixed(1)}</b> ${stars(r)}`:""}<div class="muted">${reviewsWord(rv.length)}</div></div></div></div>
+    <div class="row between small"><span><span class="muted">Дата регистрации:</span> ${regTxt(u.reg)}</span><span><span class="muted">Поездки:</span> ${tripsCount(id)}</span></div>
+    ${u.car?`<div class="row small muted" style="gap:6px">${I.car.replace("<svg",'<svg width="18" height="18"')} ${carTxt(u.car)}</div>`:""}
+  </div>
+  <div class="card dist">${dist.map(x=>`${stars(x.s)}<div class="bar"><i style="width:${rv.length?x.n/rv.length*100:0}%"></i></div><span class="muted">${reviewsWord(x.n)}</span>`).join("")}</div>
+  ${rv.length?`<div class="card stack">${rv.map(x=>`<div class="review"><div class="row">${avatar({name:x.fromName},"sm")}<div style="flex:1"><b>${esc(x.fromName)}</b><div>${stars(x.rating)}</div></div><span class="small muted">${x.date.split("-").reverse().join(".")}</span></div>${x.text?`<p>${esc(x.text)}</p>`:""}</div>`).join("")}</div>`:`<div class="card empty">${I.starO.replace('class="ic"','')}<p>Отзывов пока нет. Они появятся после первых поездок.</p></div>`}`;
+};
+
+screens.trips = () => {
+  topbar("Мои поездки");
+  const mineDrive=S.trips.filter(t=>t.driverId==="me").sort((a,b)=>(a.date+a.dep).localeCompare(b.date+b.dep));
+  const mineBook=S.trips.filter(t=>myBooking(t)).sort((a,b)=>(a.date+a.dep).localeCompare(b.date+b.dep));
+  const up=[...mineDrive,...mineBook].filter(t=>!isPast(t));
+  const past=[...mineDrive,...mineBook].filter(isPast).reverse();
+  $("#screen").innerHTML = up.length||past.length ? `
+    ${up.length?`<div class="section-title">Предстоящие</div>${up.map(t=>`<div class="stack" style="gap:6px"><span>${t.driverId==="me"?'<span class="pill">я водитель</span>':'<span class="pill grey">я пассажир</span>'}</span>${tripCard(t)}</div>`).join("")}`:""}
+    ${past.length?`<div class="section-title">Прошедшие</div>${past.map(tripCard).join("")}`:""}`
+  : `<div class="card empty">${I.road}<h3 style="margin-top:8px">Здесь будут ваши поездки</h3><p>Забронируйте место в попутке или создайте поездку как водитель.</p>
+     <div class="stack" style="margin-top:12px"><button class="btn" id="g1">Найти поездку</button><button class="btn ghost" id="g2">Создать поездку</button></div></div>`;
+  bindTrips();
+  if($("#g1")){ $("#g1").onclick=()=>switchTab("search"); $("#g2").onclick=()=>switchTab("create"); }
+};
+
+screens.create = () => {
+  topbar("Новая поездка");
+  const c=draft, me=S.me;
+  if(!me.car){
+    $("#screen").innerHTML = `<div class="card empty">${I.car.replace("<svg",'<svg style="width:56px;height:56px"')}<h3 style="margin-top:8px">Сначала добавьте автомобиль</h3><p>Пассажиры видят марку, модель и цвет машины — так вас проще найти на месте встречи.</p><button class="btn" id="addCar" style="margin-top:12px">Добавить автомобиль</button></div>`;
+    $("#addCar").onclick=()=>go("car"); return;
+  }
+  $("#screen").innerHTML = `
+  <h2>Если вы водитель, разделите расходы с попутчиками</h2>
+  <form class="stack" id="cf">
+    <div class="route-fields">
+      <button type="button" class="field" id="cFrom" style="text-align:left">${I.pin}<span style="padding:13px 0">${esc(c.from)||'<span class="muted">Откуда</span>'}</span></button>
+      <button type="button" class="field" id="cTo" style="text-align:left">${I.pin}<span style="padding:13px 0">${esc(c.to)||'<span class="muted">Куда</span>'}</span></button>
+      <button type="button" class="swap" id="cSwap" aria-label="Поменять города местами">${I.swap}</button>
+    </div>
+    <label class="lbl" for="cDate">Дата и время</label>
+    <label class="field" for="cDate">${I.cal}<input type="date" id="cDate" min="${TODAY()}" value="${c.date}" required></label>
+    <div class="grid2">
+      <div class="stack" style="gap:4px"><label class="lbl" for="cDep">Выезд</label><label class="field" for="cDep">${I.clock}<input type="time" id="cDep" value="${c.dep}" required></label></div>
+      <div class="stack" style="gap:4px"><label class="lbl" for="cArr">Прибытие (примерно)</label><label class="field" for="cArr">${I.clock}<input type="time" id="cArr" value="${c.arr}"></label></div>
+    </div>
+    <div class="grid2">
+      <div class="stack" style="gap:4px"><span class="lbl">Свободных мест</span><div class="counter"><button type="button" id="sm">−</button><span>${I.users} <b id="sn">${c.seats}</b></span><button type="button" id="sp">+</button></div></div>
+      <div class="stack" style="gap:4px"><label class="lbl" for="cPrice">Цена за место, сом</label><label class="field" for="cPrice">${I.wallet}<input type="number" id="cPrice" inputmode="numeric" min="0" step="10" placeholder="400" value="${c.price}" required></label></div>
+    </div>
+    <label class="lbl" for="cPay">Оплата</label>
+    <label class="field" for="cPay">${I.wallet}<select id="cPay">${["Наличными","Переводом (Мбанк, О!Деньги)","Наличными или переводом"].map(p=>`<option ${p===c.payment?"selected":""}>${p}</option>`).join("")}</select></label>
+    <label class="lbl" for="cCom">Детали поездки</label>
+    <div class="field"><textarea id="cCom" maxlength="300" placeholder="Место встречи, багаж, остановки по пути…">${esc(c.comment)}</textarea></div>
+    <div class="card row"><div class="carpic">${I.car}</div><div style="flex:1"><b style="font-weight:500">${carTxt(me.car)}</b><div class="small muted">${esc(me.car.color)}</div></div><button type="button" class="pill" id="chCar">Изменить</button></div>
+    <button class="btn" type="submit">Опубликовать поездку</button>
+  </form>`;
+  const keep=()=>{ c.date=$("#cDate").value; c.dep=$("#cDep").value; c.arr=$("#cArr").value; c.price=$("#cPrice").value; c.payment=$("#cPay").value; c.comment=$("#cCom").value; };
+  $("#cFrom").onclick=()=>{keep();citySheet(c.from,x=>{c.from=x;render();});};
+  $("#cTo").onclick=()=>{keep();citySheet(c.to,x=>{c.to=x;render();});};
+  $("#cSwap").onclick=()=>{keep();[c.from,c.to]=[c.to,c.from];render();};
+  $("#sm").onclick=()=>{c.seats=Math.max(1,c.seats-1);$("#sn").textContent=c.seats;};
+  $("#sp").onclick=()=>{c.seats=Math.min(8,c.seats+1);$("#sn").textContent=c.seats;};
+  $("#chCar").onclick=()=>{keep();go("car");};
+  $("#cf").onsubmit=e=>{ e.preventDefault(); keep();
+    if(!c.from||!c.to){ toast("Укажите оба города"); return; }
+    if(c.from===c.to){ toast("Города должны отличаться"); return; }
+    if(!c.date||!c.dep){ toast("Укажите дату и время выезда"); return; }
+    if((c.date+"T"+c.dep) < (TODAY()+"T"+new Date().toTimeString().slice(0,5))){ toast("Время выезда уже прошло"); return; }
+    const price=parseInt(c.price,10); if(!(price>=0)){ toast("Укажите цену за место"); return; }
+    const t={id:"t"+uid(),driverId:"me",from:c.from,to:c.to,date:c.date,dep:c.dep,arr:c.arr,price,seats:c.seats,booked:[],payment:c.payment,comment:c.comment.trim()};
+    S.trips.push(t);
+    notify(`Поездка ${t.from} → ${t.to} опубликована на ${dShort(t.date)}, ${t.dep}. Пассажиры уже могут бронировать.`,"check",t.id);
+    const reqs=S.requests.filter(r=>r.from===t.from&&r.to===t.to&&r.date===t.date);
+    Object.assign(draft,{to:"",price:"",comment:"",arr:""});
+    toast("Поездка опубликована");
+    stack=[]; tab="trips"; go("trip",{id:t.id});
+  };
+};
+
+screens.notifs = () => {
+  topbar("Уведомления",{right:S.notifs.length?`<button class="icon-btn" id="clr" aria-label="Очистить">${I.trash.replace('class="ic"','width="22" height="22"')}</button>`:""});
+  const list=S.notifs;
+  const ago = ts => { const m=Math.round((Date.now()-ts)/60000); if(m<1) return "только что"; if(m<60) return `${m} мин назад`; const h=Math.round(m/60); if(h<24) return `${h} ч назад`; return new Date(ts).toLocaleDateString("ru-RU"); };
+  $("#screen").innerHTML = list.length? list.map(n=>`<button class="card notif ${n.read?"":"unread"}" style="text-align:left;width:100%" ${n.tripId?`data-nt="${n.tripId}"`:""}><span class="ic">${I[n.icon]||I.bell}</span><div style="flex:1;min-width:0"><div>${esc(n.text)}</div><div class="small muted">${ago(n.at)}</div></div></button>`).join("")
+    : `<div class="card empty">${I.bell}<h3 style="margin-top:8px">Пока тихо</h3><p>Здесь появятся брони, ответы водителей и напоминания о поездках.</p></div>`;
+  list.forEach(n=>n.read=true); save(); renderTabs();
+  document.querySelectorAll("[data-nt]").forEach(b=>b.onclick=()=>{ if(S.trips.some(t=>t.id===b.dataset.nt)) go("trip",{id:b.dataset.nt}); else toast("Поездка больше недоступна"); });
+  const c=$("#clr"); if(c) c.onclick=()=>{S.notifs=[];render();};
+};
+
+screens.profile = () => {
+  topbar("Профиль");
+  const me=S.me;
+  const infoItems=[["about","О приложении",I.info],["safety","Безопасность",I.shield],["terms","Пользовательское соглашение",I.doc],["privacy","Политика конфиденциальности",I.lock]];
+  $("#screen").innerHTML = `
+  <button class="hero-profile" id="pd">${avatar(me)}<div style="flex:1;min-width:0"><b>${esc(me.name)}</b><span style="opacity:.85">Личные данные</span></div>${I.chev.replace('class="chev"','width="22" height="22"')}</button>
+  <div class="section-title">Информация</div>
+  <div class="list">${infoItems.map(([k,l,ic])=>`<button class="li" data-info="${k}">${ic}<span class="grow">${l}</span>${I.chev}</button>`).join("")}</div>
+  <div class="list">
+    <button class="li" data-info="feedback">${I.edit}<span class="grow">Обратная связь</span>${I.chev}</button>
+    <button class="li" data-info="contacts">${I.contact}<span class="grow">Контакты</span>${I.chev}</button>
+    <button class="li" id="rate">${I.starO}<span class="grow">Оценить приложение</span>${I.chev}</button>
+  </div>
+  <div class="list"><button class="li danger" id="out">${I.out}<span class="grow">Выход</span></button></div>
+  <p class="tag-demo">Жолдош · демо-версия 1.0</p>`;
+  $("#pd").onclick=()=>go("personal");
+  document.querySelectorAll("[data-info]").forEach(b=>b.onclick=()=>go("info",{k:b.dataset.info}));
+  $("#rate").onclick=()=>{ let v=5; sheet(`<h3>Нравится Жолдош?</h3><div class="stargrab" id="sg">${[1,2,3,4,5].map(i=>`<button data-v="${i}">${I.star}</button>`).join("")}</div><button class="btn" id="ok">Оценить</button>`,el=>{
+    const paint=()=>el.querySelectorAll("#sg button").forEach(b=>b.classList.toggle("off",+b.dataset.v>v));
+    el.querySelector("#sg").onclick=e=>{const b=e.target.closest("button"); if(b){v=+b.dataset.v;paint();}}; paint();
+    el.querySelector("#ok").onclick=()=>{closeSheet();toast(v>=4?"Спасибо! Нам очень приятно":"Спасибо, мы станем лучше");};
+  }); };
+  $("#out").onclick=()=>confirmSheet("Выйти из аккаунта?","Ваши поездки и брони на этом устройстве будут удалены.","Выйти",()=>{ S=seed(); save(); stack=[]; render(); });
+};
+
+const INFO = {
+  about:["О приложении",`<p><b>Жолдош</b> — сервис попутных поездок по Кыргызстану. Водители публикуют поездки и делят расходы на бензин, пассажиры находят место в машине дешевле такси.</p><p>Сервис не является перевозчиком: договорённость о поездке заключается напрямую между водителем и пассажиром.</p>`],
+  safety:["Безопасность",`<ul><li>Перед поездкой позвоните водителю и уточните место встречи.</li><li>Проверьте марку, цвет и номер автомобиля перед посадкой.</li><li>Читайте отзывы и выбирайте водителей с рейтингом.</li><li>Сообщите близким маршрут и время выезда.</li><li>Не переводите предоплату незнакомым людям.</li><li>В экстренной ситуации звоните <b>112</b>.</li></ul>`],
+  terms:["Пользовательское соглашение",`<p>Используя приложение, вы подтверждаете, что указываете достоверные данные, соблюдаете ПДД и договорённости с попутчиками, а водитель имеет действующее водительское удостоверение.</p><p>Запрещено использовать сервис для коммерческих пассажирских перевозок без лицензии.</p>`],
+  privacy:["Политика конфиденциальности",`<p>Мы храним имя, номер телефона и данные автомобиля. Номер телефона показывается только участникам ваших поездок. Госномер не отображается в поездке.</p><p>В демо-версии все данные хранятся только в памяти этого устройства.</p>`],
+  feedback:["Обратная связь",null],
+  contacts:["Контакты",`<p>Служба поддержки работает ежедневно с 9:00 до 21:00.</p><p>Бишкек, Кыргызстан</p><p class="muted small">Контакты будут добавлены после запуска.</p>`],
+};
+screens.info = ({k}) => {
+  const [title,html]=INFO[k]; topbar(title,{canBack:true});
+  if(k==="feedback"){
+    $("#screen").innerHTML=`<form class="card stack" id="fb"><h3>Напишите нам</h3><p class="muted small" style="margin:0">Расскажите, что улучшить или какая возникла проблема.</p><div class="field"><textarea id="fbt" required maxlength="1000" placeholder="Ваше сообщение"></textarea></div><button class="btn" type="submit">Отправить</button></form>`;
+    $("#fb").onsubmit=e=>{e.preventDefault(); if(!$("#fbt").value.trim()) return; toast("Сообщение сохранено. Спасибо!"); back();};
+    return;
+  }
+  $("#screen").innerHTML=`<div class="card" style="line-height:1.6">${html}</div>`;
+};
+
+screens.personal = () => {
+  const me=S.me; topbar("Личные данные",{canBack:true});
+  const rv=reviewsOf("me"), r=ratingOf("me");
+  $("#screen").innerHTML = `
+  <div class="stack" style="align-items:center;gap:8px">${avatar(me,"lg")}<h2 style="margin:0">${esc(me.name)}</h2></div>
+  <button class="ratingbox" id="myrev"><div><b>${rv.length?r.toFixed(1):"—"}</b>${stars(r)}<div class="small muted">${reviewsWord(rv.length)}</div></div>${I.chev}</button>
+  <div class="row between small"><span><span class="muted">Дата регистрации:</span> ${regTxt(me.reg)}</span><span><span class="muted">Поездки:</span> ${tripsCount("me")}</span></div>
+  <div class="list">
+    <button class="li" id="eName"><span class="grow">Имя, возраст, пол<div class="small muted">${esc(me.name)}${me.age?", "+esc(me.age):""}${me.gender?", "+(me.gender==="м"?"мужской":"женский"):""}</div></span>${I.chev}</button>
+    <button class="li" id="eCar"><span class="grow">Автомобиль<div class="small muted">${me.car?carTxt(me.car):"Не добавлен"}</div></span>${I.chev}</button>
+    <button class="li" id="ePhone"><span class="grow">${esc(me.phone)}</span>${I.chev}</button>
+  </div>
+  <div class="list"><button class="li danger" id="delAcc">${I.trash}<span class="grow">Удалить аккаунт</span></button></div>`;
+  $("#myrev").onclick=()=>go("user",{id:"me"});
+  $("#eName").onclick=()=>go("editName");
+  $("#eCar").onclick=()=>go("car");
+  $("#ePhone").onclick=()=>sheet(`<h3>Номер телефона</h3><div class="field">${I.phone}<input id="np" inputmode="tel" value="${esc(me.phone)}"></div><button class="btn" id="ok">Сохранить</button>`,el=>{
+    el.querySelector("#ok").onclick=()=>{ const v=el.querySelector("#np").value.trim(); if(v.replace(/\D/g,"").length<9){toast("Проверьте номер");return;} me.phone=v; closeSheet(); toast("Номер обновлён"); render(); };
+  });
+  $("#delAcc").onclick=()=>confirmSheet("Удалить аккаунт?","Профиль, поездки, брони и отзывы будут удалены без возможности восстановления.","Удалить навсегда",()=>{ S=seed(); save(); stack=[]; render(); });
+};
+
+screens.editName = () => {
+  const me=S.me; topbar("Имя, возраст, пол",{canBack:true});
+  let g=me.gender;
+  $("#screen").innerHTML=`<form class="stack" id="nf">
+    <label class="lbl" for="nN">Имя</label><div class="field">${I.user}<input id="nN" required maxlength="30" value="${esc(me.name)}"></div>
+    <label class="lbl" for="nA">Возраст</label><div class="field">${I.hash}<input id="nA" type="number" min="16" max="99" inputmode="numeric" value="${esc(me.age)}" placeholder="Например, 25"></div>
+    <span class="lbl">Пол</span><div class="seg"><button type="button" data-g="м" class="${g==="м"?"on":""}">Мужской</button><button type="button" data-g="ж" class="${g==="ж"?"on":""}">Женский</button></div>
+    <button class="btn" type="submit">Сохранить</button></form>`;
+  document.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{g=b.dataset.g;document.querySelectorAll("[data-g]").forEach(x=>x.classList.toggle("on",x===b));});
+  $("#nf").onsubmit=e=>{e.preventDefault(); const n=$("#nN").value.trim(); if(n.length<2){toast("Введите имя");return;}
+    me.name=n; me.age=$("#nA").value; me.gender=g;
+    S.trips.forEach(t=>t.booked.forEach(b=>{ if(b.userId==="me") b.name=n; }));
+    toast("Сохранено"); back(); };
+};
+
+screens.car = () => {
+  const me=S.me; const c=me.car?{...me.car}:{brand:"",model:"",year:"",plate:"",wheel:"Левый",color:"Чёрный"};
+  topbar("Автомобиль",{canBack:true});
+  const draw=()=>{
+  $("#screen").innerHTML=`<h2>Какой у вас автомобиль?</h2>
+  <form class="stack" id="carf">
+    <div class="field">${I.car}<input id="cb" required maxlength="30" placeholder="Марка" value="${esc(c.brand)}" list="brands" aria-label="Марка"></div>
+    <datalist id="brands">${["Toyota","Honda","Lexus","Mercedes-Benz","BMW","Hyundai","Kia","Chevrolet","Daewoo","Volkswagen","Audi","Nissan","Mitsubishi","Subaru","Mazda","Lada","Ford","Opel","Changan","Haval","Chery","BYD","Zeekr","Li Auto"].map(b=>`<option value="${b}">`).join("")}</datalist>
+    <div class="field">${I.car}<input id="cm" required maxlength="30" placeholder="Модель" value="${esc(c.model)}" aria-label="Модель"></div>
+    <div class="field">${I.cal}<input id="cy" type="number" min="1970" max="${new Date().getFullYear()+1}" inputmode="numeric" placeholder="Год выпуска" value="${esc(c.year)}" aria-label="Год выпуска"></div>
+    <div class="field">${I.plate}<input id="cpl" maxlength="12" placeholder="Госномер" value="${esc(c.plate)}" aria-label="Госномер" style="text-transform:uppercase"></div>
+    <p class="small muted" style="margin:-4px 0 0 4px">Госномер не показывается в поездке</p>
+    <span class="lbl">Руль: ${esc(c.wheel)}</span>
+    <div class="seg"><button type="button" data-w="Левый" class="${c.wheel==="Левый"?"on":""}">Левый руль</button><button type="button" data-w="Правый" class="${c.wheel==="Правый"?"on":""}">Правый руль</button></div>
+    <span class="lbl">Цвет: ${esc(c.color)}</span>
+    <div class="colors">${COLORS.map(([n,h])=>`<button type="button" class="swatch ${c.color===n?"on":""}" data-c="${n}" style="background:${h};color:${["Белый","Жёлтый"].includes(n)?"#222":"#fff"}" aria-label="${n}">${c.color===n?I.check:""}</button>`).join("")}</div>
+    <button class="btn" type="submit">${me.car?"Сохранить":"Добавить"}</button>
+    ${me.car?`<button class="btn ghost" type="button" id="rmCar">Удалить автомобиль</button>`:""}
+  </form>`;
+  const keep=()=>{ c.brand=$("#cb").value; c.model=$("#cm").value; c.year=$("#cy").value; c.plate=$("#cpl").value.toUpperCase(); };
+  document.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{keep();c.wheel=b.dataset.w;draw();});
+  document.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{keep();c.color=b.dataset.c;draw();});
+  $("#carf").onsubmit=e=>{e.preventDefault(); keep(); if(!c.brand.trim()||!c.model.trim()){toast("Укажите марку и модель");return;}
+    me.car={brand:c.brand.trim(),model:c.model.trim(),year:c.year?+c.year:"",plate:c.plate.trim(),wheel:c.wheel,color:c.color};
+    toast("Автомобиль сохранён"); back(); };
+  const rm=$("#rmCar"); if(rm) rm.onclick=()=>confirmSheet("Удалить автомобиль?","Без автомобиля нельзя создавать новые поездки.","Удалить",()=>{me.car=null;back();});
+  };
+  draw();
+};
+
+render();
+})();
+</script>
