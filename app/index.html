@@ -199,6 +199,17 @@ label.lbl{font-size:13px;color:var(--muted);font-weight:500}
 .parcel-row{display:flex;gap:12px;align-items:flex-start}
 .parcel-row .bx{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
 .parcel-row .bx svg{width:22px;height:22px}
+.chips.scroll{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px;padding:2px 16px 4px;scrollbar-width:none}
+.chips.scroll::-webkit-scrollbar{display:none}
+.chips.scroll .chip{flex:none}
+.chip .cnt{font-size:11px;font-weight:700;margin-left:5px;opacity:.7}
+.mode.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mode.three button{font-size:14px;gap:6px}
+.filter-btn{min-height:46px;text-align:left;font-size:14px}
+.filter-btn small{display:block;font-size:11px;color:var(--muted);line-height:1.1}
+.filter-btn b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.filter-btn>span{min-width:0;padding:6px 0}
+.found{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
 .steps{display:flex;gap:6px}
 .steps i{flex:1;height:4px;border-radius:2px;background:var(--line)}
 .steps i.on{background:var(--accent)}
@@ -226,6 +237,7 @@ const I = {
   search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>',
   plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>',
   bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4Z"/><path d="M10 21h4"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>',
   road:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 21 10 3M17 21 14 3M12 6v2M12 11v2M12 16v2"/></svg>',
   box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 3 7.5v9L12 21l9-4.5v-9Z"/><path d="M3 7.5 12 12l9-4.5M12 12v9M7.5 5.2l9 4.5"/></svg>',
   back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="m15 5-7 7 7 7"/></svg>',
@@ -267,6 +279,9 @@ ru:{
   resend:"Отправить код повторно", changeNumber:"Изменить номер", codeResent:"Новый код отправлен", enterCode:"Введите 4 цифры кода",
   welcomeNotif:"Добро пожаловать, {name}! Найдите поездку, отправьте посылку или создайте свою поездку.",
   demoNote:"Демо-версия: данные хранятся только на этом устройстве.",
+  tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
+  allDays:"Все дни", found:"Найдено: {n}", resetFilters:"Сбросить фильтры", noOffers:"По этим фильтрам ничего нет",
+  noOffersText:"Выберите другой город или дату. Можно отправить запрос всем водителям — вам позвонят.", askDrivers:"Отправить запрос водителям", advSearch:"Подробный поиск",
   tTrips:"Поездки", tSearch:"Поиск", tCreate:"Создать", tNotifs:"Уведомления", tProfile:"Профиль",
   searchTitle:"Поиск", modeRide:"Попутка", modeParcel:"Посылка", whereRide:"Куда вы хотите поехать?", whereParcel:"Куда отправить посылку?",
   from:"Откуда", to:"Куда", swap:"Поменять города местами", date:"Дата", today:"Сегодня", tomorrow:"Завтра", afterTomorrow:"Послезавтра",
@@ -357,6 +372,9 @@ ky:{
   resend:"Кодду кайра жөнөтүү", changeNumber:"Номерди өзгөртүү", codeResent:"Жаңы код жөнөтүлдү", enterCode:"Коддун 4 санын жазыңыз",
   welcomeNotif:"Кош келиңиз, {name}! Сапар табыңыз, посылка жөнөтүңүз же өз сапарыңызды түзүңүз.",
   demoNote:"Демо версия: маалымат ушул түзмөктө гана сакталат.",
+  tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
+  allDays:"Бардык күндөр", found:"Табылды: {n}", resetFilters:"Чыпкаларды тазалоо", noOffers:"Бул чыпкалар боюнча эч нерсе жок",
+  noOffersText:"Башка шаарды же күндү тандаңыз. Бардык айдоочуларга суроо жөнөтсөңүз болот — сизге чалышат.", askDrivers:"Айдоочуларга суроо жөнөтүү", advSearch:"Кеңири издөө",
   tTrips:"Сапарлар", tSearch:"Издөө", tCreate:"Түзүү", tNotifs:"Билдирүүлөр", tProfile:"Профиль",
   searchTitle:"Издөө", modeRide:"Попутка", modeParcel:"Посылка", whereRide:"Кайда баргыңыз келет?", whereParcel:"Посылканы кайда жөнөтөсүз?",
   from:"Кайдан", to:"Кайда", swap:"Шаарларды алмаштыруу", date:"Күнү", today:"Бүгүн", tomorrow:"Эртең", afterTomorrow:"Бүрсүгүнү",
@@ -573,14 +591,15 @@ function confirmSheet(title,text,okLabel,onOk,danger=true){
     el.querySelector("#cNo").onclick=closeSheet;
   });
 }
-function citySheet(current,onPick){
+function citySheet(current,onPick,allowAny=false){
   sheet(`<h3>${t("chooseCity")}</h3>
     <div class="field">${I.search}<input id="cq" placeholder="${t("startTyping")}" autocomplete="off"></div>
     <div class="citylist" id="cl"></div>`, el=>{
     const q=el.querySelector("#cq"), cl=el.querySelector("#cl");
     const draw=()=>{ const v=q.value.trim().toLowerCase(); const list=CITIES.filter(c=>c.toLowerCase().includes(v));
       const extra = v && !CITIES.some(c=>c.toLowerCase()===v) ? `<button data-c="${esc(q.value.trim())}">${I.pinO}<span>«${esc(q.value.trim())}»</span></button>`:"";
-      cl.innerHTML = list.map(c=>`<button data-c="${esc(c)}">${I.pinO}<span>${esc(c)}</span>${c===current?`<span class="pill" style="margin-left:auto">${t("selected")}</span>`:""}</button>`).join("")+extra; };
+      const any = allowAny && !v ? `<button data-c="">${I.road}<span>${t("anyCity")}</span>${!current?`<span class="pill" style="margin-left:auto">${t("selected")}</span>`:""}</button>` : "";
+      cl.innerHTML = any + list.map(c=>`<button data-c="${esc(c)}">${I.pinO}<span>${esc(c)}</span>${c===current?`<span class="pill" style="margin-left:auto">${t("selected")}</span>`:""}</button>`).join("")+extra; };
     q.oninput=draw; draw(); setTimeout(()=>q.focus(),50);
     cl.onclick=e=>{ const b=e.target.closest("button"); if(b){ closeSheet(); onPick(b.dataset.c); } };
   });
@@ -617,7 +636,7 @@ const validPhone = p => { const d=p.replace(/\D/g,""); return d.length===12 && d
 const fmtPhone = p => { const d=p.replace(/\D/g,""); return d.length===12? `+${d.slice(0,3)} ${d.slice(3,6)} ${d.slice(6,8)} ${d.slice(8,10)} ${d.slice(10)}` : p; };
 
 // ---------- navigation ----------
-let tab="search", stack=[];
+let tab="home", stack=[];
 const search = {mode:"ride",from:"Бишкек",to:"Чолпон-Ата",date:TODAY(),pax:1,all:false};
 const draft = {from:"Бишкек",to:"",date:TODAY(),dep:"09:00",arr:"",seats:3,price:"",payment:"cash",parcel:true,parcelPrice:"",comment:""};
 const auth = {step:"phone",name:"",phone:"+996 "};
@@ -633,7 +652,7 @@ function topbar(title,{sub="",canBack=false,right=""}={}){
 }
 function renderTabs(){
   const unread=S.notifs.filter(n=>!n.read).length;
-  const items=[["trips","tTrips",I.road],["search","tSearch",I.search],["create","tCreate",I.plus],["notifs","tNotifs",I.bell],["profile","tProfile",I.user]];
+  const items=[["trips","tTrips",I.road],["home","tHome",I.home],["create","tCreate",I.plus],["notifs","tNotifs",I.bell],["profile","tProfile",I.user]];
   $("#tabs").innerHTML = items.map(([k,l,ic])=>`<button class="tab ${tab===k?"on":""}" data-t="${k}" aria-label="${t(l)}">${ic}<span>${t(l)}</span>${k==="notifs"&&unread?`<b class="dot">${unread}</b>`:""}</button>`).join("");
   $("#tabs").onclick=e=>{ const b=e.target.closest(".tab"); if(b) switchTab(b.dataset.t); };
 }
@@ -713,13 +732,13 @@ screens.welcome = () => {
     bindOtp($("#otpBox"),()=>{
       S.me={id:"me",name:auth.name,phone:auth.phone,phoneVerified:true,age:"",gender:"",reg:TODAY().slice(0,7),car:null,driver:{status:"none"}};
       notify("welcomeNotif",{name:auth.name},"bell");
-      auth.step="phone"; tab="search"; render();
+      auth.step="phone"; tab="home"; render();
     },()=>{ auth.step="phone"; render(); });
   }
 };
 
 screens.search = () => {
-  topbar(t("searchTitle"),{right:langSwitch()}); bindLang($("#topbar"));
+  topbar(t("searchTitle"),{canBack:true});
   const s=search, parcel=s.mode==="parcel";
   $("#screen").innerHTML = `
   <div class="mode" role="tablist"><button role="tab" data-m="ride" class="${!parcel?"on":""}" aria-selected="${!parcel}">${I.users} ${t("modeRide")}</button><button role="tab" data-m="parcel" class="${parcel?"on":""}" aria-selected="${parcel}">${I.box} ${t("modeParcel")}</button></div>
@@ -761,6 +780,46 @@ screens.search = () => {
     }
     go("results");
   };
+};
+
+screens.home = () => {
+  const f = S.feed = S.feed || {type:"all",from:"",to:"",date:"all"};
+  topbar(t("homeTitle"),{right:langSwitch()}); bindLang($("#topbar"));
+  const typeOk = x => f.type==="all" ? (seatsLeft(x)>0||x.parcel) : f.type==="ride" ? seatsLeft(x)>0 : x.parcel;
+  const pool = S.trips.filter(x=>!isPast(x) && typeOk(x) && (f.date==="all"||x.date===f.date) && (!f.from||x.from===f.from));
+  const counts = {}; pool.forEach(x=>counts[x.to]=(counts[x.to]||0)+1);
+  let cities = ["Ош","Бишкек","Жалал-Абад","Каракол","Чолпон-Ата","Нарын","Талас","Балыкчы","Токмок","Баткен"].filter(c=>c!==f.from);
+  if(f.to && !cities.includes(f.to)) cities.unshift(f.to);
+  const list = pool.filter(x=>!f.to||x.to===f.to).sort((a,b)=>(a.date+a.dep).localeCompare(b.date+b.dep));
+  const mode = f.type==="parcel" ? "parcel" : "ride";
+  search.mode = mode;
+  const dirty = f.type!=="all"||f.from||f.to||f.date!=="all";
+  let lastDate="", body="";
+  list.slice(0,60).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=tripCard(x,mode); });
+  $("#screen").innerHTML = `
+  <div class="mode three" role="tablist">${[["all","fAll",I.road],["ride","fRide",I.users],["parcel","fParcel",I.box]].map(([k,l,ic])=>`<button role="tab" data-ft="${k}" class="${f.type===k?"on":""}" aria-selected="${f.type===k}">${ic} ${t(l)}</button>`).join("")}</div>
+  <div class="grid2">
+    <button class="field filter-btn" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
+    <button class="field filter-btn" id="fTo">${I.pin}<span><small>${t("to")}</small><b>${esc(f.to)||t("anyCity")}</b></span></button>
+  </div>
+  <div class="stack" style="gap:6px">
+    <span class="lbl">${t("goingTo")}</span>
+    <div class="chips scroll" id="toChips"><button class="chip ${!f.to?"on":""}" data-to="">${t("fAll")}<span class="cnt">${pool.length}</span></button>${cities.map(c=>`<button class="chip ${f.to===c?"on":""}" data-to="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
+  </div>
+  <div class="chips scroll">${[["all","allDays"],[TODAY(),"today"],[addDays(1),"tomorrow"],[addDays(2),"afterTomorrow"]].map(([v,l])=>`<button class="chip ${f.date===v?"on":""}" data-fd="${v}">${t(l)}</button>`).join("")}</div>
+  <div class="found"><span>${t("found",{n:list.length})}</span>${dirty?`<button class="linkbtn" id="fReset">${t("resetFilters")}</button>`:`<button class="linkbtn" id="fAdv">${t("advSearch")}</button>`}</div>
+  ${list.length? body : `<div class="card empty">${f.type==="parcel"?I.box:I.road}<h3 style="margin-top:8px">${t("noOffers")}</h3><p>${t("noOffersText")}</p><button class="btn" id="fAsk" style="margin-top:12px">${t("askDrivers")}</button></div>`}`;
+  const set = (k,v) => { f[k]=v; render(); };
+  document.querySelectorAll("[data-ft]").forEach(b=>b.onclick=()=>set("type",b.dataset.ft));
+  document.querySelectorAll("[data-to]").forEach(b=>b.onclick=()=>set("to",b.dataset.to));
+  document.querySelectorAll("[data-fd]").forEach(b=>b.onclick=()=>set("date",b.dataset.fd));
+  $("#fFrom").onclick=()=>citySheet(f.from,c=>{ f.from=c; if(c&&f.to===c) f.to=""; render(); },true);
+  $("#fTo").onclick=()=>citySheet(f.to,c=>{ f.to=c; if(c&&f.from===c) f.from=""; render(); },true);
+  const r=$("#fReset"); if(r) r.onclick=()=>{ S.feed={type:"all",from:"",to:"",date:"all"}; render(); };
+  const toSearch=()=>{ Object.assign(search,{mode, from:f.from||search.from, to:f.to||search.to, date:f.date==="all"?search.date:f.date, all:true}); go("search"); };
+  const a=$("#fAdv"); if(a) a.onclick=()=>{ search.all=false; go("search"); };
+  const ask=$("#fAsk"); if(ask) ask.onclick=toSearch;
+  bindTrips();
 };
 
 screens.results = () => {
@@ -919,7 +978,7 @@ screens.trips = () => {
   : `<div class="card empty">${I.road}<h3 style="margin-top:8px">${t("emptyTrips")}</h3><p>${t("emptyTripsText")}</p>
      <div class="stack" style="margin-top:12px"><button class="btn" id="g1">${t("find")}</button><button class="btn ghost" id="g2">${t("createTrip")}</button></div></div>`;
   bindTrips();
-  if($("#g1")){ $("#g1").onclick=()=>switchTab("search"); $("#g2").onclick=()=>switchTab("create"); }
+  if($("#g1")){ $("#g1").onclick=()=>switchTab("home"); $("#g2").onclick=()=>switchTab("create"); }
 };
 
 // ---------- driver registration (passport) ----------
