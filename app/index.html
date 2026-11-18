@@ -210,6 +210,15 @@ label.lbl{font-size:13px;color:var(--muted);font-weight:500}
 .filter-btn b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .filter-btn>span{min-width:0;padding:6px 0}
 .found{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
+.ordercard{display:grid;grid-template-columns:88px minmax(0,1fr);gap:12px;text-align:left;width:100%;align-items:stretch}
+.othumb{border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;overflow:hidden;min-height:88px}
+.othumb svg{width:34px;height:34px}
+.othumb img{width:100%;height:100%;object-fit:cover}
+.obody{display:flex;flex-direction:column;gap:3px;min-width:0}
+.otitle{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sendcta{display:flex;gap:12px;align-items:center;background:var(--accent-soft);border-radius:16px;padding:12px 14px;text-align:left;width:100%}
+.sendcta .bx{width:42px;height:42px;border-radius:12px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;flex:none}
+.sendcta .bx svg{width:24px;height:24px}
 .steps{display:flex;gap:6px}
 .steps i{flex:1;height:4px;border-radius:2px;background:var(--line)}
 .steps i.on{background:var(--accent)}
@@ -279,6 +288,21 @@ ru:{
   resend:"Отправить код повторно", changeNumber:"Изменить номер", codeResent:"Новый код отправлен", enterCode:"Введите 4 цифры кода",
   welcomeNotif:"Добро пожаловать, {name}! Найдите поездку, отправьте посылку или создайте свою поездку.",
   demoNote:"Демо-версия: данные хранятся только на этом устройстве.",
+  createChoose:"Что вы хотите сделать?", chSendParcel:"Отправить посылку", chSendParcelText:"Сфотографируйте вещь и назначьте цену — любой водитель по пути заберёт её", chTrip:"Создать поездку", chTripText:"Для водителей: возьмите попутчиков и посылки, разделите расходы",
+  orderNew:"Новая посылка", orderPhoto:"Фото посылки", takePhoto:"Сфотографировать или выбрать фото", pickupAddr:"Адрес, откуда забрать", pickupPh:"Например, мкр. Джал, 15", dropAddr:"Адрес доставки (необязательно)", dropPh:"Улица, дом или ориентир",
+  whenSend:"Когда отправить", yourPrice:"Сколько вы платите водителю, сом", priceHint:"Обычно по этому маршруту: {a}–{b} с", whoPays:"Кто платит", payMe:"Я (отправитель)", payRecipient:"Получатель",
+  publishOrder:"Опубликовать посылку", errPhoto:"Добавьте фото посылки", errPickup:"Укажите адрес, откуда забрать", orderPublished:"Посылка опубликована, водители по пути её увидят",
+  orderPublishedNotif:"Посылка «{what}» {from} → {to} опубликована за {price} с. Ждём водителя.", orderTag:"Заказ", orderLbl:"Посылка",
+  ost_open:"Ждёт водителя", ost_accepted:"Водитель едет забрать", ost_onway:"В пути", ost_delivered:"Доставлено", ost_cancelled:"Отменено",
+  step_open:"Опубликовано", step_accepted:"Принял", step_onway:"В пути", step_delivered:"Доставлено",
+  offeredPrice:"Предлагает", sender:"Отправитель", pickupLbl:"забрать:", dropLbl:"доставить:", acceptOrder:"Заберу · {price} с",
+  acceptQ:"Взять посылку?", acceptText:"Заберите посылку по адресу: {addr} и доставьте в {to}. Отправитель будет видеть, где вы едете.", acceptOk:"Беру", accepted:"Вы взяли посылку",
+  needDriver:"Чтобы брать посылки, зарегистрируйтесь как водитель", pickedUp:"Посылку забрал, выезжаю", markDone:"Доставил получателю", orderCancelText:"Посылка исчезнет из ленты.",
+  nAccepted:"{driver} взял(а) вашу посылку «{what}» и едет забрать. Тел.: {phone}", nOnway:"Посылка «{what}» в пути в {to}. Следите на карте.",
+  trackTitle:"Где сейчас посылка", passed:"Проехал(а) {city}", atStart:"Выезжает из {city}", leftKm:"До {to}: {km} км", eta:"≈ {h} ч {m} мин",
+  waitingDriver:"Как только водитель возьмёт посылку, здесь появится карта с его местоположением.", pickupSoon:"Водитель едет к вам забрать посылку",
+  trackDemo:"Демо: движение машины смоделировано и ускорено. В реальном приложении используется GPS телефона водителя.",
+  iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", sendCtaT:"Отправить посылку", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
   tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
   allDays:"Все дни", found:"Найдено: {n}", resetFilters:"Сбросить фильтры", noOffers:"По этим фильтрам ничего нет",
   noOffersText:"Выберите другой город или дату. Можно отправить запрос всем водителям — вам позвонят.", askDrivers:"Отправить запрос водителям", advSearch:"Подробный поиск",
@@ -372,6 +396,21 @@ ky:{
   resend:"Кодду кайра жөнөтүү", changeNumber:"Номерди өзгөртүү", codeResent:"Жаңы код жөнөтүлдү", enterCode:"Коддун 4 санын жазыңыз",
   welcomeNotif:"Кош келиңиз, {name}! Сапар табыңыз, посылка жөнөтүңүз же өз сапарыңызды түзүңүз.",
   demoNote:"Демо версия: маалымат ушул түзмөктө гана сакталат.",
+  createChoose:"Эмне кылгыңыз келет?", chSendParcel:"Посылка жөнөтүү", chSendParcelText:"Буюмду сүрөткө тартып, баасын коюңуз — жолу түшкөн каалаган айдоочу алып кетет", chTrip:"Сапар түзүү", chTripText:"Айдоочулар үчүн: жүргүнчү жана посылка алып, чыгымды бөлүшүңүз",
+  orderNew:"Жаңы посылка", orderPhoto:"Посылканын сүрөтү", takePhoto:"Сүрөткө тартуу же сүрөт тандоо", pickupAddr:"Кайдан алып кетүү керек (дареги)", pickupPh:"Мисалы, Жал кичи району, 15-үй", dropAddr:"Жеткирүү дареги (милдеттүү эмес)", dropPh:"Көчө, үй же белги",
+  whenSend:"Качан жөнөтүү керек", yourPrice:"Айдоочуга канча төлөйсүз, сом", priceHint:"Бул маршрутта адатта: {a}–{b} сом", whoPays:"Ким төлөйт", payMe:"Мен (жөнөтүүчү)", payRecipient:"Алуучу",
+  publishOrder:"Посылканы жарыялоо", errPhoto:"Посылканын сүрөтүн кошуңуз", errPickup:"Кайдан алып кетүү керектигин жазыңыз", orderPublished:"Посылка жарыяланды, жолу түшкөн айдоочулар көрүшөт",
+  orderPublishedNotif:"«{what}» посылкасы {from} → {to} {price} сомго жарыяланды. Айдоочу күтүлүүдө.", orderTag:"Заказ", orderLbl:"Посылка",
+  ost_open:"Айдоочу күтүүдө", ost_accepted:"Айдоочу алганы келе жатат", ost_onway:"Жолдо", ost_delivered:"Жеткирилди", ost_cancelled:"Жокко чыгарылды",
+  step_open:"Жарыяланды", step_accepted:"Алды", step_onway:"Жолдо", step_delivered:"Жеткирилди",
+  offeredPrice:"Сунуштайт", sender:"Жөнөтүүчү", pickupLbl:"алуу:", dropLbl:"жеткирүү:", acceptOrder:"Алып кетем · {price} сом",
+  acceptQ:"Посылканы аласызбы?", acceptText:"Посылканы {addr} дарегинен алып, {to} шаарына жеткириңиз. Жөнөтүүчү жолдо кайда баратканыңызды көрүп турат.", acceptOk:"Алам", accepted:"Посылканы алдыңыз",
+  needDriver:"Посылка алуу үчүн айдоочу катары катталыңыз", pickedUp:"Посылканы алдым, жолго чыктым", markDone:"Алуучуга жеткирдим", orderCancelText:"Посылка тизмеден жоголот.",
+  nAccepted:"{driver} «{what}» посылкаңызды алды, алып кеткени келе жатат. Тел.: {phone}", nOnway:"«{what}» посылкасы {to} шаарына жолдо. Картадан көрүп туруңуз.",
+  trackTitle:"Посылка азыр кайда", passed:"{city} аркылуу өттү", atStart:"{city} шаарынан чыгып жатат", leftKm:"{to} чейин: {km} км", eta:"≈ {h} саат {m} мүн",
+  waitingDriver:"Айдоочу посылканы алаары менен бул жерде анын кайда экени картада көрүнөт.", pickupSoon:"Айдоочу посылканы алганы сизге келе жатат",
+  trackDemo:"Демо: машинанын кыймылы симуляция жана тездетилген. Чыныгы колдонмодо айдоочунун телефонундагы GPS колдонулат.",
+  iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", sendCtaT:"Посылка жөнөтүү", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
   tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
   allDays:"Бардык күндөр", found:"Табылды: {n}", resetFilters:"Чыпкаларды тазалоо", noOffers:"Бул чыпкалар боюнча эч нерсе жок",
   noOffersText:"Башка шаарды же күндү тандаңыз. Бардык айдоочуларга суроо жөнөтсөңүз болот — сизге чалышат.", askDrivers:"Айдоочуларга суроо жөнөтүү", advSearch:"Кеңири издөө",
@@ -532,14 +571,15 @@ function seed(lang){
     R("u6","Динара",5,"Сылык айдоочу, музыкасы жакшы.","2026-11-05"),
     R("u6","Руслан",4,"Посылку передал в тот же день.","2026-10-15"),
   ];
-  return {v:2,lang:lang||"ky",me:null,users:drivers,trips,reviews,notifs:[],requests:[]};
+  return {v:2,lang:lang||"ky",me:null,users:drivers,trips,reviews,notifs:[],requests:[],orders:seedOrders()};
 }
 
 let S;
 function load(){ try{ const raw=localStorage.getItem(KEY); if(raw){ S=JSON.parse(raw); return; } }catch(e){} S=seed(); }
 function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){ try{ /* storage full: drop photos */ if(S.me?.driver?.photos){ S.me.driver.photos={}; localStorage.setItem(KEY,JSON.stringify(S)); } }catch(_){} } }
 load();
-(function refresh(){ const t=TODAY(); if(!S.trips.some(x=>x.date>=t && x.driverId!=="me")){ const fresh=seed(S.lang); const mine=S.trips.filter(x=>x.driverId==="me"); S={...fresh,me:S.me,notifs:S.notifs,requests:S.requests||[],trips:[...fresh.trips,...mine]}; save(); } })();
+(function refresh(){ const t=TODAY(); if(!S.trips.some(x=>x.date>=t && x.driverId!=="me")){ const fresh=seed(S.lang); const mine=S.trips.filter(x=>x.driverId==="me"); S={...fresh,me:S.me,notifs:S.notifs,requests:S.requests||[],trips:[...fresh.trips,...mine],orders:S.orders||[]}; save(); }
+  S.orders=S.orders||[]; if(!S.orders.some(o=>o.userId!=="me"&&o.status==="open"&&o.date>=t)){ S.orders=[...S.orders.filter(o=>o.userId==="me"||o.driverId==="me"),...seedOrders()]; save(); } })();
 
 // ---------- i18n helpers ----------
 const t = (k,v={}) => { let s=(L[S.lang]&&L[S.lang][k])??L.ru[k]??k; return typeof s==="string"? s.replace(/\{(\w+)\}/g,(_,x)=>v[x]??"") : s; };
@@ -573,7 +613,7 @@ const sizePrice = (base,sz) => sz==="S"?base: sz==="M"? Math.round(base*1.5/10)*
 
 function toast(msg){ const el=document.createElement("div"); el.className="toast"; el.textContent=msg; el.setAttribute("role","status"); document.body.appendChild(el); setTimeout(()=>el.remove(),2600); }
 // notifications are stored as key+vars so they follow the chosen language
-function notify(key,vars={},icon="bell",tripId=null){ S.notifs.unshift({id:uid(),key,vars,icon,tripId,at:Date.now(),read:false}); }
+function notify(key,vars={},icon="bell",tripId=null,orderId=null){ S.notifs.unshift({id:uid(),key,vars,icon,tripId,orderId,at:Date.now(),read:false}); }
 function notifText(n){ const v={...n.vars}; if(v.date) v.date=dShort(v.date); if(v.seatsN!=null) v.seats=tp(v.seatsN,"seat"); return n.key? t(n.key,v) : n.text; }
 
 function sheet(html,onMount){
@@ -661,6 +701,7 @@ function checkVerification(){
   if(d && d.status==="pending" && Date.now()-d.submittedAt>6000){ d.status="verified"; notify("verifiedNotif",{},"check"); return true; }
   return false;
 }
+setInterval(()=>{ if(tickOrders()){ save(); renderTabs(); const top=stack[stack.length-1]; if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select") && (!top||top.name==="order")) render(); } updateTracking(); },1500);
 setInterval(()=>{ if(checkVerification()){ save(); if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select")) render(); else renderTabs(); toast(t("verifiedNotif")); } },2000);
 
 function render(){
@@ -786,17 +827,23 @@ screens.home = () => {
   const f = S.feed = S.feed || {type:"all",from:"",to:"",date:"all"};
   topbar(t("homeTitle"),{right:langSwitch()}); bindLang($("#topbar"));
   const typeOk = x => f.type==="all" ? (seatsLeft(x)>0||x.parcel) : f.type==="ride" ? seatsLeft(x)>0 : x.parcel;
-  const pool = S.trips.filter(x=>!isPast(x) && typeOk(x) && (f.date==="all"||x.date===f.date) && (!f.from||x.from===f.from));
-  const counts = {}; pool.forEach(x=>counts[x.to]=(counts[x.to]||0)+1);
+  const okDate = d => f.date==="all"||d===f.date;
+  const pool = S.trips.filter(x=>!isPast(x) && typeOk(x) && okDate(x.date) && (!f.from||x.from===f.from));
+  const opool = f.type==="ride" ? [] : (S.orders||[]).filter(o=>o.status==="open" && o.date>=TODAY() && okDate(o.date) && (!f.from||o.from===f.from));
+  const counts = {}; [...pool,...opool].forEach(x=>counts[x.to]=(counts[x.to]||0)+1);
   let cities = ["Ош","Бишкек","Жалал-Абад","Каракол","Чолпон-Ата","Нарын","Талас","Балыкчы","Токмок","Баткен"].filter(c=>c!==f.from);
   if(f.to && !cities.includes(f.to)) cities.unshift(f.to);
-  const list = pool.filter(x=>!f.to||x.to===f.to).sort((a,b)=>(a.date+a.dep).localeCompare(b.date+b.dep));
   const mode = f.type==="parcel" ? "parcel" : "ride";
   search.mode = mode;
+  const items = [
+    ...pool.filter(x=>!f.to||x.to===f.to).map(x=>({date:x.date,k:x.date+"T"+x.dep,html:()=>tripCard(x,mode)})),
+    ...opool.filter(o=>!f.to||o.to===f.to).map(o=>({date:o.date,k:o.date+"T00:00",html:()=>orderCard(o)}))
+  ].sort((a,b)=>a.k.localeCompare(b.k));
   const dirty = f.type!=="all"||f.from||f.to||f.date!=="all";
   let lastDate="", body="";
-  list.slice(0,60).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=tripCard(x,mode); });
+  items.slice(0,70).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
   $("#screen").innerHTML = `
+  <button class="sendcta" id="sendCta"><span class="bx">${I.camera}</span><span style="flex:1;min-width:0"><b style="font-family:var(--f-display)">${t("sendCtaT")}</b><br><span class="small muted">${t("sendCtaS")}</span></span>${I.chev}</button>
   <div class="mode three" role="tablist">${[["all","fAll",I.road],["ride","fRide",I.users],["parcel","fParcel",I.box]].map(([k,l,ic])=>`<button role="tab" data-ft="${k}" class="${f.type===k?"on":""}" aria-selected="${f.type===k}">${ic} ${t(l)}</button>`).join("")}</div>
   <div class="grid2">
     <button class="field filter-btn" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
@@ -804,22 +851,264 @@ screens.home = () => {
   </div>
   <div class="stack" style="gap:6px">
     <span class="lbl">${t("goingTo")}</span>
-    <div class="chips scroll" id="toChips"><button class="chip ${!f.to?"on":""}" data-to="">${t("fAll")}<span class="cnt">${pool.length}</span></button>${cities.map(c=>`<button class="chip ${f.to===c?"on":""}" data-to="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
+    <div class="chips scroll" id="toChips"><button class="chip ${!f.to?"on":""}" data-to="">${t("fAll")}<span class="cnt">${pool.length+opool.length}</span></button>${cities.map(c=>`<button class="chip ${f.to===c?"on":""}" data-to="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
   </div>
   <div class="chips scroll">${[["all","allDays"],[TODAY(),"today"],[addDays(1),"tomorrow"],[addDays(2),"afterTomorrow"]].map(([v,l])=>`<button class="chip ${f.date===v?"on":""}" data-fd="${v}">${t(l)}</button>`).join("")}</div>
-  <div class="found"><span>${t("found",{n:list.length})}</span>${dirty?`<button class="linkbtn" id="fReset">${t("resetFilters")}</button>`:`<button class="linkbtn" id="fAdv">${t("advSearch")}</button>`}</div>
-  ${list.length? body : `<div class="card empty">${f.type==="parcel"?I.box:I.road}<h3 style="margin-top:8px">${t("noOffers")}</h3><p>${t("noOffersText")}</p><button class="btn" id="fAsk" style="margin-top:12px">${t("askDrivers")}</button></div>`}`;
+  <div class="found"><span>${t("found",{n:items.length})}</span>${dirty?`<button class="linkbtn" id="fReset">${t("resetFilters")}</button>`:`<button class="linkbtn" id="fAdv">${t("advSearch")}</button>`}</div>
+  ${items.length? body : `<div class="card empty">${f.type==="parcel"?I.box:I.road}<h3 style="margin-top:8px">${t("noOffers")}</h3><p>${t("noOffersText")}</p><button class="btn" id="fAsk" style="margin-top:12px">${t("askDrivers")}</button></div>`}`;
   const set = (k,v) => { f[k]=v; render(); };
   document.querySelectorAll("[data-ft]").forEach(b=>b.onclick=()=>set("type",b.dataset.ft));
   document.querySelectorAll("[data-to]").forEach(b=>b.onclick=()=>set("to",b.dataset.to));
   document.querySelectorAll("[data-fd]").forEach(b=>b.onclick=()=>set("date",b.dataset.fd));
+  $("#sendCta").onclick=()=>go("orderNew");
   $("#fFrom").onclick=()=>citySheet(f.from,c=>{ f.from=c; if(c&&f.to===c) f.to=""; render(); },true);
   $("#fTo").onclick=()=>citySheet(f.to,c=>{ f.to=c; if(c&&f.from===c) f.from=""; render(); },true);
   const r=$("#fReset"); if(r) r.onclick=()=>{ S.feed={type:"all",from:"",to:"",date:"all"}; render(); };
-  const toSearch=()=>{ Object.assign(search,{mode, from:f.from||search.from, to:f.to||search.to, date:f.date==="all"?search.date:f.date, all:true}); go("search"); };
   const a=$("#fAdv"); if(a) a.onclick=()=>{ search.all=false; go("search"); };
-  const ask=$("#fAsk"); if(ask) ask.onclick=toSearch;
-  bindTrips();
+  const ask=$("#fAsk"); if(ask) ask.onclick=()=>{ Object.assign(search,{mode, from:f.from||search.from, to:f.to||search.to, date:f.date==="all"?search.date:f.date, all:true}); go("search"); };
+  bindTrips(); bindOrders();
+};
+
+// ---------- parcel orders (sender posts, any driver takes) ----------
+const GEO = {"Бишкек":[42.87,74.59],"Кант":[42.89,74.85],"Токмок":[42.84,75.30],"Кемин":[42.78,75.69],"Балыкчы":[42.46,76.19],"Тамчы":[42.56,76.65],"Чолпон-Ата":[42.65,77.08],"Бостери":[42.65,77.25],"Каракол":[42.49,78.39],"Боконбаево":[42.12,76.99],"Кызыл-Суу":[42.34,78.00],"Жети-Өгүз":[42.36,78.23],"Кочкор":[42.21,75.75],"Нарын":[41.43,75.99],"Ат-Башы":[41.17,75.81],"Чаек":[41.93,74.51],"Казарман":[41.40,74.04],"Сокулук":[42.86,74.30],"Беловодское":[42.83,74.11],"Кара-Балта":[42.81,73.85],"Суусамыр":[42.18,73.95],"Талас":[42.52,72.24],"Токтогул":[41.87,72.94],"Кара-Көл":[41.62,72.67],"Таш-Көмүр":[41.35,72.22],"Кербен":[41.49,71.75],"Майлуу-Суу":[41.26,72.45],"Базар-Коргон":[41.04,72.75],"Жалал-Абад":[40.93,73.00],"Сузак":[40.90,72.90],"Кара-Суу":[40.70,72.87],"Өзгөн":[40.77,73.30],"Ош":[40.53,72.80],"Ноокат":[40.27,72.62],"Кызыл-Кыя":[40.26,72.13],"Баткен":[40.06,70.82],"Сүлүктү":[39.93,69.57]};
+const ROADS = [["Бишкек","Кант"],["Кант","Токмок"],["Токмок","Кемин"],["Кемин","Балыкчы"],["Балыкчы","Тамчы"],["Тамчы","Чолпон-Ата"],["Чолпон-Ата","Бостери"],["Бостери","Каракол"],["Балыкчы","Боконбаево"],["Боконбаево","Кызыл-Суу"],["Кызыл-Суу","Жети-Өгүз"],["Жети-Өгүз","Каракол"],["Балыкчы","Кочкор"],["Кочкор","Нарын"],["Нарын","Ат-Башы"],["Кочкор","Чаек"],["Чаек","Казарман"],["Казарман","Жалал-Абад"],["Бишкек","Сокулук"],["Сокулук","Беловодское"],["Беловодское","Кара-Балта"],["Кара-Балта","Суусамыр"],["Суусамыр","Талас"],["Суусамыр","Токтогул"],["Токтогул","Кара-Көл"],["Кара-Көл","Таш-Көмүр"],["Таш-Көмүр","Кербен"],["Таш-Көмүр","Майлуу-Суу"],["Майлуу-Суу","Базар-Коргон"],["Базар-Коргон","Жалал-Абад"],["Жалал-Абад","Сузак"],["Сузак","Кара-Суу"],["Жалал-Абад","Өзгөн"],["Өзгөн","Кара-Суу"],["Кара-Суу","Ош"],["Ош","Ноокат"],["Ноокат","Кызыл-Кыя"],["Кызыл-Кыя","Баткен"],["Баткен","Сүлүктү"]];
+const hav = (a,b) => { const R=6371, r=x=>x*Math.PI/180, dLa=r(b[0]-a[0]), dLo=r(b[1]-a[1]); const h=Math.sin(dLa/2)**2+Math.cos(r(a[0]))*Math.cos(r(b[0]))*Math.sin(dLo/2)**2; return 2*R*Math.asin(Math.sqrt(h)); };
+function roadPath(from,to){
+  if(!GEO[from]||!GEO[to]) return null;
+  const adj={}; ROADS.forEach(([a,b])=>{ (adj[a]=adj[a]||[]).push(b); (adj[b]=adj[b]||[]).push(a); });
+  const dist={[from]:0}, prev={}, done=new Set();
+  while(true){ let u=null; for(const k in dist) if(!done.has(k)&&(u===null||dist[k]<dist[u])) u=k; if(u===null) break; if(u===to) break; done.add(u);
+    (adj[u]||[]).forEach(v=>{ const d=dist[u]+hav(GEO[u],GEO[v]); if(dist[v]===undefined||d<dist[v]){ dist[v]=d; prev[v]=u; } }); }
+  if(dist[to]===undefined) return [from,to];
+  const p=[to]; while(p[0]!==from) p.unshift(prev[p[0]]); return p;
+}
+const ROAD_K = 1.2;
+const routeKm = (from,to) => { const p=roadPath(from,to); if(!p) return null; let s=0; for(let i=1;i<p.length;i++) s+=hav(GEO[p[i-1]],GEO[p[i]]); return Math.round(s*ROAD_K); };
+const priceRange = (from,to) => { const km=routeKm(from,to); if(!km) return null; const a=Math.max(150,Math.round(km*0.7/50)*50); return [a, Math.round(a*1.8/50)*50]; };
+
+function seedOrders(){
+  const W = (ru,ky)=>({ru,ky});
+  const mk=(i,from,to,what,size,price,day,sender,phone,pickup,rname)=>({id:"o"+i+uid(),userId:"x"+i,senderName:sender,senderPhone:phone,from,to,what,size,price,date:addDays(day),pickup,drop:"",rname,rphone:"+996 700 "+(100000+i*12345).toString().replace(/(\d{2})(\d{2})(\d{2})/,"$1 $2 $3"),payer:i%2?"me":"recipient",status:"open",createdAt:Date.now()-i*3600e3,photo:""});
+  return [
+    mk(1,"Бишкек","Ош",W("Сумка с одеждой","Кийим салынган сумка"),"L",500,0,"Гүлзат","+996 555 31 22 10",W("мкр. Джал, 15","Жал кичи району, 15-үй"),"Нургүл"),
+    mk(2,"Бишкек","Нарын",W("Документы в конверте","Конверттеги документтер"),"S",300,0,"Марат","+996 700 44 12 98",W("ул. Киевская, 120","Киев көчөсү, 120"),"Эрмек"),
+    mk(3,"Бишкек","Токмок",W("Торт на день рождения","Туулган күнгө торт"),"M",250,0,"Айнура","+996 777 90 11 23",W("ТЦ «Дордой Плаза»","«Дордой Плаза» соода борбору"),"Бермет"),
+    mk(4,"Ош","Бишкек",W("Телефон в коробке","Кутусундагы телефон"),"S",400,1,"Бекзат","+996 559 12 00 45",W("Ошский базар, главный вход","Ош базары, башкы кире бериш"),"Азамат"),
+    mk(5,"Каракол","Бишкек",W("Лекарства","Дары-дармек"),"S",350,1,"Самара","+996 552 77 66 01",W("ул. Абдрахманова, 8","Абдрахманов көчөсү, 8"),"Чынара"),
+    mk(6,"Бишкек","Жалал-Абад",W("Детские игрушки","Балдардын оюнчуктары"),"M",450,2,"Уланбек","+996 705 33 44 21",W("мкр. Асанбай, 12","Асанбай кичи району, 12"),"Жыпар"),
+    mk(7,"Бишкек","Ош",W("Запчасти для авто","Унаанын тетиктери"),"L",700,1,"Тилек","+996 772 18 18 18",W("рынок «Кудайберген»","«Кудайберген» базары"),"Мирлан"),
+  ];
+}
+
+// status flow; your own orders are taken by a demo driver automatically so tracking can be seen
+const A_OPEN=8000, A_ACC=10000, TRIP_MS=150000;
+function tickOrders(){
+  let changed=false;
+  (S.orders||[]).forEach(o=>{
+    if(o.userId!=="me"||!o.auto||o.status==="cancelled"||o.status==="delivered") return;
+    const e=Date.now()-o.createdAt;
+    if(o.status==="open" && e>=A_OPEN){
+      const cand=S.users.filter(u=>S.trips.some(x=>x.driverId===u.id&&x.from===o.from&&x.to===o.to)); const d=(cand.length?cand:S.users)[Math.floor(Math.random()*(cand.length||S.users.length))];
+      o.status="accepted"; o.driverId=d.id; o.acceptedAt=o.createdAt+A_OPEN; changed=true;
+      notify("nAccepted",{driver:d.name,what:loc(o.what),phone:d.phone},"check",null,o.id);
+    }
+    if(o.status==="accepted" && e>=A_OPEN+A_ACC){ o.status="onway"; o.pickedAt=o.createdAt+A_OPEN+A_ACC; changed=true; notify("nOnway",{what:loc(o.what),to:o.to},"box",null,o.id); }
+    if(o.status==="onway" && e>=A_OPEN+A_ACC+TRIP_MS){ o.status="delivered"; o.deliveredAt=Date.now(); changed=true; notify("deliveredNotif",{what:loc(o.what),to:o.to},"check",null,o.id); }
+  });
+  return changed;
+}
+const orderProgress = o => o.status==="delivered"?1 : o.status==="onway"? Math.min(o.auto?1:0.97,(Date.now()-o.pickedAt)/TRIP_MS) : 0;
+const statusPill = o => `<span class="pill ${o.status==="open"?"grey":o.status==="cancelled"?"red":""}">${t("ost_"+o.status)}</span>`;
+
+function orderCard(o){
+  return `<button class="card ordercard" data-order="${o.id}" aria-label="${esc(loc(o.what))}, ${esc(o.from)} — ${esc(o.to)}">
+    <div class="othumb">${o.photo?`<img src="${o.photo}" alt="">`:I.box}</div>
+    <div class="obody">
+      <div class="row between"><span class="pill">${I.box.replace("<svg",'<svg width="12" height="12" style="vertical-align:-2px"')} ${t("orderTag")}</span><span class="price">${o.price} с</span></div>
+      <b class="otitle">${esc(loc(o.what))}</b>
+      <div class="small">${esc(o.from)} → <b>${esc(o.to)}</b></div>
+      <div class="small muted">${dRel(o.date)} · ${t("size"+o.size)}${o.userId==="me"||o.driverId==="me"?" · "+statusPill(o):""}</div>
+    </div>
+  </button>`;
+}
+function bindOrders(root=document){ root.querySelectorAll("[data-order]").forEach(b=>b.onclick=()=>go("order",{id:b.dataset.order})); }
+
+function drawTrack(cv,o){
+  const path=roadPath(o.from,o.to); if(!path){ cv.hidden=true; return null; }
+  const pts=path.map(c=>GEO[c]);
+  const cs=getComputedStyle(document.documentElement), col=n=>cs.getPropertyValue(n).trim();
+  const W=cv.clientWidth||340, H=Math.round(W*0.62), dpr=window.devicePixelRatio||1;
+  cv.width=W*dpr; cv.height=H*dpr; cv.style.height=H+"px";
+  const ctx=cv.getContext("2d"); ctx.setTransform(dpr,0,0,dpr,0,0);
+  const k=Math.cos(41.5*Math.PI/180);
+  let la=pts.map(p=>p[0]), lo=pts.map(p=>p[1]);
+  let minLa=Math.min(...la)-0.3,maxLa=Math.max(...la)+0.3,minLo=Math.min(...lo)-0.4,maxLo=Math.max(...lo)+0.4;
+  const cLa=(minLa+maxLa)/2,cLo=(minLo+maxLo)/2, sc=Math.min((W-36)/((maxLo-minLo)*k),(H-36)/(maxLa-minLa));
+  const P=p=>[W/2+(p[1]-cLo)*k*sc, H/2-(p[0]-cLa)*sc];
+  ctx.fillStyle=col("--field"); ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle=col("--line"); ctx.lineWidth=1;
+  for(let g=Math.floor(minLo);g<=maxLo;g+=0.5){ const [x]=P([0,g]); ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke(); }
+  for(let g=Math.floor(minLa);g<=maxLa;g+=0.5){ const [,y]=P([g,0]); ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke(); }
+  ctx.strokeStyle=col("--muted"); ctx.globalAlpha=.35; ctx.lineWidth=2.5; ctx.lineCap="round";
+  ROADS.forEach(([a,b])=>{ const p1=P(GEO[a]),p2=P(GEO[b]); ctx.beginPath(); ctx.moveTo(...p1); ctx.lineTo(...p2); ctx.stroke(); });
+  ctx.globalAlpha=1;
+  // distances along route
+  const cum=[0]; for(let i=1;i<pts.length;i++) cum.push(cum[i-1]+hav(pts[i-1],pts[i]));
+  const total=cum[cum.length-1], prog=orderProgress(o), done=total*prog;
+  let seg=1; while(seg<pts.length-1 && cum[seg]<done) seg++;
+  const f=(done-cum[seg-1])/((cum[seg]-cum[seg-1])||1);
+  const car=[pts[seg-1][0]+(pts[seg][0]-pts[seg-1][0])*f, pts[seg-1][1]+(pts[seg][1]-pts[seg-1][1])*f];
+  // remaining route (dashed) and travelled part (solid)
+  ctx.strokeStyle=col("--accent"); ctx.lineWidth=4; ctx.setLineDash([8,7]);
+  ctx.beginPath(); ctx.moveTo(...P(car)); for(let i=seg;i<pts.length;i++) ctx.lineTo(...P(pts[i])); ctx.stroke();
+  ctx.setLineDash([]); ctx.lineWidth=5;
+  ctx.beginPath(); ctx.moveTo(...P(pts[0])); for(let i=1;i<seg;i++) ctx.lineTo(...P(pts[i])); ctx.lineTo(...P(car)); ctx.stroke();
+  // city dots + labels on route
+  ctx.font="600 11px Inter, system-ui, sans-serif"; ctx.textBaseline="middle";
+  path.forEach((c,i)=>{ const [x,y]=P(GEO[c]); const end=i===0||i===path.length-1;
+    ctx.fillStyle=end?col("--accent"):col("--surface"); ctx.strokeStyle=col("--accent"); ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(x,y,end?6:4,0,7); ctx.fill(); ctx.stroke();
+    if(end||path.length<=6||i%2===0){ ctx.fillStyle=col("--fg"); ctx.font=(end?"700 12px":"500 10.5px")+" Inter, system-ui, sans-serif";
+      const tw=ctx.measureText(c).width; let tx=x+9; if(tx+tw>W-4) tx=x-9-tw; ctx.fillText(c,tx,y); } });
+  // car marker
+  const [cx,cy]=P(car);
+  ctx.fillStyle=col("--accent"); ctx.globalAlpha=.22; ctx.beginPath(); ctx.arc(cx,cy,16+4*Math.sin(Date.now()/400),0,7); ctx.fill(); ctx.globalAlpha=1;
+  ctx.beginPath(); ctx.arc(cx,cy,10,0,7); ctx.fill(); ctx.strokeStyle="#fff"; ctx.lineWidth=3; ctx.stroke();
+  ctx.fillStyle="#fff"; ctx.fillRect(cx-5,cy-2,10,5); ctx.fillRect(cx-3,cy-5,6,4);
+  const passed = path[Math.max(0,seg-1)];
+  return {remaining:Math.round((total-done)*ROAD_K), passed, prog};
+}
+function trackInfo(o,info){
+  if(!info) return "";
+  if(o.status==="accepted") return `<b>${t("pickupSoon")}</b>`;
+  if(o.status==="delivered") return `<b style="color:var(--accent)">${t("ost_delivered")}</b>`;
+  const h=Math.floor(info.remaining/65), m=Math.round((info.remaining/65-h)*60);
+  return `<b>${info.prog<0.02?t("atStart",{city:o.from}):t("passed",{city:info.passed})}</b><br><span class="muted">${t("leftKm",{to:o.to,km:info.remaining})} · ${t("eta",{h,m})}</span>`;
+}
+function updateTracking(){
+  const cv=document.getElementById("trkMap"); if(!cv) return;
+  const o=(S.orders||[]).find(x=>x.id===cv.dataset.id); if(!o) return;
+  const info=drawTrack(cv,o); const el=document.getElementById("trkInfo"); if(el) el.innerHTML=trackInfo(o,info);
+}
+
+const od = {photo:"",what:"",size:"M",from:"Бишкек",pickup:"",to:"Ош",drop:"",date:TODAY(),price:"",payer:"me",rname:"",rphone:"+996 "};
+screens.orderNew = () => {
+  topbar(t("orderNew"),{canBack:stack.length>0});
+  const o=od, pr=priceRange(o.from,o.to);
+  $("#screen").innerHTML = `
+  <form class="stack" id="of" novalidate>
+    <label class="upl ${o.photo?"has":""}" style="aspect-ratio:16/10">${o.photo?`<img src="${o.photo}" alt=""><span class="ok">${I.check}</span>`:`${I.camera}<span style="font-size:14px">${t("takePhoto")}</span>`}<input type="file" accept="image/*" id="oPh" aria-label="${t("orderPhoto")}"></label>
+    <label class="lbl" for="oWhat">${t("parcelWhat")}</label>
+    <div class="field">${I.box}<input id="oWhat" maxlength="60" placeholder="${t("parcelWhatPh")}" value="${esc(o.what)}"></div>
+    <span class="lbl">${t("parcelSize")}</span>
+    <div class="sizes" id="oSz">${["S","M","L"].map(z=>`<button type="button" data-z="${z}" class="${o.size===z?"on":""}"><b>${t("size"+z)}</b>${t("size"+z+"d")}</button>`).join("")}</div>
+    <div class="route-fields">
+      <button type="button" class="field" id="oFrom" style="text-align:left">${I.pinO}<span style="padding:13px 0">${esc(o.from)||`<span class="muted">${t("from")}</span>`}</span></button>
+      <button type="button" class="field" id="oTo" style="text-align:left">${I.pin}<span style="padding:13px 0">${esc(o.to)||`<span class="muted">${t("to")}</span>`}</span></button>
+      <button type="button" class="swap" id="oSwap" aria-label="${t("swap")}">${I.swap}</button>
+    </div>
+    <label class="lbl" for="oPick">${t("pickupAddr")}</label>
+    <div class="field">${I.pinO}<input id="oPick" maxlength="80" placeholder="${t("pickupPh")}" value="${esc(o.pickup)}"></div>
+    <label class="lbl" for="oDrop">${t("dropAddr")}</label>
+    <div class="field">${I.pin}<input id="oDrop" maxlength="80" placeholder="${t("dropPh")}" value="${esc(o.drop)}"></div>
+    <span class="lbl">${t("recipient")}</span>
+    <div class="field">${I.user}<input id="oRn" maxlength="30" placeholder="${t("recipientName")}" aria-label="${t("recipientName")}" value="${esc(o.rname)}"></div>
+    <div class="field">${I.phone}<input id="oRp" inputmode="tel" placeholder="${t("recipientPhone")}" aria-label="${t("recipientPhone")}" value="${esc(o.rphone)}"></div>
+    <label class="lbl" for="oDate">${t("whenSend")}</label>
+    <label class="field" for="oDate">${I.cal}<input type="date" id="oDate" min="${TODAY()}" value="${o.date}"></label>
+    <label class="lbl" for="oPrice">${t("yourPrice")}</label>
+    <div class="field">${I.wallet}<input type="number" id="oPrice" inputmode="numeric" min="0" step="10" placeholder="500" value="${esc(o.price)}" style="font-weight:700;font-size:18px"></div>
+    ${pr?`<div class="chips">${[pr[0],Math.round((pr[0]+pr[1])/100)*50,pr[1]].map(v=>`<button type="button" class="chip ${+o.price===v?"on":""}" data-pr="${v}">${v} с</button>`).join("")}</div><p class="small muted" style="margin:-4px 0 0">${t("priceHint",{a:pr[0],b:pr[1]})}</p>`:""}
+    <span class="lbl">${t("whoPays")}</span>
+    <div class="seg"><button type="button" data-pay="me" class="${o.payer==="me"?"on":""}">${t("payMe")}</button><button type="button" data-pay="recipient" class="${o.payer==="recipient"?"on":""}">${t("payRecipient")}</button></div>
+    <p class="small muted" style="margin:0">${t("parcelNote")}</p>
+    <button class="btn" type="submit">${t("publishOrder")}</button>
+  </form>`;
+  const keep=()=>{ o.what=$("#oWhat").value; o.pickup=$("#oPick").value; o.drop=$("#oDrop").value; o.rname=$("#oRn").value; o.rphone=$("#oRp").value; o.date=$("#oDate").value; o.price=$("#oPrice").value; };
+  $("#oPh").onchange=async e=>{ const file=e.target.files[0]; if(!file) return; keep(); try{ o.photo=await readPhoto(file); render(); }catch(_){ toast(t("photoErr")); } };
+  document.querySelectorAll("[data-z]").forEach(b=>b.onclick=()=>{ keep(); o.size=b.dataset.z; render(); });
+  document.querySelectorAll("[data-pay]").forEach(b=>b.onclick=()=>{ keep(); o.payer=b.dataset.pay; render(); });
+  document.querySelectorAll("[data-pr]").forEach(b=>b.onclick=()=>{ keep(); o.price=b.dataset.pr; render(); });
+  $("#oFrom").onclick=()=>{ keep(); citySheet(o.from,c=>{o.from=c;render();}); };
+  $("#oTo").onclick=()=>{ keep(); citySheet(o.to,c=>{o.to=c;render();}); };
+  $("#oSwap").onclick=()=>{ keep(); [o.from,o.to]=[o.to,o.from]; render(); };
+  $("#of").onsubmit=e=>{ e.preventDefault(); keep();
+    if(!o.photo){ toast(t("errPhoto")); return; }
+    if(!o.what.trim()||o.rname.trim().length<2){ toast(t("parcelFill")); return; }
+    if(!o.from||!o.to){ toast(t("bothCities")); return; }
+    if(o.from===o.to){ toast(t("citiesDiffer")); return; }
+    if(!o.pickup.trim()){ toast(t("errPickup")); return; }
+    if(!validPhone(o.rphone)){ toast(t("checkPhone")); return; }
+    const price=parseInt(o.price,10); if(!(price>0)){ toast(t("needParcelPrice")); return; }
+    const ord={id:"o"+uid(),userId:"me",senderName:S.me.name,senderPhone:S.me.phone,from:o.from,to:o.to,what:o.what.trim(),size:o.size,price,date:o.date||TODAY(),pickup:o.pickup.trim(),drop:o.drop.trim(),rname:o.rname.trim(),rphone:fmtPhone(o.rphone),payer:o.payer,status:"open",createdAt:Date.now(),photo:o.photo,auto:true};
+    S.orders.unshift(ord);
+    notify("orderPublishedNotif",{what:ord.what,from:ord.from,to:ord.to,price},"box",null,ord.id);
+    Object.assign(od,{photo:"",what:"",pickup:"",drop:"",price:"",rname:"",rphone:"+996 "});
+    toast(t("orderPublished"));
+    stack=[]; tab="trips"; go("order",{id:ord.id});
+  };
+};
+
+screens.order = ({id}) => {
+  const o=(S.orders||[]).find(x=>x.id===id);
+  if(!o){ back(); return; }
+  topbar(t("orderLbl"),{canBack:true});
+  const mineS=o.userId==="me", mineD=o.driverId==="me", d=o.driverId?user(o.driverId):null;
+  const steps=["open","accepted","onway","delivered"], si=steps.indexOf(o.status);
+  const reviewed=S.reviews.some(x=>x.tripId===o.id&&x.fromId==="me");
+  const showTrack = o.status!=="open" && o.status!=="cancelled" && (mineS||mineD);
+  const sender = mineS ? S.me : {name:o.senderName,phone:o.senderPhone};
+  $("#screen").innerHTML = `
+  ${o.photo?`<img src="${o.photo}" alt="" style="width:100%;max-height:260px;object-fit:cover;border-radius:16px;display:block">`:""}
+  <div class="card stack">
+    <div class="row between" style="align-items:flex-start"><div style="min-width:0"><h2 style="margin:0">${esc(loc(o.what))}</h2><div class="small muted">${t("size"+o.size)} · ${dLong(o.date)}</div></div><div style="text-align:right;flex:none"><div class="small muted">${t("offeredPrice")}</div><div class="price">${o.price} с</div></div></div>
+    <div class="row" style="gap:6px;flex-wrap:wrap">${statusPill(o)}<span class="pill grey">${o.payer==="me"?t("payBySender"):t("payByRecipient")}</span></div>
+    <div class="tl">
+      <div class="rail">${I.pinO}<span class="dots"></span>${I.pin}</div>
+      <div class="stop"><b>${esc(o.from)}</b><div class="small muted">${t("pickupLbl")} ${esc(loc(o.pickup))}</div></div>
+      <div class="stop" style="margin-top:10px"><b>${esc(o.to)}</b>${o.drop?`<div class="small muted">${t("dropLbl")} ${esc(o.drop)}</div>`:""}</div>
+    </div>
+  </div>
+  ${o.status!=="cancelled"?`<div class="card"><div class="steps">${steps.map((s,i)=>`<i class="${i<=si?"on":""}"></i>`).join("")}</div><div class="row between small muted" style="margin-top:6px">${steps.map((s,i)=>`<span style="${i===si?"color:var(--fg);font-weight:600":""}">${t("step_"+s)}</span>`).join("")}</div></div>`:""}
+  ${showTrack?`<div class="section-title">${t("trackTitle")}</div>
+    <div class="card stack" style="padding:12px"><canvas id="trkMap" data-id="${o.id}" style="width:100%;border-radius:12px;display:block" role="img" aria-label="${t("trackTitle")}"></canvas>
+    <div class="row" style="gap:10px;align-items:flex-start"><div class="carpic" style="width:38px;height:38px;color:var(--accent)">${I.car}</div><div id="trkInfo" class="small" style="flex:1"></div></div>
+    <p class="tag-demo" style="text-align:left;margin:0">${t("trackDemo")}</p></div>`
+  : (mineS && o.status==="open" ? `<div class="banner">${I.bulb}<span>${t("waitingDriver")}</span></div>`:"")}
+  ${d && (mineS) ? `<div class="section-title">${t("driver")}</div>
+    <div class="card"><button class="row" style="width:100%;text-align:left" id="oDrv">${avatar(d)}<div style="flex:1;min-width:0"><b>${esc(d.name)}</b><div class="small muted">${carTxt(d.car)}${d.car?.color?" · "+t("c_"+d.car.color):""}</div>${isVerified(d.id)?okBadge():""}</div>${I.chev}</button>
+    <div class="contact"><a href="tel:${esc(d.phone.replace(/\s/g,""))}">${I.phone} ${t("call")}</a><a href="https://wa.me/${esc(d.phone.replace(/\D/g,""))}" target="_blank" rel="noopener">${I.chat} ${t("write")}</a></div></div>
+    <div class="small muted" style="margin-top:-8px;text-align:center">${t("phoneLbl")} <b style="user-select:all;color:var(--fg)">${esc(d.phone)}</b></div>`:""}
+  ${!mineS ? `<div class="section-title">${t("sender")}</div><div class="card row">${avatar(sender)}<div style="flex:1"><b>${esc(sender.name)}</b>${mineD?`<div class="small"><a href="tel:${esc(sender.phone.replace(/\s/g,""))}" style="color:var(--accent)">${esc(sender.phone)}</a></div>`:""}</div></div>`:""}
+  ${mineS||mineD?`<div class="section-title">${t("recipient")}</div><div class="card row">${avatar({name:o.rname},"sm")}<div><b>${esc(o.rname)}</b><div class="small" style="user-select:all">${esc(o.rphone)}</div></div></div>`:""}
+  <div class="stack" id="oAct"></div>`;
+  const act=$("#oAct");
+  if(mineS && o.status==="open") act.innerHTML=`<button class="btn ghost" id="oCancel">${t("parcelCancel")}</button>`;
+  else if(mineS && o.status==="delivered" && d && !reviewed) act.innerHTML=`<button class="btn" id="oRev">${t("rateDriver")}</button>`;
+  else if(mineD && o.status==="accepted") act.innerHTML=`<button class="btn" id="oPick">${t("pickedUp")}</button>`;
+  else if(mineD && o.status==="onway") act.innerHTML=`<button class="btn" id="oDone">${t("markDone")}</button>`;
+  else if(!mineS && o.status==="open") act.innerHTML=`<button class="btn" id="oAcc">${I.box.replace("<svg",'<svg width="20" height="20"')} ${t("acceptOrder",{price:o.price})}</button><p class="small muted" style="margin:0;text-align:center">${t("callTip")}</p>`;
+  const b=id=>document.getElementById(id);
+  if(b("oDrv")) b("oDrv").onclick=()=>go("user",{id:d.id});
+  if(b("oCancel")) b("oCancel").onclick=()=>confirmSheet(t("parcelCancelQ"),t("orderCancelText"),t("parcelCancel"),()=>{ o.status="cancelled"; toast(t("parcelCancelled")); render(); });
+  if(b("oRev")) b("oRev").onclick=()=>reviewSheet(o);
+  if(b("oAcc")) b("oAcc").onclick=()=>{
+    if(!isVerified("me")){ toast(t("needDriver")); go(S.me.driver?.status==="pending"?"createTrip":"driverReg"); return; }
+    confirmSheet(t("acceptQ"),t("acceptText",{addr:loc(o.pickup),to:o.to}),t("acceptOk"),()=>{ o.status="accepted"; o.driverId="me"; o.acceptedAt=Date.now(); toast(t("accepted")); render(); },false);
+  };
+  if(b("oPick")) b("oPick").onclick=()=>{ o.status="onway"; o.pickedAt=Date.now(); render(); };
+  if(b("oDone")) b("oDone").onclick=()=>{ o.status="delivered"; o.deliveredAt=Date.now(); notify("deliveredNotif",{what:loc(o.what),to:o.to},"check",null,o.id); toast(t("delivered")); render(); };
+  if(showTrack) requestAnimationFrame(updateTracking);
+};
+
+screens.create = () => {
+  topbar(t("tCreate"));
+  const st=S.me.driver?.status||"none";
+  $("#screen").innerHTML = `<h2>${t("createChoose")}</h2>
+  <button class="card" id="chP" style="text-align:left;width:100%;display:flex;gap:14px;align-items:center"><span class="parcel-row"><span class="bx" style="width:54px;height:54px">${I.box}</span></span><span style="flex:1"><h3>${t("chSendParcel")}</h3><span class="small muted">${t("chSendParcelText")}</span></span>${I.chev}</button>
+  <button class="card" id="chT" style="text-align:left;width:100%;display:flex;gap:14px;align-items:center"><span class="parcel-row"><span class="bx" style="width:54px;height:54px">${I.car}</span></span><span style="flex:1"><h3>${t("chTrip")}</h3><span class="small muted">${t("chTripText")}</span><br><span class="pill ${st==="verified"?"":"grey"}" style="margin-top:6px">${t("driverStatus")}: ${t("st_"+st)}</span></span>${I.chev}</button>`;
+  $("#chP").onclick=()=>go("orderNew");
+  $("#chT").onclick=()=>go("createTrip");
 };
 
 screens.results = () => {
@@ -972,13 +1261,17 @@ screens.trips = () => {
   const up=rel.filter(x=>!isPast(x)), past=rel.filter(isPast).reverse();
   const role = x => x.driverId==="me"?`<span class="pill">${t("iDriver")}</span>`: [myBooking(x)?`<span class="pill grey">${t("iPassenger")}</span>`:"", myParcel(x)?`<span class="pill grey">${t("iSender")}</span>`:""].join(" ");
   const item = x => `<div class="stack" style="gap:6px"><span>${role(x)}</span>${tripCard(x, myParcel(x)&&!myBooking(x)?"parcel":"ride")}</div>`;
-  $("#screen").innerHTML = rel.length ? `
+  const myO=(S.orders||[]).filter(o=>o.userId==="me"||o.driverId==="me");
+  const oAct=myO.filter(o=>o.status!=="delivered"&&o.status!=="cancelled"), oDone=myO.filter(o=>o.status==="delivered"||o.status==="cancelled");
+  const oItem = o => `<div class="stack" style="gap:6px"><span><span class="pill ${o.userId==="me"?"grey":""}">${o.userId==="me"?t("iSender"):t("iCourier")}</span></span>${orderCard(o)}</div>`;
+  $("#screen").innerHTML = rel.length||myO.length ? `
+    ${oAct.length?`<div class="section-title">${t("parcels")}</div>${oAct.map(oItem).join("")}`:""}
     ${up.length?`<div class="section-title">${t("upcoming")}</div>${up.map(item).join("")}`:""}
-    ${past.length?`<div class="section-title">${t("past")}</div>${past.map(item).join("")}`:""}`
+    ${past.length||oDone.length?`<div class="section-title">${t("past")}</div>${oDone.map(oItem).join("")}${past.map(item).join("")}`:""}`
   : `<div class="card empty">${I.road}<h3 style="margin-top:8px">${t("emptyTrips")}</h3><p>${t("emptyTripsText")}</p>
      <div class="stack" style="margin-top:12px"><button class="btn" id="g1">${t("find")}</button><button class="btn ghost" id="g2">${t("createTrip")}</button></div></div>`;
-  bindTrips();
-  if($("#g1")){ $("#g1").onclick=()=>switchTab("home"); $("#g2").onclick=()=>switchTab("create"); }
+  bindTrips(); bindOrders();
+  if($("#g1")){ $("#g1").onclick=()=>switchTab("home"); $("#g2").onclick=()=>{ tab="create"; stack=[]; go("createTrip"); }; }
 };
 
 // ---------- driver registration (passport) ----------
@@ -1045,10 +1338,10 @@ screens.driverReg = () => {
   };
 };
 
-screens.create = () => {
+screens.createTrip = () => {
   const me=S.me, st=me.driver?.status||"none";
   if(st==="none") return screens.driverReg();
-  topbar(t("newTrip"));
+  topbar(t("newTrip"),{canBack:stack.length>0});
   if(st==="pending"){
     $("#screen").innerHTML=`<div class="card empty">${I.idcard.replace('class="ic"','style="width:56px;height:56px"')}<h3 style="margin-top:8px">${t("pendingTitle")}</h3><p>${t("pendingText")}</p><p class="small">${t("demoVerify")}</p></div>`;
     return;
@@ -1114,10 +1407,11 @@ screens.create = () => {
 screens.notifs = () => {
   topbar(t("notifsTitle"),{right:S.notifs.length?`<button class="icon-btn" id="clr" aria-label="${t("clear")}">${I.trash.replace('class="ic"','width="22" height="22"')}</button>`:""});
   const ago = ts => { const m=Math.round((Date.now()-ts)/60000); if(m<1) return t("justNow"); if(m<60) return t("minAgo",{n:m}); const h=Math.round(m/60); if(h<24) return t("hAgo",{n:h}); return new Date(ts).toLocaleDateString(S.lang==="ky"?"ky-KG":"ru-RU"); };
-  $("#screen").innerHTML = S.notifs.length? S.notifs.map(n=>`<button class="card notif ${n.read?"":"unread"}" style="text-align:left;width:100%" ${n.tripId?`data-nt="${n.tripId}"`:""}><span class="ic">${I[n.icon]||I.bell}</span><div style="flex:1;min-width:0"><div>${esc(notifText(n))}</div><div class="small muted">${ago(n.at)}</div></div></button>`).join("")
+  $("#screen").innerHTML = S.notifs.length? S.notifs.map(n=>`<button class="card notif ${n.read?"":"unread"}" style="text-align:left;width:100%" ${n.tripId?`data-nt="${n.tripId}"`:""} ${n.orderId?`data-no="${n.orderId}"`:""}><span class="ic">${I[n.icon]||I.bell}</span><div style="flex:1;min-width:0"><div>${esc(notifText(n))}</div><div class="small muted">${ago(n.at)}</div></div></button>`).join("")
     : `<div class="card empty">${I.bell}<h3 style="margin-top:8px">${t("quiet")}</h3><p>${t("quietText")}</p></div>`;
   S.notifs.forEach(n=>n.read=true); save(); renderTabs();
   document.querySelectorAll("[data-nt]").forEach(b=>b.onclick=()=>{ if(S.trips.some(x=>x.id===b.dataset.nt)) go("trip",{id:b.dataset.nt}); else toast(t("tripGone")); });
+  document.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>{ if((S.orders||[]).some(o=>o.id===b.dataset.no)) go("order",{id:b.dataset.no}); else toast(t("tripGone")); });
   const c=$("#clr"); if(c) c.onclick=()=>{S.notifs=[];render();};
 };
 
@@ -1239,7 +1533,7 @@ screens.car = () => {
   draw();
 };
 
-checkVerification();
+checkVerification(); tickOrders();
 render();
 })();
 </script>
