@@ -424,6 +424,15 @@ body.in-chat main{padding-bottom:170px;gap:10px}
 .unread-dot{min-width:20px;height:20px;border-radius:10px;background:var(--danger);color:#fff;font-size:11px;display:grid;place-items:center;padding:0 6px}
 .contact button{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;color:var(--accent-ink);font-weight:500;border-left:1px solid var(--line)}
 .contact button svg{width:20px;height:20px}
+
+.op-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.op-stats div{background:var(--ink);color:var(--on-ink);border-radius:18px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.op-stats div:first-child{background:var(--accent);color:var(--on-accent)}
+.op-stats b{font:600 24px var(--f-display)}
+.op-stats span{font-size:12px;opacity:.75}
+.op-actions{display:flex;gap:6px;flex-wrap:wrap}
+.op-actions .chip{font-size:13px;padding:7px 12px;display:inline-flex;align-items:center;gap:5px}
+.msg .who{display:block;font-size:11.5px;color:var(--accent-ink);margin-bottom:2px}
 </style>
 
 <div class="app">
@@ -508,6 +517,13 @@ ru:{
   waitingDriver:"Как только водитель возьмёт посылку, здесь появится карта с его местоположением.", pickupSoon:"Водитель едет к вам забрать посылку",
   trackDemo:"Демо: движение машины смоделировано и ускорено. В реальном приложении используется GPS телефона водителя.",
   iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", sendCtaT:"Отправить посылку", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
+  opTitle:"Панель оператора", opSub:"Обращения в поддержку", opNew:"Ждут ответа", opNeedReply:"нужен ответ", opThisDevice:"с этого телефона",
+  opDemo:"Демо: здесь видны обращения с этого телефона и примеры от других пользователей. В рабочей версии панель подключается к серверу, и сюда приходят обращения всех пользователей.",
+  opOpenOrder:"Открыть посылку", opRefund:"Вернуть {n} с", opBlock:"Заблокировать водителя", opClose:"Закрыть обращение", opBlocked:"Заблокирован", opReplyPh:"Ответ пользователю…",
+  opRefundQ:"Вернуть деньги?", opRefundText:"{n} с вернутся на баланс пользователя {name}.", opRefundSys:"Оператор вернул {n} с на баланс", opRefundMsg:"Мы вернули {n} с на ваш баланс. Приносим извинения за неудобства.", opRefundDone:"Деньги возвращены",
+  opBlockQ:"Заблокировать водителя?", opBlockText:"{name} не сможет брать посылки и публиковать поездки, пока идёт проверка.", opBlockSys:"Водитель {name} заблокирован на время проверки",
+  op_t1s:"Приветствие", op_t1:"Здравствуйте, {name}! Спасибо, что написали. Уже разбираемся.", op_t2s:"Связались с водителем", op_t2:"Мы связались с водителем {driver}. Он подтвердил, что доставит посылку сегодня до 20:00.",
+  op_t3s:"Вопрос решён?", op_t3:"Подскажите, пожалуйста, вопрос решён? Если да, нажмите «Вопрос решён».", op_t4s:"Нужны детали", op_t4:"Уточните, пожалуйста, время отправки и номер телефона получателя.", txRefund:"Возврат от поддержки",
   chat:"Чат", chats:"Чаты", noChats:"Переписок пока нет. Чат появится, когда вы забронируете поездку или водитель возьмёт посылку.", msgPh:"Сообщение…", typing:"печатает…",
   qr_where:"Где вы сейчас?", qr_when:"Когда доедете?", qr_call:"Позвоните получателю, пожалуйста", qr_thanks:"Спасибо!", qr_seat:"Место ещё свободно?", qr_meet:"Где место встречи?", qr_ok:"Хорошо, договорились", qr_picked:"Посылку забрал, выезжаю", qr_soon:"Буду через 15 минут",
   locCard:"Местоположение", openMap:"Открыть на карте", b_loc:"Сейчас проезжаю {city}. До {to} осталось {km} км, буду примерно через {h} ч {m} мин.", b_eta:"Думаю, буду в {to} примерно через {h} ч {m} мин.",
@@ -523,7 +539,7 @@ ru:{
   s_greet:"Здравствуйте, {name}! Обращение №{no} принято. Специалист уже разбирается, ответим в течение 30 минут.",
   s_nd:"Мы связались с водителем {driver}, посылка взята на контроль. Если она не будет доставлена в течение 24 часов, вам вернут {price} с, а аккаунт водителя заблокируют до выяснения.",
   s_gen:"Спасибо за подробности. Мы проверили информацию и держим ситуацию на контроле. Если появятся новости — напишем сюда.", s_pay:"Проверили ваш баланс и операции. Если нужен возврат, напишите сумму и способ — оформим в течение 1 рабочего дня.",
-  s_more:"Спасибо, добавили к обращению. Специалист ответит в ближайшее время.", resolved:"Вопрос решён", closedSys:"Обращение закрыто. Спасибо!", supportAgent:"Поддержка Жолдош", supportDemo:"Демо: ответы поддержки приходят автоматически.",
+  s_more:"Спасибо, добавили к обращению. Специалист ответит в ближайшее время.", resolved:"Вопрос решён", closedSys:"Обращение закрыто. Спасибо!", supportAgent:"Поддержка Жолдош", supportDemo:"Демо: первый ответ автоматический, дальше отвечает оператор (Профиль → Панель оператора).",
   problemBtn:"Проблема с посылкой? Написать в поддержку", disputeBanner:"Обращение №{no}: {status}", reasonLine:"Причина: {r}",
   walletTitle:"Кошелёк", balanceLbl:"Баланс", topUp:"Пополнить", freeLeftLbl:"Бесплатно осталось", freeWord:"Бесплатно", freeChip:"{n} бесплатно",
   limitOver:"Бесплатный лимит закончился", limitOverText:"Вы использовали все {n} бесплатных действий. Чтобы продолжить, пополните баланс.", costLbl:"Стоимость", balanceAfter:"Останется на балансе",
@@ -640,6 +656,13 @@ ky:{
   waitingDriver:"Айдоочу посылканы алаары менен бул жерде анын кайда экени картада көрүнөт.", pickupSoon:"Айдоочу посылканы алганы сизге келе жатат",
   trackDemo:"Демо: машинанын кыймылы симуляция жана тездетилген. Чыныгы колдонмодо айдоочунун телефонундагы GPS колдонулат.",
   iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", sendCtaT:"Посылка жөнөтүү", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
+  opTitle:"Оператор панели", opSub:"Колдоо кызматына келген арыздар", opNew:"Жооп күтүүдө", opNeedReply:"жооп керек", opThisDevice:"ушул телефондон",
+  opDemo:"Демо: бул жерде ушул телефондон жөнөтүлгөн арыздар жана башка колдонуучулардын мисал арыздары көрүнөт. Иштеген версияда панель серверге туташат жана бардык колдонуучулардын арыздары ушул жерге түшөт.",
+  opOpenOrder:"Посылканы ачуу", opRefund:"{n} сом кайтаруу", opBlock:"Айдоочуну бөгөттөө", opClose:"Арызды жабуу", opBlocked:"Бөгөттөлгөн", opReplyPh:"Колдонуучуга жооп…",
+  opRefundQ:"Акча кайтарылсынбы?", opRefundText:"{n} сом {name} колдонуучунун балансына кайтарылат.", opRefundSys:"Оператор баланска {n} сом кайтарды", opRefundMsg:"Балансыңызга {n} сом кайтардык. Ыңгайсыздык үчүн кечирим сурайбыз.", opRefundDone:"Акча кайтарылды",
+  opBlockQ:"Айдоочу бөгөттөлсүнбү?", opBlockText:"Текшерүү бүткөнчө {name} посылка ала албайт жана сапар жарыялай албайт.", opBlockSys:"{name} айдоочу текшерүү убагында бөгөттөлдү",
+  op_t1s:"Учурашуу", op_t1:"Саламатсызбы, {name}! Жазганыңыз үчүн рахмат. Карап жатабыз.", op_t2s:"Айдоочу менен сүйлөштүк", op_t2:"{driver} айдоочу менен байланыштык. Ал посылканы бүгүн саат 20:00гө чейин жеткирерин ырастады.",
+  op_t3s:"Маселе чечилдиби?", op_t3:"Маселе чечилдиби? Чечилсе, «Маселе чечилди» баскычын басыңыз.", op_t4s:"Кошумча маалымат", op_t4:"Жөнөткөн убактыңызды жана алуучунун телефон номерин тактап бериңизчи.", txRefund:"Колдоо кызматынан кайтарым",
   chat:"Чат", chats:"Чаттар", noChats:"Азырынча кат алышуу жок. Сапар брондогондо же айдоочу посылканы алганда чат пайда болот.", msgPh:"Билдирүү…", typing:"жазып жатат…",
   qr_where:"Азыр кайдасыз?", qr_when:"Качан жетесиз?", qr_call:"Алуучуга чалып коюңузчу", qr_thanks:"Рахмат!", qr_seat:"Орун дагы барбы?", qr_meet:"Жолугуу жери кайда?", qr_ok:"Макул, келиштик", qr_picked:"Посылканы алдым, жолго чыктым", qr_soon:"15 мүнөттөн кийин келем",
   locCard:"Жайгашкан жер", openMap:"Картадан көрүү", b_loc:"Азыр {city} жанынан өтүп баратам. {to} чейин {km} км калды, болжол менен {h} саат {m} мүнөттө жетем.", b_eta:"{to} шаарына болжол менен {h} саат {m} мүнөттө жетем.",
@@ -655,7 +678,7 @@ ky:{
   s_greet:"Саламатсызбы, {name}! №{no} кайрылууңуз кабыл алынды. Адис карап жатат, 30 мүнөттүн ичинде жооп беребиз.",
   s_nd:"{driver} айдоочу менен байланыштык, посылка көзөмөлгө алынды. Эгер 24 сааттын ичинде жеткирилбесе, сизге {price} сом кайтарылат жана айдоочунун аккаунту маселе чечилгенче бөгөттөлөт.",
   s_gen:"Маалымат үчүн рахмат. Текшердик, кырдаал көзөмөлдө. Жаңылык болсо, ушул жерге жазабыз.", s_pay:"Балансыңызды жана операцияларды текшердик. Акча кайтаруу керек болсо, сумманы жана ыкманы жазыңыз — 1 иш күнүнүн ичинде кайтарабыз.",
-  s_more:"Рахмат, кайрылууга кошулду. Адис жакын арада жооп берет.", resolved:"Маселе чечилди", closedSys:"Кайрылуу жабылды. Рахмат!", supportAgent:"Жолдош колдоо кызматы", supportDemo:"Демо: колдоо кызматынын жооптору автоматтык түрдө келет.",
+  s_more:"Рахмат, кайрылууга кошулду. Адис жакын арада жооп берет.", resolved:"Маселе чечилди", closedSys:"Кайрылуу жабылды. Рахмат!", supportAgent:"Жолдош колдоо кызматы", supportDemo:"Демо: биринчи жооп автоматтык, андан аркысын оператор жазат (Профиль → Оператор панели).",
   problemBtn:"Посылка боюнча көйгөй барбы? Колдоого жазуу", disputeBanner:"№{no} кайрылуу: {status}", reasonLine:"Себеби: {r}",
   walletTitle:"Капчык", balanceLbl:"Баланс", topUp:"Толтуруу", freeLeftLbl:"Акысыз калды", freeWord:"Акысыз", freeChip:"{n} акысыз",
   limitOver:"Акысыз лимит бүттү", limitOverText:"Бардык {n} акысыз аракетти колдондуңуз. Улантуу үчүн балансты толтуруңуз.", costLbl:"Баасы", balanceAfter:"Баланста калат",
@@ -1099,7 +1122,7 @@ screens.home = () => {
   topbar(t("homeTitle"),{right:langSwitch()}); bindLang($("#topbar"));
   const typeOk = x => f.type==="all" ? (seatsLeft(x)>0||x.parcel) : f.type==="ride" ? seatsLeft(x)>0 : x.parcel;
   const okDate = d => f.date==="all"||d===f.date;
-  const pool = S.trips.filter(x=>!isPast(x) && typeOk(x) && okDate(x.date) && (!f.from||x.from===f.from));
+  const pool = S.trips.filter(x=>!isPast(x) && !user(x.driverId)?.blocked && typeOk(x) && okDate(x.date) && (!f.from||x.from===f.from));
   const opool = f.type==="ride" ? [] : (S.orders||[]).filter(o=>o.status==="open" && o.date>=TODAY() && okDate(o.date) && (!f.from||o.from===f.from));
   const counts = {}; [...pool,...opool].forEach(x=>counts[x.to]=(counts[x.to]||0)+1);
   let cities = ["Ош","Бишкек","Жалал-Абад","Каракол","Чолпон-Ата","Нарын","Талас","Балыкчы","Токмок","Баткен"].filter(c=>c!==f.from);
@@ -1442,8 +1465,8 @@ function botReplies(th, text){
 }
 function supportReply(th, text){
   const o=th.orderId?(S.orders||[]).find(x=>x.id===th.orderId):null;
-  if(th.status!=="closed") th.status="answered";
-  return [[t("s_more")]];
+  if(th.status!=="closed") th.status="open";   // waits for an operator in the panel
+  return [];
 }
 function scheduleReplies(th, replies, delay=1300){
   if(!replies.length) return;
@@ -1505,7 +1528,7 @@ screens.chat = ({id}) => {
 
 screens.chats = () => {
   topbar(t("chats"),{canBack:true});
-  const list=Object.values(threads()).filter(x=>x.msgs.length||x.kind!=="support").sort((a,b)=>b.lastAt-a.lastAt);
+  const list=Object.values(threads()).filter(x=>x.kind!=="support"||x.mine!==false).sort((a,b)=>b.lastAt-a.lastAt);
   $("#screen").innerHTML = list.length ? `<div class="list">${list.map(th=>{ const last=th.msgs[th.msgs.length-1];
     return `<button class="li" data-th="${esc(th.id)}">${th.kind==="support"?`<span class="sup-av sm">${I.headset}</span>`:avatar({name:th.peer},"sm")}<span class="grow" style="min-width:0"><b style="font-weight:600">${esc(th.kind==="support"?t("ticketNo",{no:th.no}):th.peer)}</b><span class="small muted" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${last?esc(last.text):esc(th.sub||"")}</span></span>${th.unread?`<b class="unread-dot">${th.unread}</b>`:last?`<span class="small muted">${hhmm(last.at)}</span>`:""}</button>`; }).join("")}</div>`
     : `<div class="card empty">${I.chat}<p>${t("noChats")}</p></div>`;
@@ -1514,7 +1537,7 @@ screens.chats = () => {
 
 screens.support = () => {
   topbar(t("support"),{canBack:true});
-  const tickets=Object.values(threads()).filter(x=>x.kind==="support").sort((a,b)=>b.lastAt-a.lastAt);
+  const tickets=Object.values(threads()).filter(x=>x.kind==="support"&&x.mine!==false).sort((a,b)=>b.lastAt-a.lastAt);
   $("#screen").innerHTML = `
   <div class="sup-hero"><span class="sup-av lg">${I.headset}</span><div><b>${t("supportHead")}</b><p>${t("supportText")}</p></div></div>
   <button class="btn" id="newTk">${t("newTicket")}</button>
@@ -1548,7 +1571,7 @@ screens.ticketNew = ({orderId}={}) => {
     if(tkDraft.text.trim().length<5){ toast(t("errDescribe")); return; }
     const no=1000+Object.values(threads()).filter(x=>x.kind==="support").length+Math.floor(Math.random()*90)+11;
     const o=tkDraft.orderId?(S.orders||[]).find(x=>x.id===tkDraft.orderId):null;
-    const th=getThread("support",String(no),t("supportAgent"),{no,reason:tkDraft.reason,orderId:o?.id||"",status:"open"});
+    const th=getThread("support",String(no),t("supportAgent"),{no,reason:tkDraft.reason,orderId:o?.id||"",status:"open",mine:true,user:{name:S.me.name,phone:S.me.phone}});
     th.msgs.push({id:uid(),from:"sys",text:t("ticketCreated",{no}),at:Date.now()});
     th.msgs.push({id:uid(),from:"me",text:(o?`[${loc(o.what)} · ${o.from} → ${o.to}] `:"")+tkDraft.text.trim(),at:Date.now()});
     if(o && (tkDraft.reason==="notdelivered"||tkDraft.reason==="noanswer"||tkDraft.reason==="damaged")) o.dispute=no;
@@ -1560,8 +1583,91 @@ screens.ticketNew = ({orderId}={}) => {
     Object.assign(tkDraft,{text:"",orderId:"",_for:null,reason:"notdelivered"});
     celebrate(t("ticketCreated",{no}));
     stack.pop(); go("chat",{id:th.id});
-    setTimeout(()=>{ th.status="answered"; scheduleReplies(th,replies,1500); },400);
+    setTimeout(()=>scheduleReplies(th,replies,1500),400);
   };
+};
+
+
+// ---------- operator panel (support inbox) ----------
+// Demo: tickets from this device plus sample tickets from other users. In production this screen
+// is a separate admin panel connected to the server, where every user's ticket arrives.
+function seedTickets(){
+  if(S.opSeeded) return; S.opSeeded=true;
+  const T=threads(), now=Date.now();
+  const mk=(no,user,reason,orderInfo,driver,msgs,status,ago)=>{ T["support:"+no]={id:"support:"+no,kind:"support",ref:String(no),no,peer:"",user,mine:false,reason,orderInfo,driver,status,unread:0,createdAt:now-ago,lastAt:now-ago+60000,
+    msgs:msgs.map((m,i)=>({id:uid(),from:m[0],text:m[1],at:now-ago+i*60000,type:"text"}))}; };
+  mk(1041,{name:"Гүлзат",phone:"+996 555 31 22 10"},"notdelivered","Кийим салынган сумка · Бишкек → Ош · 500 с",{name:"Ахмед",phone:"+996 700 98 76 54"},
+    [["sys","№1041"],["me","Посылканы кечээ бердим, бүгүн жетет деген. Азыр телефонду албай жатат, алуучу күтүп жатат."]],"open",2*3600e3);
+  mk(1037,{name:"Марат",phone:"+996 700 44 12 98"},"payment","",null,
+    [["sys","№1037"],["me","Балансты О!Деньги менен 500 сомго толтурдум, бирок 200 сом гана түштү."]],"open",5*3600e3);
+  mk(1029,{name:"Бермет",phone:"+996 777 90 11 23"},"other","",null,
+    [["sys","№1029"],["me","Айдоочу абдан жакшы болду, тортту бүтүн жеткирди. Рахмат!"],["peer","Рахмат пикириңиз үчүн! Айдоочуга жеткиребиз."]],"closed",26*3600e3);
+}
+const opNeedsReply = th => th.status==="open";
+const opFilter = {st:"all"};
+screens.opPanel = () => {
+  seedTickets();
+  topbar(t("opTitle"),{canBack:true});
+  const all=Object.values(threads()).filter(x=>x.kind==="support").sort((a,b)=>b.lastAt-a.lastAt);
+  const cnt = k => all.filter(x=>k==="new"?opNeedsReply(x):k==="all"?true:x.status===k).length;
+  const list = all.filter(x=>opFilter.st==="all"||(opFilter.st==="new"?opNeedsReply(x):x.status===opFilter.st));
+  $("#screen").innerHTML = `
+  <div class="op-stats">${[["new","opNew"],["answered","tk_answered"],["closed","tk_closed"]].map(([k,l])=>`<div><b>${cnt(k)}</b><span>${t(l)}</span></div>`).join("")}</div>
+  <div class="chips scroll">${[["all","fAll"],["new","opNew"],["answered","tk_answered"],["closed","tk_closed"]].map(([k,l])=>`<button class="chip ${opFilter.st===k?"on":""}" data-st="${k}">${t(l)}<span class="cnt">${cnt(k)}</span></button>`).join("")}</div>
+  ${list.length?`<div class="list">${list.map(th=>{ const last=th.msgs.filter(m=>m.from!=="sys").pop(); const u=th.user||{name:"?"};
+    return `<button class="li" data-op="${esc(th.id)}" style="align-items:flex-start">${avatar(u,"sm")}<span class="grow" style="min-width:0"><span class="row between" style="gap:8px"><b style="font-weight:600">${esc(u.name)} · №${th.no}</b><span class="small muted" style="flex:none">${hhmm(th.lastAt)}</span></span>
+      <span class="small" style="display:block">${t("r_"+th.reason)}</span>
+      <span class="small muted" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${last?esc(last.text):""}</span>
+      <span class="row" style="gap:6px;margin-top:4px">${opNeedsReply(th)?`<span class="pill red">${t("opNeedReply")}</span>`:`<span class="pill ${th.status==="closed"?"grey":""}">${t("tk_"+th.status)}</span>`}${th.mine?`<span class="pill grey">${t("opThisDevice")}</span>`:""}</span></span></button>`; }).join("")}</div>`
+  : `<div class="card empty">${I.headset}<p>${t("noTickets")}</p></div>`}
+  <p class="tag-demo" style="text-align:left">${t("opDemo")}</p>`;
+  document.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{ opFilter.st=b.dataset.st; render(); });
+  document.querySelectorAll("[data-op]").forEach(b=>b.onclick=()=>go("opTicket",{id:b.dataset.op}));
+};
+function opMsgsHtml(th){
+  return th.msgs.map(m=> m.from==="sys" ? `<div class="msg sys">${esc(m.text)}</div>`
+    : `<div class="msg ${m.from==="me"?"peer":"me"}">${m.from==="me"?`<b class="who">${esc(th.user?.name||"")}</b>`:""}<p>${esc(m.text)}</p><time>${hhmm(m.at)}</time></div>`).join("");
+}
+screens.opTicket = ({id}) => {
+  const th=threads()[id]; if(!th){ back(); return; }
+  topbar(t("ticketNo",{no:th.no}),{sub:t("tk_"+th.status),canBack:true});
+  $(".tabs").hidden=true; document.body.classList.add("in-chat");
+  const u=th.user||{name:"?",phone:""};
+  const o=th.orderId?(S.orders||[]).find(x=>x.id===th.orderId):null;
+  const drv = o && o.driverId ? (o.driverId==="me"?S.me:user(o.driverId)) : th.driver ? th.driver : null;
+  const drvObj = o && o.driverId && o.driverId!=="me" ? user(o.driverId) : null;
+  const orderLine = o ? `${loc(o.what)} · ${o.from} → ${o.to} · ${o.price} с · ${t("ost_"+o.status)}` : th.orderInfo;
+  $("#screen").innerHTML = `
+  <div class="card stack" style="gap:8px">
+    <div class="row">${avatar(u,"sm")}<div style="flex:1;min-width:0"><b>${esc(u.name)}</b><div class="small" style="user-select:all">${esc(u.phone)}</div></div><span class="pill ${th.status==="closed"?"grey":""}">${t("tk_"+th.status)}</span></div>
+    <div class="small"><span class="muted">${t("reasonLine",{r:""})}</span><b>${t("r_"+th.reason)}</b></div>
+    ${orderLine?`<div class="small"><span class="muted">${t("orderLbl")}:</span> ${esc(orderLine)}</div>`:""}
+    ${drv?`<div class="small"><span class="muted">${t("driver")}:</span> <b>${esc(drv.name)}</b> <span style="user-select:all">${esc(drv.phone||"")}</span>${drvObj?.blocked?` <span class="pill red">${t("opBlocked")}</span>`:""}</div>`:""}
+    <div class="op-actions">
+      ${o?`<button class="chip" id="opOrder">${I.box.replace("<svg",'<svg width="14" height="14"')} ${t("opOpenOrder")}</button>`:""}
+      ${o && o.userId==="me" && !o.refunded ? `<button class="chip" id="opRefund">${t("opRefund",{n:o.price})}</button>`:""}
+      ${drvObj && !drvObj.blocked ? `<button class="chip" id="opBlock">${t("opBlock")}</button>`:""}
+      ${th.status!=="closed"?`<button class="chip" id="opClose">${t("opClose")}</button>`:""}
+    </div>
+  </div>
+  <div class="msgs" id="opmsgs">${opMsgsHtml(th)}</div>
+  <form class="composer" id="opComp"><div class="in">
+    ${th.status!=="closed"?`<div class="chips scroll qr">${["op_t1","op_t2","op_t3","op_t4"].map(k=>`<button type="button" class="chip" data-tpl="${k}">${t(k+"s")}</button>`).join("")}</div>`:""}
+    <div class="row" style="gap:8px"><div class="field" style="flex:1;min-height:46px"><input id="opIn" autocomplete="off" maxlength="800" placeholder="${t("opReplyPh")}" aria-label="${t("opReplyPh")}" ${th.status==="closed"?"disabled":""}></div>
+    <button class="sendbtn" type="submit" aria-label="${t("send")}" ${th.status==="closed"?"disabled":""}>${I.sendArrow}</button></div>
+  </div></form>`;
+  setTimeout(()=>window.scrollTo(0,document.body.scrollHeight),0);
+  const sys = text => { th.msgs.push({id:uid(),from:"sys",text,at:Date.now()}); th.lastAt=Date.now(); };
+  const reply = text => { text=text.trim(); if(!text) return; th.status="answered"; pushMsg(th,"peer",text); render(); };
+  $("#opComp").onsubmit=e=>{ e.preventDefault(); reply($("#opIn").value); };
+  document.querySelectorAll("[data-tpl]").forEach(b=>b.onclick=()=>{ const i=$("#opIn"); i.value=t(b.dataset.tpl,{name:u.name,driver:drv?.name||""}); i.focus(); });
+  const B=x=>document.getElementById(x);
+  if(B("opOrder")) B("opOrder").onclick=()=>go("order",{id:o.id});
+  if(B("opRefund")) B("opRefund").onclick=()=>confirmSheet(t("opRefundQ"),t("opRefundText",{n:o.price,name:u.name}),t("opRefund",{n:o.price}),()=>{
+    const w=wallet(); w.balance+=o.price; w.tx.unshift({id:uid(),type:"refund",amount:o.price,at:Date.now()}); o.refunded=true;
+    sys(t("opRefundSys",{n:o.price})); pushMsg(th,"peer",t("opRefundMsg",{n:o.price})); th.status="answered"; celebrate(t("opRefundDone")); render(); },false);
+  if(B("opBlock")) B("opBlock").onclick=()=>confirmSheet(t("opBlockQ"),t("opBlockText",{name:drvObj.name}),t("opBlock"),()=>{ drvObj.blocked=true; sys(t("opBlockSys",{name:drvObj.name})); save(); toast(t("opBlocked")); render(); });
+  if(B("opClose")) B("opClose").onclick=()=>{ th.status="closed"; sys(t("closedSys")); save(); render(); };
 };
 
 // ---------- free limit + wallet ----------
@@ -1631,7 +1737,7 @@ screens.wallet = ({need}={}) => {
   </div>
   <p class="small muted" style="margin:-6px 4px 0">${t("pricesNote",{n:FREE_LIMIT})}</p>
   <div class="section-title">${t("historyTitle")}</div>
-  ${w.tx.length?`<div class="list">${w.tx.slice(0,30).map(x=>`<div class="li"><span class="grow">${x.type==="topup"?t("txTopup",{m:esc(x.method)}):kindName(x.kind)}<div class="small muted">${new Date(x.at).toLocaleString(S.lang==="ky"?"ky-KG":"ru-RU",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</div></span><b style="color:${x.amount>0?"var(--ok)":x.amount<0?"var(--fg)":"var(--muted)"}">${x.amount>0?"+":""}${x.amount?x.amount+" с":t("freeWord")}</b></div>`).join("")}</div>`:`<div class="card muted small" style="text-align:center">${t("noHistory")}</div>`}`;
+  ${w.tx.length?`<div class="list">${w.tx.slice(0,30).map(x=>`<div class="li"><span class="grow">${x.type==="topup"?t("txTopup",{m:esc(x.method)}):x.type==="refund"?t("txRefund"):kindName(x.kind)}<div class="small muted">${new Date(x.at).toLocaleString(S.lang==="ky"?"ky-KG":"ru-RU",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</div></span><b style="color:${x.amount>0?"var(--ok)":x.amount<0?"var(--fg)":"var(--muted)"}">${x.amount>0?"+":""}${x.amount?x.amount+" с":t("freeWord")}</b></div>`).join("")}</div>`:`<div class="card muted small" style="text-align:center">${t("noHistory")}</div>`}`;
   const keep=()=>{ st.amount=$("#amt").value; };
   document.querySelectorAll("[data-amt]").forEach(b=>b.onclick=()=>{ st.amount=b.dataset.amt; render(); });
   document.querySelectorAll("[data-pm]").forEach(b=>b.onclick=()=>{ keep(); st.method=b.dataset.pm; render(); });
@@ -1985,6 +2091,7 @@ screens.profile = () => {
   <div class="list">
     <button class="li" data-info="feedback">${I.edit}<span class="grow">${t("feedback")}</span>${I.chev}</button>
     <button class="li" id="pSupport">${I.headset.replace("<svg",'<svg class="ic"')}<span class="grow">${t("support")}</span>${I.chev}</button>
+    <button class="li" id="pOp">${I.headset.replace("<svg",'<svg class="ic"')}<span class="grow">${t("opTitle")}<span class="small muted" style="display:block">${t("opSub")}</span></span>${(()=>{ seedTickets(); const n=Object.values(threads()).filter(x=>x.kind==="support"&&opNeedsReply(x)).length; return n?`<b class="unread-dot">${n}</b>`:""; })()}${I.chev}</button>
     <button class="li" id="pChats">${I.chat.replace("<svg",'<svg class="ic"')}<span class="grow">${t("chats")}</span>${Object.values(threads()).reduce((a,x)=>a+(x.unread||0),0)?`<b class="unread-dot">${Object.values(threads()).reduce((a,x)=>a+(x.unread||0),0)}</b>`:""}${I.chev}</button>
     <button class="li" data-info="contacts">${I.contact}<span class="grow">${t("contacts")}</span>${I.chev}</button>
     <button class="li" id="rate">${I.starO}<span class="grow">${t("rateApp")}</span>${I.chev}</button>
@@ -1996,6 +2103,7 @@ screens.profile = () => {
   $("#walletCard").onclick=()=>go("wallet");
   $("#pSupport").onclick=()=>go("support");
   $("#pChats").onclick=()=>go("chats");
+  $("#pOp").onclick=()=>go("opPanel");
   $("#drvSt").onclick=()=>{ if(st==="none") go("driverReg"); else if(st==="pending") toast(t("pendingTitle")); };
   document.querySelectorAll("[data-info]").forEach(b=>b.onclick=()=>go("info",{k:b.dataset.info}));
   $("#rate").onclick=()=>{ let v=5; sheet(`<h3>${t("likeApp")}</h3><div class="stargrab" id="sg">${[1,2,3,4,5].map(i=>`<button data-v="${i}" aria-label="${i}">${I.star}</button>`).join("")}</div><button class="btn" id="ok">${t("rate")}</button>`,el=>{
