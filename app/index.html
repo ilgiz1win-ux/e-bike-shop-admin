@@ -433,6 +433,10 @@ body.in-chat main{padding-bottom:170px;gap:10px}
 .op-actions{display:flex;gap:6px;flex-wrap:wrap}
 .op-actions .chip{font-size:13px;padding:7px 12px;display:inline-flex;align-items:center;gap:5px}
 .msg .who{display:block;font-size:11.5px;color:var(--accent-ink);margin-bottom:2px}
+
+.eye{width:36px;height:36px;display:grid;place-items:center;color:var(--muted);flex:none;border-radius:10px;margin-right:-6px}
+.eye svg{width:20px;height:20px;color:inherit!important}
+.eye.on{color:var(--accent-ink)}
 </style>
 
 <div class="app">
@@ -460,6 +464,7 @@ const I = {
   plusBig:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
   headset:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="2"/><rect x="17" y="13" width="4" height="6" rx="2"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg>',
   sendArrow:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12 2-12 2Z"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',
   home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>',
   road:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 21 10 3M17 21 14 3M12 6v2M12 11v2M12 16v2"/></svg>',
   box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 3 7.5v9L12 21l9-4.5v-9Z"/><path d="M3 7.5 12 12l9-4.5M12 12v9M7.5 5.2l9 4.5"/></svg>',
@@ -517,6 +522,13 @@ ru:{
   waitingDriver:"Как только водитель возьмёт посылку, здесь появится карта с его местоположением.", pickupSoon:"Водитель едет к вам забрать посылку",
   trackDemo:"Демо: движение машины смоделировано и ускорено. В реальном приложении используется GPS телефона водителя.",
   iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", sendCtaT:"Отправить посылку", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
+  opShowPw:"Показать пароль", opSetupTitle:"Создайте аккаунт администратора", opSetupText:"Панель оператора открывается только по логину и паролю. Этот аккаунт сможет добавлять других операторов.",
+  opName:"Имя", opLogin:"Логин", opPassword:"Пароль", opPassword2:"Повторите пароль", opPwRules:"Пароль: не меньше 8 символов, буквы и цифры.", opLoginRules:"Логин: 3–20 символов, латинские буквы, цифры, точка или _.",
+  opPwMismatch:"Пароли не совпадают", opCreate:"Создать и войти", opCreated:"Аккаунт создан", opLoginTitle:"Вход для операторов", opLoginText:"Введите логин и пароль, чтобы увидеть обращения.",
+  opSignIn:"Войти", opWrong:"Неверный логин или пароль. Осталось попыток: {n}", opLocked:"Слишком много попыток. Попробуйте через {s} с", opWelcome:"Здравствуйте, {name}!", opLoggedOut:"Вы вышли из панели",
+  opForgot:"Забыли пароль? Попросите администратора создать новый аккаунт.", opAuthDemo:"Демо: логины и пароли (в виде хеша) хранятся на этом телефоне. В рабочей версии вход проверяет сервер.",
+  opTeam:"Операторы", opLogout:"Выйти", opChangePw:"Сменить пароль", opOldPw:"Текущий пароль", opNewPw:"Новый пароль", opOldWrong:"Текущий пароль неверный", opPwChanged:"Пароль изменён",
+  opTeamList:"Все операторы", opAdd:"Добавить оператора", opAddBtn:"Добавить", opLoginTaken:"Такой логин уже есть", opAdded:"Оператор @{login} добавлен", opDelQ:"Удалить оператора?", opRole_admin:"Администратор", opRole_operator:"Оператор",
   opTitle:"Панель оператора", opSub:"Обращения в поддержку", opNew:"Ждут ответа", opNeedReply:"нужен ответ", opThisDevice:"с этого телефона",
   opDemo:"Демо: здесь видны обращения с этого телефона и примеры от других пользователей. В рабочей версии панель подключается к серверу, и сюда приходят обращения всех пользователей.",
   opOpenOrder:"Открыть посылку", opRefund:"Вернуть {n} с", opBlock:"Заблокировать водителя", opClose:"Закрыть обращение", opBlocked:"Заблокирован", opReplyPh:"Ответ пользователю…",
@@ -656,6 +668,13 @@ ky:{
   waitingDriver:"Айдоочу посылканы алаары менен бул жерде анын кайда экени картада көрүнөт.", pickupSoon:"Айдоочу посылканы алганы сизге келе жатат",
   trackDemo:"Демо: машинанын кыймылы симуляция жана тездетилген. Чыныгы колдонмодо айдоочунун телефонундагы GPS колдонулат.",
   iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", sendCtaT:"Посылка жөнөтүү", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
+  opShowPw:"Сырсөздү көрсөтүү", opSetupTitle:"Администратордун аккаунтун түзүңүз", opSetupText:"Оператор панели логин жана сырсөз менен гана ачылат. Бул аккаунт башка операторлорду кошо алат.",
+  opName:"Аты", opLogin:"Логин", opPassword:"Сырсөз", opPassword2:"Сырсөздү кайталаңыз", opPwRules:"Сырсөз: кеминде 8 белги, тамга жана сан болушу керек.", opLoginRules:"Логин: 3–20 белги, латын тамгалары, сандар, чекит же _.",
+  opPwMismatch:"Сырсөздөр дал келбейт", opCreate:"Түзүү жана кирүү", opCreated:"Аккаунт түзүлдү", opLoginTitle:"Операторлор үчүн кирүү", opLoginText:"Арыздарды көрүү үчүн логин жана сырсөздү жазыңыз.",
+  opSignIn:"Кирүү", opWrong:"Логин же сырсөз туура эмес. Калган аракет: {n}", opLocked:"Өтө көп аракет. {s} секунддан кийин кайталаңыз", opWelcome:"Саламатсызбы, {name}!", opLoggedOut:"Панелден чыктыңыз",
+  opForgot:"Сырсөздү унутуп калдыңызбы? Администратордон жаңы аккаунт түзүп берүүнү сураңыз.", opAuthDemo:"Демо: логиндер жана сырсөздөр (хеш түрүндө) ушул телефондо сакталат. Иштеген версияда кирүүнү сервер текшерет.",
+  opTeam:"Операторлор", opLogout:"Чыгуу", opChangePw:"Сырсөздү алмаштыруу", opOldPw:"Азыркы сырсөз", opNewPw:"Жаңы сырсөз", opOldWrong:"Азыркы сырсөз туура эмес", opPwChanged:"Сырсөз алмаштырылды",
+  opTeamList:"Бардык операторлор", opAdd:"Оператор кошуу", opAddBtn:"Кошуу", opLoginTaken:"Мындай логин бар", opAdded:"@{login} оператору кошулду", opDelQ:"Оператор өчүрүлсүнбү?", opRole_admin:"Администратор", opRole_operator:"Оператор",
   opTitle:"Оператор панели", opSub:"Колдоо кызматына келген арыздар", opNew:"Жооп күтүүдө", opNeedReply:"жооп керек", opThisDevice:"ушул телефондон",
   opDemo:"Демо: бул жерде ушул телефондон жөнөтүлгөн арыздар жана башка колдонуучулардын мисал арыздары көрүнөт. Иштеген версияда панель серверге туташат жана бардык колдонуучулардын арыздары ушул жерге түшөт.",
   opOpenOrder:"Посылканы ачуу", opRefund:"{n} сом кайтаруу", opBlock:"Айдоочуну бөгөттөө", opClose:"Арызды жабуу", opBlocked:"Бөгөттөлгөн", opReplyPh:"Колдонуучуга жооп…",
@@ -1606,8 +1625,10 @@ function seedTickets(){
 const opNeedsReply = th => th.status==="open";
 const opFilter = {st:"all"};
 screens.opPanel = () => {
+  if(!opGuard()) return;
   seedTickets();
-  topbar(t("opTitle"),{canBack:true});
+  const opm=opMe();
+  topbar(t("opTitle"),{sub:"@"+opm.login,canBack:true,right:`<button class="icon-btn" id="opTeamBtn" aria-label="${t("opTeam")}">${I.user.replace("<svg",'<svg width="22" height="22"')}</button>`});
   const all=Object.values(threads()).filter(x=>x.kind==="support").sort((a,b)=>b.lastAt-a.lastAt);
   const cnt = k => all.filter(x=>k==="new"?opNeedsReply(x):k==="all"?true:x.status===k).length;
   const list = all.filter(x=>opFilter.st==="all"||(opFilter.st==="new"?opNeedsReply(x):x.status===opFilter.st));
@@ -1622,6 +1643,7 @@ screens.opPanel = () => {
   : `<div class="card empty">${I.headset}<p>${t("noTickets")}</p></div>`}
   <p class="tag-demo" style="text-align:left">${t("opDemo")}</p>`;
   document.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{ opFilter.st=b.dataset.st; render(); });
+  $("#opTeamBtn").onclick=()=>go("opTeam");
   document.querySelectorAll("[data-op]").forEach(b=>b.onclick=()=>go("opTicket",{id:b.dataset.op}));
 };
 function opMsgsHtml(th){
@@ -1629,6 +1651,7 @@ function opMsgsHtml(th){
     : `<div class="msg ${m.from==="me"?"peer":"me"}">${m.from==="me"?`<b class="who">${esc(th.user?.name||"")}</b>`:""}<p>${esc(m.text)}</p><time>${hhmm(m.at)}</time></div>`).join("");
 }
 screens.opTicket = ({id}) => {
+  if(!opGuard()) return;
   const th=threads()[id]; if(!th){ back(); return; }
   topbar(t("ticketNo",{no:th.no}),{sub:t("tk_"+th.status),canBack:true});
   $(".tabs").hidden=true; document.body.classList.add("in-chat");
@@ -1668,6 +1691,132 @@ screens.opTicket = ({id}) => {
     sys(t("opRefundSys",{n:o.price})); pushMsg(th,"peer",t("opRefundMsg",{n:o.price})); th.status="answered"; celebrate(t("opRefundDone")); render(); },false);
   if(B("opBlock")) B("opBlock").onclick=()=>confirmSheet(t("opBlockQ"),t("opBlockText",{name:drvObj.name}),t("opBlock"),()=>{ drvObj.blocked=true; sys(t("opBlockSys",{name:drvObj.name})); save(); toast(t("opBlocked")); render(); });
   if(B("opClose")) B("opClose").onclick=()=>{ th.status="closed"; sys(t("closedSys")); save(); render(); };
+};
+
+
+// ---------- operator login ----------
+// Demo: accounts and password hashes are kept on this device. Real protection needs server-side auth.
+const OP_SESSION_MS = 30*60*1000, OP_MAX_FAILS = 5, OP_LOCK_MS = 60*1000;
+function opStore(){ return S.op = S.op || {accounts:[], session:null, fails:0, lockUntil:0}; }
+async function hashPw(pw, salt){
+  const data=new TextEncoder().encode(salt+":"+pw);
+  try{ const buf=await crypto.subtle.digest("SHA-256",data); return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join(""); }
+  catch(e){ let h=5381; for(const b of data) h=((h<<5)+h+b)>>>0; return "x"+h.toString(16); }
+}
+const pwOk = pw => pw.length>=8 && /[A-Za-zА-Яа-яЁёӨөҮүҢң]/.test(pw) && /\d/.test(pw);
+const loginOk = l => /^[a-z0-9_.]{3,20}$/.test(l);
+function opMe(){ const o=opStore(); if(!o.session||o.session.until<Date.now()) return null; return o.accounts.find(a=>a.login===o.session.login)||null; }
+function opTouch(){ const o=opStore(); if(o.session) o.session.until=Date.now()+OP_SESSION_MS; }
+function opGuard(){ if(!opStore().accounts.length){ screens.opSetup(); return false; } if(!opMe()){ screens.opLogin(); return false; } opTouch(); return true; }
+const pwField = (id,ph,auto) => `<div class="field">${I.lock.replace('class="ic"','')}<input id="${id}" type="password" placeholder="${ph}" aria-label="${ph}" autocomplete="${auto}" maxlength="64"><button type="button" class="eye" data-eye="${id}" aria-label="${t("opShowPw")}">${I.eye}</button></div>`;
+function bindEyes(){ document.querySelectorAll("[data-eye]").forEach(b=>b.onclick=()=>{ const i=document.getElementById(b.dataset.eye); i.type=i.type==="password"?"text":"password"; b.classList.toggle("on",i.type==="text"); }); }
+function showErr(msg){ const e=$("#opErr"); e.textContent=msg; e.hidden=false; const f=e.closest("form"); f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake"); }
+
+screens.opSetup = () => {
+  topbar(t("opTitle"),{canBack:true});
+  $("#screen").innerHTML = `
+  <div class="sup-hero"><span class="sup-av lg">${I.lock.replace('class="ic"','')}</span><div><b>${t("opSetupTitle")}</b><p>${t("opSetupText")}</p></div></div>
+  <form class="card stack" id="opSet" novalidate>
+    <label class="lbl" for="osName">${t("opName")}</label>
+    <div class="field">${I.user}<input id="osName" maxlength="30" value="${esc(S.me?.name||"")}" autocomplete="name"></div>
+    <label class="lbl" for="osLogin">${t("opLogin")}</label>
+    <div class="field">${I.idcard.replace('class="ic"','')}<input id="osLogin" maxlength="20" placeholder="admin" autocomplete="username" autocapitalize="none" spellcheck="false"></div>
+    <label class="lbl" for="osPw">${t("opPassword")}</label>
+    ${pwField("osPw",t("opPassword"),"new-password")}
+    ${pwField("osPw2",t("opPassword2"),"new-password")}
+    <p class="small muted" style="margin:0">${t("opPwRules")}</p>
+    <p class="small" id="opErr" style="margin:0;color:var(--danger)" hidden></p>
+    <button class="btn" type="submit">${t("opCreate")}</button>
+  </form>
+  <p class="tag-demo" style="text-align:left">${t("opAuthDemo")}</p>`;
+  bindEyes();
+  $("#opSet").onsubmit=async e=>{ e.preventDefault();
+    const name=$("#osName").value.trim(), login=$("#osLogin").value.trim().toLowerCase(), pw=$("#osPw").value, pw2=$("#osPw2").value;
+    if(name.length<2) return showErr(t("enterName"));
+    if(!loginOk(login)) return showErr(t("opLoginRules"));
+    if(!pwOk(pw)) return showErr(t("opPwRules"));
+    if(pw!==pw2) return showErr(t("opPwMismatch"));
+    const salt=uid()+uid(), o=opStore();
+    o.accounts.push({login,name,role:"admin",salt,hash:await hashPw(pw,salt),createdAt:Date.now()});
+    o.session={login,until:Date.now()+OP_SESSION_MS};
+    celebrate(t("opCreated")); render();
+  };
+};
+
+screens.opLogin = () => {
+  topbar(t("opTitle"),{canBack:true});
+  const o=opStore(), locked=o.lockUntil>Date.now();
+  $("#screen").innerHTML = `
+  <div class="sup-hero"><span class="sup-av lg">${I.lock.replace('class="ic"','')}</span><div><b>${t("opLoginTitle")}</b><p>${t("opLoginText")}</p></div></div>
+  <form class="card stack" id="opIn" novalidate>
+    <label class="lbl" for="olLogin">${t("opLogin")}</label>
+    <div class="field">${I.idcard.replace('class="ic"','')}<input id="olLogin" maxlength="20" autocomplete="username" autocapitalize="none" spellcheck="false" ${locked?"disabled":""}></div>
+    <label class="lbl" for="olPw">${t("opPassword")}</label>
+    ${pwField("olPw",t("opPassword"),"current-password")}
+    <p class="small" id="opErr" style="margin:0;color:var(--danger)" ${locked?"":"hidden"}>${locked?t("opLocked",{s:Math.ceil((o.lockUntil-Date.now())/1000)}):""}</p>
+    <button class="btn" type="submit" ${locked?"disabled":""}>${t("opSignIn")}</button>
+  </form>
+  <p class="tag-demo" style="text-align:left">${t("opForgot")}</p>`;
+  bindEyes();
+  if(locked){ const tm=setInterval(()=>{ const e=$("#opErr"); if(!e||!document.getElementById("opIn")){ clearInterval(tm); return; } const s=Math.ceil((o.lockUntil-Date.now())/1000); if(s<=0){ clearInterval(tm); render(); } else e.textContent=t("opLocked",{s}); },1000); }
+  else setTimeout(()=>$("#olLogin")?.focus(),80);
+  $("#opIn").onsubmit=async e=>{ e.preventDefault();
+    if(o.lockUntil>Date.now()) return;
+    const login=$("#olLogin").value.trim().toLowerCase(), pw=$("#olPw").value;
+    const acc=o.accounts.find(a=>a.login===login);
+    if(acc && await hashPw(pw,acc.salt)===acc.hash){ o.fails=0; o.session={login,until:Date.now()+OP_SESSION_MS}; save(); toast(t("opWelcome",{name:acc.name})); render(); return; }
+    o.fails=(o.fails||0)+1;
+    if(o.fails>=OP_MAX_FAILS){ o.fails=0; o.lockUntil=Date.now()+OP_LOCK_MS; save(); render(); return; }
+    save(); $("#olPw").value=""; showErr(t("opWrong",{n:OP_MAX_FAILS-o.fails}));
+  };
+};
+
+function opLogout(){ opStore().session=null; save(); toast(t("opLoggedOut")); stack=stack.filter(x=>!x.name.startsWith("op")); render(); }
+
+screens.opTeam = () => {
+  if(!opGuard()) return;
+  const me=opMe(), o=opStore();
+  topbar(t("opTeam"),{canBack:true});
+  $("#screen").innerHTML = `
+  <div class="card row"><span class="sup-av sm">${I.user}</span><div style="flex:1"><b>${esc(me.name)}</b><div class="small muted">@${esc(me.login)} · ${t("opRole_"+me.role)}</div></div><button class="pill" id="otOut">${t("opLogout")}</button></div>
+  <div class="section-title">${t("opChangePw")}</div>
+  <form class="card stack" id="otPw" novalidate>
+    ${pwField("otOld",t("opOldPw"),"current-password")}
+    ${pwField("otNew",t("opNewPw"),"new-password")}
+    <p class="small muted" style="margin:0">${t("opPwRules")}</p>
+    <p class="small" id="opErr" style="margin:0;color:var(--danger)" hidden></p>
+    <button class="btn ghost" type="submit">${t("save")}</button>
+  </form>
+  ${me.role==="admin"?`
+  <div class="section-title">${t("opTeamList")}</div>
+  <div class="list">${o.accounts.map(a=>`<div class="li"><span class="sup-av sm">${I.user}</span><span class="grow"><b style="font-weight:600">${esc(a.name)}</b><span class="small muted" style="display:block">@${esc(a.login)} · ${t("opRole_"+a.role)}</span></span>${a.login!==me.login?`<button class="pill red" data-del="${esc(a.login)}">${t("del")}</button>`:""}</div>`).join("")}</div>
+  <div class="section-title">${t("opAdd")}</div>
+  <form class="card stack" id="otAdd" novalidate>
+    <div class="field">${I.user}<input id="oaName" maxlength="30" placeholder="${t("opName")}" aria-label="${t("opName")}"></div>
+    <div class="field">${I.idcard.replace('class="ic"','')}<input id="oaLogin" maxlength="20" placeholder="${t("opLogin")}" aria-label="${t("opLogin")}" autocapitalize="none" spellcheck="false" autocomplete="off"></div>
+    ${pwField("oaPw",t("opPassword"),"new-password")}
+    <div class="seg"><button type="button" data-role="operator" class="on">${t("opRole_operator")}</button><button type="button" data-role="admin">${t("opRole_admin")}</button></div>
+    <p class="small" id="opErr2" style="margin:0;color:var(--danger)" hidden></p>
+    <button class="btn" type="submit">${t("opAddBtn")}</button>
+  </form>`:""}`;
+  bindEyes();
+  $("#otOut").onclick=opLogout;
+  $("#otPw").onsubmit=async e=>{ e.preventDefault(); const old=$("#otOld").value, nw=$("#otNew").value;
+    if(await hashPw(old,me.salt)!==me.hash) return showErr(t("opOldWrong"));
+    if(!pwOk(nw)) return showErr(t("opPwRules"));
+    me.salt=uid()+uid(); me.hash=await hashPw(nw,me.salt); save(); celebrate(t("opPwChanged")); render(); };
+  let role="operator";
+  document.querySelectorAll("[data-role]").forEach(b=>b.onclick=()=>{ role=b.dataset.role; document.querySelectorAll("[data-role]").forEach(x=>x.classList.toggle("on",x===b)); });
+  document.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>confirmSheet(t("opDelQ"),"@"+b.dataset.del,t("del"),()=>{ o.accounts=o.accounts.filter(a=>a.login!==b.dataset.del); save(); render(); }));
+  const add=$("#otAdd"); if(add) add.onsubmit=async e=>{ e.preventDefault();
+    const err=m=>{ const x=$("#opErr2"); x.textContent=m; x.hidden=false; };
+    const name=$("#oaName").value.trim(), login=$("#oaLogin").value.trim().toLowerCase(), pw=$("#oaPw").value;
+    if(name.length<2) return err(t("enterName"));
+    if(!loginOk(login)) return err(t("opLoginRules"));
+    if(o.accounts.some(a=>a.login===login)) return err(t("opLoginTaken"));
+    if(!pwOk(pw)) return err(t("opPwRules"));
+    const salt=uid()+uid(); o.accounts.push({login,name,role,salt,hash:await hashPw(pw,salt),createdAt:Date.now()});
+    save(); celebrate(t("opAdded",{login})); render(); };
 };
 
 // ---------- free limit + wallet ----------
