@@ -1,0 +1,21 @@
+# Supabase project config (used by `supabase` CLI).
+project_id = "joldosh"
+
+[auth]
+enabled = true
+site_url = "http://localhost:5173"
+
+[auth.sms]
+enable_signup = true
+enable_confirmations = true
+max_frequency = "60s"
+otp_length = 6
+otp_expiry = 300
+
+[auth.hook.send_sms]
+enabled = true
+uri = "http://host.docker.internal:54321/functions/v1/send-sms"
+secrets = "env(SEND_SMS_HOOK_SECRET)"
+
+[functions.send-sms]
+verify_jwt = false
