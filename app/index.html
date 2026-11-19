@@ -6,12 +6,12 @@
 /* Layout: phone-shaped single column app shell, sticky top bar, fixed bottom tab bar */
 :root{
   /* Layout: phone-shaped single column, white top bar, white bottom tab bar; fresh green as the brand colour */
-  --bg:#f6f8f7; --surface:#ffffff; --field:#edf1ef; --fg:#1b2420; --muted:#7a8580; --line:#e3e9e6;
-  --accent:#2ecc71; --accent-strong:#25b863; --accent-soft:#e8f8ef; --accent-ink:#1fa85a; --on-accent:#ffffff;
-  --ink:#27ae60; --ink2:#2e8b57; --on-ink:#ffffff; --ink-muted:rgba(255,255,255,.82); --ok:#1fa85a;
-  --sel-bg:#2ecc71; --sel-fg:#ffffff; --sel-ic:#ffffff;
+  --bg:#f1f4f2; --surface:#ffffff; --field:#ebf0ed; --fg:#16201b; --muted:#5f6b65; --line:#e1e7e3;
+  --accent:#2bc66f; --accent-strong:#25b363; --accent-soft:#e3f5ea; --accent-ink:#15803d; --on-accent:#06281a;
+  --ink:#146c3c; --ink2:#0d4a2a; --on-ink:#ffffff; --ink-muted:rgba(255,255,255,.78); --ok:#15803d;
+  --sel-bg:#15803d; --sel-fg:#ffffff; --sel-ic:#ffffff;
   --danger:#eb5757; --warn-bg:#fffbe6; --warn-line:#f5e3a1; --star:#f7b500;
-  --shadow:0 2px 6px rgba(27,36,32,.05),0 8px 24px rgba(27,36,32,.07);
+  --shadow:0 1px 2px rgba(16,40,28,.04),0 6px 20px rgba(16,40,28,.06);
   --f-display:"Montserrat","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-body:"Montserrat","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
@@ -520,6 +520,94 @@ main{padding-bottom:110px}
 .forest i:nth-child(3){margin-left:auto}
 .road-strip{background:rgba(0,0,0,.22)}
 .road-strip span{color:#fff}
+
+/* ---- modern pass (MD3-style tonal surfaces, pill controls) ---- */
+:root{--ease-emph:cubic-bezier(.2,0,0,1);--r-card:22px}
+.card,.list{border:0;border-radius:var(--r-card);box-shadow:var(--shadow)}
+.topbar{background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:0}
+body::before{background:var(--bg)}
+.topbar h1{font:700 17px/1.25 var(--f-display)}
+.section-title{font:700 17px/1.3 var(--f-display);text-transform:none;letter-spacing:0;color:var(--fg);margin:10px 2px -2px}
+.btn{border-radius:999px;box-shadow:none;font-weight:700;letter-spacing:.01em;position:relative;overflow:hidden}
+.btn:not(.ghost):not(.danger){background:var(--accent);color:var(--on-accent)}
+.btn::after{content:"";position:absolute;inset:0;background:currentColor;opacity:0;transition:opacity .15s}
+.btn:active::after{opacity:.12}
+.btn.ghost{border:0;background:var(--accent-soft);color:var(--accent-ink)}
+.chip{border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:13.5px;padding:8px 14px}
+.chip.on{background:var(--sel-bg);border-color:var(--sel-bg);color:var(--sel-fg)}
+.mode{background:var(--surface);border-radius:999px;padding:4px;box-shadow:var(--shadow)}
+.mode button{border-radius:999px;min-height:40px;font-size:14px}
+.mode button.on{background:var(--sel-bg);color:var(--sel-fg);box-shadow:none}
+.mode button.on svg{color:var(--sel-fg)}
+.field{border-radius:16px;background:var(--field)}
+.pill{border-radius:999px}
+.li{padding:14px 16px}
+.li svg.ic{width:36px;height:36px;padding:8px;border-radius:12px;background:var(--accent-soft);color:var(--accent-ink)}
+.li .chev{width:18px;height:18px}
+.hero-profile{background:linear-gradient(140deg,var(--ink),var(--ink2));border-radius:26px;padding:20px}
+.wallet-card,.sup-hero{background:linear-gradient(140deg,var(--ink),var(--ink2));border-radius:26px}
+.wc-free .bar i{background:var(--accent)}
+.wc-top{background:var(--accent);color:var(--on-accent)}
+.hero-profile[style*="column"]{background:linear-gradient(160deg,var(--ink),var(--ink2))}
+.forest i{color:var(--accent)}
+.road-strip span{color:var(--accent)}
+/* home: ride-app style header */
+main:has(.home-hero){padding-top:0}
+.home-hero{margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px))) 0 calc(-1*max(16px,env(safe-area-inset-right,0px)));padding:18px max(16px,env(safe-area-inset-left,0px)) 22px;background:linear-gradient(160deg,var(--ink),var(--ink2));border-radius:0 0 30px 30px;display:flex;flex-direction:column;gap:16px;color:var(--on-ink)}
+.home-hero .hello b{color:var(--on-ink);font-size:26px}
+.home-hero .hello span{color:var(--ink-muted)}
+.home-hero .balchip{background:rgba(255,255,255,.14);border:0;color:var(--on-ink)}
+.home-hero .balchip svg{color:var(--accent)}
+.route-card{position:relative;background:var(--surface);color:var(--fg);border-radius:22px;padding:6px 64px 6px 6px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.rc-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:10px 12px;border-radius:16px;transition:background .15s}
+.rc-row:active{background:var(--field)}
+.rc-row svg{width:22px;height:22px;color:var(--accent-ink);flex:none}
+.rc-row span{display:flex;flex-direction:column;min-width:0}
+.rc-row small{font-size:12px;color:var(--muted)}
+.rc-row b{font-weight:700;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-div{display:block;height:1px;background:var(--line);margin:0 12px 0 46px}
+.route-card .swap{right:12px;background:var(--accent-soft);color:var(--accent-ink);box-shadow:none}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qa{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;background:var(--surface);border-radius:var(--r-card);padding:14px;box-shadow:var(--shadow);transition:transform .14s var(--ease-emph)}
+.qa:active{transform:scale(.97)}
+.qa:first-child{background:var(--accent);color:var(--on-accent)}
+.qa .qa-ic{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);margin-bottom:6px}
+.qa:first-child .qa-ic{background:rgba(6,40,26,.12);color:var(--on-accent)}
+.qa .qa-ic svg{width:22px;height:22px}
+.qa b{font:700 15px/1.25 var(--f-display)}
+.qa span:last-child{font-size:12px;line-height:1.35;opacity:.75}
+/* trip card */
+.trip{padding:16px;gap:14px}
+.trip .sep{background:var(--line)}
+.tl .stop .t{font:700 22px/1.1 var(--f-display);letter-spacing:-.01em}
+.tl .stop .c{font-size:13.5px;color:var(--muted);font-weight:500}
+.tl .stop+.stop{margin-top:12px}
+.tr-when{grid-column:1/3;margin-top:10px;font-size:12px;color:var(--muted);font-weight:500}
+.price{color:var(--accent-ink);background:var(--accent-soft);text-decoration:none;font:700 15px var(--f-display);padding:6px 12px;border-radius:999px}
+.carpic{background:var(--field)}
+.ordercard{gap:14px}
+.othumb{border-radius:16px}
+/* floating bottom bar with MD3 indicator */
+.tabs{background:transparent;border:0;pointer-events:none;padding:0 max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.tabs nav{pointer-events:auto;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:saturate(1.4) blur(16px);-webkit-backdrop-filter:saturate(1.4) blur(16px);border-radius:28px;box-shadow:0 8px 28px rgba(16,40,28,.14);padding:6px;max-width:456px}
+.tab{border-radius:20px;padding:6px 2px;gap:3px;font-weight:600;font-size:10.5px;color:var(--muted)}
+.tab svg{width:56px;height:30px;padding:4px 16px;border-radius:999px;transition:background .25s var(--ease-emph),color .2s}
+.tab.on{color:var(--fg)}
+.tab.on svg{background:var(--accent-soft);color:var(--accent-ink)}
+.tab .dot{top:3px;left:calc(50% + 10px)}
+main{padding-bottom:120px}
+.toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+.msg{border-radius:20px}
+.composer{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:0}
+
+.who .row.between{flex-wrap:wrap;gap:6px;min-width:0}
+.who .price{font-size:14px;padding:5px 10px;margin-left:auto}
+body.on-home .topbar{background:var(--ink);color:var(--on-ink);backdrop-filter:none;-webkit-backdrop-filter:none}
+body.on-home::before{background:var(--ink)}
+body.on-home .topbar .lang{background:rgba(255,255,255,.14)}
+body.on-home .topbar .lang button{color:var(--ink-muted)}
+body.on-home .topbar .lang button.on{background:var(--surface);color:var(--accent-ink)}
+.home-hero{padding-top:6px}
 </style>
 
 <div class="app">
@@ -606,7 +694,7 @@ ru:{
   trackTitle:"Где сейчас посылка", passed:"Проехал(а) {city}", atStart:"Выезжает из {city}", leftKm:"До {to}: {km} км", eta:"≈ {h} ч {m} мин",
   waitingDriver:"Как только водитель возьмёт посылку, здесь появится карта с его местоположением.", pickupSoon:"Водитель едет к вам забрать посылку",
   trackDemo:"Демо: движение машины смоделировано и ускорено. В реальном приложении используется GPS телефона водителя.",
-  iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", sendCtaT:"Отправить посылку", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
+  iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", sendCtaT:"Отправить посылку", qaTripS:"Возьмите попутчиков и посылки", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
   opShowPw:"Показать пароль", opSetupTitle:"Создайте аккаунт администратора", opSetupText:"Панель оператора открывается только по логину и паролю. Этот аккаунт сможет добавлять других операторов.",
   opName:"Имя", opLogin:"Логин", opPassword:"Пароль", opPassword2:"Повторите пароль", opPwRules:"Пароль: не меньше 8 символов, буквы и цифры.", opLoginRules:"Логин: 3–20 символов, латинские буквы, цифры, точка или _.",
   opPwMismatch:"Пароли не совпадают", opCreate:"Создать и войти", opCreated:"Аккаунт создан", opLoginTitle:"Вход для операторов", opLoginText:"Введите логин и пароль, чтобы увидеть обращения.",
@@ -752,7 +840,7 @@ ky:{
   trackTitle:"Посылка азыр кайда", passed:"{city} аркылуу өттү", atStart:"{city} шаарынан чыгып жатат", leftKm:"{to} чейин: {km} км", eta:"≈ {h} саат {m} мүн",
   waitingDriver:"Айдоочу посылканы алаары менен бул жерде анын кайда экени картада көрүнөт.", pickupSoon:"Айдоочу посылканы алганы сизге келе жатат",
   trackDemo:"Демо: машинанын кыймылы симуляция жана тездетилген. Чыныгы колдонмодо айдоочунун телефонундагы GPS колдонулат.",
-  iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", sendCtaT:"Посылка жөнөтүү", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
+  iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", sendCtaT:"Посылка жөнөтүү", qaTripS:"Жүргүнчү жана посылка алыңыз", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
   opShowPw:"Сырсөздү көрсөтүү", opSetupTitle:"Администратордун аккаунтун түзүңүз", opSetupText:"Оператор панели логин жана сырсөз менен гана ачылат. Бул аккаунт башка операторлорду кошо алат.",
   opName:"Аты", opLogin:"Логин", opPassword:"Сырсөз", opPassword2:"Сырсөздү кайталаңыз", opPwRules:"Сырсөз: кеминде 8 белги, тамга жана сан болушу керек.", opLoginRules:"Логин: 3–20 белги, латын тамгалары, сандар, чекит же _.",
   opPwMismatch:"Сырсөздөр дал келбейт", opCreate:"Түзүү жана кирүү", opCreated:"Аккаунт түзүлдү", opLoginTitle:"Операторлор үчүн кирүү", opLoginText:"Арыздарды көрүү үчүн логин жана сырсөздү жазыңыз.",
@@ -1100,7 +1188,7 @@ setInterval(()=>{ if(tickOrders()){ save(); renderTabs(); const top=stack[stack.
 setInterval(()=>{ if(checkVerification()){ save(); if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select")) render(); else renderTabs(); toast(t("verifiedNotif")); } },2000);
 
 function render(){
-  document.body.classList.remove("in-chat");
+  document.body.classList.remove("in-chat","on-home");
   document.documentElement.lang=S.lang;
   save();
   if(!S.me){ $(".tabs").hidden=true; screens.welcome(); animateScreen(); return; }
@@ -1120,8 +1208,9 @@ function tripCard(tr,mode="ride"){
   return `<button class="card trip" data-trip="${tr.id}" aria-label="${esc(tr.from)} — ${esc(tr.to)}, ${tr.dep}">
     <div class="tl">
       <div class="rail">${I.pinO}<span class="dots"></span>${I.pin}</div>
-      <div class="stop"><div class="d">${dShort(tr.date)}</div><div class="t">${tr.dep}</div><div class="c">${esc(tr.from)}</div></div>
-      <div class="stop"><div class="d">${dShort(tr.date)}</div><div class="t">${tr.arr||"—"}</div><div class="c">${esc(tr.to)}</div></div>
+      <div class="stop"><div class="t">${tr.dep}</div><div class="c">${esc(tr.from)}</div></div>
+      <div class="stop"><div class="t">${tr.arr||"—"}</div><div class="c">${esc(tr.to)}</div></div>
+      <div class="d tr-when">${dShort(tr.date)}${tr.arr?" · "+durTxt(tr.dep,tr.arr):""}</div>
     </div>
     <div class="sep"></div>
     <div class="who">
@@ -1221,6 +1310,7 @@ screens.search = () => {
 
 screens.home = () => {
   const f = S.feed = S.feed || {type:"all",from:"",to:"",date:"all"};
+  document.body.classList.add("on-home");
   topbar(t("homeTitle"),{right:langSwitch()}); bindLang($("#topbar"));
   const typeOk = x => f.type==="all" ? (seatsLeft(x)>0||x.parcel) : f.type==="ride" ? seatsLeft(x)>0 : x.parcel;
   const okDate = d => f.date==="all"||d===f.date;
@@ -1239,17 +1329,21 @@ screens.home = () => {
   let lastDate="", body="";
   items.slice(0,70).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
   $("#screen").innerHTML = `
-  <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${t("helloSub")}</span></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
-  <button class="sendcta" id="sendCta"><span class="bx">${I.camera}</span><span style="flex:1;min-width:0"><b style="font-family:var(--f-display)">${t("sendCtaT")}</b><br><span class="small muted">${t("sendCtaS")}</span></span>${I.chev}</button>
+  <section class="home-hero">
+    <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${t("helloSub")}</span></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
+    <div class="route-card">
+      <button class="rc-row" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
+      <i class="rc-div"></i>
+      <button class="rc-row" id="fTo">${I.pin}<span><small>${t("to")}</small><b>${esc(f.to)||t("anyCity")}</b></span></button>
+      <button class="swap" id="fSwap" aria-label="${t("swap")}">${I.swap}</button>
+    </div>
+  </section>
+  <div class="quick">
+    <button class="qa" id="sendCta"><span class="qa-ic">${I.camera}</span><b>${t("sendCtaT")}</b><span>${t("sendCtaS")}</span></button>
+    <button class="qa" id="qaTrip"><span class="qa-ic">${I.car}</span><b>${t("chTrip")}</b><span>${t("qaTripS")}</span></button>
+  </div>
   <div class="mode three" role="tablist">${[["all","fAll",I.road],["ride","fRide",I.users],["parcel","fParcel",I.box]].map(([k,l,ic])=>`<button role="tab" data-ft="${k}" class="${f.type===k?"on":""}" aria-selected="${f.type===k}">${ic} ${t(l)}</button>`).join("")}</div>
-  <div class="grid2">
-    <button class="field filter-btn" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
-    <button class="field filter-btn" id="fTo">${I.pin}<span><small>${t("to")}</small><b>${esc(f.to)||t("anyCity")}</b></span></button>
-  </div>
-  <div class="stack" style="gap:6px">
-    <span class="lbl">${t("goingTo")}</span>
-    <div class="chips scroll" id="toChips"><button class="chip ${!f.to?"on":""}" data-to="">${t("fAll")}<span class="cnt">${pool.length+opool.length}</span></button>${cities.map(c=>`<button class="chip ${f.to===c?"on":""}" data-to="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
-  </div>
+  <div class="chips scroll" id="toChips" aria-label="${t("goingTo")}"><button class="chip ${!f.to?"on":""}" data-to="">${t("fAll")}<span class="cnt">${pool.length+opool.length}</span></button>${cities.map(c=>`<button class="chip ${f.to===c?"on":""}" data-to="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
   <div class="chips scroll">${[["all","allDays"],[TODAY(),"today"],[addDays(1),"tomorrow"],[addDays(2),"afterTomorrow"]].map(([v,l])=>`<button class="chip ${f.date===v?"on":""}" data-fd="${v}">${t(l)}</button>`).join("")}</div>
   <div class="found"><span>${t("found",{n:items.length})}</span>${dirty?`<button class="linkbtn" id="fReset">${t("resetFilters")}</button>`:`<button class="linkbtn" id="fAdv">${t("advSearch")}</button>`}</div>
   ${items.length? body : `<div class="card empty">${f.type==="parcel"?I.box:I.road}<h3 style="margin-top:8px">${t("noOffers")}</h3><p>${t("noOffersText")}</p><button class="btn" id="fAsk" style="margin-top:12px">${t("askDrivers")}</button></div>`}`;
@@ -1259,6 +1353,8 @@ screens.home = () => {
   document.querySelectorAll("[data-fd]").forEach(b=>b.onclick=()=>set("date",b.dataset.fd));
   $("#sendCta").onclick=()=>go("orderNew");
   $("#balChip").onclick=()=>go("wallet");
+  $("#qaTrip").onclick=()=>go("createTrip");
+  $("#fSwap").onclick=()=>{ [f.from,f.to]=[f.to,f.from]; render(); };
   $("#fFrom").onclick=()=>citySheet(f.from,c=>{ f.from=c; if(c&&f.to===c) f.to=""; render(); },true);
   $("#fTo").onclick=()=>citySheet(f.to,c=>{ f.to=c; if(c&&f.from===c) f.from=""; render(); },true);
   const r=$("#fReset"); if(r) r.onclick=()=>{ S.feed={type:"all",from:"",to:"",date:"all"}; render(); };
