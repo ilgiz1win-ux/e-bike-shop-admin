@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "check": "vitest run && vite build"
+    "check": "vitest run && vite build",
+    "e2e": "VITE_BACKEND=memory vite build --outDir dist-e2e && vitest run --config vitest.e2e.config.js"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.16",
