@@ -381,6 +381,49 @@ button.card:active .price{transform:scale(1.06)}
 .pm.on i{border:6px solid var(--accent-ink)}
 .spin{width:18px;height:18px;border-radius:50%;border:2.5px solid currentColor;border-right-color:transparent;animation:spin .7s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+body.in-chat main{padding-bottom:170px;gap:10px}
+.chat-hint{text-align:center}
+.chat-ctx{display:flex;gap:12px;align-items:center;padding:12px 14px}
+.msgs{display:flex;flex-direction:column;gap:6px}
+.msg{max-width:82%;padding:9px 12px 6px;border-radius:18px;font-size:15px;line-height:1.4;position:relative;animation:rise .25s ease both;overflow-wrap:anywhere}
+.msg p{margin:0;white-space:pre-wrap}
+.msg time{display:block;text-align:right;font-size:10.5px;opacity:.6;margin-top:2px}
+.msg.me{align-self:flex-end;background:var(--accent);color:var(--on-accent);border-bottom-right-radius:6px}
+.msg.peer{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:6px}
+.msg.sys{align-self:center;background:var(--field);color:var(--muted);font-size:12px;padding:5px 12px;border-radius:999px;max-width:100%}
+.msg.loc{min-width:220px}
+.msg.loc .locic{width:28px;height:28px;border-radius:9px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center}
+.msg.loc .locic svg{width:16px;height:16px}
+.msg.loc p{margin:6px 0 2px;font-size:14px}
+.msg.typing{display:flex;gap:4px;padding:12px 14px}
+.msg.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:bob .9s ease-in-out infinite}
+.msg.typing i:nth-child(2){animation-delay:.15s}.msg.typing i:nth-child(3){animation-delay:.3s}
+.composer{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--bg);border-top:1px solid var(--line);padding:8px max(12px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.composer .in{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.composer .qr{margin:0 -12px;padding:0 12px}
+.composer .qr .chip{font-size:13px;padding:7px 12px}
+.sendbtn{width:46px;height:46px;border-radius:15px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;flex:none;transition:transform .15s}
+.sendbtn:active{transform:scale(.9)}
+.sendbtn:disabled{opacity:.4}
+.sendbtn svg{width:22px;height:22px}
+.sup-av{width:42px;height:42px;border-radius:14px;background:var(--ink);color:var(--accent);display:grid;place-items:center;flex:none}
+.sup-av svg{width:24px;height:24px}
+.sup-av.sm{width:36px;height:36px;border-radius:12px}
+.sup-av.sm svg{width:20px;height:20px}
+.sup-av.lg{width:56px;height:56px;border-radius:18px;background:var(--accent);color:var(--on-accent)}
+.sup-av.lg svg{width:30px;height:30px}
+.sup-hero{display:flex;gap:14px;align-items:flex-start;background:var(--ink);color:var(--on-ink);border-radius:24px;padding:18px}
+.sup-hero b{font:600 17px var(--f-display)}
+.sup-hero p{margin:4px 0 0;color:var(--ink-muted);font-size:14px}
+.faq details{display:block}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}
+.faq summary::after{content:"+";font:600 18px var(--f-display);color:var(--accent-ink);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:8px 0 0;color:var(--muted);font-size:14px;animation:rise .25s ease}
+.unread-dot{min-width:20px;height:20px;border-radius:10px;background:var(--danger);color:#fff;font-size:11px;display:grid;place-items:center;padding:0 6px}
+.contact button{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;color:var(--accent-ink);font-weight:500;border-left:1px solid var(--line)}
+.contact button svg{width:20px;height:20px}
 </style>
 
 <div class="app">
@@ -406,6 +449,8 @@ const I = {
   plus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>',
   bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4Z"/><path d="M10 21h4"/></svg>',
   plusBig:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>',
+  headset:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="2"/><rect x="17" y="13" width="4" height="6" rx="2"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg>',
+  sendArrow:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12 2-12 2Z"/></svg>',
   home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>',
   road:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 21 10 3M17 21 14 3M12 6v2M12 11v2M12 16v2"/></svg>',
   box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 3 7.5v9L12 21l9-4.5v-9Z"/><path d="M3 7.5 12 12l9-4.5M12 12v9M7.5 5.2l9 4.5"/></svg>',
@@ -463,6 +508,23 @@ ru:{
   waitingDriver:"Как только водитель возьмёт посылку, здесь появится карта с его местоположением.", pickupSoon:"Водитель едет к вам забрать посылку",
   trackDemo:"Демо: движение машины смоделировано и ускорено. В реальном приложении используется GPS телефона водителя.",
   iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", sendCtaT:"Отправить посылку", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
+  chat:"Чат", chats:"Чаты", noChats:"Переписок пока нет. Чат появится, когда вы забронируете поездку или водитель возьмёт посылку.", msgPh:"Сообщение…", typing:"печатает…",
+  qr_where:"Где вы сейчас?", qr_when:"Когда доедете?", qr_call:"Позвоните получателю, пожалуйста", qr_thanks:"Спасибо!", qr_seat:"Место ещё свободно?", qr_meet:"Где место встречи?", qr_ok:"Хорошо, договорились", qr_picked:"Посылку забрал, выезжаю", qr_soon:"Буду через 15 минут",
+  locCard:"Местоположение", openMap:"Открыть на карте", b_loc:"Сейчас проезжаю {city}. До {to} осталось {km} км, буду примерно через {h} ч {m} мин.", b_eta:"Думаю, буду в {to} примерно через {h} ч {m} мин.",
+  b_coming:"Еду к вам за посылкой, буду минут через 15.", b_done:"Посылку передал получателю. Спасибо!", b_call:"Хорошо, позвоню получателю заранее.", b_thanks:"Не за что! Всё будет в порядке.", b_ok:"Понял, хорошо.",
+  b_seat:"Да, место есть. Выезжаем по времени.", b_meet:"Встречаемся у Западного автовокзала, позвоните, когда подъедете.", b_sender:"Спасибо! Получатель будет ждать.", nMsg:"{name}: {text}", chatHint:"Переписка сохраняется в приложении",
+  support:"Поддержка", supportHead:"Мы на связи 24/7", supportText:"Если водитель не доставил посылку, не выходит на связь или возникла проблема с оплатой — напишите нам.", newTicket:"Написать в поддержку", myTickets:"Мои обращения", noTickets:"Обращений пока нет", faq:"Частые вопросы",
+  faq1q:"Водитель не доставил посылку. Что делать?", faq1a:"Откройте посылку и нажмите «Проблема с посылкой». Мы свяжемся с водителем. Если посылка не доставлена в течение 24 часов, оплата возвращается, а аккаунт водителя блокируется до выяснения.",
+  faq2q:"Как вернуть деньги с баланса?", faq2a:"Напишите в поддержку с причиной «Оплата и баланс». Возврат делается тем же способом, которым вы пополняли.",
+  faq3q:"Как понять, что водителю можно доверять?", faq3a:"Смотрите отметку «Документы проверены», рейтинг и отзывы. Все водители проходят проверку паспорта и селфи.",
+  reasonLbl:"Что случилось?", r_notdelivered:"Посылка не доставлена", r_noanswer:"Водитель не выходит на связь", r_damaged:"Посылка повреждена или потеряна", r_payment:"Оплата и баланс", r_other:"Другое",
+  aboutOrder:"По какой посылке", noOrderLink:"Не относится к посылке", describe:"Опишите ситуацию", describePh:"Например: водитель забрал посылку вчера, обещал доставить к вечеру, но не отвечает на звонки", sendTicket:"Отправить обращение", errDescribe:"Опишите ситуацию подробнее",
+  ticketNo:"Обращение №{no}", tk_open:"Рассматривается", tk_answered:"Есть ответ", tk_closed:"Закрыто", ticketCreated:"Обращение №{no} создано",
+  s_greet:"Здравствуйте, {name}! Обращение №{no} принято. Специалист уже разбирается, ответим в течение 30 минут.",
+  s_nd:"Мы связались с водителем {driver}, посылка взята на контроль. Если она не будет доставлена в течение 24 часов, вам вернут {price} с, а аккаунт водителя заблокируют до выяснения.",
+  s_gen:"Спасибо за подробности. Мы проверили информацию и держим ситуацию на контроле. Если появятся новости — напишем сюда.", s_pay:"Проверили ваш баланс и операции. Если нужен возврат, напишите сумму и способ — оформим в течение 1 рабочего дня.",
+  s_more:"Спасибо, добавили к обращению. Специалист ответит в ближайшее время.", resolved:"Вопрос решён", closedSys:"Обращение закрыто. Спасибо!", supportAgent:"Поддержка Жолдош", supportDemo:"Демо: ответы поддержки приходят автоматически.",
+  problemBtn:"Проблема с посылкой? Написать в поддержку", disputeBanner:"Обращение №{no}: {status}", reasonLine:"Причина: {r}",
   walletTitle:"Кошелёк", balanceLbl:"Баланс", topUp:"Пополнить", freeLeftLbl:"Бесплатно осталось", freeWord:"Бесплатно", freeChip:"{n} бесплатно",
   limitOver:"Бесплатный лимит закончился", limitOverText:"Вы использовали все {n} бесплатных действий. Чтобы продолжить, пополните баланс.", costLbl:"Стоимость", balanceAfter:"Останется на балансе",
   confirmAction:"Подтвердите", chargeOrderText:"Посылка «{what}»: {from} → {to}.", chargeTripText:"Поездка {from} → {to}, {date}, {time}.",
@@ -578,6 +640,23 @@ ky:{
   waitingDriver:"Айдоочу посылканы алаары менен бул жерде анын кайда экени картада көрүнөт.", pickupSoon:"Айдоочу посылканы алганы сизге келе жатат",
   trackDemo:"Демо: машинанын кыймылы симуляция жана тездетилген. Чыныгы колдонмодо айдоочунун телефонундагы GPS колдонулат.",
   iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", sendCtaT:"Посылка жөнөтүү", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
+  chat:"Чат", chats:"Чаттар", noChats:"Азырынча кат алышуу жок. Сапар брондогондо же айдоочу посылканы алганда чат пайда болот.", msgPh:"Билдирүү…", typing:"жазып жатат…",
+  qr_where:"Азыр кайдасыз?", qr_when:"Качан жетесиз?", qr_call:"Алуучуга чалып коюңузчу", qr_thanks:"Рахмат!", qr_seat:"Орун дагы барбы?", qr_meet:"Жолугуу жери кайда?", qr_ok:"Макул, келиштик", qr_picked:"Посылканы алдым, жолго чыктым", qr_soon:"15 мүнөттөн кийин келем",
+  locCard:"Жайгашкан жер", openMap:"Картадан көрүү", b_loc:"Азыр {city} жанынан өтүп баратам. {to} чейин {km} км калды, болжол менен {h} саат {m} мүнөттө жетем.", b_eta:"{to} шаарына болжол менен {h} саат {m} мүнөттө жетем.",
+  b_coming:"Посылканы алганы сизге баратам, 15 мүнөттөй калды.", b_done:"Посылканы алуучуга бердим. Рахмат!", b_call:"Макул, алуучуга алдын ала чалам.", b_thanks:"Эч нерсе эмес! Баары жакшы болот.", b_ok:"Түшүндүм, макул.",
+  b_seat:"Ооба, орун бар. Убагында чыгабыз.", b_meet:"Батыш автобекетинин жанынан жолугабыз, келгенде чалыңыз.", b_sender:"Рахмат! Алуучу күтүп турат.", nMsg:"{name}: {text}", chatHint:"Кат алышуу колдонмодо сакталат",
+  support:"Колдоо кызматы", supportHead:"Биз 24/7 байланыштабыз", supportText:"Айдоочу посылканы жеткирбесе, байланышка чыкпаса же төлөм боюнча көйгөй болсо — бизге жазыңыз.", newTicket:"Колдоого жазуу", myTickets:"Менин кайрылууларым", noTickets:"Азырынча кайрылуу жок", faq:"Көп берилүүчү суроолор",
+  faq1q:"Айдоочу посылканы жеткирбей койду. Эмне кылам?", faq1a:"Посылканы ачып, «Посылка боюнча көйгөй» баскычын басыңыз. Биз айдоочу менен байланышабыз. Посылка 24 сааттын ичинде жеткирилбесе, төлөм кайтарылат жана айдоочунун аккаунту текшерүү бүткөнчө бөгөттөлөт.",
+  faq2q:"Баланстагы акчаны кантип кайтарам?", faq2a:"«Төлөм жана баланс» себеби менен колдоого жазыңыз. Акча кандай ыкма менен толтурсаңыз, ошол ыкма менен кайтарылат.",
+  faq3q:"Айдоочуга ишенсе болорун кантип билем?", faq3a:"«Документтер текшерилген» белгисин, рейтингди жана пикирлерди караңыз. Бардык айдоочулар паспорт жана селфи текшерүүсүнөн өтүшөт.",
+  reasonLbl:"Эмне болду?", r_notdelivered:"Посылка жеткирилген жок", r_noanswer:"Айдоочу байланышка чыкпай жатат", r_damaged:"Посылка бузулган же жоголгон", r_payment:"Төлөм жана баланс", r_other:"Башка",
+  aboutOrder:"Кайсы посылка боюнча", noOrderLink:"Посылкага тиешеси жок", describe:"Кырдаалды жазыңыз", describePh:"Мисалы: айдоочу посылканы кечээ алып кеткен, кечке чейин жеткирем деген, бирок телефонду албай жатат", sendTicket:"Кайрылууну жөнөтүү", errDescribe:"Кырдаалды кененирээк жазыңыз",
+  ticketNo:"Кайрылуу №{no}", tk_open:"Каралууда", tk_answered:"Жооп келди", tk_closed:"Жабылды", ticketCreated:"№{no} кайрылуу түзүлдү",
+  s_greet:"Саламатсызбы, {name}! №{no} кайрылууңуз кабыл алынды. Адис карап жатат, 30 мүнөттүн ичинде жооп беребиз.",
+  s_nd:"{driver} айдоочу менен байланыштык, посылка көзөмөлгө алынды. Эгер 24 сааттын ичинде жеткирилбесе, сизге {price} сом кайтарылат жана айдоочунун аккаунту маселе чечилгенче бөгөттөлөт.",
+  s_gen:"Маалымат үчүн рахмат. Текшердик, кырдаал көзөмөлдө. Жаңылык болсо, ушул жерге жазабыз.", s_pay:"Балансыңызды жана операцияларды текшердик. Акча кайтаруу керек болсо, сумманы жана ыкманы жазыңыз — 1 иш күнүнүн ичинде кайтарабыз.",
+  s_more:"Рахмат, кайрылууга кошулду. Адис жакын арада жооп берет.", resolved:"Маселе чечилди", closedSys:"Кайрылуу жабылды. Рахмат!", supportAgent:"Жолдош колдоо кызматы", supportDemo:"Демо: колдоо кызматынын жооптору автоматтык түрдө келет.",
+  problemBtn:"Посылка боюнча көйгөй барбы? Колдоого жазуу", disputeBanner:"№{no} кайрылуу: {status}", reasonLine:"Себеби: {r}",
   walletTitle:"Капчык", balanceLbl:"Баланс", topUp:"Толтуруу", freeLeftLbl:"Акысыз калды", freeWord:"Акысыз", freeChip:"{n} акысыз",
   limitOver:"Акысыз лимит бүттү", limitOverText:"Бардык {n} акысыз аракетти колдондуңуз. Улантуу үчүн балансты толтуруңуз.", costLbl:"Баасы", balanceAfter:"Баланста калат",
   confirmAction:"Ырастаңыз", chargeOrderText:"«{what}» посылкасы: {from} → {to}.", chargeTripText:"{from} → {to} сапары, {date}, {time}.",
@@ -787,7 +866,7 @@ const sizePrice = (base,sz) => sz==="S"?base: sz==="M"? Math.round(base*1.5/10)*
 
 function toast(msg){ const el=document.createElement("div"); el.className="toast"; el.textContent=msg; el.setAttribute("role","status"); document.body.appendChild(el); setTimeout(()=>el.remove(),2600); }
 // notifications are stored as key+vars so they follow the chosen language
-function notify(key,vars={},icon="bell",tripId=null,orderId=null){ S.notifs.unshift({id:uid(),key,vars,icon,tripId,orderId,at:Date.now(),read:false}); }
+function notify(key,vars={},icon="bell",tripId=null,orderId=null,chatId=null){ S.notifs.unshift({id:uid(),key,vars,icon,tripId,orderId,chatId,at:Date.now(),read:false}); }
 function notifText(n){ const v={...n.vars}; if(v.date) v.date=dShort(v.date); if(v.seatsN!=null) v.seats=tp(v.seatsN,"seat"); return n.key? t(n.key,v) : n.text; }
 
 function sheet(html,onMount){
@@ -896,6 +975,7 @@ setInterval(()=>{ if(tickOrders()){ save(); renderTabs(); const top=stack[stack.
 setInterval(()=>{ if(checkVerification()){ save(); if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select")) render(); else renderTabs(); toast(t("verifiedNotif")); } },2000);
 
 function render(){
+  document.body.classList.remove("in-chat");
   document.documentElement.lang=S.lang;
   save();
   if(!S.me){ $(".tabs").hidden=true; screens.welcome(); animateScreen(); return; }
@@ -1275,7 +1355,7 @@ screens.order = ({id}) => {
   : (mineS && o.status==="open" ? `<div class="banner">${I.bulb}<span>${t("waitingDriver")}</span></div>`:"")}
   ${d && (mineS) ? `<div class="section-title">${t("driver")}</div>
     <div class="card"><button class="row" style="width:100%;text-align:left" id="oDrv">${avatar(d)}<div style="flex:1;min-width:0"><b>${esc(d.name)}</b><div class="small muted">${carTxt(d.car)}${d.car?.color?" · "+t("c_"+d.car.color):""}</div>${isVerified(d.id)?okBadge():""}</div>${I.chev}</button>
-    <div class="contact"><a href="tel:${esc(d.phone.replace(/\s/g,""))}">${I.phone} ${t("call")}</a><a href="https://wa.me/${esc(d.phone.replace(/\D/g,""))}" target="_blank" rel="noopener">${I.chat} ${t("write")}</a></div></div>
+    <div class="contact"><a href="tel:${esc(d.phone.replace(/\s/g,""))}">${I.phone} ${t("call")}</a><button type="button" class="chatbtn">${I.chat} ${t("write")}</button></div></div>
     <div class="small muted" style="margin-top:-8px;text-align:center">${t("phoneLbl")} <b style="user-select:all;color:var(--fg)">${esc(d.phone)}</b></div>`:""}
   ${!mineS ? `<div class="section-title">${t("sender")}</div><div class="card row">${avatar(sender)}<div style="flex:1"><b>${esc(sender.name)}</b>${mineD?`<div class="small"><a href="tel:${esc(sender.phone.replace(/\s/g,""))}" style="color:var(--accent-ink)">${esc(sender.phone)}</a></div>`:""}</div></div>`:""}
   ${mineS||mineD?`<div class="section-title">${t("recipient")}</div><div class="card row">${avatar({name:o.rname},"sm")}<div><b>${esc(o.rname)}</b><div class="small" style="user-select:all">${esc(o.rphone)}</div></div></div>`:""}
@@ -1286,7 +1366,12 @@ screens.order = ({id}) => {
   else if(mineD && o.status==="accepted") act.innerHTML=`<button class="btn" id="oPick">${t("pickedUp")}</button>`;
   else if(mineD && o.status==="onway") act.innerHTML=`<button class="btn" id="oDone">${t("markDone")}</button>`;
   else if(!mineS && o.status==="open") act.innerHTML=`<button class="btn" id="oAcc">${I.box.replace("<svg",'<svg width="20" height="20"')} ${t("acceptOrder",{price:o.price})}</button><p class="small muted" style="margin:0;text-align:center">${t("callTip")}</p>`;
+  if(mineD && o.status!=="open" && o.status!=="cancelled") act.insertAdjacentHTML("afterbegin",`<button class="btn ghost" id="oChat">${I.chat.replace("<svg",'<svg width="20" height="20"')} ${t("write")} · ${esc(o.senderName)}</button>`);
+  if((mineS||mineD) && o.status!=="open" && o.status!=="cancelled") act.insertAdjacentHTML("beforeend", o.dispute ? `<button class="banner" id="oHelp" style="width:100%;text-align:left">${I.headset.replace("<svg",'<svg width="22" height="22" style="flex:none"')}<span>${t("disputeBanner",{no:o.dispute,status:t("tk_"+(threads()["support:"+o.dispute]?.status||"open"))})}</span></button>` : `<button class="linkbtn" id="oHelp" style="align-self:center">${t("problemBtn")}</button>`);
+  document.querySelectorAll(".chatbtn").forEach(x=>x.onclick=()=>openOrderChat(o));
   const b=id=>document.getElementById(id);
+  if(b("oChat")) b("oChat").onclick=()=>openOrderChat(o);
+  if(b("oHelp")) b("oHelp").onclick=()=>{ if(o.dispute&&threads()["support:"+o.dispute]) go("chat",{id:"support:"+o.dispute}); else go("ticketNew",{orderId:o.id}); };
   if(b("oDrv")) b("oDrv").onclick=()=>go("user",{id:d.id});
   if(b("oCancel")) b("oCancel").onclick=()=>confirmSheet(t("parcelCancelQ"),t("orderCancelText"),t("parcelCancel"),()=>{ o.status="cancelled"; toast(t("parcelCancelled")); render(); });
   if(b("oRev")) b("oRev").onclick=()=>reviewSheet(o);
@@ -1299,6 +1384,185 @@ screens.order = ({id}) => {
   if(showTrack) requestAnimationFrame(updateTracking);
 };
 
+
+
+// ---------- chat + support ----------
+// Demo: the other side (driver, sender, support agent) answers automatically.
+function threads(){ return S.threads = S.threads || {}; }
+function getThread(kind, ref, peer, extra={}){
+  const id=kind+":"+ref, T=threads();
+  if(!T[id]) T[id]={id,kind,ref,peer,msgs:[],unread:0,createdAt:Date.now(),lastAt:Date.now(),...extra};
+  return T[id];
+}
+function routeState(o){
+  const path=roadPath(o.from,o.to); if(!path) return null;
+  const pts=path.map(c=>GEO[c]); const cum=[0]; for(let i=1;i<pts.length;i++) cum.push(cum[i-1]+hav(pts[i-1],pts[i]));
+  const total=cum[cum.length-1], prog=orderProgress(o), done=total*prog; let seg=1; while(seg<pts.length-1&&cum[seg]<done) seg++;
+  const remaining=Math.round((total-done)*ROAD_K), hrs=remaining/65, h=Math.floor(hrs), m=Math.round((hrs-h)*60);
+  return {passed:path[Math.max(0,seg-1)], remaining, h, m, prog};
+}
+const hhmm = ts => new Date(ts).toLocaleTimeString(S.lang==="ky"?"ky-KG":"ru-RU",{hour:"2-digit",minute:"2-digit"});
+function msgsHtml(th){
+  return th.msgs.map(m=> m.from==="sys" ? `<div class="msg sys">${esc(m.text)}</div>`
+    : m.type==="loc" ? `<div class="msg peer loc"><div class="row" style="gap:8px"><span class="locic">${I.pin}</span><b>${t("locCard")}</b></div><p>${esc(m.text)}</p><button class="linkbtn" data-goorder="${esc(th.ref)}">${t("openMap")} →</button><time>${hhmm(m.at)}</time></div>`
+    : `<div class="msg ${m.from}"><p>${esc(m.text)}</p><time>${hhmm(m.at)}</time></div>`).join("")
+    + (th.typing?`<div class="msg peer typing" aria-label="${t("typing")}"><i></i><i></i><i></i></div>`:"");
+}
+function refreshChat(th){
+  const box=document.getElementById("msgs");
+  if(box && box.dataset.id===th.id){ th.unread=0; if(th.kind==="support"){ const sb=document.querySelector("#topbar .sub"); if(sb) sb.textContent=t("tk_"+(th.status||"open")); } box.innerHTML=msgsHtml(th); bindMsgs(box); window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"}); return true; }
+  return false;
+}
+function bindMsgs(box){ box.querySelectorAll("[data-goorder]").forEach(b=>b.onclick=()=>go("order",{id:b.dataset.goorder})); }
+function pushMsg(th, from, text, type="text"){
+  th.msgs.push({id:uid(),from,text,type,at:Date.now()}); th.lastAt=Date.now();
+  if(from==="peer" && !refreshChat(th)){ th.unread=(th.unread||0)+1; notify("nMsg",{name:th.peer,text:text.length>60?text.slice(0,60)+"…":text},"chat",null,null,th.id); renderTabs(); }
+  else refreshChat(th);
+  save();
+}
+function botReplies(th, text){
+  const q=text.toLowerCase(), has=(...w)=>w.some(x=>q.includes(x));
+  if(th.kind==="support") return supportReply(th, text);
+  if(th.kind==="trip"){
+    if(has("орун","мест","свобод")) return [[t("b_seat")]];
+    if(has("жолуг","встреч","кайда","где")) return [[t("b_meet")]];
+    if(has("рахмат","спасибо")) return [[t("b_thanks")]];
+    return [[t("b_ok")]];
+  }
+  const o=(S.orders||[]).find(x=>x.id===th.ref); if(!o) return [[t("b_ok")]];
+  if(o.driverId==="me") return [[has("рахмат","спасибо")?t("b_thanks"):t("b_sender")]];
+  if(o.status==="accepted") return [[t("b_coming")]];
+  if(o.status==="delivered") return [[t("b_done")]];
+  const r=routeState(o);
+  if(has("кайда","где","жетт","жетип","турасыз","едете","находит")) return r?[[t("b_loc",{city:r.passed,to:o.to,km:r.remaining,h:r.h,m:r.m})],[`${r.passed} → ${o.to}: ${r.remaining} км`,"loc"]]:[[t("b_ok")]];
+  if(has("качан","когда","убакыт","саат","скоро")) return r?[[t("b_eta",{to:o.to,h:r.h,m:r.m})]]:[[t("b_ok")]];
+  if(has("чал","позвон","звон")) return [[t("b_call")]];
+  if(has("рахмат","спасибо")) return [[t("b_thanks")]];
+  return [[t("b_ok")]];
+}
+function supportReply(th, text){
+  const o=th.orderId?(S.orders||[]).find(x=>x.id===th.orderId):null;
+  if(th.status!=="closed") th.status="answered";
+  return [[t("s_more")]];
+}
+function scheduleReplies(th, replies, delay=1300){
+  if(!replies.length) return;
+  th.typing=true; refreshChat(th);
+  setTimeout(()=>{ th.typing=false; const [text,type]=replies.shift(); pushMsg(th,"peer",text,type||"text"); if(replies.length) setTimeout(()=>scheduleReplies(th,replies,900),300); }, delay+Math.random()*700);
+}
+function sendMsg(th, text){
+  text=text.trim(); if(!text) return;
+  pushMsg(th,"me",text);
+  if(th.status==="closed") return;
+  scheduleReplies(th, botReplies(th,text));
+}
+function openOrderChat(o){
+  const mineS=o.userId==="me";
+  const peer = mineS ? user(o.driverId)?.name : o.senderName;
+  const th=getThread("order",o.id,peer,{title:loc(o.what),sub:`${o.from} → ${o.to}`});
+  go("chat",{id:th.id});
+}
+function openTripChat(tr){
+  const d=user(tr.driverId);
+  const th=getThread("trip",tr.id,d.name,{title:d.name,sub:`${tr.from} → ${tr.to}, ${tr.dep}`});
+  go("chat",{id:th.id});
+}
+
+screens.chat = ({id}) => {
+  const th=threads()[id]; if(!th){ back(); return; }
+  th.unread=0;
+  const isSup=th.kind==="support";
+  const title = isSup ? t("ticketNo",{no:th.no}) : th.peer;
+  const sub = isSup ? t("tk_"+(th.status||"open")) : th.sub;
+  const o = th.kind==="order" ? (S.orders||[]).find(x=>x.id===th.ref) : null;
+  topbar(title,{sub,canBack:true,right: o ? `<button class="icon-btn" id="toOrder" aria-label="${t("openMap")}">${I.pin.replace("<svg",'<svg width="22" height="22"')}</button>`:""});
+  $(".tabs").hidden=true; document.body.classList.add("in-chat");
+  let qr=[];
+  if(th.kind==="trip") qr=["qr_seat","qr_meet","qr_ok","qr_thanks"];
+  else if(o && o.driverId==="me") qr=["qr_picked","qr_soon","qr_ok"];
+  else if(o) qr=["qr_where","qr_when","qr_call","qr_thanks"];
+  $("#screen").innerHTML = `
+    ${isSup?`<div class="card chat-ctx"><span class="sup-av">${I.headset}</span><div style="min-width:0;flex:1"><b>${t("supportAgent")}</b><div class="small muted">${t("reasonLine",{r:t("r_"+th.reason)})}</div></div>${th.status!=="closed"?`<button class="pill" id="closeTk">${t("resolved")}</button>`:""}</div>`
+     : `<div class="chat-hint small muted">${t("chatHint")}</div>`}
+    <div class="msgs" id="msgs" data-id="${th.id}">${msgsHtml(th)}</div>
+    <form class="composer" id="comp">
+      <div class="in">
+        ${qr.length&&th.status!=="closed"?`<div class="chips scroll qr">${qr.map(k=>`<button type="button" class="chip" data-qr="${k}">${t(k)}</button>`).join("")}</div>`:""}
+        <div class="row" style="gap:8px">
+          <div class="field" style="flex:1;min-height:46px"><input id="msgIn" autocomplete="off" maxlength="500" placeholder="${th.status==="closed"?t("tk_closed"):t("msgPh")}" aria-label="${t("msgPh")}" ${th.status==="closed"?"disabled":""}></div>
+          <button class="sendbtn" type="submit" aria-label="${t("send")}" ${th.status==="closed"?"disabled":""}>${I.sendArrow}</button>
+        </div>
+        ${isSup?`<p class="tag-demo" style="margin:0">${t("supportDemo")}</p>`:""}
+      </div>
+    </form>`;
+  bindMsgs($("#msgs"));
+  setTimeout(()=>window.scrollTo(0,document.body.scrollHeight),0);
+  $("#comp").onsubmit=e=>{ e.preventDefault(); const i=$("#msgIn"); sendMsg(th,i.value); i.value=""; i.focus(); };
+  document.querySelectorAll("[data-qr]").forEach(b=>b.onclick=()=>sendMsg(th,t(b.dataset.qr)));
+  const to=$("#toOrder"); if(to) to.onclick=()=>go("order",{id:o.id});
+  const ct=$("#closeTk"); if(ct) ct.onclick=()=>{ th.status="closed"; th.msgs.push({id:uid(),from:"sys",text:t("closedSys"),at:Date.now()}); const od=(S.orders||[]).find(x=>x.dispute===th.no); if(od) od.disputeClosed=true; render(); };
+};
+
+screens.chats = () => {
+  topbar(t("chats"),{canBack:true});
+  const list=Object.values(threads()).filter(x=>x.msgs.length||x.kind!=="support").sort((a,b)=>b.lastAt-a.lastAt);
+  $("#screen").innerHTML = list.length ? `<div class="list">${list.map(th=>{ const last=th.msgs[th.msgs.length-1];
+    return `<button class="li" data-th="${esc(th.id)}">${th.kind==="support"?`<span class="sup-av sm">${I.headset}</span>`:avatar({name:th.peer},"sm")}<span class="grow" style="min-width:0"><b style="font-weight:600">${esc(th.kind==="support"?t("ticketNo",{no:th.no}):th.peer)}</b><span class="small muted" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${last?esc(last.text):esc(th.sub||"")}</span></span>${th.unread?`<b class="unread-dot">${th.unread}</b>`:last?`<span class="small muted">${hhmm(last.at)}</span>`:""}</button>`; }).join("")}</div>`
+    : `<div class="card empty">${I.chat}<p>${t("noChats")}</p></div>`;
+  document.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>go("chat",{id:b.dataset.th}));
+};
+
+screens.support = () => {
+  topbar(t("support"),{canBack:true});
+  const tickets=Object.values(threads()).filter(x=>x.kind==="support").sort((a,b)=>b.lastAt-a.lastAt);
+  $("#screen").innerHTML = `
+  <div class="sup-hero"><span class="sup-av lg">${I.headset}</span><div><b>${t("supportHead")}</b><p>${t("supportText")}</p></div></div>
+  <button class="btn" id="newTk">${t("newTicket")}</button>
+  <div class="section-title">${t("myTickets")}</div>
+  ${tickets.length?`<div class="list">${tickets.map(th=>`<button class="li" data-th="${esc(th.id)}"><span class="grow"><b style="font-weight:600">${t("ticketNo",{no:th.no})}</b><span class="small muted" style="display:block">${t("r_"+th.reason)}</span></span><span class="pill ${th.status==="closed"?"grey":th.status==="answered"?"":"grey"}">${t("tk_"+th.status)}</span>${th.unread?`<b class="unread-dot">${th.unread}</b>`:""}</button>`).join("")}</div>`:`<div class="card muted small" style="text-align:center">${t("noTickets")}</div>`}
+  <div class="section-title">${t("faq")}</div>
+  <div class="list faq">${[1,2,3].map(i=>`<details class="li"><summary>${t("faq"+i+"q")}</summary><p>${t("faq"+i+"a")}</p></details>`).join("")}</div>`;
+  $("#newTk").onclick=()=>go("ticketNew",{});
+  document.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>go("chat",{id:b.dataset.th}));
+};
+
+const tkDraft={reason:"notdelivered",orderId:"",text:""};
+screens.ticketNew = ({orderId}={}) => {
+  topbar(t("newTicket"),{canBack:true});
+  if(orderId && tkDraft._for!==orderId){ tkDraft.orderId=orderId; tkDraft._for=orderId; tkDraft.reason="notdelivered"; }
+  const myOrders=(S.orders||[]).filter(o=>(o.userId==="me"||o.driverId==="me")&&o.status!=="open");
+  const reasons=["notdelivered","noanswer","damaged","payment","other"];
+  $("#screen").innerHTML = `
+  <form class="stack" id="tkf" novalidate>
+    <span class="lbl">${t("reasonLbl")}</span>
+    <div class="paymethods">${reasons.map(r=>`<button type="button" class="pm ${tkDraft.reason===r?"on":""}" data-r="${r}"><i></i>${t("r_"+r)}</button>`).join("")}</div>
+    <label class="lbl" for="tkOrder">${t("aboutOrder")}</label>
+    <label class="field" for="tkOrder">${I.box}<select id="tkOrder"><option value="">${t("noOrderLink")}</option>${myOrders.map(o=>`<option value="${o.id}" ${tkDraft.orderId===o.id?"selected":""}>${esc(loc(o.what))} · ${esc(o.from)} → ${esc(o.to)}</option>`).join("")}</select></label>
+    <label class="lbl" for="tkText">${t("describe")}</label>
+    <div class="field"><textarea id="tkText" maxlength="1000" placeholder="${t("describePh")}">${esc(tkDraft.text)}</textarea></div>
+    <button class="btn" type="submit">${t("sendTicket")}</button>
+  </form>`;
+  const keep=()=>{ tkDraft.orderId=$("#tkOrder").value; tkDraft.text=$("#tkText").value; };
+  document.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{ keep(); tkDraft.reason=b.dataset.r; render(); });
+  $("#tkf").onsubmit=e=>{ e.preventDefault(); keep();
+    if(tkDraft.text.trim().length<5){ toast(t("errDescribe")); return; }
+    const no=1000+Object.values(threads()).filter(x=>x.kind==="support").length+Math.floor(Math.random()*90)+11;
+    const o=tkDraft.orderId?(S.orders||[]).find(x=>x.id===tkDraft.orderId):null;
+    const th=getThread("support",String(no),t("supportAgent"),{no,reason:tkDraft.reason,orderId:o?.id||"",status:"open"});
+    th.msgs.push({id:uid(),from:"sys",text:t("ticketCreated",{no}),at:Date.now()});
+    th.msgs.push({id:uid(),from:"me",text:(o?`[${loc(o.what)} · ${o.from} → ${o.to}] `:"")+tkDraft.text.trim(),at:Date.now()});
+    if(o && (tkDraft.reason==="notdelivered"||tkDraft.reason==="noanswer"||tkDraft.reason==="damaged")) o.dispute=no;
+    const drv=o&&o.driverId&&o.driverId!=="me"?user(o.driverId)?.name:"";
+    const replies=[[t("s_greet",{name:S.me.name,no})]];
+    if(o && ["notdelivered","noanswer","damaged"].includes(tkDraft.reason)) replies.push([t("s_nd",{driver:drv||"—",price:o.price})]);
+    else if(tkDraft.reason==="payment") replies.push([t("s_pay")]);
+    else replies.push([t("s_gen")]);
+    Object.assign(tkDraft,{text:"",orderId:"",_for:null,reason:"notdelivered"});
+    celebrate(t("ticketCreated",{no}));
+    stack.pop(); go("chat",{id:th.id});
+    setTimeout(()=>{ th.status="answered"; scheduleReplies(th,replies,1500); },400);
+  };
+};
 
 // ---------- free limit + wallet ----------
 // Change these to set the business rules.
@@ -1447,7 +1711,7 @@ screens.trip = ({id}) => {
   <div class="section-title">${t("driver")}</div>
   <div class="card">
     <button class="row" style="width:100%;text-align:left" id="drv">${avatar(d)}<div style="flex:1;min-width:0"><b>${esc(d.name)}</b><div class="small muted">${rc?stars(r)+" "+reviewsWord(rc):t("noReviewsYet")}</div>${isVerified(tr.driverId)?okBadge():""}</div>${I.chev}</button>
-    ${mine?"":`<div class="contact"><a href="tel:${esc(d.phone.replace(/\s/g,""))}">${I.phone} ${t("call")}</a><a href="https://wa.me/${esc(d.phone.replace(/\D/g,""))}" target="_blank" rel="noopener">${I.chat} ${t("write")}</a></div>`}
+    ${mine?"":`<div class="contact"><a href="tel:${esc(d.phone.replace(/\s/g,""))}">${I.phone} ${t("call")}</a><button type="button" class="chatbtn">${I.chat} ${t("write")}</button></div>`}
   </div>
   ${mine?"":`<div class="small muted" style="margin-top:-8px;text-align:center">${t("phoneLbl")} <b style="user-select:all;color:var(--fg)">${esc(d.phone)}</b> <button class="pill" id="cp">${t("copy")}</button></div>`}
   ${loc(tr.comment)?`<div class="section-title">${t("details")}</div><div class="card small">${esc(loc(tr.comment))}</div>`:""}
@@ -1463,6 +1727,7 @@ screens.trip = ({id}) => {
   : (wantParcel ? parcelBlock + rideBlock : rideBlock + parcelBlock) + `<p class="small muted" style="margin:-6px 0 0;text-align:center">${t("callTip")}</p>`}`;
 
   $("#drv").onclick=()=>go("user",{id:tr.driverId});
+  document.querySelectorAll(".chatbtn").forEach(b=>b.onclick=()=>openTripChat(tr));
   const cp=$("#cp"); if(cp) cp.onclick=()=>{ try{ navigator.clipboard.writeText(d.phone).then(()=>toast(t("copied")),()=>toast(t("copyFail"))); }catch(e){ toast(t("copyFail")); } };
   let n=Math.min(search.pax,left)||1;
   const upd=()=>{ $("#bn").textContent=n; $("#bsum").textContent=tr.price*n; };
@@ -1695,10 +1960,11 @@ screens.createTrip = () => {
 screens.notifs = () => {
   topbar(t("notifsTitle"),{right:S.notifs.length?`<button class="icon-btn" id="clr" aria-label="${t("clear")}">${I.trash.replace('class="ic"','width="22" height="22"')}</button>`:""});
   const ago = ts => { const m=Math.round((Date.now()-ts)/60000); if(m<1) return t("justNow"); if(m<60) return t("minAgo",{n:m}); const h=Math.round(m/60); if(h<24) return t("hAgo",{n:h}); return new Date(ts).toLocaleDateString(S.lang==="ky"?"ky-KG":"ru-RU"); };
-  $("#screen").innerHTML = S.notifs.length? S.notifs.map(n=>`<button class="card notif ${n.read?"":"unread"}" style="text-align:left;width:100%" ${n.tripId?`data-nt="${n.tripId}"`:""} ${n.orderId?`data-no="${n.orderId}"`:""}><span class="ic">${I[n.icon]||I.bell}</span><div style="flex:1;min-width:0"><div>${esc(notifText(n))}</div><div class="small muted">${ago(n.at)}</div></div></button>`).join("")
+  $("#screen").innerHTML = S.notifs.length? S.notifs.map(n=>`<button class="card notif ${n.read?"":"unread"}" style="text-align:left;width:100%" ${n.tripId?`data-nt="${n.tripId}"`:""} ${n.orderId?`data-no="${n.orderId}"`:""} ${n.chatId?`data-nc="${esc(n.chatId)}"`:""}><span class="ic">${I[n.icon]||I.bell}</span><div style="flex:1;min-width:0"><div>${esc(notifText(n))}</div><div class="small muted">${ago(n.at)}</div></div></button>`).join("")
     : `<div class="card empty">${I.bell}<h3 style="margin-top:8px">${t("quiet")}</h3><p>${t("quietText")}</p></div>`;
   S.notifs.forEach(n=>n.read=true); save(); renderTabs();
   document.querySelectorAll("[data-nt]").forEach(b=>b.onclick=()=>{ if(S.trips.some(x=>x.id===b.dataset.nt)) go("trip",{id:b.dataset.nt}); else toast(t("tripGone")); });
+  document.querySelectorAll("[data-nc]").forEach(b=>b.onclick=()=>{ if(threads()[b.dataset.nc]) go("chat",{id:b.dataset.nc}); });
   document.querySelectorAll("[data-no]").forEach(b=>b.onclick=()=>{ if((S.orders||[]).some(o=>o.id===b.dataset.no)) go("order",{id:b.dataset.no}); else toast(t("tripGone")); });
   const c=$("#clr"); if(c) c.onclick=()=>{S.notifs=[];render();};
 };
@@ -1718,6 +1984,8 @@ screens.profile = () => {
   <div class="list">${infoItems.map(([k,ic])=>`<button class="li" data-info="${k}">${ic}<span class="grow">${t(k)}</span>${I.chev}</button>`).join("")}</div>
   <div class="list">
     <button class="li" data-info="feedback">${I.edit}<span class="grow">${t("feedback")}</span>${I.chev}</button>
+    <button class="li" id="pSupport">${I.headset.replace("<svg",'<svg class="ic"')}<span class="grow">${t("support")}</span>${I.chev}</button>
+    <button class="li" id="pChats">${I.chat.replace("<svg",'<svg class="ic"')}<span class="grow">${t("chats")}</span>${Object.values(threads()).reduce((a,x)=>a+(x.unread||0),0)?`<b class="unread-dot">${Object.values(threads()).reduce((a,x)=>a+(x.unread||0),0)}</b>`:""}${I.chev}</button>
     <button class="li" data-info="contacts">${I.contact}<span class="grow">${t("contacts")}</span>${I.chev}</button>
     <button class="li" id="rate">${I.starO}<span class="grow">${t("rateApp")}</span>${I.chev}</button>
   </div>
@@ -1726,6 +1994,8 @@ screens.profile = () => {
   bindLang($("#screen"));
   $("#pd").onclick=()=>go("personal");
   $("#walletCard").onclick=()=>go("wallet");
+  $("#pSupport").onclick=()=>go("support");
+  $("#pChats").onclick=()=>go("chats");
   $("#drvSt").onclick=()=>{ if(st==="none") go("driverReg"); else if(st==="pending") toast(t("pendingTitle")); };
   document.querySelectorAll("[data-info]").forEach(b=>b.onclick=()=>go("info",{k:b.dataset.info}));
   $("#rate").onclick=()=>{ let v=5; sheet(`<h3>${t("likeApp")}</h3><div class="stargrab" id="sg">${[1,2,3,4,5].map(i=>`<button data-v="${i}" aria-label="${i}">${I.star}</button>`).join("")}</div><button class="btn" id="ok">${t("rate")}</button>`,el=>{
