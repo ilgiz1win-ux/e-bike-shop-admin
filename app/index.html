@@ -644,6 +644,44 @@ body.on-home .topbar .lang button.on{background:var(--surface);color:var(--accen
 .seg button{border-radius:999px}
 .sheet{border-radius:28px 28px 0 0}
 .sheet::before{content:"";display:block;width:40px;height:5px;border-radius:3px;background:var(--line);margin:-8px auto 2px}
+
+/* ---- profile / personal / wallet / operator (design system) ---- */
+.prof-hero{gap:14px}
+.prof-id{display:flex;align-items:center;gap:14px;width:100%;text-align:left;color:var(--on-ink)}
+.prof-id b{display:block;font:700 22px/1.2 var(--f-display)}
+.prof-id span span{color:var(--ink-muted);font-size:14px}
+.avatar.md{width:60px;height:60px;font-size:24px;box-shadow:0 0 0 3px rgba(255,255,255,.35)}
+.prof-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.prof-stats div{background:rgba(255,255,255,.12);border-radius:16px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.prof-stats b{font:700 15px var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prof-stats span{font-size:11.5px;color:var(--ink-muted)}
+.prof-hero .wallet-card{background:var(--surface);color:var(--fg);box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.prof-hero .wallet-card::before{background:var(--accent);opacity:.14}
+.prof-hero .wc-l,.prof-hero .wc-free,.prof-hero .wc-b small{color:var(--muted)}
+.prof-hero .wc-free b{color:var(--fg)}
+.prof-hero .wc-free .bar{background:var(--field)}
+.ava-edit{position:relative;cursor:pointer;display:block}
+.ava-edit input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.ava-edit .cam{position:absolute;right:2px;bottom:2px;width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;box-shadow:0 0 0 3px var(--bg)}
+.ava-edit .cam svg{width:18px;height:18px}
+.stat3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.stat3 div{background:var(--surface);border-radius:18px;padding:12px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat3 b{font:700 15px var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat3 span{font-size:11.5px;color:var(--muted)}
+.li.danger svg.ic{background:color-mix(in srgb,var(--danger) 12%,transparent);color:var(--danger)}
+.paytiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pt{display:flex;align-items:center;gap:10px;padding:12px;border-radius:16px;background:var(--field);font-weight:600;font-size:14px;text-align:left;border:2px solid transparent;transition:border-color .2s,background-color .2s;min-width:0}
+.pt-badge{width:30px;height:30px;border-radius:10px;color:#fff;display:grid;place-items:center;font:700 14px var(--f-display);flex:none}
+.pt.on{border-color:var(--accent-ink);background:var(--accent-soft)}
+.pt:last-child{grid-column:1/-1}
+#amt{text-align:left}
+.op-stats div{border:0;box-shadow:var(--shadow);background:var(--surface);color:var(--fg)}
+.op-stats div:first-child{background:var(--surface);color:var(--fg)}
+.op-stats b{font:700 26px var(--f-display)}
+.op-stats .os-new b{color:var(--st-onway)}
+.op-stats .os-answered b{color:var(--st-accepted)}
+.op-stats .os-closed b{color:var(--st-open)}
+.op-stats span{opacity:1;color:var(--muted)}
 </style>
 
 <div class="app">
@@ -769,7 +807,7 @@ ru:{
   payDemo:"Демо: настоящий платёж не проводится. В рабочей версии оплата идёт через платёжный шлюз.", pricesTitle:"Тарифы", fee_trip:"Публикация поездки", fee_order:"Публикация посылки", fee_take:"Взять посылку (водитель)", fee_book:"Бронирование места",
   pricesNote:"Первые {n} действий бесплатно, дальше оплата с баланса.", historyTitle:"История", txTopup:"Пополнение · {m}", noHistory:"Операций пока нет",
   minAmount:"Минимальная сумма — 50 с", paying:"Оплата…", topupDone:"Баланс пополнен на {n} с", topupNotif:"Баланс пополнен на {n} с ({m}).",
-  hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
+  sts_none:"Нет", sts_pending:"Проверка", sts_verified:"Да ✓", ratingLbl:"Рейтинг", tripsWord:"Поездки", changePhoto:"Сменить фото", photoSaved:"Фото обновлено", hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
   allDays:"Все дни", found:"Найдено: {n}", resetFilters:"Сбросить фильтры", noOffers:"По этим фильтрам ничего нет",
   noOffersText:"Выберите другой город или дату. Можно отправить запрос всем водителям — вам позвонят.", askDrivers:"Отправить запрос водителям", advSearch:"Подробный поиск",
   tTrips:"Поездки", tSearch:"Поиск", tCreate:"Создать", tNotifs:"Уведомления", tProfile:"Профиль",
@@ -915,7 +953,7 @@ ky:{
   payDemo:"Демо: чыныгы төлөм жүргүзүлбөйт. Иштеген версияда төлөм төлөм шлюзу аркылуу өтөт.", pricesTitle:"Тарифтер", fee_trip:"Сапар жарыялоо", fee_order:"Посылка жарыялоо", fee_take:"Посылка алуу (айдоочу)", fee_book:"Орун брондоо",
   pricesNote:"Алгачкы {n} аракет акысыз, андан кийин баланстан төлөнөт.", historyTitle:"Тарых", txTopup:"Толтуруу · {m}", noHistory:"Азырынча операция жок",
   minAmount:"Эң аз сумма — 50 сом", paying:"Төлөнүүдө…", topupDone:"Баланс {n} сомго толукталды", topupNotif:"Баланс {n} сомго толукталды ({m}).",
-  hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
+  sts_none:"Жок", sts_pending:"Текшерүүдө", sts_verified:"Ооба ✓", ratingLbl:"Рейтинг", tripsWord:"Сапарлар", changePhoto:"Сүрөттү алмаштыруу", photoSaved:"Сүрөт жаңыртылды", hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
   allDays:"Бардык күндөр", found:"Табылды: {n}", resetFilters:"Чыпкаларды тазалоо", noOffers:"Бул чыпкалар боюнча эч нерсе жок",
   noOffersText:"Башка шаарды же күндү тандаңыз. Бардык айдоочуларга суроо жөнөтсөңүз болот — сизге чалышат.", askDrivers:"Айдоочуларга суроо жөнөтүү", advSearch:"Кеңири издөө",
   tTrips:"Сапарлар", tSearch:"Издөө", tCreate:"Түзүү", tNotifs:"Билдирүүлөр", tProfile:"Профиль",
@@ -1098,7 +1136,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const user = id => id==="me"?S.me:S.users.find(u=>u.id===id);
 const avColor = s => AV[[...String(s)].reduce((a,c)=>a+c.charCodeAt(0),0)%AV.length];
-const avatar = (u,cls="") => `<div class="avatar ${cls}" style="background:${avColor(u?.name||"?")}">${esc((u?.name||"?").trim()[0]||"?").toUpperCase()}</div>`;
+const avatar = (u,cls="") => u?.photo ? `<div class="avatar ${cls}" style="background:var(--field) url(${u.photo}) center/cover"></div>` : `<div class="avatar ${cls}" style="background:${avColor(u?.name||"?")}">${esc((u?.name||"?").trim()[0]||"?").toUpperCase()}</div>`;
 const reviewsOf = id => S.reviews.filter(r=>r.toId===id);
 const ratingOf = id => { const r=reviewsOf(id); return r.length? r.reduce((a,b)=>a+b.rating,0)/r.length : 0; };
 const stars = v => `<span class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=Math.round(v)?"":"off"}">${I.star}</span>`).join("")}</span>`;
@@ -1848,13 +1886,13 @@ screens.opPanel = () => {
   const cnt = k => all.filter(x=>k==="new"?opNeedsReply(x):k==="all"?true:x.status===k).length;
   const list = all.filter(x=>opFilter.st==="all"||(opFilter.st==="new"?opNeedsReply(x):x.status===opFilter.st));
   $("#screen").innerHTML = `
-  <div class="op-stats">${[["new","opNew"],["answered","tk_answered"],["closed","tk_closed"]].map(([k,l])=>`<div><b>${cnt(k)}</b><span>${t(l)}</span></div>`).join("")}</div>
+  <div class="op-stats">${[["new","opNew"],["answered","tk_answered"],["closed","tk_closed"]].map(([k,l])=>`<div class="os-${k}"><b>${cnt(k)}</b><span>${t(l)}</span></div>`).join("")}</div>
   <div class="chips scroll">${[["all","fAll"],["new","opNew"],["answered","tk_answered"],["closed","tk_closed"]].map(([k,l])=>`<button class="chip ${opFilter.st===k?"on":""}" data-st="${k}">${t(l)}<span class="cnt">${cnt(k)}</span></button>`).join("")}</div>
   ${list.length?`<div class="list">${list.map(th=>{ const last=th.msgs.filter(m=>m.from!=="sys").pop(); const u=th.user||{name:"?"};
     return `<button class="li" data-op="${esc(th.id)}" style="align-items:flex-start">${avatar(u,"sm")}<span class="grow" style="min-width:0"><span class="row between" style="gap:8px"><b style="font-weight:600">${esc(u.name)} · №${th.no}</b><span class="small muted" style="flex:none">${hhmm(th.lastAt)}</span></span>
       <span class="small" style="display:block">${t("r_"+th.reason)}</span>
       <span class="small muted" style="display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${last?esc(last.text):""}</span>
-      <span class="row" style="gap:6px;margin-top:4px">${opNeedsReply(th)?`<span class="pill red">${t("opNeedReply")}</span>`:`<span class="pill ${th.status==="closed"?"grey":""}">${t("tk_"+th.status)}</span>`}${th.mine?`<span class="pill grey">${t("opThisDevice")}</span>`:""}</span></span></button>`; }).join("")}</div>`
+      <span class="row" style="gap:6px;margin-top:4px">${opNeedsReply(th)?`<span class="pill st st-onway"><i></i>${t("opNeedReply")}</span>`:`<span class="pill ${th.status==="closed"?"grey":""}">${t("tk_"+th.status)}</span>`}${th.mine?`<span class="pill grey">${t("opThisDevice")}</span>`:""}</span></span></button>`; }).join("")}</div>`
   : `<div class="card empty">${I.headset}<p>${t("noTickets")}</p></div>`}
   <p class="tag-demo" style="text-align:left">${t("opDemo")}</p>`;
   document.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{ opFilter.st=b.dataset.st; render(); });
@@ -2090,7 +2128,7 @@ screens.wallet = ({need}={}) => {
     <label class="lbl" for="amt">${t("amountLbl")}</label>
     <div class="field">${I.wallet}<input id="amt" type="number" inputmode="numeric" min="50" step="10" value="${esc(st.amount)}" style="font-weight:700;font-size:18px"></div>
     <span class="lbl">${t("payMethod")}</span>
-    <div class="paymethods">${PAY_METHODS.map(m=>`<button type="button" class="pm ${st.method===m?"on":""}" data-pm="${esc(m)}"><i></i>${esc(m)}</button>`).join("")}</div>
+    <div class="paytiles">${PAY_METHODS.map(m=>`<button type="button" class="pt ${st.method===m?"on":""}" data-pm="${esc(m)}"><span class="pt-badge" style="background:${avColor(m)}">${esc(m[0])}</span>${esc(m)}</button>`).join("")}</div>
     <button class="btn" id="payBtn">${t("payFor",{n:`<span id="payN">${esc(st.amount)}</span>`})}</button>
     <p class="tag-demo" style="margin:0">${t("payDemo")}</p>
   </div>
@@ -2443,9 +2481,17 @@ screens.profile = () => {
   topbar(t("tProfile"));
   const me=S.me, st=me.driver?.status||"none";
   const infoItems=[["about",I.info],["safety",I.shield],["terms",I.doc],["privacy",I.lock]];
+  document.body.classList.add("on-home");
   $("#screen").innerHTML = `
-  <button class="hero-profile" id="pd">${avatar(me)}<div style="flex:1;min-width:0"><b>${esc(me.name)}</b><span style="opacity:.85">${t("personal")}</span></div>${I.chev.replace('class="chev"','width="22" height="22"')}</button>
-  ${walletCard()}
+  <section class="home-hero prof-hero">
+    <button class="prof-id" id="pd">${avatar(me,"md")}<span style="flex:1;min-width:0"><b>${esc(me.name)}</b><span>${t("personal")}</span></span>${I.chev.replace('class="chev"','width="22" height="22"')}</button>
+    <div class="prof-stats">
+      <div><b>${reviewsOf("me").length?ratingOf("me").toFixed(1):"—"}</b><span>${t("ratingLbl")}</span></div>
+      <div><b>${tripsCount("me")}</b><span>${t("tripsWord")}</span></div>
+      <div><b>${t("sts_"+st)}</b><span>${t("driver")}</span></div>
+    </div>
+    ${walletCard()}
+  </section>
   <div class="list">
     <button class="li" id="drvSt">${I.idcard}<span class="grow">${t("driverStatus")}</span><span class="pill ${st==="verified"?"":"grey"}">${t("st_"+st)}</span>${st==="none"?I.chev:""}</button>
     <div class="li">${I.globe}<span class="grow">${t("language")}</span>${langSwitch()}</div>
@@ -2492,17 +2538,25 @@ screens.personal = () => {
   const me=S.me; topbar(t("personal"),{canBack:true});
   const rv=reviewsOf("me"), r=ratingOf("me"), st=me.driver?.status||"none";
   $("#screen").innerHTML = `
-  <div class="stack" style="align-items:center;gap:8px">${avatar(me,"lg")}<h2 style="margin:0">${esc(me.name)}</h2>${st==="verified"?okBadge():""}</div>
+  <div class="stack" style="align-items:center;gap:8px">
+    <label class="ava-edit" aria-label="${t("changePhoto")}">${avatar(me,"lg")}<span class="cam">${I.camera}</span><input type="file" accept="image/*" id="avaIn"></label>
+    <h2 style="margin:4px 0 0">${esc(me.name)}</h2>${st==="verified"?okBadge():""}
+  </div>
   <button class="ratingbox" id="myrev"><div><b>${rv.length?r.toFixed(1):"—"}</b>${stars(r)}<div class="small muted">${reviewsWord(rv.length)}</div></div>${I.chev}</button>
-  <div class="row between small"><span><span class="muted">${t("regDate")}</span> ${regTxt(me.reg)}</span><span><span class="muted">${t("tripsLbl")}</span> ${tripsCount("me")}</span></div>
+  <div class="stat3">
+    <div><b>${tripsCount("me")}</b><span>${t("tripsWord")}</span></div>
+    <div><b>${regTxt(me.reg)}</b><span>${t("regDate").replace(":","")}</span></div>
+    <div><b>${wallet().balance} с</b><span>${t("balanceLbl")}</span></div>
+  </div>
   <div class="list">
-    <button class="li" id="eName"><span class="grow">${t("nameAgeGender")}<div class="small muted">${esc(me.name)}${me.age?", "+esc(me.age):""}${me.gender?", "+(me.gender==="m"?t("male"):t("female")):""}</div></span>${I.chev}</button>
-    <button class="li" id="eCar"><span class="grow">${t("carTitle")}<div class="small muted">${me.car?carTxt(me.car):t("notAdded")}</div></span>${I.chev}</button>
-    <button class="li" id="ePhone"><span class="grow">${esc(me.phone)} <span class="badge-ok">${I.check}</span></span>${I.chev}</button>
-    <button class="li" id="eDrv"><span class="grow">${t("driverStatus")}<div class="small muted">${st==="verified"&&me.driver.passport?`${esc(me.driver.passport.num.slice(0,2))}•••••${esc(me.driver.passport.num.slice(-2))}`:t("st_"+st)}</div></span>${st==="none"?I.chev:`<span class="pill ${st==="verified"?"":"grey"}">${t("st_"+st)}</span>`}</button>
+    <button class="li" id="eName">${I.user.replace("<svg",'<svg class="ic"')}<span class="grow">${t("nameAgeGender")}<div class="small muted">${esc(me.name)}${me.age?", "+esc(me.age):""}${me.gender?", "+(me.gender==="m"?t("male"):t("female")):""}</div></span>${I.chev}</button>
+    <button class="li" id="eCar">${I.car.replace("<svg",'<svg class="ic"')}<span class="grow">${t("carTitle")}<div class="small muted">${me.car?carTxt(me.car):t("notAdded")}</div></span>${I.chev}</button>
+    <button class="li" id="ePhone">${I.phone.replace("<svg",'<svg class="ic"')}<span class="grow">${esc(me.phone)} <span class="badge-ok">${I.check}</span></span>${I.chev}</button>
+    <button class="li" id="eDrv">${I.idcard}<span class="grow">${t("driverStatus")}<div class="small muted">${st==="verified"&&me.driver.passport?`${esc(me.driver.passport.num.slice(0,2))}•••••${esc(me.driver.passport.num.slice(-2))}`:t("st_"+st)}</div></span>${st==="none"?I.chev:`<span class="pill ${st==="verified"?"":"grey"}">${t("st_"+st)}</span>`}</button>
   </div>
   <div class="list"><button class="li danger" id="delAcc">${I.trash}<span class="grow">${t("deleteAcc")}</span></button></div>`;
   $("#myrev").onclick=()=>go("user",{id:"me"});
+  $("#avaIn").onchange=async e=>{ const f=e.target.files[0]; if(!f) return; try{ me.photo=await readPhoto(f); save(); toast(t("photoSaved")); render(); }catch(_){ toast(t("photoErr")); } };
   $("#eName").onclick=()=>go("editName");
   $("#eCar").onclick=()=>go("car");
   $("#eDrv").onclick=()=>{ if(st==="none") go("driverReg"); };
