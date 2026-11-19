@@ -1,0 +1,22 @@
+{
+  "name": "joldosh-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "check": "vitest run && vite build"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.16",
+    "jsdom": "^31.0.1",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.1"
+  }
+}
