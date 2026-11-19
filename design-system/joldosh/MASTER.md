@@ -5,7 +5,7 @@ Page-specific overrides go to `design-system/joldosh/pages/<page>.md`.
 
 Sources: UI UX Pro Max skill (product row **Logistics/Delivery**: Minimalism & Swiss + Flat,
 status colours blue/orange/green; typography row **Geometric Modern**) combined with the owner's
-brand decision (green, reference screenshots). Generic landing-page output of the generator was
+brand decision (blue; layout from the reference screenshots). Generic landing-page output of the generator was
 rejected as off-topic and is not used here.
 
 ## 1. Product
@@ -20,33 +20,37 @@ rejected as off-topic and is not used here.
 - One deep-green hero per screen at most (home header, profile, wallet, support).
 
 ## 3. Colour tokens (light)
+Brand changed to **trust blue** by the owner — it matches the skill's Logistics/Delivery primary `#2563EB`.
+Green is now semantic only (delivered, verified).
+
 | Token | Value | Use |
 |---|---|---|
-| `--bg` | `#f1f4f2` | page background (never pure white) |
+| `--bg` | `#f2f5fa` | page background (never pure white) |
 | `--surface` | `#ffffff` | cards, sheets, bars |
-| `--field` | `#ebf0ed` | inputs, neutral chips |
-| `--fg` | `#16201b` | text |
-| `--muted` | `#5f6b65` | secondary text (4.5:1 on bg) |
-| `--line` | `#e1e7e3` | dividers |
-| `--accent` | `#2bc66f` | brand fill (buttons, highlights) — **text on it is `--on-accent`** |
-| `--on-accent` | `#06281a` | text/icons on brand fill (≈9:1) |
-| `--accent-ink` | `#15803d` | green text/icons on white (≈5:1) |
-| `--accent-soft` | `#e3f5ea` | tonal containers, active nav indicator |
-| `--ink` → `--ink2` | `#146c3c → #0d4a2a` | hero gradient, white text on it |
-| `--danger` | `#eb5757` | destructive |
+| `--field` | `#eaeff7` | inputs, neutral chips |
+| `--fg` | `#0f1a2e` | text |
+| `--muted` | `#5b6678` | secondary text (≥4.5:1 on bg) |
+| `--line` | `#e0e6f0` | dividers |
+| `--accent` | `#2563eb` | brand fill; white text on it ≈5.2:1 |
+| `--on-accent` | `#ffffff` | text/icons on brand fill |
+| `--accent-ink` | `#1d4ed8` | blue text/icons on white (≈6.7:1) |
+| `--accent-soft` | `#e7efff` | tonal containers, active nav indicator |
+| `--ink` → `--ink2` | `#1e40af → #172f7a` | hero gradient, white text on it |
+| `--ok` | `#16a34a` | delivered, verified (semantic green) |
+| `--danger` | `#e5484d` | destructive |
 
 ### Status colours (parcel / trip lifecycle)
 | Status | Token | Value | Meaning |
 |---|---|---|---|
-| open | `--st-open` | muted grey | waiting for a driver |
-| accepted | `--st-accepted` | `#2563eb` | driver took it (tracking blue) |
+| open | `--st-open` | `#5b6678` | waiting for a driver |
+| accepted | `--st-accepted` | `#7c3aed` | driver took it (violet — kept apart from brand blue) |
 | onway | `--st-onway` | `#ea580c` | in transit (tracking orange) |
-| delivered | `--st-delivered` | `--accent-ink` | done |
+| delivered | `--ok` | `#16a34a` | done |
 | cancelled | `--danger` | | cancelled |
 
 Never rely on colour alone: every status also has a text label.
 
-Dark mode mirrors every token (see `:root` dark blocks in the app); brand fill stays green, text on it stays dark.
+Dark mode mirrors every token (brand `#4f8cff` with dark text `#06122b`).
 
 ## 4. Typography
 - **Montserrat** (geometric sans, same family of mood as the recommended Outfit; full Cyrillic incl. ө ү ң), fallback Inter, system-ui.
@@ -73,7 +77,7 @@ Dark mode mirrors every token (see `:root` dark blocks in the app); brand fill s
 - Success: check-mark draw. Respect `prefers-reduced-motion` (all motion off).
 
 ## 8. Pre-delivery checklist
-- [ ] Text contrast ≥ 4.5:1 (light and dark); no white text on `--accent`
+- [ ] Text contrast ≥ 4.5:1 (light and dark)
 - [ ] No emoji as structural icons (SVG only)
 - [ ] Focus visible, aria-labels on icon buttons
 - [ ] Touch targets ≥ 44px, 8px+ spacing
