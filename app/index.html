@@ -10,7 +10,7 @@
   --accent:#2bc66f; --accent-strong:#25b363; --accent-soft:#e3f5ea; --accent-ink:#15803d; --on-accent:#06281a;
   --ink:#146c3c; --ink2:#0d4a2a; --on-ink:#ffffff; --ink-muted:rgba(255,255,255,.78); --ok:#15803d;
   --sel-bg:#15803d; --sel-fg:#ffffff; --sel-ic:#ffffff;
-  --danger:#eb5757; --warn-bg:#fffbe6; --warn-line:#f5e3a1; --star:#f7b500;
+  --st-open:#5f6b65; --st-accepted:#2563eb; --st-onway:#ea580c; --danger:#eb5757; --warn-bg:#fffbe6; --warn-line:#f5e3a1; --star:#f7b500;
   --shadow:0 1px 2px rgba(16,40,28,.04),0 6px 20px rgba(16,40,28,.06);
   --f-display:"Montserrat","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-body:"Montserrat","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -20,14 +20,14 @@
   --accent:#34d27b; --accent-strong:#2bbf6c; --accent-soft:#1b3326; --accent-ink:#4fe08f; --on-accent:#07160d;
   --ink:#1f7a47; --ink2:#175c36; --on-ink:#ffffff; --ink-muted:rgba(255,255,255,.75); --ok:#4fe08f;
   --sel-bg:#34d27b; --sel-fg:#07160d; --sel-ic:#07160d;
-  --danger:#f0716a; --warn-bg:#2d2a17; --warn-line:#5a5020; --star:#f7c23a;
+  --st-open:#98a39d; --st-accepted:#60a5fa; --st-onway:#fb923c; --danger:#f0716a; --warn-bg:#2d2a17; --warn-line:#5a5020; --star:#f7c23a;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f1512; --surface:#18211c; --field:#222d27; --fg:#e8efe9; --muted:#93a39a; --line:#2a352f;
   --accent:#34d27b; --accent-strong:#2bbf6c; --accent-soft:#1b3326; --accent-ink:#4fe08f; --on-accent:#07160d;
   --ink:#1f7a47; --ink2:#175c36; --on-ink:#ffffff; --ink-muted:rgba(255,255,255,.75); --ok:#4fe08f;
   --sel-bg:#34d27b; --sel-fg:#07160d; --sel-ic:#07160d;
-  --danger:#f0716a; --warn-bg:#2d2a17; --warn-line:#5a5020; --star:#f7c23a;
+  --st-open:#98a39d; --st-accepted:#60a5fa; --st-onway:#fb923c; --danger:#f0716a; --warn-bg:#2d2a17; --warn-line:#5a5020; --star:#f7c23a;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.3); color-scheme:dark}
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -608,6 +608,42 @@ body.on-home .topbar .lang{background:rgba(255,255,255,.14)}
 body.on-home .topbar .lang button{color:var(--ink-muted)}
 body.on-home .topbar .lang button.on{background:var(--surface);color:var(--accent-ink)}
 .home-hero{padding-top:6px}
+
+/* ---- design system: status colours, info banners, detail screens ---- */
+.pill.st{display:inline-flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--c) 13%,transparent);color:var(--c);font-size:11.5px;padding:4px 10px}
+.pill.st i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.st-open{--c:var(--st-open)} .st-accepted{--c:var(--st-accepted)} .st-onway{--c:var(--st-onway)} .st-delivered{--c:var(--accent-ink)} .st-cancelled{--c:var(--danger)}
+.pill.st.st-onway i{animation:bob 1.2s ease-in-out infinite}
+.steps i{height:6px;border-radius:3px}
+.steps.s-open i.on{background:var(--st-open)} .steps.s-accepted i.on{background:var(--st-accepted)} .steps.s-onway i.on{background:var(--st-onway)} .steps.s-delivered i.on{background:var(--accent-ink)}
+.banner{background:var(--accent-soft);border:0;border-radius:18px;color:var(--fg);padding:14px 16px}
+.banner svg{color:var(--accent-ink)!important}
+.notif{border:0;padding:14px}
+.notif.unread{border-left:0;box-shadow:inset 3px 0 0 var(--accent),var(--shadow)}
+.notif .ic{width:42px;height:42px;border-radius:14px}
+.notif .ic-check{background:var(--accent-soft);color:var(--accent-ink)}
+.notif .ic-box{background:color-mix(in srgb,var(--st-onway) 13%,transparent);color:var(--st-onway)}
+.notif .ic-chat{background:color-mix(in srgb,var(--st-accepted) 13%,transparent);color:var(--st-accepted)}
+.notif .ic-bell{background:var(--field);color:var(--muted)}
+/* detail screens */
+#screen > .card.stack h2{font:700 21px/1.25 var(--f-display)}
+.card .tl .stop b{font:700 16px/1.3 var(--f-display)}
+.contact{border-top:1px solid var(--line)}
+.contact a,.contact button{font-weight:600}
+.parcel-row .bx{border-radius:14px}
+.ratingbox{border:0}
+.ratingbox b{font:700 22px var(--f-display)}
+.avatar.lg{box-shadow:0 0 0 4px var(--surface),0 8px 24px rgba(16,40,28,.12)}
+.dist{gap:8px 12px}
+.bar{height:8px;border-radius:4px}
+.review p{color:var(--fg)}
+.empty svg{width:56px;height:56px;padding:12px;border-radius:18px;background:var(--accent-soft);color:var(--accent-ink);opacity:1}
+.costbox{border-radius:18px}
+.upl{border-radius:18px}
+.sizes button{border-radius:16px}
+.seg button{border-radius:999px}
+.sheet{border-radius:28px 28px 0 0}
+.sheet::before{content:"";display:block;width:40px;height:5px;border-radius:3px;background:var(--line);margin:-8px auto 2px}
 </style>
 
 <div class="app">
@@ -1412,7 +1448,7 @@ function tickOrders(){
   return changed;
 }
 const orderProgress = o => o.status==="delivered"?1 : o.status==="onway"? Math.min(o.auto?1:0.97,(Date.now()-o.pickedAt)/TRIP_MS) : 0;
-const statusPill = o => `<span class="pill ${o.status==="open"?"grey":o.status==="cancelled"?"red":""}">${t("ost_"+o.status)}</span>`;
+const statusPill = o => `<span class="pill st st-${o.status}"><i></i>${t("ost_"+o.status)}</span>`;
 
 function orderCard(o){
   return `<button class="card ordercard" data-order="${o.id}" aria-label="${esc(loc(o.what))}, ${esc(o.from)} — ${esc(o.to)}">
@@ -1455,7 +1491,7 @@ function drawTrack(cv,o){
   // remaining route (dashed) and travelled part (solid)
   ctx.strokeStyle=col("--fg"); ctx.lineWidth=3; ctx.setLineDash([7,7]);
   ctx.beginPath(); ctx.moveTo(...P(car)); for(let i=seg;i<pts.length;i++) ctx.lineTo(...P(pts[i])); ctx.stroke();
-  ctx.setLineDash([]); ctx.lineWidth=5; ctx.strokeStyle=col("--accent-ink");
+  ctx.setLineDash([]); ctx.lineWidth=5; ctx.strokeStyle=col(o.status==="delivered"?"--accent-ink":"--st-onway");
   ctx.beginPath(); ctx.moveTo(...P(pts[0])); for(let i=1;i<seg;i++) ctx.lineTo(...P(pts[i])); ctx.lineTo(...P(car)); ctx.stroke();
   // city dots + labels on route
   ctx.font="600 11px Inter, system-ui, sans-serif"; ctx.textBaseline="middle";
@@ -1568,7 +1604,7 @@ screens.order = ({id}) => {
       <div class="stop" style="margin-top:10px"><b>${esc(o.to)}</b>${o.drop?`<div class="small muted">${t("dropLbl")} ${esc(o.drop)}</div>`:""}</div>
     </div>
   </div>
-  ${o.status!=="cancelled"?`<div class="card"><div class="steps">${steps.map((s,i)=>`<i class="${i<=si?"on":""}"></i>`).join("")}</div><div class="row between small muted" style="margin-top:6px">${steps.map((s,i)=>`<span style="${i===si?"color:var(--fg);font-weight:600":""}">${t("step_"+s)}</span>`).join("")}</div></div>`:""}
+  ${o.status!=="cancelled"?`<div class="card"><div class="steps s-${o.status}">${steps.map((s,i)=>`<i class="${i<=si?"on":""}"></i>`).join("")}</div><div class="row between small muted" style="margin-top:6px">${steps.map((s,i)=>`<span style="${i===si?"color:var(--fg);font-weight:600":""}">${t("step_"+s)}</span>`).join("")}</div></div>`:""}
   ${showTrack?`<div class="section-title">${t("trackTitle")}</div>
     <div class="card stack" style="padding:12px"><canvas id="trkMap" data-id="${o.id}" style="width:100%;border-radius:12px;display:block" role="img" aria-label="${t("trackTitle")}"></canvas>
     <div class="row" style="gap:10px;align-items:flex-start"><div class="carpic" style="width:38px;height:38px;color:var(--accent-ink)">${I.car}</div><div id="trkInfo" class="small" style="flex:1"></div></div>
@@ -2394,7 +2430,7 @@ screens.createTrip = () => {
 screens.notifs = () => {
   topbar(t("notifsTitle"),{right:S.notifs.length?`<button class="icon-btn" id="clr" aria-label="${t("clear")}">${I.trash.replace('class="ic"','width="22" height="22"')}</button>`:""});
   const ago = ts => { const m=Math.round((Date.now()-ts)/60000); if(m<1) return t("justNow"); if(m<60) return t("minAgo",{n:m}); const h=Math.round(m/60); if(h<24) return t("hAgo",{n:h}); return new Date(ts).toLocaleDateString(S.lang==="ky"?"ky-KG":"ru-RU"); };
-  $("#screen").innerHTML = S.notifs.length? S.notifs.map(n=>`<button class="card notif ${n.read?"":"unread"}" style="text-align:left;width:100%" ${n.tripId?`data-nt="${n.tripId}"`:""} ${n.orderId?`data-no="${n.orderId}"`:""} ${n.chatId?`data-nc="${esc(n.chatId)}"`:""}><span class="ic">${I[n.icon]||I.bell}</span><div style="flex:1;min-width:0"><div>${esc(notifText(n))}</div><div class="small muted">${ago(n.at)}</div></div></button>`).join("")
+  $("#screen").innerHTML = S.notifs.length? S.notifs.map(n=>`<button class="card notif ${n.read?"":"unread"}" style="text-align:left;width:100%" ${n.tripId?`data-nt="${n.tripId}"`:""} ${n.orderId?`data-no="${n.orderId}"`:""} ${n.chatId?`data-nc="${esc(n.chatId)}"`:""}><span class="ic ic-${n.icon}">${I[n.icon]||I.bell}</span><div style="flex:1;min-width:0"><div>${esc(notifText(n))}</div><div class="small muted">${ago(n.at)}</div></div></button>`).join("")
     : `<div class="card empty">${I.bell}<h3 style="margin-top:8px">${t("quiet")}</h3><p>${t("quietText")}</p></div>`;
   S.notifs.forEach(n=>n.read=true); save(); renderTabs();
   document.querySelectorAll("[data-nt]").forEach(b=>b.onclick=()=>{ if(S.trips.some(x=>x.id===b.dataset.nt)) go("trip",{id:b.dataset.nt}); else toast(t("tripGone")); });
