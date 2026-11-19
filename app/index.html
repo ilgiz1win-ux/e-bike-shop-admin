@@ -354,6 +354,33 @@ button.card:active .price{transform:scale(1.06)}
 .celebrate path{fill:none;stroke:var(--on-accent);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .4s .25s ease forwards}
 .celebrate b{font:600 17px var(--f-display);text-align:center;max-width:260px}
 @media (prefers-reduced-motion: reduce){.celebrate path{stroke-dashoffset:0}#screen>*{opacity:1!important}}
+
+.wallet-card{display:flex;flex-direction:column;gap:6px;width:100%;text-align:left;background:var(--ink);color:var(--on-ink);border-radius:24px;padding:18px;position:relative;overflow:hidden}
+.wallet-card::before{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:var(--accent);opacity:.18}
+.wc-l{font-size:13px;color:var(--ink-muted)}
+.wc-top{font:600 13px var(--f-display);color:var(--on-accent);background:var(--accent);padding:6px 12px;border-radius:999px;position:relative}
+.wc-b{font:600 32px/1.1 var(--f-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.wc-b small{font-size:15px;color:var(--ink-muted);font-weight:500}
+.wc-free{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--ink-muted);margin-top:4px}
+.wc-free b{color:var(--on-ink)}
+.wc-free .bar{background:rgba(255,255,255,.14)}
+.wc-free .bar i{background:var(--accent);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.balchip{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-weight:600;font-size:13px;white-space:nowrap;flex:none}
+.balchip svg{width:18px;height:18px;color:var(--accent-ink)}
+.costbox{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--field);border-radius:14px;padding:12px 14px}
+.costbox div{display:flex;flex-direction:column;gap:2px}
+.costbox span{font-size:12px;color:var(--muted)}
+.costbox b{font:600 17px var(--f-display);font-variant-numeric:tabular-nums}
+.costbox.free b:first-of-type{color:var(--ok)}
+.limit-ic{width:64px;height:64px;border-radius:20px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;margin:0 auto;animation:pop .45s ease}
+.limit-ic svg{width:34px;height:34px}
+.paymethods{display:flex;flex-direction:column;gap:6px}
+.pm{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--line);border-radius:14px;text-align:left;font-weight:500;background:var(--surface);transition:border-color .2s,background-color .2s}
+.pm i{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex:none;transition:border .2s}
+.pm.on{border-color:var(--fg)}
+.pm.on i{border:6px solid var(--accent-ink)}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid currentColor;border-right-color:transparent;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 
 <div class="app">
@@ -436,6 +463,13 @@ ru:{
   waitingDriver:"Как только водитель возьмёт посылку, здесь появится карта с его местоположением.", pickupSoon:"Водитель едет к вам забрать посылку",
   trackDemo:"Демо: движение машины смоделировано и ускорено. В реальном приложении используется GPS телефона водителя.",
   iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", sendCtaT:"Отправить посылку", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
+  walletTitle:"Кошелёк", balanceLbl:"Баланс", topUp:"Пополнить", freeLeftLbl:"Бесплатно осталось", freeWord:"Бесплатно", freeChip:"{n} бесплатно",
+  limitOver:"Бесплатный лимит закончился", limitOverText:"Вы использовали все {n} бесплатных действий. Чтобы продолжить, пополните баланс.", costLbl:"Стоимость", balanceAfter:"Останется на балансе",
+  confirmAction:"Подтвердите", chargeOrderText:"Посылка «{what}»: {from} → {to}.", chargeTripText:"Поездка {from} → {to}, {date}, {time}.",
+  needMore:"Не хватает {n} с. Пополните баланс, и действие станет доступно.", amountLbl:"Сумма, сом", payMethod:"Способ оплаты", payFor:"Пополнить на {n} с",
+  payDemo:"Демо: настоящий платёж не проводится. В рабочей версии оплата идёт через платёжный шлюз.", pricesTitle:"Тарифы", fee_trip:"Публикация поездки", fee_order:"Публикация посылки", fee_take:"Взять посылку (водитель)", fee_book:"Бронирование места",
+  pricesNote:"Первые {n} действий бесплатно, дальше оплата с баланса.", historyTitle:"История", txTopup:"Пополнение · {m}", noHistory:"Операций пока нет",
+  minAmount:"Минимальная сумма — 50 с", paying:"Оплата…", topupDone:"Баланс пополнен на {n} с", topupNotif:"Баланс пополнен на {n} с ({m}).",
   hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
   allDays:"Все дни", found:"Найдено: {n}", resetFilters:"Сбросить фильтры", noOffers:"По этим фильтрам ничего нет",
   noOffersText:"Выберите другой город или дату. Можно отправить запрос всем водителям — вам позвонят.", askDrivers:"Отправить запрос водителям", advSearch:"Подробный поиск",
@@ -544,6 +578,13 @@ ky:{
   waitingDriver:"Айдоочу посылканы алаары менен бул жерде анын кайда экени картада көрүнөт.", pickupSoon:"Айдоочу посылканы алганы сизге келе жатат",
   trackDemo:"Демо: машинанын кыймылы симуляция жана тездетилген. Чыныгы колдонмодо айдоочунун телефонундагы GPS колдонулат.",
   iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", sendCtaT:"Посылка жөнөтүү", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
+  walletTitle:"Капчык", balanceLbl:"Баланс", topUp:"Толтуруу", freeLeftLbl:"Акысыз калды", freeWord:"Акысыз", freeChip:"{n} акысыз",
+  limitOver:"Акысыз лимит бүттү", limitOverText:"Бардык {n} акысыз аракетти колдондуңуз. Улантуу үчүн балансты толтуруңуз.", costLbl:"Баасы", balanceAfter:"Баланста калат",
+  confirmAction:"Ырастаңыз", chargeOrderText:"«{what}» посылкасы: {from} → {to}.", chargeTripText:"{from} → {to} сапары, {date}, {time}.",
+  needMore:"{n} сом жетпейт. Балансты толтурсаңыз, аракет жеткиликтүү болот.", amountLbl:"Сумма, сом", payMethod:"Төлөм ыкмасы", payFor:"{n} сомго толтуруу",
+  payDemo:"Демо: чыныгы төлөм жүргүзүлбөйт. Иштеген версияда төлөм төлөм шлюзу аркылуу өтөт.", pricesTitle:"Тарифтер", fee_trip:"Сапар жарыялоо", fee_order:"Посылка жарыялоо", fee_take:"Посылка алуу (айдоочу)", fee_book:"Орун брондоо",
+  pricesNote:"Алгачкы {n} аракет акысыз, андан кийин баланстан төлөнөт.", historyTitle:"Тарых", txTopup:"Толтуруу · {m}", noHistory:"Азырынча операция жок",
+  minAmount:"Эң аз сумма — 50 сом", paying:"Төлөнүүдө…", topupDone:"Баланс {n} сомго толукталды", topupNotif:"Баланс {n} сомго толукталды ({m}).",
   hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
   allDays:"Бардык күндөр", found:"Табылды: {n}", resetFilters:"Чыпкаларды тазалоо", noOffers:"Бул чыпкалар боюнча эч нерсе жок",
   noOffersText:"Башка шаарды же күндү тандаңыз. Бардык айдоочуларга суроо жөнөтсөңүз болот — сизге чалышат.", askDrivers:"Айдоочуларга суроо жөнөтүү", advSearch:"Кеңири издөө",
@@ -993,7 +1034,7 @@ screens.home = () => {
   let lastDate="", body="";
   items.slice(0,70).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
   $("#screen").innerHTML = `
-  <div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${t("helloSub")}</span></div>
+  <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${t("helloSub")}</span></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
   <button class="sendcta" id="sendCta"><span class="bx">${I.camera}</span><span style="flex:1;min-width:0"><b style="font-family:var(--f-display)">${t("sendCtaT")}</b><br><span class="small muted">${t("sendCtaS")}</span></span>${I.chev}</button>
   <div class="mode three" role="tablist">${[["all","fAll",I.road],["ride","fRide",I.users],["parcel","fParcel",I.box]].map(([k,l,ic])=>`<button role="tab" data-ft="${k}" class="${f.type===k?"on":""}" aria-selected="${f.type===k}">${ic} ${t(l)}</button>`).join("")}</div>
   <div class="grid2">
@@ -1012,6 +1053,7 @@ screens.home = () => {
   document.querySelectorAll("[data-to]").forEach(b=>b.onclick=()=>set("to",b.dataset.to));
   document.querySelectorAll("[data-fd]").forEach(b=>b.onclick=()=>set("date",b.dataset.fd));
   $("#sendCta").onclick=()=>go("orderNew");
+  $("#balChip").onclick=()=>go("wallet");
   $("#fFrom").onclick=()=>citySheet(f.from,c=>{ f.from=c; if(c&&f.to===c) f.to=""; render(); },true);
   $("#fTo").onclick=()=>citySheet(f.to,c=>{ f.to=c; if(c&&f.from===c) f.from=""; render(); },true);
   const r=$("#fReset"); if(r) r.onclick=()=>{ S.feed={type:"all",from:"",to:"",date:"all"}; render(); };
@@ -1194,12 +1236,14 @@ screens.orderNew = () => {
     if(!o.pickup.trim()){ toast(t("errPickup")); return; }
     if(!validPhone(o.rphone)){ toast(t("checkPhone")); return; }
     const price=parseInt(o.price,10); if(!(price>0)){ toast(t("needParcelPrice")); return; }
+    charge("order",t("chargeOrderText",{what:o.what.trim(),from:o.from,to:o.to}),t("publishOrder"),()=>{
     const ord={id:"o"+uid(),userId:"me",senderName:S.me.name,senderPhone:S.me.phone,from:o.from,to:o.to,what:o.what.trim(),size:o.size,price,date:o.date||TODAY(),pickup:o.pickup.trim(),drop:o.drop.trim(),rname:o.rname.trim(),rphone:fmtPhone(o.rphone),payer:o.payer,status:"open",createdAt:Date.now(),photo:o.photo,auto:true};
     S.orders.unshift(ord);
     notify("orderPublishedNotif",{what:ord.what,from:ord.from,to:ord.to,price},"box",null,ord.id);
     Object.assign(od,{photo:"",what:"",pickup:"",drop:"",price:"",rname:"",rphone:"+996 "});
     celebrate(t("orderPublished"));
     stack=[]; tab="trips"; go("order",{id:ord.id});
+    });
   };
 };
 
@@ -1248,11 +1292,99 @@ screens.order = ({id}) => {
   if(b("oRev")) b("oRev").onclick=()=>reviewSheet(o);
   if(b("oAcc")) b("oAcc").onclick=()=>{
     if(!isVerified("me")){ toast(t("needDriver")); go(S.me.driver?.status==="pending"?"createTrip":"driverReg"); return; }
-    confirmSheet(t("acceptQ"),t("acceptText",{addr:loc(o.pickup),to:o.to}),t("acceptOk"),()=>{ o.status="accepted"; o.driverId="me"; o.acceptedAt=Date.now(); celebrate(t("accepted")); render(); },false);
+    charge("take",t("acceptText",{addr:loc(o.pickup),to:o.to}),t("acceptOk"),()=>{ o.status="accepted"; o.driverId="me"; o.acceptedAt=Date.now(); celebrate(t("accepted")); render(); },t("acceptQ"));
   };
   if(b("oPick")) b("oPick").onclick=()=>{ o.status="onway"; o.pickedAt=Date.now(); render(); };
   if(b("oDone")) b("oDone").onclick=()=>{ o.status="delivered"; o.deliveredAt=Date.now(); notify("deliveredNotif",{what:loc(o.what),to:o.to},"check",null,o.id); celebrate(t("delivered")); render(); };
   if(showTrack) requestAnimationFrame(updateTracking);
+};
+
+
+// ---------- free limit + wallet ----------
+// Change these to set the business rules.
+const FREE_LIMIT = 5;                         // free actions for every new user
+const FEES = {trip:30, order:20, take:30};    // price per action after the limit, сом
+const TOPUPS = [100,200,500,1000];
+const PAY_METHODS = ["Мбанк","О!Деньги","Элсом","Bakai","Элкарт / Visa"];
+function wallet(){ const m=S.me; m.wallet=m.wallet||{balance:0,used:0,tx:[]}; return m.wallet; }
+const freeLeft = () => Math.max(0, FREE_LIMIT - wallet().used);
+function charge(kind, details, okLabel, onOk, title){
+  const w=wallet(), fee=FEES[kind], free=freeLeft();
+  if(!free && w.balance<fee){
+    sheet(`<div class="limit-ic">${I.wallet}</div><h3 style="text-align:center">${t("limitOver")}</h3>
+      <p class="muted" style="margin:0;text-align:center">${t("limitOverText",{n:FREE_LIMIT})}</p>
+      <div class="costbox"><div><span>${t("costLbl")}</span><b>${fee} с</b></div><div><span>${t("balanceLbl")}</span><b>${w.balance} с</b></div></div>
+      <button class="btn" id="goTop">${t("topUp")}</button><button class="btn ghost" id="cNo">${t("back")}</button>`, el=>{
+      el.querySelector("#goTop").onclick=()=>{ closeSheet(); go("wallet",{need:fee-w.balance}); };
+      el.querySelector("#cNo").onclick=closeSheet;
+    });
+    return;
+  }
+  const costLine = free
+    ? `<div class="costbox free"><div><span>${t("costLbl")}</span><b>${t("freeWord")}</b></div><div><span>${t("freeLeftLbl")}</span><b>${free-1} / ${FREE_LIMIT}</b></div></div>`
+    : `<div class="costbox"><div><span>${t("costLbl")}</span><b>${fee} с</b></div><div><span>${t("balanceAfter")}</span><b>${w.balance-fee} с</b></div></div>`;
+  sheet(`<h3>${esc(title||t("confirmAction"))}</h3><p class="muted" style="margin:0">${esc(details)}</p>${costLine}
+    <button class="btn" id="cOk">${esc(okLabel)}${free?"":` · ${fee} с`}</button><button class="btn ghost" id="cNo">${t("back")}</button>`, el=>{
+    el.querySelector("#cOk").onclick=()=>{
+      if(free){ w.used++; w.tx.unshift({id:uid(),type:"free",kind,amount:0,at:Date.now()}); }
+      else { w.balance-=fee; w.tx.unshift({id:uid(),type:"fee",kind,amount:-fee,at:Date.now()}); }
+      closeSheet(); onOk();
+    };
+    el.querySelector("#cNo").onclick=closeSheet;
+  });
+}
+function walletCard(compact){
+  const w=wallet(), left=freeLeft();
+  return `<button class="wallet-card" id="walletCard" aria-label="${t("walletTitle")}">
+    <div class="row between"><span class="wc-l">${t("balanceLbl")}</span><span class="wc-top">${t("topUp")} +</span></div>
+    <b class="wc-b">${w.balance} <small>сом</small></b>
+    <div class="wc-free"><span>${t("freeLeftLbl")}: <b>${left} / ${FREE_LIMIT}</b></span><div class="bar"><i style="width:${left/FREE_LIMIT*100}%"></i></div></div>
+  </button>`;
+}
+screens.wallet = ({need}={}) => {
+  topbar(t("walletTitle"),{canBack:stack.length>0});
+  const w=wallet();
+  const st = screens.wallet.st = screens.wallet.st || {amount: 200, method: PAY_METHODS[0]};
+  if(need && !screens.wallet.seen){ st.amount = TOPUPS.find(v=>v>=need) || Math.ceil(need/100)*100; screens.wallet.seen=true; }
+  const kindName = k => t("fee_"+k);
+  $("#screen").innerHTML = `
+  ${walletCard()}
+  ${need?`<div class="banner">${I.bulb}<span>${t("needMore",{n:need})}</span></div>`:""}
+  <div class="section-title">${t("topUp")}</div>
+  <div class="card stack">
+    <div class="chips">${TOPUPS.map(v=>`<button type="button" class="chip ${+st.amount===v?"on":""}" data-amt="${v}">${v} с</button>`).join("")}</div>
+    <label class="lbl" for="amt">${t("amountLbl")}</label>
+    <div class="field">${I.wallet}<input id="amt" type="number" inputmode="numeric" min="50" step="10" value="${esc(st.amount)}" style="font-weight:700;font-size:18px"></div>
+    <span class="lbl">${t("payMethod")}</span>
+    <div class="paymethods">${PAY_METHODS.map(m=>`<button type="button" class="pm ${st.method===m?"on":""}" data-pm="${esc(m)}"><i></i>${esc(m)}</button>`).join("")}</div>
+    <button class="btn" id="payBtn">${t("payFor",{n:`<span id="payN">${esc(st.amount)}</span>`})}</button>
+    <p class="tag-demo" style="margin:0">${t("payDemo")}</p>
+  </div>
+  <div class="section-title">${t("pricesTitle")}</div>
+  <div class="list">
+    ${["trip","order","take"].map(k=>`<div class="li"><span class="grow">${kindName(k)}</span><b>${FEES[k]} с</b></div>`).join("")}
+    <div class="li"><span class="grow">${t("fee_book")}</span><b style="color:var(--ok)">${t("freeWord")}</b></div>
+  </div>
+  <p class="small muted" style="margin:-6px 4px 0">${t("pricesNote",{n:FREE_LIMIT})}</p>
+  <div class="section-title">${t("historyTitle")}</div>
+  ${w.tx.length?`<div class="list">${w.tx.slice(0,30).map(x=>`<div class="li"><span class="grow">${x.type==="topup"?t("txTopup",{m:esc(x.method)}):kindName(x.kind)}<div class="small muted">${new Date(x.at).toLocaleString(S.lang==="ky"?"ky-KG":"ru-RU",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}</div></span><b style="color:${x.amount>0?"var(--ok)":x.amount<0?"var(--fg)":"var(--muted)"}">${x.amount>0?"+":""}${x.amount?x.amount+" с":t("freeWord")}</b></div>`).join("")}</div>`:`<div class="card muted small" style="text-align:center">${t("noHistory")}</div>`}`;
+  const keep=()=>{ st.amount=$("#amt").value; };
+  document.querySelectorAll("[data-amt]").forEach(b=>b.onclick=()=>{ st.amount=b.dataset.amt; render(); });
+  document.querySelectorAll("[data-pm]").forEach(b=>b.onclick=()=>{ keep(); st.method=b.dataset.pm; render(); });
+  $("#amt").oninput=()=>{ keep(); $("#payN").textContent=st.amount||0; document.querySelectorAll("[data-amt]").forEach(b=>b.classList.toggle("on",b.dataset.amt===String(st.amount))); };
+  $("#walletCard").onclick=()=>{ const a=$("#amt"); a.scrollIntoView({behavior:"smooth",block:"center"}); setTimeout(()=>a.focus({preventScroll:true}),300); };
+  $("#payBtn").onclick=()=>{
+    const n=parseInt(st.amount,10);
+    if(!(n>=50)){ toast(t("minAmount")); return; }
+    const btn=$("#payBtn"); btn.disabled=true; btn.innerHTML=`<span class="spin"></span> ${t("paying")}`;
+    setTimeout(()=>{
+      w.balance+=n; w.tx.unshift({id:uid(),type:"topup",amount:n,method:st.method,at:Date.now()});
+      notify("topupNotif",{n,m:st.method},"check");
+      celebrate(t("topupDone",{n}));
+      screens.wallet.seen=false;
+      if(need && stack.length>1) back(); else render();
+    },1300);
+  };
 };
 
 screens.create = () => {
@@ -1549,12 +1681,14 @@ screens.createTrip = () => {
     if((c.date+"T"+c.dep) < NOW()){ toast(t("timePassed")); return; }
     const price=parseInt(c.price,10); if(!(price>=0)){ toast(t("needPrice")); return; }
     const pp=parseInt(c.parcelPrice,10); if(c.parcel && !(pp>=0)){ toast(t("needParcelPrice")); return; }
+    charge("trip",t("chargeTripText",{from:c.from,to:c.to,date:dShort(c.date),time:c.dep}),t("publish"),()=>{
     const tr={id:"t"+uid(),driverId:"me",from:c.from,to:c.to,date:c.date,dep:c.dep,arr:c.arr,price,seats:c.seats,booked:[],payment:c.payment,parcel:c.parcel,parcelPrice:c.parcel?pp:0,parcels:[],comment:c.comment.trim()};
     S.trips.push(tr);
     notify("publishedNotif",{from:tr.from,to:tr.to,date:tr.date,time:tr.dep},"check",tr.id);
     Object.assign(draft,{to:"",price:"",comment:"",arr:"",parcelPrice:""});
     celebrate(t("published"));
     stack=[]; tab="trips"; go("trip",{id:tr.id});
+    });
   };
 };
 
@@ -1574,6 +1708,7 @@ screens.profile = () => {
   const me=S.me, st=me.driver?.status||"none";
   const infoItems=[["about",I.info],["safety",I.shield],["terms",I.doc],["privacy",I.lock]];
   $("#screen").innerHTML = `
+  ${walletCard()}
   <button class="hero-profile" id="pd">${avatar(me)}<div style="flex:1;min-width:0"><b>${esc(me.name)}</b><span style="opacity:.85">${t("personal")}</span></div>${I.chev.replace('class="chev"','width="22" height="22"')}</button>
   <div class="list">
     <button class="li" id="drvSt">${I.idcard}<span class="grow">${t("driverStatus")}</span><span class="pill ${st==="verified"?"":"grey"}">${t("st_"+st)}</span>${st==="none"?I.chev:""}</button>
@@ -1590,6 +1725,7 @@ screens.profile = () => {
   <p class="tag-demo">${t("version")}</p>`;
   bindLang($("#screen"));
   $("#pd").onclick=()=>go("personal");
+  $("#walletCard").onclick=()=>go("wallet");
   $("#drvSt").onclick=()=>{ if(st==="none") go("driverReg"); else if(st==="pending") toast(t("pendingTitle")); };
   document.querySelectorAll("[data-info]").forEach(b=>b.onclick=()=>go("info",{k:b.dataset.info}));
   $("#rate").onclick=()=>{ let v=5; sheet(`<h3>${t("likeApp")}</h3><div class="stargrab" id="sg">${[1,2,3,4,5].map(i=>`<button data-v="${i}" aria-label="${i}">${I.star}</button>`).join("")}</div><button class="btn" id="ok">${t("rate")}</button>`,el=>{
