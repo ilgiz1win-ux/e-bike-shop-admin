@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { smsText, buildNikitaXml, parseNikitaResponse } from '../../supabase/functions/send-sms/nikita.js';
+import { smsText, buildNikitaXml, parseNikitaResponse, isAllowedPhone } from '../../supabase/functions/send-sms/nikita.js';
 
 describe('smsText', () => {
   it('uses the exact copy from the plan', () => {
@@ -32,5 +32,15 @@ describe('parseNikitaResponse', () => {
   });
   it('garbage is a failure', () => {
     expect(parseNikitaResponse('Internal error').ok).toBe(false);
+  });
+});
+
+describe('isAllowedPhone', () => {
+  it('allows Kyrgyz numbers only', () => {
+    expect(isAllowedPhone('996555123456')).toBe(true);
+    expect(isAllowedPhone('+996555123456')).toBe(true);
+    expect(isAllowedPhone('447911123456')).toBe(false);
+    expect(isAllowedPhone('79001234567')).toBe(false);
+    expect(isAllowedPhone('')).toBe(false);
   });
 });

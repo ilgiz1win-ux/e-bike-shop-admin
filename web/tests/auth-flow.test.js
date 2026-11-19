@@ -62,7 +62,28 @@ describe('sign-up flow', () => {
     await click('#authSaveName');
     await click('#authLocation');
     expect(upsert).toHaveBeenLastCalledWith(expect.objectContaining({ location_granted: false }));
-    expect($('#authNotice').textContent).toBe(t('locationLater'));
     expect(done).toHaveBeenCalledOnce();
+  });
+
+  it('keeps the location notice visible after the app re-renders', async () => {
+    const api = createMemoryApi();
+    startAuth(root, api, () => { root.innerHTML = '<p>home</p>'; }, { requestLocation: async () => 'denied' });
+    await type('#authPhone', '555123456');
+    await click('#authSend');
+    await type('#authCode', '123456');
+    await click('#authVerify');
+    await type('#authName', 'Асель');
+    await click('#authSaveName');
+    await click('#authLocation');
+    expect(document.querySelector('.toast')?.textContent).toBe(t('locationLater'));
+  });
+
+  it('accepts a local 0… number typed after the +996 prefill', async () => {
+    const api = createMemoryApi();
+    const spy = vi.spyOn(api.auth, 'sendCode');
+    startAuth(root, api, () => {}, { requestLocation: async () => 'granted' });
+    await type('#authPhone', $('#authPhone').value + '0555 12 34 56');
+    await click('#authSend');
+    expect(spy).toHaveBeenCalledWith('996555123456');
   });
 });

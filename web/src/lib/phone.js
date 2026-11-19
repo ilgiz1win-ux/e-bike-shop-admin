@@ -1,6 +1,7 @@
 // Kyrgyz mobile numbers: stored as 996XXXXXXXXX, shown as +996 XXX XX XX XX.
 export function normalizePhone(input) {
   let d = String(input ?? '').replace(/\D/g, '');
+  if (d.length === 13 && d.startsWith('9960')) d = '996' + d.slice(4); // +996 prefill followed by 0XXX…
   if (d.length === 10 && d.startsWith('0')) d = '996' + d.slice(1);
   else if (d.length === 9) d = '996' + d;
   return /^996\d{9}$/.test(d) ? d : null;

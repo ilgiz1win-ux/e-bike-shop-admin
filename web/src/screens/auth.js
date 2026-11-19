@@ -2,6 +2,7 @@
 import { t } from '../i18n/index.js';
 import { normalizePhone, formatPhone } from '../lib/phone.js';
 import { requestLocation as defaultRequestLocation } from '../lib/geo.js';
+import { toast } from '../ui/components.js';
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -75,7 +76,7 @@ export function startAuth(root, api, onDone, deps = {}) {
     const res = await requestLocation();
     const granted = res === 'granted';
     const profile = await api.profiles.upsert({ location_granted: granted });
-    if (!granted) root.querySelector('#authNotice').textContent = t('locationLater');
+    if (!granted) { root.querySelector('#authNotice').textContent = t('locationLater'); toast(t('locationLater')); }
     onDone(profile);
   });
 

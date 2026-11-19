@@ -4,6 +4,9 @@
 
 export const NIKITA_URL_DEFAULT = 'https://smspro.nikita.kg/api/message';
 
+// Only Kyrgyz numbers: blocks SMS-pumping to foreign numbers through the public API.
+export const isAllowedPhone = (phone) => /^996\d{9}$/.test(String(phone ?? '').replace(/\D/g, ''));
+
 export const smsText = (code) => `Жолдош: кирүү кодуңуз ${code}. Эч кимге айтпаңыз.`;
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

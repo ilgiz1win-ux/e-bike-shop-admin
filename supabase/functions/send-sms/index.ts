@@ -1,7 +1,7 @@
 // Supabase Auth "Send SMS" hook → Nikita.kg.
 // Secrets: NIKITA_LOGIN, NIKITA_PWD, NIKITA_SENDER, SEND_SMS_HOOK_SECRET (format "v1,whsec_..."), optional NIKITA_URL.
 import { Webhook } from 'https://esm.sh/standardwebhooks@1.0.0';
-import { smsText, buildNikitaXml, parseNikitaResponse, NIKITA_URL_DEFAULT } from './nikita.js';
+import { smsText, buildNikitaXml, parseNikitaResponse, isAllowedPhone, NIKITA_URL_DEFAULT } from './nikita.js';
 
 const fail = (message: string) =>
   new Response(JSON.stringify({ error: { http_code: 500, message } }), { status: 500, headers: { 'Content-Type': 'application/json' } });
@@ -17,6 +17,7 @@ Deno.serve(async (req) => {
   }
 
   const phone = String(payload.user?.phone ?? '').replace(/\D/g, '');
+  if (!isAllowedPhone(phone)) return fail('phone_not_allowed');
   const xml = buildNikitaXml({
     login: Deno.env.get('NIKITA_LOGIN') ?? '',
     pwd: Deno.env.get('NIKITA_PWD') ?? '',
