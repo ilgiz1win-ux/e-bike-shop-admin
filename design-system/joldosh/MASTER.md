@@ -84,3 +84,9 @@ Dark mode mirrors every token (brand `#4f8cff` with dark text `#06122b`).
 - [ ] No horizontal scroll at 375–390px
 - [ ] Reduced motion respected
 - [ ] Status shown by colour **and** label
+
+## 9. Brand colour themes (switchable)
+Profile → «Колдонмонун түсү» switches the brand set at runtime (`BRANDS` in `app/index.html`; JS sets the brand tokens on `:root`, light/dark aware).
+Default: **teal / бирюза** (`#14b8a6` fill with dark text `#042f2e`, ink `#0f766e → #134e4a`).
+Alternatives: orange `#f97316`, violet `#7c3aed`, green `#2bc66f`, blue `#2563eb` (the §3 table above).
+When a brand collides with a status colour the status moves: orange brand → in-transit becomes cyan; violet/green brand → accepted becomes blue.

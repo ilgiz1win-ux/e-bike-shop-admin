@@ -682,6 +682,15 @@ body.on-home .topbar .lang button.on{background:var(--surface);color:var(--accen
 .op-stats .os-answered b{color:var(--st-accepted)}
 .op-stats .os-closed b{color:var(--st-open)}
 .op-stats span{opacity:1;color:var(--muted)}
+
+.brand-li{flex-wrap:wrap}
+.ic-dot{width:36px;height:36px;border-radius:12px;flex:none;box-shadow:inset 0 0 0 9px var(--accent-soft)}
+.swatches{display:flex;gap:8px;width:100%;padding-left:50px}
+.bsw{width:34px;height:34px;border-radius:50%;box-shadow:0 0 0 2px var(--surface),0 0 0 4px transparent;transition:box-shadow .2s,transform .15s}
+.bsw.on{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--fg)}
+.bsw:active{transform:scale(.9)}
+.home-hero .balchip svg{color:var(--on-ink);opacity:.85}
+.forest i{color:color-mix(in srgb,var(--accent) 55%,#fff)}
 </style>
 
 <div class="app">
@@ -807,7 +816,7 @@ ru:{
   payDemo:"Демо: настоящий платёж не проводится. В рабочей версии оплата идёт через платёжный шлюз.", pricesTitle:"Тарифы", fee_trip:"Публикация поездки", fee_order:"Публикация посылки", fee_take:"Взять посылку (водитель)", fee_book:"Бронирование места",
   pricesNote:"Первые {n} действий бесплатно, дальше оплата с баланса.", historyTitle:"История", txTopup:"Пополнение · {m}", noHistory:"Операций пока нет",
   minAmount:"Минимальная сумма — 50 с", paying:"Оплата…", topupDone:"Баланс пополнен на {n} с", topupNotif:"Баланс пополнен на {n} с ({m}).",
-  sts_none:"Нет", sts_pending:"Проверка", sts_verified:"Да ✓", ratingLbl:"Рейтинг", tripsWord:"Поездки", changePhoto:"Сменить фото", photoSaved:"Фото обновлено", hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
+  sts_none:"Нет", sts_pending:"Проверка", sts_verified:"Да ✓", colorTheme:"Цвет оформления", ratingLbl:"Рейтинг", tripsWord:"Поездки", changePhoto:"Сменить фото", photoSaved:"Фото обновлено", hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
   allDays:"Все дни", found:"Найдено: {n}", resetFilters:"Сбросить фильтры", noOffers:"По этим фильтрам ничего нет",
   noOffersText:"Выберите другой город или дату. Можно отправить запрос всем водителям — вам позвонят.", askDrivers:"Отправить запрос водителям", advSearch:"Подробный поиск",
   tTrips:"Поездки", tSearch:"Поиск", tCreate:"Создать", tNotifs:"Уведомления", tProfile:"Профиль",
@@ -953,7 +962,7 @@ ky:{
   payDemo:"Демо: чыныгы төлөм жүргүзүлбөйт. Иштеген версияда төлөм төлөм шлюзу аркылуу өтөт.", pricesTitle:"Тарифтер", fee_trip:"Сапар жарыялоо", fee_order:"Посылка жарыялоо", fee_take:"Посылка алуу (айдоочу)", fee_book:"Орун брондоо",
   pricesNote:"Алгачкы {n} аракет акысыз, андан кийин баланстан төлөнөт.", historyTitle:"Тарых", txTopup:"Толтуруу · {m}", noHistory:"Азырынча операция жок",
   minAmount:"Эң аз сумма — 50 сом", paying:"Төлөнүүдө…", topupDone:"Баланс {n} сомго толукталды", topupNotif:"Баланс {n} сомго толукталды ({m}).",
-  sts_none:"Жок", sts_pending:"Текшерүүдө", sts_verified:"Ооба ✓", ratingLbl:"Рейтинг", tripsWord:"Сапарлар", changePhoto:"Сүрөттү алмаштыруу", photoSaved:"Сүрөт жаңыртылды", hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
+  sts_none:"Жок", sts_pending:"Текшерүүдө", sts_verified:"Ооба ✓", colorTheme:"Колдонмонун түсү", ratingLbl:"Рейтинг", tripsWord:"Сапарлар", changePhoto:"Сүрөттү алмаштыруу", photoSaved:"Сүрөт жаңыртылды", hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
   allDays:"Бардык күндөр", found:"Табылды: {n}", resetFilters:"Чыпкаларды тазалоо", noOffers:"Бул чыпкалар боюнча эч нерсе жок",
   noOffersText:"Башка шаарды же күндү тандаңыз. Бардык айдоочуларга суроо жөнөтсөңүз болот — сизге чалышат.", askDrivers:"Айдоочуларга суроо жөнөтүү", advSearch:"Кеңири издөө",
   tTrips:"Сапарлар", tSearch:"Издөө", tCreate:"Түзүү", tNotifs:"Билдирүүлөр", tProfile:"Профиль",
@@ -1123,6 +1132,31 @@ load();
 (function refresh(){ const t=TODAY(); if(!S.trips.some(x=>x.date>=t && x.driverId!=="me")){ const fresh=seed(S.lang); const mine=S.trips.filter(x=>x.driverId==="me"); S={...fresh,me:S.me,notifs:S.notifs,requests:S.requests||[],trips:[...fresh.trips,...mine],orders:S.orders||[]}; save(); }
   S.orders=S.orders||[]; if(!S.orders.some(o=>o.userId!=="me"&&o.status==="open"&&o.date>=t)){ S.orders=[...S.orders.filter(o=>o.userId==="me"||o.driverId==="me"),...seedOrders()]; save(); } })();
 
+
+// ---------- brand colour themes (switchable in Profile) ----------
+const BRANDS = {
+  teal:{name:{ky:"Бирюза",ru:"Бирюза"},sw:"#14b8a6",
+    light:{accent:"#14b8a6","accent-strong":"#0d9488","accent-soft":"#dcf5f1","accent-ink":"#0f766e","on-accent":"#042f2e",ink:"#0f766e",ink2:"#134e4a","sel-bg":"#0f766e","sel-fg":"#ffffff","sel-ic":"#ffffff",bg:"#f1f6f5",field:"#e6f0ee",line:"#dce8e5",fg:"#0f1f1d",muted:"#566b67"},
+    dark:{accent:"#2dd4bf","accent-strong":"#5eead4","accent-soft":"#0f302d","accent-ink":"#5eead4","on-accent":"#042f2e",ink:"#115e59",ink2:"#0b3d3a","sel-bg":"#2dd4bf","sel-fg":"#042f2e","sel-ic":"#042f2e",bg:"#0b1312",field:"#1b2826",line:"#24332f",fg:"#e3efec",muted:"#93a8a3"}},
+  orange:{name:{ky:"Кызгылт сары",ru:"Оранжевый"},sw:"#f97316",
+    light:{accent:"#f97316","accent-strong":"#ea580c","accent-soft":"#ffedd5","accent-ink":"#c2410c","on-accent":"#2b1103",ink:"#c2410c",ink2:"#7c2d12","sel-bg":"#c2410c","sel-fg":"#ffffff","sel-ic":"#ffffff",bg:"#f8f5f2",field:"#f1ebe5",line:"#e9e1d9",fg:"#1f1610",muted:"#6e6157","st-onway":"#0891b2"},
+    dark:{accent:"#fb923c","accent-strong":"#fdba74","accent-soft":"#3a2210","accent-ink":"#fdba74","on-accent":"#2b1103",ink:"#9a3412",ink2:"#5c1d0a","sel-bg":"#fb923c","sel-fg":"#2b1103","sel-ic":"#2b1103",bg:"#14100d",field:"#2a221c",line:"#352a22",fg:"#f3ebe4",muted:"#b0a196","st-onway":"#22d3ee"}},
+  violet:{name:{ky:"Фиолет",ru:"Фиолетовый"},sw:"#7c3aed",
+    light:{accent:"#7c3aed","accent-strong":"#6d28d9","accent-soft":"#efe7ff","accent-ink":"#6d28d9","on-accent":"#ffffff",ink:"#5b21b6",ink2:"#3b0f7a","sel-bg":"#7c3aed","sel-fg":"#ffffff","sel-ic":"#ffffff",bg:"#f5f3fa",field:"#ede9f6",line:"#e4def0",fg:"#17122a",muted:"#62597a","st-accepted":"#2563eb"},
+    dark:{accent:"#a78bfa","accent-strong":"#c4b5fd","accent-soft":"#261a45","accent-ink":"#c4b5fd","on-accent":"#1a0b3d",ink:"#4c1d95",ink2:"#2e1065","sel-bg":"#a78bfa","sel-fg":"#1a0b3d","sel-ic":"#1a0b3d",bg:"#100d18",field:"#221c33",line:"#2c2540",fg:"#ece7f8",muted:"#a59cbd","st-accepted":"#60a5fa"}},
+  green:{name:{ky:"Жашыл",ru:"Зелёный"},sw:"#2bc66f",
+    light:{accent:"#2bc66f","accent-strong":"#25b363","accent-soft":"#e3f5ea","accent-ink":"#15803d","on-accent":"#06281a",ink:"#146c3c",ink2:"#0d4a2a","sel-bg":"#15803d","sel-fg":"#ffffff","sel-ic":"#ffffff",bg:"#f1f4f2",field:"#ebf0ed",line:"#e1e7e3",fg:"#16201b",muted:"#5f6b65","st-accepted":"#2563eb"},
+    dark:{accent:"#34d27b","accent-strong":"#2bbf6c","accent-soft":"#1b3326","accent-ink":"#4fe08f","on-accent":"#07160d",ink:"#1f7a47",ink2:"#175c36","sel-bg":"#34d27b","sel-fg":"#07160d","sel-ic":"#07160d",bg:"#0f1512",field:"#222d27",line:"#2a352f",fg:"#e8efe9",muted:"#93a39a","st-accepted":"#60a5fa"}},
+  blue:{name:{ky:"Көк",ru:"Синий"},sw:"#2563eb",light:{},dark:{}},
+};
+const BRAND_KEYS=["accent","accent-strong","accent-soft","accent-ink","on-accent","ink","ink2","sel-bg","sel-fg","sel-ic","bg","field","line","fg","muted","st-onway","st-accepted"];
+function isDark(){ const r=document.documentElement; return r.dataset.theme==="dark" || (r.dataset.theme!=="light" && matchMedia("(prefers-color-scheme: dark)").matches); }
+function applyBrand(){
+  const b=BRANDS[S.brand]||BRANDS.teal, set=isDark()?b.dark:b.light, st=document.documentElement.style;
+  BRAND_KEYS.forEach(k=>{ if(set[k]) st.setProperty("--"+k,set[k]); else st.removeProperty("--"+k); });
+}
+try{ matchMedia("(prefers-color-scheme: dark)").addEventListener("change",applyBrand); new MutationObserver(applyBrand).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); }catch(e){}
+
 // ---------- i18n helpers ----------
 const t = (k,v={}) => { let s=(L[S.lang]&&L[S.lang][k])??L.ru[k]??k; return typeof s==="string"? s.replace(/\{(\w+)\}/g,(_,x)=>v[x]??"") : s; };
 const tp = (n,k) => { const f=L[S.lang].P[k]; if(typeof f==="string") return f; const m10=n%10,m100=n%100; return m10===1&&m100!==11?f[0]:(m10>=2&&m10<=4&&(m100<10||m100>=20)?f[1]:f[2]); };
@@ -1262,6 +1296,8 @@ setInterval(()=>{ if(tickOrders()){ save(); renderTabs(); const top=stack[stack.
 setInterval(()=>{ if(checkVerification()){ save(); if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select")) render(); else renderTabs(); toast(t("verifiedNotif")); } },2000);
 
 function render(){
+  if(!S.brand) S.brand="teal";
+  applyBrand();
   document.body.classList.remove("in-chat","on-home");
   document.documentElement.lang=S.lang;
   save();
@@ -2495,6 +2531,7 @@ screens.profile = () => {
   <div class="list">
     <button class="li" id="drvSt">${I.idcard}<span class="grow">${t("driverStatus")}</span><span class="pill ${st==="verified"?"":"grey"}">${t("st_"+st)}</span>${st==="none"?I.chev:""}</button>
     <div class="li">${I.globe}<span class="grow">${t("language")}</span>${langSwitch()}</div>
+    <div class="li brand-li"><span class="ic-dot" style="background:var(--accent)"></span><span class="grow">${t("colorTheme")}<span class="small muted" style="display:block">${esc(BRANDS[S.brand].name[S.lang])}</span></span><span class="swatches">${Object.entries(BRANDS).map(([k,b])=>`<button class="bsw ${S.brand===k?"on":""}" data-brand="${k}" style="background:${b.sw}" aria-label="${esc(b.name[S.lang])}"></button>`).join("")}</span></div>
   </div>
   <div class="section-title">${t("info")}</div>
   <div class="list">${infoItems.map(([k,ic])=>`<button class="li" data-info="${k}">${ic}<span class="grow">${t(k)}</span>${I.chev}</button>`).join("")}</div>
@@ -2509,6 +2546,7 @@ screens.profile = () => {
   <div class="list"><button class="li danger" id="out">${I.out}<span class="grow">${t("logout")}</span></button></div>
   <p class="tag-demo">${t("version")}</p>`;
   bindLang($("#screen"));
+  document.querySelectorAll("[data-brand]").forEach(b=>b.onclick=()=>{ S.brand=b.dataset.brand; render(); toast(BRANDS[S.brand].name[S.lang]); });
   $("#pd").onclick=()=>go("personal");
   $("#walletCard").onclick=()=>go("wallet");
   $("#pSupport").onclick=()=>go("support");
