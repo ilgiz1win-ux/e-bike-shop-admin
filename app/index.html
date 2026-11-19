@@ -1,30 +1,33 @@
 <title>Жолдош попутки</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: phone-shaped single column app shell, sticky top bar, fixed bottom tab bar */
 :root{
-  /* Layout: phone-shaped single column; light page, ink navigation island floating at the bottom, sun-yellow as the action colour */
-  --bg:#f1f2f5; --surface:#ffffff; --field:#eaecf0; --fg:#151922; --muted:#687080; --line:#e0e3e9;
-  --accent:#ffc21a; --accent-strong:#f2b200; --accent-soft:#fff3c7; --accent-ink:#8a5f00; --on-accent:#151922;
-  --ink:#151922; --on-ink:#ffffff; --sel-bg:#151922; --sel-fg:#ffffff; --sel-ic:#ffc21a; --ink-muted:rgba(255,255,255,.58); --ok:#178a55;
-  --danger:#e0473d; --warn-bg:#fff6d6; --warn-line:#f3dc8c; --star:#f5a700;
-  --shadow:0 1px 2px rgba(21,25,34,.05),0 6px 20px rgba(21,25,34,.06);
-  --f-display:"Unbounded","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  /* Layout: phone-shaped single column, white top bar, white bottom tab bar; fresh green as the brand colour */
+  --bg:#f6f8f7; --surface:#ffffff; --field:#edf1ef; --fg:#1b2420; --muted:#7a8580; --line:#e3e9e6;
+  --accent:#2ecc71; --accent-strong:#25b863; --accent-soft:#e8f8ef; --accent-ink:#1fa85a; --on-accent:#ffffff;
+  --ink:#27ae60; --ink2:#2e8b57; --on-ink:#ffffff; --ink-muted:rgba(255,255,255,.82); --ok:#1fa85a;
+  --sel-bg:#2ecc71; --sel-fg:#ffffff; --sel-ic:#ffffff;
+  --danger:#eb5757; --warn-bg:#fffbe6; --warn-line:#f5e3a1; --star:#f7b500;
+  --shadow:0 2px 6px rgba(27,36,32,.05),0 8px 24px rgba(27,36,32,.07);
+  --f-display:"Montserrat","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-body:"Montserrat","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0e1116; --surface:#171b23; --field:#212632; --fg:#eceef3; --muted:#98a0b0; --line:#29303c;
-  --accent:#ffc93a; --accent-strong:#ffd45e; --accent-soft:#3a3113; --accent-ink:#ffcf4d; --on-accent:#151922;
-  --ink:#1f2530; --on-ink:#ffffff; --sel-bg:#ffc93a; --sel-fg:#151922; --sel-ic:#151922; --ink-muted:rgba(255,255,255,.55); --ok:#3ccf8a;
-  --danger:#f0716a; --warn-bg:#2e2914; --warn-line:#5c4f1d; --star:#ffc93a;
+  --bg:#0f1512; --surface:#18211c; --field:#222d27; --fg:#e8efe9; --muted:#93a39a; --line:#2a352f;
+  --accent:#34d27b; --accent-strong:#2bbf6c; --accent-soft:#1b3326; --accent-ink:#4fe08f; --on-accent:#07160d;
+  --ink:#1f7a47; --ink2:#175c36; --on-ink:#ffffff; --ink-muted:rgba(255,255,255,.75); --ok:#4fe08f;
+  --sel-bg:#34d27b; --sel-fg:#07160d; --sel-ic:#07160d;
+  --danger:#f0716a; --warn-bg:#2d2a17; --warn-line:#5a5020; --star:#f7c23a;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.3); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0e1116; --surface:#171b23; --field:#212632; --fg:#eceef3; --muted:#98a0b0; --line:#29303c;
-  --accent:#ffc93a; --accent-strong:#ffd45e; --accent-soft:#3a3113; --accent-ink:#ffcf4d; --on-accent:#151922;
-  --ink:#1f2530; --on-ink:#ffffff; --sel-bg:#ffc93a; --sel-fg:#151922; --sel-ic:#151922; --ink-muted:rgba(255,255,255,.55); --ok:#3ccf8a;
-  --danger:#f0716a; --warn-bg:#2e2914; --warn-line:#5c4f1d; --star:#ffc93a;
+  --bg:#0f1512; --surface:#18211c; --field:#222d27; --fg:#e8efe9; --muted:#93a39a; --line:#2a352f;
+  --accent:#34d27b; --accent-strong:#2bbf6c; --accent-soft:#1b3326; --accent-ink:#4fe08f; --on-accent:#07160d;
+  --ink:#1f7a47; --ink2:#175c36; --on-ink:#ffffff; --ink-muted:rgba(255,255,255,.75); --ok:#4fe08f;
+  --sel-bg:#34d27b; --sel-fg:#07160d; --sel-ic:#07160d;
+  --danger:#f0716a; --warn-bg:#2d2a17; --warn-line:#5a5020; --star:#f7c23a;
   --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.3); color-scheme:dark}
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -437,6 +440,86 @@ body.in-chat main{padding-bottom:170px;gap:10px}
 .eye{width:36px;height:36px;display:grid;place-items:center;color:var(--muted);flex:none;border-radius:10px;margin-right:-6px}
 .eye svg{width:20px;height:20px;color:inherit!important}
 .eye.on{color:var(--accent-ink)}
+
+/* ---- reference look (green) ---- */
+body{font-family:var(--f-body)}
+.topbar{background:var(--surface);border-bottom:1px solid var(--line)}
+body::before{background:var(--surface)}
+.topbar h1{font:600 16px/1.25 var(--f-display);letter-spacing:0}
+h2{font:500 22px/1.3 var(--f-display);letter-spacing:0}
+h3{font:700 15px/1.35 var(--f-display)}
+.card{border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.list{border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.field{border-radius:12px}
+.btn{border-radius:12px;font:700 16px var(--f-display);letter-spacing:.03em;min-height:52px;box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 35%,transparent)}
+.btn.ghost{color:var(--accent-ink);border:1.5px solid var(--accent);background:var(--surface);box-shadow:none}
+.btn.ghost:hover{background:var(--accent-soft)}
+.btn.danger{box-shadow:none}
+.chip{background:var(--surface);border:1px solid var(--line);color:var(--fg)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.chip.on .cnt{color:inherit}
+.mode{background:var(--field);border:0;border-radius:14px}
+.mode button{border-radius:11px}
+.mode button.on{background:var(--surface);color:var(--accent-ink);box-shadow:var(--shadow)}
+.mode button.on svg{color:var(--accent-ink)}
+.price{font:600 19px var(--f-display);color:var(--accent-ink);background:none;padding:0;border-radius:0;text-decoration:underline;text-underline-offset:3px}
+.pill{background:var(--accent-soft);color:var(--accent-ink)}
+.toggle.on{background:var(--accent)}
+.toggle.on::after{color:var(--on-accent)}
+.swap{background:var(--surface);color:var(--accent-ink);box-shadow:0 2px 10px rgba(0,0,0,.14)}
+.hero-profile{background:linear-gradient(135deg,var(--accent),var(--ink2));color:var(--on-ink);border-radius:20px}
+.hero-profile .avatar{border-color:rgba(255,255,255,.7)}
+.sendcta{background:var(--accent-soft);color:var(--fg);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+.sendcta .muted{color:var(--muted);opacity:1}
+.sendcta .chev{color:var(--accent-ink)}
+.sendcta .bx{background:var(--accent);color:var(--on-accent)}
+.sendcta::after{background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent)}
+.ratingbox{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 25%,transparent)}
+.balchip svg{color:var(--accent-ink)}
+.hello b{font:700 24px/1.2 var(--f-display);letter-spacing:0}
+/* bottom bar: white, like the reference */
+.tabs{background:var(--surface);border-top:1px solid var(--line);pointer-events:auto;padding:0 env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.tabs nav{background:transparent;border-radius:0;box-shadow:none;padding:0;max-width:480px}
+.tab{color:var(--muted);border-radius:0;padding:8px 2px 9px}
+.tab.on{color:var(--accent-ink)}
+.tab.on svg{color:var(--accent-ink)}
+.tab .dot{border:2px solid var(--surface)}
+main{padding-bottom:110px}
+.toast{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+/* trip card (reference) */
+.trip{grid-template-columns:minmax(0,1fr) 1px minmax(0,1.15fr)}
+.tl .rail svg{color:var(--accent-ink)}
+.tl .stop .t{font:500 24px/1.1 var(--f-display)}
+.tl .stop .c{color:var(--fg)}
+.who .n{display:flex;align-items:center;gap:4px}
+.who .badge-ok svg{width:14px;height:14px}
+.who .pk{display:flex;gap:4px;align-items:center;font-size:11.5px;color:var(--muted);margin-top:-6px}
+.who .pk svg{width:14px;height:14px;color:var(--accent-ink)}
+.seats{color:var(--fg)}
+.seats .taken{color:var(--line)}
+/* green panels */
+.wallet-card,.sup-hero{background:linear-gradient(135deg,var(--accent),var(--ink2))}
+.wallet-card::before{background:#fff;opacity:.12}
+.wc-top{background:var(--surface);color:var(--accent-ink)}
+.wc-free .bar i{background:#fff}
+.op-stats div{background:var(--surface);color:var(--fg);border:1px solid var(--line)}
+.op-stats div:first-child{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.sup-av{background:var(--accent-soft);color:var(--accent-ink)}
+.sup-av.lg{background:rgba(255,255,255,.22);color:#fff}
+.othumb{background:var(--accent-soft)}
+.msg.me{background:var(--accent);color:var(--on-accent)}
+.msg.loc .locic{background:var(--accent);color:var(--on-accent)}
+.sendbtn{background:var(--accent);color:var(--on-accent)}
+.limit-ic{background:var(--accent);color:var(--on-accent)}
+.pm.on i{border-color:var(--accent-ink)}
+/* welcome: forest and road like the store screenshots */
+.forest{display:flex;align-items:flex-end;gap:2px;height:52px;margin:4px 0 -6px}
+.forest i{display:block;width:30px;color:#fff;animation:bob 3.2s ease-in-out infinite}
+.forest i:nth-child(2n){animation-delay:.6s}
+.forest i svg{width:100%;height:100%;fill:currentColor}
+.forest i:nth-child(3){margin-left:auto}
+.road-strip{background:rgba(0,0,0,.22)}
+.road-strip span{color:#fff}
 </style>
 
 <div class="app">
@@ -495,6 +578,8 @@ const I = {
   key:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3"/></svg>',
 };
 
+const TREE='<svg viewBox="0 0 40 60"><path d="M20 2 6 22h7L3 36h9L1 50h16v8h6v-8h16L28 36h9L27 22h7Z"/></svg>';
+const TREES=[34,46,28,52,38].map((h,i)=>`<i style="height:${h}px;opacity:${i%2?.55:.8}">${TREE}</i>`).join("");
 // ---------- translations ----------
 const L = {
 ru:{
@@ -1002,10 +1087,8 @@ function topbar(title,{sub="",canBack=false,right=""}={}){
 function renderTabs(){
   const unread=S.notifs.filter(n=>!n.read).length;
   const popTab=renderTabs.last!==tab, popDot=unread>(renderTabs.unread||0); renderTabs.last=tab; renderTabs.unread=unread;
-  const items=[["trips","tTrips",I.road],["home","tHome",I.home],["create","tCreate",I.plus],["notifs","tNotifs",I.bell],["profile","tProfile",I.user]];
-  $("#tabs").innerHTML = items.map(([k,l,ic])=>k==="create"
-    ? `<button class="tab fab ${tab===k?"on":""}" data-t="${k}" aria-label="${t(l)}"><i>${I.plusBig}</i><span>${t(l)}</span></button>`
-    : `<button class="tab ${tab===k?"on":""} ${tab===k&&popTab?"pop":""}" data-t="${k}" aria-label="${t(l)}">${ic}<span>${t(l)}</span>${k==="notifs"&&unread?`<b class="dot ${popDot?"pop":""}">${unread}</b>`:""}</button>`).join("");
+  const items=[["trips","tTrips",I.road],["home","tHome",I.search],["create","tCreate",I.plus],["notifs","tNotifs",I.bell],["profile","tProfile",I.user]];
+  $("#tabs").innerHTML = items.map(([k,l,ic])=>`<button class="tab ${tab===k?"on":""} ${tab===k&&popTab?"pop":""}" data-t="${k}" aria-label="${t(l)}">${ic}<span>${t(l)}</span>${k==="notifs"&&unread?`<b class="dot ${popDot?"pop":""}">${unread}</b>`:""}</button>`).join("");
   $("#tabs").onclick=e=>{ const b=e.target.closest(".tab"); if(b) switchTab(b.dataset.t); };
 }
 function checkVerification(){
@@ -1034,18 +1117,18 @@ function tripCard(tr,mode="ride"){
   const d=user(tr.driverId), left=seatsLeft(tr), r=ratingOf(tr.driverId), rc=reviewsOf(tr.driverId).length;
   const seatIcons = Array.from({length:Math.min(tr.seats,6)},(_,i)=>`<span class="${i<tr.seats-left?"taken":""}">${I.seat}</span>`).join("");
   const price = mode==="parcel"?tr.parcelPrice:tr.price;
-  return `<button class="card trip2" data-trip="${tr.id}" aria-label="${esc(tr.from)} — ${esc(tr.to)}, ${tr.dep}">
-    <div class="tr-top">
-      <div class="tr-pt"><b>${tr.dep}</b><span>${esc(tr.from)}</span></div>
-      <div class="tr-line"><span>${durTxt(tr.dep,tr.arr)}</span><div class="ln"><i></i><em>${mode==="parcel"?I.box:I.car}</em><i></i></div><span>${dShort(tr.date)}</span></div>
-      <div class="tr-pt r"><b>${tr.arr||"—"}</b><span>${esc(tr.to)}</span></div>
+  return `<button class="card trip" data-trip="${tr.id}" aria-label="${esc(tr.from)} — ${esc(tr.to)}, ${tr.dep}">
+    <div class="tl">
+      <div class="rail">${I.pinO}<span class="dots"></span>${I.pin}</div>
+      <div class="stop"><div class="d">${dShort(tr.date)}</div><div class="t">${tr.dep}</div><div class="c">${esc(tr.from)}</div></div>
+      <div class="stop"><div class="d">${dShort(tr.date)}</div><div class="t">${tr.arr||"—"}</div><div class="c">${esc(tr.to)}</div></div>
     </div>
-    <div class="tr-bot">
-      ${avatar(d)}
-      <div class="who2"><b>${esc(d?.name)}${tr.driverId==="me"?` <span class="pill">${t("you")}</span>`:""}${isVerified(tr.driverId)?` <span class="badge-ok" title="${t("verified")}">${I.shieldOk}</span>`:""}</b>
-        <span>${rc?`<span style="color:var(--star)">★</span> ${r.toFixed(1)} · `:""}${esc(d?.car?.brand||"")} ${esc(d?.car?.model||"")}</span>
-      <div class="tr-tags">${mode==="parcel"?"":`<span class="seats" title="${t("seatsFree",{n:left})}">${seatIcons}</span>`}${mode==="ride"&&tr.parcel?`<span style="width:16px;height:16px;display:inline-flex;color:var(--accent-ink)" title="${t("takesParcels")}">${I.box}</span>`:""}</div></div>
-      <div class="price">${price} с</div>
+    <div class="sep"></div>
+    <div class="who">
+      <div class="p">${avatar(d)}<div><div class="n">${esc(d?.name)}${tr.driverId==="me"?` <span class="pill">${t("you")}</span>`:""}${isVerified(tr.driverId)?` <span class="badge-ok" title="${t("verified")}">${I.shieldOk}</span>`:""}</div><div class="s">${rc?`<span style="color:var(--star)">★</span>${r.toFixed(1)}`:reviewsWord(0)}</div></div></div>
+      <div class="p"><div class="carpic">${I.car}</div><div><div class="n">${esc(d?.car?.brand||t("carLbl"))}</div><div class="s">${esc(d?.car?.model||"")}${d?.car?.year?", "+d.car.year:""}</div></div></div>
+      <div class="row between">${mode==="parcel"?`<span class="seats" style="color:var(--accent-ink)" title="${t("parcelTakes")}">${I.box}</span>`:`<div class="seats" title="${t("seatsFree",{n:left})}">${seatIcons}</div>`}<div class="price">${price} с</div></div>
+      ${mode==="ride"&&tr.parcel?`<div class="s pk">${I.box}${t("takesParcels")}</div>`:""}
     </div>
   </button>`;
 }
@@ -1060,7 +1143,7 @@ screens.welcome = () => {
   const hero = `<div class="hero-profile" style="flex-direction:column;align-items:flex-start;gap:8px;padding:22px">
     <span class="pill" style="background:rgba(255,255,255,.2);color:inherit">${t("tagline")}</span>
     <b style="font-size:24px;line-height:1.2">${t("welcomeTitle")}</b>
-    <div class="road-strip" aria-hidden="true"><span>${I.car}</span></div>
+    <div class="forest" aria-hidden="true">${TREES}</div><div class="road-strip" aria-hidden="true"><span>${I.car}</span></div>
     <span style="opacity:.9">${t("welcomeText")}</span></div>`;
   if(auth.step==="phone"){
     $("#screen").innerHTML = `${hero}
@@ -2229,8 +2312,8 @@ screens.profile = () => {
   const me=S.me, st=me.driver?.status||"none";
   const infoItems=[["about",I.info],["safety",I.shield],["terms",I.doc],["privacy",I.lock]];
   $("#screen").innerHTML = `
-  ${walletCard()}
   <button class="hero-profile" id="pd">${avatar(me)}<div style="flex:1;min-width:0"><b>${esc(me.name)}</b><span style="opacity:.85">${t("personal")}</span></div>${I.chev.replace('class="chev"','width="22" height="22"')}</button>
+  ${walletCard()}
   <div class="list">
     <button class="li" id="drvSt">${I.idcard}<span class="grow">${t("driverStatus")}</span><span class="pill ${st==="verified"?"":"grey"}">${t("st_"+st)}</span>${st==="none"?I.chev:""}</button>
     <div class="li">${I.globe}<span class="grow">${t("language")}</span>${langSwitch()}</div>
