@@ -883,7 +883,7 @@ ru:{
   faq1q:"Водитель не доставил посылку. Что делать?", faq1a:"Откройте посылку и нажмите «Проблема с посылкой». Мы свяжемся с водителем. Если посылка не доставлена в течение 24 часов, оплата возвращается, а аккаунт водителя блокируется до выяснения.",
   faq2q:"Как вернуть деньги с баланса?", faq2a:"Напишите в поддержку с причиной «Оплата и баланс». Возврат делается тем же способом, которым вы пополняли.",
   faq3q:"Как понять, что водителю можно доверять?", faq3a:"Смотрите отметку «Документы проверены», рейтинг и отзывы. Все водители проходят проверку паспорта и селфи.",
-  reasonLbl:"Что случилось?", r_notdelivered:"Посылка не доставлена", r_noanswer:"Водитель не выходит на связь", r_damaged:"Посылка повреждена или потеряна", r_payment:"Оплата и баланс", r_other:"Другое",
+  reasonLbl:"Что случилось?", r_notdelivered:"Посылка не доставлена", r_noanswer:"Водитель не выходит на связь", r_damaged:"Посылка повреждена или потеряна", r_payment:"Оплата и баланс", r_other:"Другое", r_blocked:"Аккаунт заблокирован", blWriteSupport:"Написать в поддержку", blOpenTicket:"Открыть моё обращение", s_blocked:"Ваше обращение передано администратору. Он проверит причину блокировки и ответит в течение 24 часов.", opUnblockSys:"Оператор разблокировал аккаунт",
   aboutOrder:"По какой посылке", noOrderLink:"Не относится к посылке", describe:"Опишите ситуацию", describePh:"Например: водитель забрал посылку вчера, обещал доставить к вечеру, но не отвечает на звонки", sendTicket:"Отправить обращение", errDescribe:"Опишите ситуацию подробнее",
   ticketNo:"Обращение №{no}", tk_open:"Рассматривается", tk_answered:"Есть ответ", tk_closed:"Закрыто", ticketCreated:"Обращение №{no} создано",
   s_greet:"Здравствуйте, {name}! Обращение №{no} принято. Специалист уже разбирается, ответим в течение 30 минут.",
@@ -1029,7 +1029,7 @@ ky:{
   faq1q:"Айдоочу посылканы жеткирбей койду. Эмне кылам?", faq1a:"Посылканы ачып, «Посылка боюнча көйгөй» баскычын басыңыз. Биз айдоочу менен байланышабыз. Посылка 24 сааттын ичинде жеткирилбесе, төлөм кайтарылат жана айдоочунун аккаунту текшерүү бүткөнчө бөгөттөлөт.",
   faq2q:"Баланстагы акчаны кантип кайтарам?", faq2a:"«Төлөм жана баланс» себеби менен колдоого жазыңыз. Акча кандай ыкма менен толтурсаңыз, ошол ыкма менен кайтарылат.",
   faq3q:"Айдоочуга ишенсе болорун кантип билем?", faq3a:"«Документтер текшерилген» белгисин, рейтингди жана пикирлерди караңыз. Бардык айдоочулар паспорт жана селфи текшерүүсүнөн өтүшөт.",
-  reasonLbl:"Эмне болду?", r_notdelivered:"Посылка жеткирилген жок", r_noanswer:"Айдоочу байланышка чыкпай жатат", r_damaged:"Посылка бузулган же жоголгон", r_payment:"Төлөм жана баланс", r_other:"Башка",
+  reasonLbl:"Эмне болду?", r_notdelivered:"Посылка жеткирилген жок", r_noanswer:"Айдоочу байланышка чыкпай жатат", r_damaged:"Посылка бузулган же жоголгон", r_payment:"Төлөм жана баланс", r_other:"Башка", r_blocked:"Аккаунт бөгөттөлгөн", blWriteSupport:"Колдоо кызматына жазуу", blOpenTicket:"Кайрылуумду ачуу", s_blocked:"Кайрылууңуз администраторго берилди. Бөгөттөөнүн себебин текшерип, 24 сааттын ичинде жооп берет.", opUnblockSys:"Оператор аккаунтту бөгөттөн чыгарды",
   aboutOrder:"Кайсы посылка боюнча", noOrderLink:"Посылкага тиешеси жок", describe:"Кырдаалды жазыңыз", describePh:"Мисалы: айдоочу посылканы кечээ алып кеткен, кечке чейин жеткирем деген, бирок телефонду албай жатат", sendTicket:"Кайрылууну жөнөтүү", errDescribe:"Кырдаалды кененирээк жазыңыз",
   ticketNo:"Кайрылуу №{no}", tk_open:"Каралууда", tk_answered:"Жооп келди", tk_closed:"Жабылды", ticketCreated:"№{no} кайрылуу түзүлдү",
   s_greet:"Саламатсызбы, {name}! №{no} кайрылууңуз кабыл алынды. Адис карап жатат, 30 мүнөттүн ичинде жооп беребиз.",
@@ -1434,9 +1434,9 @@ function render(){
   if(!S.me){ $(".tabs").hidden=true; screens.welcome(); animateScreen(); return; }
   const top=stack[stack.length-1];
   const bl=meBlocked();
-  if(bl && !(top && top.name.startsWith("op"))){ $(".tabs").hidden=true; screens.blocked(bl); animateScreen(); return; }
-  $(".tabs").hidden=false;
-  renderTabs();
+  if(bl && !(top && (top.name.startsWith("op") || ["support","ticketNew","chat"].includes(top.name)))){ $(".tabs").hidden=true; screens.blocked(bl); animateScreen(); return; }
+  $(".tabs").hidden=!!bl;
+  if(!bl) renderTabs();
   if(top) screens[top.name](top.params); else screens[tab]();
   animateScreen();
 }
@@ -2068,7 +2068,9 @@ screens.ticketNew = ({orderId}={}) => {
   topbar(t("newTicket"),{canBack:true});
   if(orderId && tkDraft._for!==orderId){ tkDraft.orderId=orderId; tkDraft._for=orderId; tkDraft.reason="notdelivered"; }
   const myOrders=(S.orders||[]).filter(o=>(o.userId==="me"||o.driverId==="me")&&o.status!=="open");
-  const reasons=["notdelivered","noanswer","damaged","payment","other"];
+  const isBl=!!meBlocked();
+  if(isBl) tkDraft.reason="blocked";
+  const reasons=isBl?["blocked"]:["notdelivered","noanswer","damaged","payment","other"];
   $("#screen").innerHTML = `
   <form class="stack" id="tkf" novalidate>
     <span class="lbl">${t("reasonLbl")}</span>
@@ -2093,6 +2095,7 @@ screens.ticketNew = ({orderId}={}) => {
     const replies=[[t("s_greet",{name:S.me.name,no})]];
     if(o && ["notdelivered","noanswer","damaged"].includes(tkDraft.reason)) replies.push([t("s_nd",{driver:drv||"—",price:o.price})]);
     else if(tkDraft.reason==="payment") replies.push([t("s_pay")]);
+    else if(tkDraft.reason==="blocked") replies.push([t("s_blocked")]);
     else replies.push([t("s_gen")]);
     Object.assign(tkDraft,{text:"",orderId:"",_for:null,reason:"notdelivered"});
     celebrate(t("ticketCreated",{no}));
@@ -2173,6 +2176,7 @@ screens.opTicket = ({id}) => {
       ${o?`<button class="chip" id="opOrder">${I.box.replace("<svg",'<svg width="14" height="14"')} ${t("opOpenOrder")}</button>`:""}
       ${o && o.userId==="me" && !o.refunded ? `<button class="chip" id="opRefund">${t("opRefund",{n:o.price})}</button>`:""}
       ${drvObj && !userBlocked(drvObj) ? `<button class="chip" id="opBlock">${t("opBlock")}</button>`:""}
+      ${blHit({phone:u.phone})?`<button class="chip" id="opUnbl">${t("blUnblock")}</button>`:""}
       ${th.status!=="closed"?`<button class="chip" id="opClose">${t("opClose")}</button>`:""}
     </div>
   </div>
@@ -2193,6 +2197,9 @@ screens.opTicket = ({id}) => {
     const w=wallet(); w.balance+=o.price; w.tx.unshift({id:uid(),type:"refund",amount:o.price,at:Date.now()}); o.refunded=true;
     sys(t("opRefundSys",{n:o.price})); pushMsg(th,"peer",t("opRefundMsg",{n:o.price})); th.status="answered"; celebrate(t("opRefundDone")); render(); },false);
   if(B("opBlock")) B("opBlock").onclick=()=>confirmSheet(t("opBlockQ"),t("opBlockText",{name:drvObj.name}),t("opBlock"),()=>{ drvObj.blocked=true; addToBlacklist({name:drvObj.name,phone:drvObj.phone,reason:t("r_"+th.reason)}); sys(t("opBlockSys",{name:drvObj.name})); save(); toast(t("opBlocked")); render(); });
+  if(B("opUnbl")) B("opUnbl").onclick=()=>{ const x=blHit({phone:u.phone}); confirmSheet(t("blUnblockQ",{name:x.name||u.name}),t("blUnblockText"),t("blUnblock"),()=>{
+    S.blacklist=blacklist().filter(y=>y.id!==x.id); S.users.forEach(v=>{ if(digits(v.phone)===digits(x.phone)) v.blocked=false; });
+    sys(t("opUnblockSys")); th.status="answered"; toast(t("blRemoved")); render(); },false); };
   if(B("opClose")) B("opClose").onclick=()=>{ th.status="closed"; sys(t("closedSys")); save(); render(); };
 };
 
@@ -2222,11 +2229,14 @@ function blockedSheet(bl){
 screens.blocked = bl => {
   topbar("Жолдош");
   $("#screen").innerHTML = `<div class="card empty bl-card"><div class="limit-ic bl-ic">${I.lock}</div><h3>${t("blTitle")}</h3><p>${t("blText")}</p><p class="small"><b>${esc(t("blReason",{r:blReasonTxt(bl.reason)}))}</b></p>
-    <button class="btn" id="blOut" style="margin-top:12px">${t("logoutBtn")}</button></div>
+    <button class="btn" id="blSup" style="margin-top:12px">${blTicket()?t("blOpenTicket"):t("blWriteSupport")}</button>
+    <button class="btn ghost" id="blOut" style="margin-top:8px">${t("logoutBtn")}</button></div>
     <button class="linkbtn" id="blOp" style="display:block;margin:16px auto">${t("openOp")}</button>`;
+  $("#blSup").onclick=()=>{ const th=blTicket(); if(th) go("chat",{id:th.id}); else { tkDraft.reason="blocked"; go("ticketNew",{}); } };
   $("#blOut").onclick=()=>{ S.me=null; stack=[]; tab="home"; render(); };
   $("#blOp").onclick=()=>go("opPanel");
 };
+const blTicket = () => Object.values(threads()).find(x=>x.kind==="support"&&x.reason==="blocked"&&x.mine&&x.status!=="closed"&&digits(x.user?.phone)===digits(S.me?.phone));
 function kycQueue(){ return S.kyc = S.kyc || [
   {id:"k1",name:"Мирлан Асанов",phone:"+996 705 21 43 65",car:"Toyota Alphard, 2012",passport:{type:"id",surname:"Асанов",first:"Мирлан",patr:"Бакытович",birth:"1991-04-12",num:"ID2345678",pin:"21204199100456",issued:"2021-06-01",auth:"МКК 211021",license:"AB 1234567"},photos:{},status:"pending",submittedAt:Date.now()-3*3600e3},
   {id:"k2",name:"Канышай Бекова",phone:"+996 559 34 56 78",car:"Hyundai Porter, 2016",passport:{type:"id",surname:"Бекова",first:"Канышай",patr:"",birth:"1995-09-30",num:"ID3456789",pin:"10930199500789",issued:"2022-02-14",auth:"МКК 50-01",license:"BC 7654321"},photos:{},status:"pending",submittedAt:Date.now()-50*60e3},
