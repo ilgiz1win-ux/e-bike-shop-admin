@@ -814,6 +814,18 @@ button.kyc-ph{cursor:zoom-in;padding:0}
 .us-docs{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;border-radius:14px;background:var(--field);font-size:13.5px;font-weight:600}
 .us-docs svg{width:20px;height:20px;color:var(--accent-ink);flex:none} .us-docs span{flex:1}
 .us-docs svg:last-child{color:var(--muted);width:16px;height:16px}
+.wl-hero{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:1/1.05;background:#eef0f1;box-shadow:var(--shadow);isolation:isolate}
+.wl-hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.wl-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,40,36,0) 38%,rgba(6,40,36,.55) 62%,rgba(6,40,36,.92) 100%)}
+.wl-copy{position:absolute;left:0;right:0;bottom:0;padding:20px 20px 22px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;color:#fff}
+.wl-copy .pill{background:rgba(255,255,255,.2);color:#fff;backdrop-filter:blur(6px)}
+.wl-copy b{font:800 25px/1.18 var(--f-display);text-shadow:0 2px 12px rgba(0,0,0,.25)}
+.wl-copy > span:last-child{opacity:.92;font-size:14.5px;line-height:1.4}
+.dr-card{overflow:hidden}
+.dr-anim{margin:-16px -16px 4px;aspect-ratio:480/533;max-height:260px;overflow:hidden;background:#fff;display:flex;justify-content:center}
+.dr-anim video{height:100%;width:auto;max-width:100%;object-fit:cover}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dr-anim{background:#000}:root:not([data-theme="light"]) .dr-anim video{filter:invert(1)}}
+:root[data-theme="dark"] .dr-anim{background:#000} :root[data-theme="dark"] .dr-anim video{filter:invert(1)}
 .rolelist{display:flex;flex-direction:column;gap:10px}
 .roleopt{display:flex;align-items:center;gap:14px;padding:16px;border-radius:22px;background:var(--surface);box-shadow:var(--shadow);border:2px solid transparent;text-align:left;width:100%;--cat:var(--accent-ink)}
 .roleopt .cdot{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--cat) 14%,transparent);color:var(--cat);flex:none}
@@ -1494,20 +1506,21 @@ function checkVerification(){
 setInterval(()=>{ if(tickOrders()){ save(); renderTabs(); const top=stack[stack.length-1]; if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select") && (!top||top.name==="order")) render(); } updateTracking(); },1500);
 setInterval(()=>{ if(checkVerification()){ save(); if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select")) render(); else renderTabs(); toast(t("verifiedNotif")); } },2000);
 
+function calmVideos(){ try{ if(matchMedia("(prefers-reduced-motion: reduce)").matches) document.querySelectorAll("video.anim-vid").forEach(v=>{ v.removeAttribute("autoplay"); v.pause(); }); else document.querySelectorAll("video.anim-vid").forEach(v=>{ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }); }catch(e){} }
 function render(){
   if(!S.brand) S.brand="teal";
   applyBrand();
   document.body.classList.remove("in-chat","on-home");
   document.documentElement.lang=S.lang;
   save();
-  if(!S.me){ $(".tabs").hidden=true; screens.welcome(); animateScreen(); return; }
+  if(!S.me){ $(".tabs").hidden=true; screens.welcome(); animateScreen(); calmVideos(); return; }
   const top=stack[stack.length-1];
   const bl=meBlocked();
   if(bl && S.me.role && S.me.role!=="client"){ S.me.role="client"; S.feed={type:"all",from:"",to:"",date:"all",cats:[]}; }
   $(".tabs").hidden=false;
   renderTabs();
   if(top) screens[top.name](top.params); else screens[tab]();
-  animateScreen();
+  animateScreen(); calmVideos();
 }
 
 // ---------- components ----------
@@ -1540,11 +1553,11 @@ const screens = {};
 screens.welcome = () => {
   $("#topbar").innerHTML=`<div></div><h1>Жолдош</h1><div style="display:flex;justify-content:flex-end;padding-right:4px">${langSwitch()}</div>`;
   bindLang($("#topbar"));
-  const hero = `<div class="hero-profile" style="flex-direction:column;align-items:flex-start;gap:8px;padding:22px">
-    <span class="pill" style="background:rgba(255,255,255,.2);color:inherit">${t("tagline")}</span>
-    <b style="font-size:24px;line-height:1.2">${t("welcomeTitle")}</b>
-    <div class="forest" aria-hidden="true">${TREES}</div><div class="road-strip" aria-hidden="true"><span>${I.car}</span></div>
-    <span style="opacity:.9">${t("welcomeText")}</span></div>`;
+  // Hero animation made with the /map-route skill (claude-animation-skills): a route draws itself to Ош базары.
+  const hero = `<div class="wl-hero">
+    <video class="anim-vid" poster="media/route.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="media/route.webm" type="video/webm"><source src="media/route.mp4" type="video/mp4"></video>
+    <div class="wl-shade"></div>
+    <div class="wl-copy"><span class="pill">${t("tagline")}</span><b>${t("welcomeTitle")}</b><span>${t("welcomeText")}</span></div></div>`;
   if(auth.step==="phone"){
     $("#screen").innerHTML = `${hero}
     <form class="card stack" id="reg" novalidate>
@@ -3181,7 +3194,7 @@ screens.driverReg = () => {
   const f=pf;
   const upl = k => `<label class="upl ${f.photos[k]?"has":""}">${f.photos[k]?`<img src="${f.photos[k]}" alt=""><span class="ok">${I.check}</span>`:`${I.camera}<span>${t({front:"phFront",back:"phBack",selfie:"phSelfie"}[k])}</span>`}<input type="file" accept="image/*" data-ph="${k}" aria-label="${t({front:"phFront",back:"phBack",selfie:"phSelfie"}[k])}"></label>`;
   $("#screen").innerHTML = `
-  <div class="card stack"><div class="row">${I.idcard.replace('class="ic"','style="width:34px;height:34px;color:var(--accent-ink);flex:none"')}<h3>${t("becomeDriver")}</h3></div><p class="small muted" style="margin:0">${t("becomeDriverText")}</p></div>
+  <div class="card stack dr-card"><div class="dr-anim"><video class="anim-vid" poster="media/steps.jpg" autoplay muted loop playsinline aria-hidden="true"><source src="media/steps.webm" type="video/webm"><source src="media/steps.mp4" type="video/mp4"></video></div><div class="row">${I.idcard.replace('class="ic"','style="width:34px;height:34px;color:var(--accent-ink);flex:none"')}<h3>${t("becomeDriver")}</h3></div><p class="small muted" style="margin:0">${t("becomeDriverText")}</p></div>
   <form class="stack" id="df" novalidate>
     <div class="section-title">${t("passport")}</div>
     <div class="field">${I.user}<input id="dSur" maxlength="40" placeholder="${t("surname")} *" aria-label="${t("surname")}" value="${esc(f.surname)}" autocomplete="family-name"></div>
