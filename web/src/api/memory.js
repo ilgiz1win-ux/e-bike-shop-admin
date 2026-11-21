@@ -2,6 +2,8 @@
 // Used by tests and for local work without Supabase. Mirrors the server rules
 // that the UI relies on: past trips hidden, seats never oversold, driver phone
 // visible only to the driver and to passengers with an active booking.
+import { inPlace } from '../ui/places.js';
+
 const uid = () => Math.random().toString(36).slice(2, 10);
 
 export function createMemoryApi(seed = {}) {
@@ -60,7 +62,7 @@ export function createMemoryApi(seed = {}) {
         const now = Date.now();
         return db.trips
           .filter((x) => x.status === 'active' && new Date(x.starts_at).getTime() > now)
-          .filter((x) => (!from || x.from_city === from) && (!to || x.to_city === to))
+          .filter((x) => inPlace(x.from_city, from) && inPlace(x.to_city, to))
           .filter((x) => !date || x.starts_at.slice(0, 10) === date)
           .sort((a, b) => a.starts_at.localeCompare(b.starts_at))
           .map(card);

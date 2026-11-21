@@ -691,6 +691,7 @@ body.on-home .topbar .lang button.on{background:var(--surface);color:var(--accen
 .bsw:active{transform:scale(.9)}
 .home-hero .balchip svg{color:var(--on-ink);opacity:.85}
 .forest i{color:color-mix(in srgb,var(--accent) 55%,#fff)}
+.cl-group{margin:12px 4px 4px;font:700 12px var(--f-display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 </style>
 
 <div class="app">
@@ -816,7 +817,7 @@ ru:{
   payDemo:"Демо: настоящий платёж не проводится. В рабочей версии оплата идёт через платёжный шлюз.", pricesTitle:"Тарифы", fee_trip:"Публикация поездки", fee_order:"Публикация посылки", fee_take:"Взять посылку (водитель)", fee_book:"Бронирование места",
   pricesNote:"Первые {n} действий бесплатно, дальше оплата с баланса.", historyTitle:"История", txTopup:"Пополнение · {m}", noHistory:"Операций пока нет",
   minAmount:"Минимальная сумма — 50 с", paying:"Оплата…", topupDone:"Баланс пополнен на {n} с", topupNotif:"Баланс пополнен на {n} с ({m}).",
-  sts_none:"Нет", sts_pending:"Проверка", sts_verified:"Да ✓", colorTheme:"Цвет оформления", ratingLbl:"Рейтинг", tripsWord:"Поездки", changePhoto:"Сменить фото", photoSaved:"Фото обновлено", hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
+  sts_none:"Нет", sts_pending:"Проверка", sts_verified:"Да ✓", colorTheme:"Цвет оформления", ratingLbl:"Рейтинг", tripsWord:"Поездки", changePhoto:"Сменить фото", photoSaved:"Фото обновлено", inBishkek:"По Бишкеку", useTyped:"Нет в списке — выбрать «{name}»", hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
   allDays:"Все дни", found:"Найдено: {n}", resetFilters:"Сбросить фильтры", noOffers:"По этим фильтрам ничего нет",
   noOffersText:"Выберите другой город или дату. Можно отправить запрос всем водителям — вам позвонят.", askDrivers:"Отправить запрос водителям", advSearch:"Подробный поиск",
   tTrips:"Поездки", tSearch:"Поиск", tCreate:"Создать", tNotifs:"Уведомления", tProfile:"Профиль",
@@ -830,7 +831,7 @@ ru:{
   g4t:"4. Отменяйте заранее", g4:"Если планы поменялись, отмените бронь и предупредите водителя.",
   chooseCities:"Выберите города отправления и прибытия", citiesDiffer:"Города должны отличаться",
   requestNotif:"Запрос {from} → {to} на {date} отправлен водителям ({n}). Они свяжутся с вами.", requestSent:"Запрос отправлен водителям",
-  chooseCity:"Выберите город", startTyping:"Начните вводить…", selected:"выбран", cancel:"Отмена", back:"Назад",
+  chooseCity:"Выберите город или село", startTyping:"Начните вводить…", selected:"выбран", cancel:"Отмена", back:"Назад",
   noTrips:"На эту дату поездок нет", noTripsText:"Попробуйте другую дату или включите «Отправить запрос всем водителям» — вам позвонят, когда появится машина.",
   nearest:"Ближайшие по этому маршруту", you:"вы", seatsFree:"Свободно мест: {n}", takesParcels:"берёт посылки",
   trip:"Поездка", yourTrip:"Это ваша поездка", youBooked:"Вы забронировали {n} {seats}", paymentLbl:"Оплата: {p}",
@@ -962,7 +963,7 @@ ky:{
   payDemo:"Демо: чыныгы төлөм жүргүзүлбөйт. Иштеген версияда төлөм төлөм шлюзу аркылуу өтөт.", pricesTitle:"Тарифтер", fee_trip:"Сапар жарыялоо", fee_order:"Посылка жарыялоо", fee_take:"Посылка алуу (айдоочу)", fee_book:"Орун брондоо",
   pricesNote:"Алгачкы {n} аракет акысыз, андан кийин баланстан төлөнөт.", historyTitle:"Тарых", txTopup:"Толтуруу · {m}", noHistory:"Азырынча операция жок",
   minAmount:"Эң аз сумма — 50 сом", paying:"Төлөнүүдө…", topupDone:"Баланс {n} сомго толукталды", topupNotif:"Баланс {n} сомго толукталды ({m}).",
-  sts_none:"Жок", sts_pending:"Текшерүүдө", sts_verified:"Ооба ✓", colorTheme:"Колдонмонун түсү", ratingLbl:"Рейтинг", tripsWord:"Сапарлар", changePhoto:"Сүрөттү алмаштыруу", photoSaved:"Сүрөт жаңыртылды", hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
+  sts_none:"Жок", sts_pending:"Текшерүүдө", sts_verified:"Ооба ✓", colorTheme:"Колдонмонун түсү", ratingLbl:"Рейтинг", tripsWord:"Сапарлар", changePhoto:"Сүрөттү алмаштыруу", photoSaved:"Сүрөт жаңыртылды", inBishkek:"Бишкек ичинде", useTyped:"Тизмеде жок — «{name}» деп тандоо", hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
   allDays:"Бардык күндөр", found:"Табылды: {n}", resetFilters:"Чыпкаларды тазалоо", noOffers:"Бул чыпкалар боюнча эч нерсе жок",
   noOffersText:"Башка шаарды же күндү тандаңыз. Бардык айдоочуларга суроо жөнөтсөңүз болот — сизге чалышат.", askDrivers:"Айдоочуларга суроо жөнөтүү", advSearch:"Кеңири издөө",
   tTrips:"Сапарлар", tSearch:"Издөө", tCreate:"Түзүү", tNotifs:"Билдирүүлөр", tProfile:"Профиль",
@@ -976,7 +977,7 @@ ky:{
   g4t:"4. Алдын ала жокко чыгарыңыз", g4:"Пландар өзгөрсө, брондоону жокко чыгарып, айдоочуга эскертиңиз.",
   chooseCities:"Кайдан жана кайда экенин тандаңыз", citiesDiffer:"Шаарлар ар башка болушу керек",
   requestNotif:"{from} → {to} ({date}) суроосу айдоочуларга жөнөтүлдү ({n}). Алар сиз менен байланышат.", requestSent:"Суроо айдоочуларга жөнөтүлдү",
-  chooseCity:"Шаарды тандаңыз", startTyping:"Жаза баштаңыз…", selected:"тандалды", cancel:"Жокко чыгаруу", back:"Артка",
+  chooseCity:"Шаар же айылды тандаңыз", startTyping:"Жаза баштаңыз…", selected:"тандалды", cancel:"Жокко чыгаруу", back:"Артка",
   noTrips:"Бул күнгө сапар жок", noTripsText:"Башка күндү тандаңыз же «Бардык айдоочуларга суроо жөнөтүү» дегенди күйгүзүңүз — машина чыкканда сизге чалышат.",
   nearest:"Бул маршрут боюнча жакынкылар", you:"сиз", seatsFree:"Бош орун: {n}", takesParcels:"посылка алат",
   trip:"Сапар", yourTrip:"Бул сиздин сапарыңыз", youBooked:"Сиз {n} {seats} брондодуңуз", paymentLbl:"Төлөм: {p}",
@@ -1063,7 +1064,42 @@ const INFO = {
 };
 
 // ---------- data ----------
-const CITIES = ["Бишкек","Ош","Жалал-Абад","Каракол","Чолпон-Ата","Балыкчы","Нарын","Талас","Баткен","Токмок","Кара-Балта","Кант","Өзгөн","Кара-Суу","Кочкор","Боконбаево","Тамчы","Бостери","Токтогул","Кербен","Таш-Көмүр","Майлуу-Суу","Кызыл-Кыя","Сүлүктү","Ат-Башы","Чаек","Базар-Коргон","Сузак","Ноокат","Кемин","Беловодское","Сокулук","Кызыл-Суу","Жети-Өгүз","Казарман"];
+// Places grouped for the picker: points inside Bishkek, towns, and large villages by region.
+// Anything missing can be typed in by hand. Bishkek points are "Бишкек, <place>" so a search
+// for "Бишкек" also finds trips between them (see inPlace).
+const PLACES = [
+  { key: 'bishkek', ky: 'Бишкектин ичинде', ru: 'Внутри Бишкека', items: [
+    'Бишкек, Ош базары', 'Бишкек, Дордой базары', 'Бишкек, Аламүдүн базары', 'Бишкек, Ортосай базары',
+    'Бишкек, Батыш автобекети', 'Бишкек, Чыгыш автобекети', 'Бишкек, Ала-Тоо аянты', 'Бишкек, Жал',
+    'Бишкек, Асанбай', 'Бишкек, Восток-5', 'Бишкек, Аламедин-1', 'Бишкек, Кок-Жар', 'Бишкек, Тунгуч',
+    'Бишкек, Ак-Өргө', 'Бишкек, Арча-Бешик', 'Бишкек, Калыс-Ордо', 'Бишкек, Учкун', 'Бишкек, Кара-Жыгач',
+    'Манас аэропорту',
+  ] },
+  { key: 'cities', ky: 'Шаарлар', ru: 'Города', items: [
+    'Бишкек', 'Ош', 'Жалал-Абад', 'Каракол', 'Чолпон-Ата', 'Балыкчы', 'Нарын', 'Талас', 'Баткен', 'Токмок',
+    'Кара-Балта', 'Кант', 'Шопоков', 'Орловка', 'Өзгөн', 'Кара-Суу', 'Токтогул', 'Кербен', 'Таш-Көмүр',
+    'Майлуу-Суу', 'Кара-Көл', 'Кочкор-Ата', 'Кызыл-Кыя', 'Сүлүктү', 'Исфана', 'Кадамжай', 'Айдаркен',
+  ] },
+  { key: 'chui', ky: 'Чүй облусу', ru: 'Чуйская область', items: [
+    'Аламүдүн', 'Лебединовка', 'Новопавловка', 'Сокулук', 'Беловодское', 'Ивановка', 'Кемин', 'Жаңы-Жер',
+    'Панфилов', 'Ысык-Ата', 'Кой-Таш', 'Байтик', 'Таш-Дөбө', 'Васильевка', 'Петровка',
+  ] },
+  { key: 'issykkul', ky: 'Ысык-Көл облусу', ru: 'Иссык-Кульская область', items: [
+    'Ананьево', 'Түп', 'Тамчы', 'Чок-Тал', 'Бостери', 'Кызыл-Суу', 'Жети-Өгүз', 'Боконбаево', 'Тосор',
+    'Барскоон', 'Тамга', 'Григорьевка', 'Семеновка', 'Тору-Айгыр', 'Корумду',
+  ] },
+  { key: 'naryn', ky: 'Нарын облусу', ru: 'Нарынская область', items: ['Кочкор', 'Ат-Башы', 'Баетов', 'Чаек', 'Достук'] },
+  { key: 'talas', ky: 'Талас облусу', ru: 'Таласская область', items: ['Бакай-Ата', 'Кызыл-Адыр', 'Шекер', 'Манас'] },
+  { key: 'jalalabad', ky: 'Жалал-Абад облусу', ru: 'Джалал-Абадская область', items: ['Базар-Коргон', 'Сузак', 'Ала-Бука', 'Казарман', 'Масы', 'Арстанбап'] },
+  { key: 'osh', ky: 'Ош облусу', ru: 'Ошская область', items: ['Ноокат', 'Араван', 'Гүлчө', 'Сары-Таш', 'Мырза-Аке', 'Кара-Кулжа', 'Дароот-Коргон'] },
+  { key: 'batken', ky: 'Баткен облусу', ru: 'Баткенская область', items: ['Самаркандек', 'Ак-Татыр'] },
+];
+
+const ALL_PLACES = PLACES.flatMap((g) => g.items);
+
+// A trip place matches a filter if it is the same place or a point inside it ("Бишкек, Жал" is in "Бишкек").
+const inPlace = (value, filter) => !filter || value === filter || String(value).startsWith(filter + ', ');
+const CITIES = ALL_PLACES;
 const COLORS = [["black","#1d1d1d"],["white","#ffffff"],["grey","#9e9e9e"],["red","#e53935"],["blue","#1e88e5"],["green","#43a047"],["yellow","#fdd835"],["purple","#8e24aa"]];
 const AV = ["#1fbf6b","#1e88e5","#f4511e","#8e24aa","#00897b","#c0ca33","#fb8c00","#5e35b1","#e91e63","#3949ab"];
 const KEY = "joldosh-v2";
@@ -1084,7 +1120,7 @@ function seed(lang){
     {id:"u5",name:"Нурлан",phone:"+996 705 11 22 33",reg:"2023-06",verified:true,car:{brand:"Honda",model:"Odyssey",year:2008,color:"grey",wheel:"R"}},
     {id:"u6",name:"Бакыт",phone:"+996 772 66 55 44",reg:"2022-12",verified:true,car:{brand:"Hyundai",model:"Sonata",year:2020,color:"white",wheel:"L"}},
   ];
-  const routes = [["Бишкек","Чолпон-Ата",4,400],["Бишкек","Ош",10,1800],["Бишкек","Каракол",6,700],["Бишкек","Нарын",5,600],["Бишкек","Талас",5,600],["Бишкек","Балыкчы",3,350],["Ош","Бишкек",10,1800],["Чолпон-Ата","Бишкек",4,400],["Бишкек","Жалал-Абад",9,1500],["Бишкек","Токмок",1,150],["Ош","Жалал-Абад",2,250],["Каракол","Бишкек",6,700]];
+  const routes = [["Бишкек","Чолпон-Ата",4,400],["Бишкек","Ош",10,1800],["Бишкек","Каракол",6,700],["Бишкек","Нарын",5,600],["Бишкек","Талас",5,600],["Бишкек","Балыкчы",3,350],["Ош","Бишкек",10,1800],["Чолпон-Ата","Бишкек",4,400],["Бишкек","Жалал-Абад",9,1500],["Бишкек","Токмок",1,150],["Ош","Жалал-Абад",2,250],["Каракол","Бишкек",6,700],["Бишкек, Жал","Бишкек, Дордой базары",1,80],["Бишкек, Асанбай","Манас аэропорту",1,350],["Бишкек","Ананьево",4,450],["Ош","Гүлчө",2,300]];
   const times = ["06:00","07:30","09:00","10:30","12:00","14:00","16:30","18:00","20:00","21:30","23:00"];
   const comments = [
     {ru:"Выезжаю ровно по времени, место встречи — у старой площади. Звоните заранее.",ky:"Убагында чыгам, жолугуу жери — Эски аянттын жанында. Алдын ала чалыңыз."},
@@ -1130,6 +1166,7 @@ function load(){ try{ const raw=localStorage.getItem(KEY); if(raw){ S=JSON.parse
 function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){ try{ /* storage full: drop photos */ if(S.me?.driver?.photos){ S.me.driver.photos={}; localStorage.setItem(KEY,JSON.stringify(S)); } }catch(_){} } }
 load();
 (function refresh(){ const t=TODAY(); if(!S.trips.some(x=>x.date>=t && x.driverId!=="me")){ const fresh=seed(S.lang); const mine=S.trips.filter(x=>x.driverId==="me"); S={...fresh,me:S.me,notifs:S.notifs,requests:S.requests||[],trips:[...fresh.trips,...mine],orders:S.orders||[]}; save(); }
+  if((S.seedV||0)<2){ const fresh=seed(S.lang); S.trips=[...fresh.trips,...S.trips.filter(x=>x.driverId==="me")]; S.seedV=2; save(); }
   S.orders=S.orders||[]; if(!S.orders.some(o=>o.userId!=="me"&&o.status==="open"&&o.date>=t)){ S.orders=[...S.orders.filter(o=>o.userId==="me"||o.driverId==="me"),...seedOrders()]; save(); } })();
 
 
@@ -1212,10 +1249,12 @@ function citySheet(current,onPick,allowAny=false){
     <div class="field">${I.search}<input id="cq" placeholder="${t("startTyping")}" autocomplete="off"></div>
     <div class="citylist" id="cl"></div>`, el=>{
     const q=el.querySelector("#cq"), cl=el.querySelector("#cl");
-    const draw=()=>{ const v=q.value.trim().toLowerCase(); const list=CITIES.filter(c=>c.toLowerCase().includes(v));
-      const extra = v && !CITIES.some(c=>c.toLowerCase()===v) ? `<button data-c="${esc(q.value.trim())}">${I.pinO}<span>«${esc(q.value.trim())}»</span></button>`:"";
+    const draw=()=>{ const v=q.value.trim().toLowerCase();
+      const groups=PLACES.map(g=>({g,items:g.items.filter(c=>c.toLowerCase().includes(v))})).filter(x=>x.items.length);
+      const extra = v.length>=2 && !CITIES.some(c=>c.toLowerCase()===v) ? `<button data-c="${esc(q.value.trim())}">${I.plus}<span>${t("useTyped",{name:esc(q.value.trim())})}</span></button>`:"";
       const any = allowAny && !v ? `<button data-c="">${I.road}<span>${t("anyCity")}</span>${!current?`<span class="pill" style="margin-left:auto">${t("selected")}</span>`:""}</button>` : "";
-      cl.innerHTML = any + list.map(c=>`<button data-c="${esc(c)}">${I.pinO}<span>${esc(c)}</span>${c===current?`<span class="pill" style="margin-left:auto">${t("selected")}</span>`:""}</button>`).join("")+extra; };
+      const item=c=>`<button data-c="${esc(c)}">${I.pinO}<span>${esc(c)}</span>${c===current?`<span class="pill" style="margin-left:auto">${t("selected")}</span>`:""}</button>`;
+      cl.innerHTML = any + extra + groups.map(({g,items})=>`<p class="cl-group">${esc(g[S.lang]||g.ky)}</p>${items.map(item).join("")}`).join(""); };
     q.oninput=draw; draw(); setTimeout(()=>q.focus(),50);
     cl.onclick=e=>{ const b=e.target.closest("button"); if(b){ closeSheet(); onPick(b.dataset.c); } };
   });
@@ -1409,7 +1448,7 @@ screens.search = () => {
     if(!s.from||!s.to){ toast(t("chooseCities")); return; }
     if(s.from===s.to){ toast(t("citiesDiffer")); return; }
     if(s.all){
-      const drivers=new Set(S.trips.filter(x=>x.from===s.from&&x.to===s.to&&x.driverId!=="me").map(x=>x.driverId));
+      const drivers=new Set(S.trips.filter(x=>inPlace(x.from,s.from)&&inPlace(x.to,s.to)&&x.driverId!=="me").map(x=>x.driverId));
       S.requests.push({id:uid(),from:s.from,to:s.to,date:s.date,pax:s.pax,mode:s.mode});
       notify("requestNotif",{from:s.from,to:s.to,date:s.date,n:drivers.size},"bell");
       toast(t("requestSent"));
@@ -1424,16 +1463,18 @@ screens.home = () => {
   topbar(t("homeTitle"),{right:langSwitch()}); bindLang($("#topbar"));
   const typeOk = x => f.type==="all" ? (seatsLeft(x)>0||x.parcel) : f.type==="ride" ? seatsLeft(x)>0 : x.parcel;
   const okDate = d => f.date==="all"||d===f.date;
-  const pool = S.trips.filter(x=>!isPast(x) && !user(x.driverId)?.blocked && typeOk(x) && okDate(x.date) && (!f.from||x.from===f.from));
-  const opool = f.type==="ride" ? [] : (S.orders||[]).filter(o=>o.status==="open" && o.date>=TODAY() && okDate(o.date) && (!f.from||o.from===f.from));
-  const counts = {}; [...pool,...opool].forEach(x=>counts[x.to]=(counts[x.to]||0)+1);
+  const pool = S.trips.filter(x=>!isPast(x) && !user(x.driverId)?.blocked && typeOk(x) && okDate(x.date) && inPlace(x.from,f.from));
+  const opool = f.type==="ride" ? [] : (S.orders||[]).filter(o=>o.status==="open" && o.date>=TODAY() && okDate(o.date) && inPlace(o.from,f.from));
+  const counts = {}; [...pool,...opool].forEach(x=>{ const c=x.to.split(", ")[0]; counts[c]=(counts[c]||0)+1; });
+  const isIntra = f.from==="Бишкек" && f.to==="Бишкек";
+  const intraN = [...pool,...opool].filter(x=>inPlace(x.from,"Бишкек")&&inPlace(x.to,"Бишкек")).length;
   let cities = ["Ош","Бишкек","Жалал-Абад","Каракол","Чолпон-Ата","Нарын","Талас","Балыкчы","Токмок","Баткен"].filter(c=>c!==f.from);
   if(f.to && !cities.includes(f.to)) cities.unshift(f.to);
   const mode = f.type==="parcel" ? "parcel" : "ride";
   search.mode = mode;
   const items = [
-    ...pool.filter(x=>!f.to||x.to===f.to).map(x=>({date:x.date,k:x.date+"T"+x.dep,html:()=>tripCard(x,mode)})),
-    ...opool.filter(o=>!f.to||o.to===f.to).map(o=>({date:o.date,k:o.date+"T00:00",html:()=>orderCard(o)}))
+    ...pool.filter(x=>inPlace(x.to,f.to)).map(x=>({date:x.date,k:x.date+"T"+x.dep,html:()=>tripCard(x,mode)})),
+    ...opool.filter(o=>inPlace(o.to,f.to)).map(o=>({date:o.date,k:o.date+"T00:00",html:()=>orderCard(o)}))
   ].sort((a,b)=>a.k.localeCompare(b.k));
   const dirty = f.type!=="all"||f.from||f.to||f.date!=="all";
   let lastDate="", body="";
@@ -1453,7 +1494,7 @@ screens.home = () => {
     <button class="qa" id="qaTrip"><span class="qa-ic">${I.car}</span><b>${t("chTrip")}</b><span>${t("qaTripS")}</span></button>
   </div>
   <div class="mode three" role="tablist">${[["all","fAll",I.road],["ride","fRide",I.users],["parcel","fParcel",I.box]].map(([k,l,ic])=>`<button role="tab" data-ft="${k}" class="${f.type===k?"on":""}" aria-selected="${f.type===k}">${ic} ${t(l)}</button>`).join("")}</div>
-  <div class="chips scroll" id="toChips" aria-label="${t("goingTo")}"><button class="chip ${!f.to?"on":""}" data-to="">${t("fAll")}<span class="cnt">${pool.length+opool.length}</span></button>${cities.map(c=>`<button class="chip ${f.to===c?"on":""}" data-to="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
+  <div class="chips scroll" id="toChips" aria-label="${t("goingTo")}"><button class="chip ${!f.to?"on":""}" data-to="">${t("fAll")}<span class="cnt">${pool.length+opool.length}</span></button><button class="chip ${isIntra?"on":""}" id="fIntra">${t("inBishkek")}<span class="cnt">${intraN}</span></button>${cities.map(c=>`<button class="chip ${f.to===c&&!isIntra?"on":""}" data-to="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
   <div class="chips scroll">${[["all","allDays"],[TODAY(),"today"],[addDays(1),"tomorrow"],[addDays(2),"afterTomorrow"]].map(([v,l])=>`<button class="chip ${f.date===v?"on":""}" data-fd="${v}">${t(l)}</button>`).join("")}</div>
   <div class="found"><span>${t("found",{n:items.length})}</span>${dirty?`<button class="linkbtn" id="fReset">${t("resetFilters")}</button>`:`<button class="linkbtn" id="fAdv">${t("advSearch")}</button>`}</div>
   ${items.length? body : `<div class="card empty">${f.type==="parcel"?I.box:I.road}<h3 style="margin-top:8px">${t("noOffers")}</h3><p>${t("noOffersText")}</p><button class="btn" id="fAsk" style="margin-top:12px">${t("askDrivers")}</button></div>`}`;
@@ -1465,8 +1506,9 @@ screens.home = () => {
   $("#balChip").onclick=()=>go("wallet");
   $("#qaTrip").onclick=()=>go("createTrip");
   $("#fSwap").onclick=()=>{ [f.from,f.to]=[f.to,f.from]; render(); };
-  $("#fFrom").onclick=()=>citySheet(f.from,c=>{ f.from=c; if(c&&f.to===c) f.to=""; render(); },true);
-  $("#fTo").onclick=()=>citySheet(f.to,c=>{ f.to=c; if(c&&f.from===c) f.from=""; render(); },true);
+  $("#fIntra").onclick=()=>{ if(isIntra){ f.from=""; f.to=""; } else { f.from="Бишкек"; f.to="Бишкек"; } render(); };
+  $("#fFrom").onclick=()=>citySheet(f.from,c=>{ f.from=c; render(); },true);
+  $("#fTo").onclick=()=>citySheet(f.to,c=>{ f.to=c; render(); },true);
   const r=$("#fReset"); if(r) r.onclick=()=>{ S.feed={type:"all",from:"",to:"",date:"all"}; render(); };
   const a=$("#fAdv"); if(a) a.onclick=()=>{ search.all=false; go("search"); };
   const ask=$("#fAsk"); if(ask) ask.onclick=()=>{ Object.assign(search,{mode, from:f.from||search.from, to:f.to||search.to, date:f.date==="all"?search.date:f.date, all:true}); go("search"); };
@@ -2207,7 +2249,7 @@ screens.create = () => {
 
 screens.results = () => {
   const s=search, parcel=s.mode==="parcel";
-  const ok = x => x.from===s.from&&x.to===s.to&&!isPast(x)&&(parcel? x.parcel : seatsLeft(x)>=s.pax);
+  const ok = x => inPlace(x.from,s.from)&&inPlace(x.to,s.to)&&!isPast(x)&&(parcel? x.parcel : seatsLeft(x)>=s.pax);
   const list=S.trips.filter(x=>ok(x)&&x.date===s.date).sort((a,b)=>a.dep.localeCompare(b.dep));
   topbar(`${list.length} ${tp(list.length,parcel?"driverP":"trip")}`,{sub:`${s.from} — ${s.to}, ${dRel(s.date).toLowerCase()}`,canBack:true});
   if(!list.length){

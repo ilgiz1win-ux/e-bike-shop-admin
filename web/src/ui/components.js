@@ -1,6 +1,6 @@
 // Shared UI pieces: escaping, avatar, trip card, top bar, sheets, toasts.
 import { I } from './icons.js';
-import { CITIES } from './data.js';
+import { PLACES, ALL_PLACES } from './places.js';
 import { t, tp, getLang } from '../i18n/index.js';
 import { durationText } from '../lib/time.js';
 
@@ -65,7 +65,11 @@ export function citySheet(current, onPick, allowAny = false) {
     const draw = () => {
       const v = q.value.trim().toLowerCase();
       const any = allowAny && !v ? `<button data-c="">${I.road}<span>${t('anyCity')}</span></button>` : '';
-      cl.innerHTML = any + CITIES.filter((c) => c.toLowerCase().includes(v)).map((c) => `<button data-c="${esc(c)}">${I.pinO}<span>${esc(c)}</span>${c === current ? `<span class="pill" style="margin-left:auto">${t('selected')}</span>` : ''}</button>`).join('');
+      const item = (c) => `<button data-c="${esc(c)}">${I.pinO}<span>${esc(c)}</span>${c === current ? `<span class="pill" style="margin-left:auto">${t('selected')}</span>` : ''}</button>`;
+      const typed = q.value.trim();
+      const own = typed.length >= 2 && !ALL_PLACES.some((c) => c.toLowerCase() === v) ? `<button data-c="${esc(typed)}">${I.plus}<span>${t('useTyped', { name: esc(typed) })}</span></button>` : '';
+      const groups = PLACES.map((g) => ({ g, items: g.items.filter((c) => c.toLowerCase().includes(v)) })).filter((x) => x.items.length);
+      cl.innerHTML = any + own + groups.map(({ g, items }) => `<p class="cl-group">${esc(g[getLang()] ?? g.ky)}</p>${items.map(item).join('')}`).join('');
     };
     q.oninput = draw; draw();
     cl.onclick = (e) => { const b = e.target.closest('button'); if (b) { closeSheet(); onPick(b.dataset.c); } };

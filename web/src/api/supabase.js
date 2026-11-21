@@ -55,8 +55,10 @@ export function createSupabaseApi(url, anonKey) {
     trips: {
       async search({ from, to, date } = {}) {
         let q = sb.from('trip_cards').select('*').order('starts_at');
-        if (from) q = q.eq('from_city', from);
-        if (to) q = q.eq('to_city', to);
+        // A place also matches points inside it ("Бишкек, Жал" is in "Бишкек").
+        const within = (col, v) => `${col}.eq."${v}",${col}.like."${v}, *"`;
+        if (from) q = q.or(within('from_city', from));
+        if (to) q = q.or(within('to_city', to));
         if (date) q = q.gte('starts_at', `${date}T00:00:00+06:00`).lt('starts_at', `${date}T23:59:59+06:00`);
         return (unwrap(await q.limit(200)) ?? []).map(toCard);
       },
