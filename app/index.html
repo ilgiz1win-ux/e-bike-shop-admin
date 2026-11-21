@@ -1390,7 +1390,6 @@ function render(){
   document.documentElement.lang=S.lang;
   save();
   if(!S.me){ $(".tabs").hidden=true; screens.welcome(); animateScreen(); return; }
-  if(!S.me.role){ $(".tabs").hidden=true; screens.rolePick(); animateScreen(); return; }
   $(".tabs").hidden=false;
   renderTabs();
   const top=stack[stack.length-1];
@@ -1538,7 +1537,7 @@ screens.home = () => {
   items.slice(0,70).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
   $("#screen").innerHTML = `
   <section class="home-hero">
-    <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${work?t("helloWork"):t("helloSub")}</span><button class="rolechip ${work?"cat-"+ROLE_CATS[role][0]:""}" id="roleChip">${I[ROLE_ICON[role]]}<span>${t("role_"+role)}</span>${I.chev}</button></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
+    <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${work?t("helloWork"):t("helloSub")}</span><button class="rolechip ${work?"cat-"+ROLE_CATS[role][0]:""}" id="roleChip">${I[ROLE_ICON[role]]}<span>${t("modeLbl")}: ${t("role_"+role)}</span>${I.chev}</button></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
     <div class="route-card">
       <button class="rc-row" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
       <i class="rc-div"></i>
