@@ -729,6 +729,23 @@ body.on-home .topbar .lang button.on{background:var(--surface);color:var(--accen
 .agree{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
 .agree input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--accent);flex:none}
 .btn:disabled{opacity:.45;pointer-events:none}
+.op-tabs button{font-size:12px;gap:4px;padding-left:4px;padding-right:4px;white-space:nowrap}
+.op-tabs .unread-dot{position:static;margin-left:2px}
+.kyc-kv{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14px;padding:7px 0;border-top:1px solid var(--line)}
+.kyc-kv span{color:var(--muted)} .kyc-kv b{font-weight:600;text-align:right}
+.kyc-ph svg{width:26px;height:26px}
+.bl-card .limit-ic svg{width:30px;height:30px;padding:0;margin:0;background:none;color:var(--danger)}
+#blAddBtn svg{width:18px;height:18px}
+.kyc-phs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kyc-ph{aspect-ratio:3/4;border-radius:14px;background:var(--surface);border:1.5px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted);font-size:11px;overflow:hidden;position:relative}
+.kyc-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.kyc-ph span{position:absolute;bottom:6px;left:6px;right:6px;text-align:center;font-weight:600;color:var(--fg);background:color-mix(in srgb,var(--surface) 85%,transparent);border-radius:8px;padding:2px}
+.bl-ic{background:color-mix(in srgb,var(--danger) 14%,transparent)!important;color:var(--danger)!important}
+.bl-card .limit-ic{margin:0 auto 6px}
+.bl-banner{background:color-mix(in srgb,var(--danger) 12%,var(--surface));border-color:color-mix(in srgb,var(--danger) 40%,transparent);color:var(--fg)}
+.bl-banner svg{width:20px;height:20px;color:var(--danger);flex:none}
+.bl-dot{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--danger) 13%,transparent);color:var(--danger);flex:none}
+.bl-dot svg{width:18px;height:18px}
 .rolelist{display:flex;flex-direction:column;gap:10px}
 .roleopt{display:flex;align-items:center;gap:14px;padding:16px;border-radius:22px;background:var(--surface);box-shadow:var(--shadow);border:2px solid transparent;text-align:left;width:100%;--cat:var(--accent-ink)}
 .roleopt .cdot{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--cat) 14%,transparent);color:var(--cat);flex:none}
@@ -937,9 +954,9 @@ ru:{
   phFront:"Лицевая сторона", phBack:"Обратная сторона", phSelfie:"Селфи с паспортом", consent:"Подтверждаю, что данные верны, и согласен на их обработку для проверки",
   submitDocs:"Отправить на проверку", errFill:"Заполните все обязательные поля", errAge:"Водителю должно быть не меньше 18 лет",
   errDoc:"Номер документа: 2 буквы и 7 цифр, например ID1234567", errPin:"ПИН — 14 цифр, начинается с 1 или 2", errPhotos:"Загрузите все три фото", errConsent:"Подтвердите согласие",
-  pendingTitle:"Документы на проверке", pendingText:"Обычно проверка занимает до 24 часов. Мы пришлём уведомление.", demoVerify:"Демо: проверка пройдёт автоматически через несколько секунд.",
+  pendingTitle:"Документы на проверке", pendingText:"Обычно проверка занимает до 24 часов. Мы пришлём уведомление.", demoVerify:"Демо: откройте панель оператора → «Паспорта» и одобрите заявку.", demoVerifyOld:"Демо: проверка пройдёт автоматически через несколько секунд.",
   docsSent:"Документы отправлены", docsNotif:"Документы водителя отправлены на проверку.", verifiedNotif:"Документы проверены! Теперь вы можете публиковать поездки.",
-  driverStatus:"Статус водителя", st_none:"Не зарегистрирован", st_pending:"На проверке", st_verified:"Проверен", photoErr:"Не удалось прочитать фото", stepOf:"Шаг {a} из {b}",
+  driverStatus:"Статус водителя", st_none:"Не зарегистрирован", st_pending:"На проверке", st_verified:"Проверен", st_rejected:"Отклонено", sts_rejected:"Отказ", opTabTickets:"Обращения", opTabKyc:"Паспорта", opTabBl:"Чёрный список", kycEmpty:"Нет заявок на проверку", kycApprove:"Одобрить", kycReject:"Отклонить", kycBlock:"В чёрный список", kycRejectQ:"Причина отказа", rej_photo:"Фото нечёткое", rej_data:"Данные не совпадают с фото", rej_expired:"Документ просрочен", rej_selfie:"Селфи не совпадает с паспортом", rej_bl:"Паспорт в чёрном списке", kycApproved:"Водитель одобрен", kycRejected:"Заявка отклонена", rejectedNotif:"Документы отклонены: {r}. Исправьте и отправьте заново.", rejTitle:"Документы отклонены", rejText:"Причина: {r}", resubmit:"Отправить заново", openOp:"Открыть панель оператора", blTitle:"Аккаунт заблокирован", blText:"Администратор добавил ваш номер или паспорт в чёрный список. Вы не можете входить, брать заказы и публиковать поездки.", blReason:"Причина: {r}", blPhone:"Этот номер в чёрном списке. Вход запрещён.", blAdd:"Добавить в чёрный список", blName:"Имя", blPin:"ПИН или номер паспорта", blReasonL:"Причина", blUnblock:"Разблокировать", blUnblockQ:"Разблокировать {name}?", blUnblockText:"Человек снова сможет входить и брать заказы.", blEmpty:"Чёрный список пуст", blNeed:"Укажите телефон или ПИН/паспорт", blAdded:"Добавлен в чёрный список", blRemoved:"Удалён из чёрного списка", blHint:"Заблокированный не сможет войти по этому номеру и не пройдёт проверку с этим паспортом даже с новым номером.", blDocMatch:"Этот паспорт в чёрном списке. Аккаунт заблокирован.", blInList:"В чёрном списке", blMatchWarn:"Совпадает с чёрным списком: {name} ({r})", blBy:"добавил @{op}", blOtherPhones:"Пытался войти с номерами: {list}", kBirth:"Дата рождения", kDoc:"Документ", kLic:"Права", kIssued:"Выдан", kCar:"Машина", kNoPhoto:"нет фото", kycSince:"подана {t}", logoutBtn:"Выйти", photoErr:"Не удалось прочитать фото", stepOf:"Шаг {a} из {b}",
   notifsTitle:"Уведомления", clear:"Очистить", quiet:"Пока тихо", quietText:"Здесь появятся брони, посылки и ответы водителей.",
   justNow:"только что", minAgo:"{n} мин назад", hAgo:"{n} ч назад", tripGone:"Поездка больше недоступна",
   info:"Информация", personal:"Личные данные", about:"О приложении", safety:"Безопасность", terms:"Пользовательское соглашение", privacy:"Политика конфиденциальности",
@@ -1083,9 +1100,9 @@ ky:{
   phFront:"Алдыңкы бети", phBack:"Арткы бети", phSelfie:"Паспорт менен селфи", consent:"Маалыматтар туура экенин ырастайм жана текшерүү үчүн иштетилишине макулмун",
   submitDocs:"Текшерүүгө жөнөтүү", errFill:"Бардык милдеттүү талааларды толтуруңуз", errAge:"Айдоочу 18 жаштан кем эмес болушу керек",
   errDoc:"Документтин номери: 2 тамга жана 7 сан, мисалы ID1234567", errPin:"ПИН — 14 сан, 1 же 2 менен башталат", errPhotos:"Үч сүрөттү тең жүктөңүз", errConsent:"Макулдугуңузду ырастаңыз",
-  pendingTitle:"Документтер текшерүүдө", pendingText:"Адатта текшерүү 24 саатка чейин созулат. Билдирүү жөнөтөбүз.", demoVerify:"Демо: текшерүү бир нече секунддан кийин автоматтык түрдө өтөт.",
+  pendingTitle:"Документтер текшерүүдө", pendingText:"Адатта текшерүү 24 саатка чейин созулат. Билдирүү жөнөтөбүз.", demoVerify:"Демо: оператор панели → «Паспорт» бөлүмүнөн арызды ырастаңыз.",
   docsSent:"Документтер жөнөтүлдү", docsNotif:"Айдоочунун документтери текшерүүгө жөнөтүлдү.", verifiedNotif:"Документтер текшерилди! Эми сапар жарыялай аласыз.",
-  driverStatus:"Айдоочу статусу", st_none:"Катталган эмес", st_pending:"Текшерүүдө", st_verified:"Текшерилген", photoErr:"Сүрөттү окуу мүмкүн болгон жок", stepOf:"{b} кадамдын {a}-кадамы",
+  driverStatus:"Айдоочу статусу", st_none:"Катталган эмес", st_pending:"Текшерүүдө", st_verified:"Текшерилген", st_rejected:"Четке кагылды", sts_rejected:"Четке кагылды", opTabTickets:"Кайрылуу", opTabKyc:"Паспорт", opTabBl:"Кара тизме", kycEmpty:"Текшерүүгө арыз жок", kycApprove:"Ырастоо", kycReject:"Четке кагуу", kycBlock:"Кара тизмеге", kycRejectQ:"Четке кагуунун себеби", rej_photo:"Сүрөт бүдөмүк", rej_data:"Маалымат сүрөт менен дал келбейт", rej_expired:"Документтин мөөнөтү өткөн", rej_selfie:"Селфи паспорт менен дал келбейт", rej_bl:"Паспорт кара тизмеде", kycApproved:"Айдоочу ырасталды", kycRejected:"Арыз четке кагылды", rejectedNotif:"Документтер четке кагылды: {r}. Оңдоп, кайра жөнөтүңүз.", rejTitle:"Документтер четке кагылды", rejText:"Себеби: {r}", resubmit:"Кайра жөнөтүү", openOp:"Оператор панелин ачуу", blTitle:"Аккаунт бөгөттөлгөн", blText:"Администратор номериңизди же паспортуңузду кара тизмеге киргизген. Кире албайсыз, заказ ала албайсыз жана сапар жарыялай албайсыз.", blReason:"Себеби: {r}", blPhone:"Бул номер кара тизмеде. Кирүүгө тыюу салынган.", blAdd:"Кара тизмеге кошуу", blName:"Аты", blPin:"ПИН же паспорт номери", blReasonL:"Себеби", blUnblock:"Бөгөттөн чыгаруу", blUnblockQ:"{name} бөгөттөн чыгарылсынбы?", blUnblockText:"Ал кайра кирип, заказ ала алат.", blEmpty:"Кара тизме бош", blNeed:"Телефон же ПИН/паспорт жазыңыз", blAdded:"Кара тизмеге кошулду", blRemoved:"Кара тизмеден чыгарылды", blHint:"Бөгөттөлгөн адам бул номер менен кире албайт, жаңы номер менен да бул паспорт менен текшерүүдөн өтө албайт.", blDocMatch:"Бул паспорт кара тизмеде. Аккаунт бөгөттөлдү.", blInList:"Кара тизмеде", blMatchWarn:"Кара тизме менен дал келет: {name} ({r})", blBy:"кошкон @{op}", blOtherPhones:"Бул номерлер менен кирүүгө аракет кылган: {list}", kBirth:"Туулган күнү", kDoc:"Документ", kLic:"Айдоочулук күбөлүк", kIssued:"Берилген", kCar:"Унаа", kNoPhoto:"сүрөт жок", kycSince:"берилди {t}", logoutBtn:"Чыгуу", photoErr:"Сүрөттү окуу мүмкүн болгон жок", stepOf:"{b} кадамдын {a}-кадамы",
   notifsTitle:"Билдирүүлөр", clear:"Тазалоо", quiet:"Азырынча тынч", quietText:"Бул жерде брондоолор, посылкалар жана айдоочулардын жооптору чыгат.",
   justNow:"азыр эле", minAgo:"{n} мүн. мурун", hAgo:"{n} саат мурун", tripGone:"Бул сапар жок болуп калды",
   info:"Маалымат", personal:"Жеке маалымат", about:"Колдонмо жөнүндө", safety:"Коопсуздук", terms:"Колдонуучу келишими", privacy:"Купуялык саясаты",
@@ -1401,7 +1418,8 @@ function renderTabs(){
 }
 function checkVerification(){
   const d=S.me?.driver;
-  if(d && d.status==="pending" && Date.now()-d.submittedAt>6000){ d.status="verified"; notify("verifiedNotif",{},"check"); return true; }
+  // Documents are approved by an operator in the operator panel (no auto approval).
+  void d;
   return false;
 }
 setInterval(()=>{ if(tickOrders()){ save(); renderTabs(); const top=stack[stack.length-1]; if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select") && (!top||top.name==="order")) render(); } updateTracking(); },1500);
@@ -1414,9 +1432,11 @@ function render(){
   document.documentElement.lang=S.lang;
   save();
   if(!S.me){ $(".tabs").hidden=true; screens.welcome(); animateScreen(); return; }
+  const top=stack[stack.length-1];
+  const bl=meBlocked();
+  if(bl && !(top && top.name.startsWith("op"))){ $(".tabs").hidden=true; screens.blocked(bl); animateScreen(); return; }
   $(".tabs").hidden=false;
   renderTabs();
-  const top=stack[stack.length-1];
   if(top) screens[top.name](top.params); else screens[tab]();
   animateScreen();
 }
@@ -1473,7 +1493,9 @@ screens.welcome = () => {
       auth.name=$("#rName").value.trim(); auth.phone=$("#rPhone").value.trim();
       if(auth.name.length<2){ toast(t("enterName")); return; }
       if(!validPhone(auth.phone)){ toast(t("checkPhone")); return; }
-      auth.phone=fmtPhone(auth.phone); sendCode(auth.phone); auth.step="code"; navDir="push"; render();
+      auth.phone=fmtPhone(auth.phone);
+      if(blHit({phone:auth.phone})){ blockedSheet(blHit({phone:auth.phone})); return; }
+      sendCode(auth.phone); auth.step="code"; navDir="push"; render();
     };
   } else {
     $("#screen").innerHTML = `${hero}<div class="card stack" id="otpBox"><div class="steps"><i class="on"></i><i class="on"></i></div><h3>${t("codeTitle")}</h3>${otpBlock()}</div>`;
@@ -1540,7 +1562,7 @@ screens.home = () => {
   if(f.type==="parcel"||f.type==="cargo") f.type="orders";
   const typeOk = x => f.type==="orders" ? false : f.type==="all" ? (seatsLeft(x)>0||x.parcel) : f.type==="ride" ? seatsLeft(x)>0 : x.parcel;
   const okDate = d => f.date==="all"||d===f.date;
-  const pool0 = S.trips.filter(x=>!isPast(x) && !user(x.driverId)?.blocked && typeOk(x) && okDate(x.date));
+  const pool0 = S.trips.filter(x=>!isPast(x) && !userBlocked(user(x.driverId)) && typeOk(x) && okDate(x.date));
   const pool = pool0.filter(x=>inPlace(x.from,f.from));
   const opool0 = f.type==="ride" ? [] : (S.orders||[]).filter(o=>o.status==="open" && o.date>=TODAY() && okDate(o.date) && (!f.cats.length || f.cats.includes(orderCat(o))));
   const catCount = c => (S.orders||[]).filter(o=>o.status==="open" && o.date>=TODAY() && okDate(o.date) && inPlace(o.from,f.from) && inPlace(o.to,f.to) && orderCat(o)===c).length;
@@ -1669,7 +1691,7 @@ function tickOrders(){
     if(o.userId!=="me"||!o.auto||o.status==="cancelled"||o.status==="delivered") return;
     const e=Date.now()-o.createdAt;
     if(o.status==="open" && e>=A_OPEN){
-      const cand=S.users.filter(u=>S.trips.some(x=>x.driverId===u.id&&x.from===o.from&&x.to===o.to)); const d=(cand.length?cand:S.users)[Math.floor(Math.random()*(cand.length||S.users.length))];
+      const cand=S.users.filter(u=>!userBlocked(u)&&S.trips.some(x=>x.driverId===u.id&&x.from===o.from&&x.to===o.to)); const d=(cand.length?cand:S.users)[Math.floor(Math.random()*(cand.length||S.users.length))];
       o.status="accepted"; o.driverId=d.id; o.acceptedAt=o.createdAt+A_OPEN; changed=true;
       notify("nAccepted",{driver:d.name,what:loc(o.what),phone:d.phone},"check",null,o.id);
     }
@@ -2102,10 +2124,17 @@ screens.opPanel = () => {
   seedTickets();
   const opm=opMe();
   topbar(t("opTitle"),{sub:"@"+opm.login,canBack:true,right:`<button class="icon-btn" id="opTeamBtn" aria-label="${t("opTeam")}">${I.user.replace("<svg",'<svg width="22" height="22"')}</button>`});
+  const view=opFilter.view||"tickets";
+  if(view!=="tickets"){
+    $("#screen").innerHTML = opTabsHtml(view) + (view==="kyc"?opKycList():opBlList()) + `<p class="tag-demo" style="text-align:left">${t("opDemo")}</p>`;
+    bindOpTabs(); $("#opTeamBtn").onclick=()=>go("opTeam");
+    document.querySelectorAll("[data-kyc]").forEach(b=>b.onclick=()=>go("opKyc",{id:b.dataset.kyc}));
+    bindBl(); return;
+  }
   const all=Object.values(threads()).filter(x=>x.kind==="support").sort((a,b)=>b.lastAt-a.lastAt);
   const cnt = k => all.filter(x=>k==="new"?opNeedsReply(x):k==="all"?true:x.status===k).length;
   const list = all.filter(x=>opFilter.st==="all"||(opFilter.st==="new"?opNeedsReply(x):x.status===opFilter.st));
-  $("#screen").innerHTML = `
+  $("#screen").innerHTML = opTabsHtml(view) + `
   <div class="op-stats">${[["new","opNew"],["answered","tk_answered"],["closed","tk_closed"]].map(([k,l])=>`<div class="os-${k}"><b>${cnt(k)}</b><span>${t(l)}</span></div>`).join("")}</div>
   <div class="chips scroll">${[["all","fAll"],["new","opNew"],["answered","tk_answered"],["closed","tk_closed"]].map(([k,l])=>`<button class="chip ${opFilter.st===k?"on":""}" data-st="${k}">${t(l)}<span class="cnt">${cnt(k)}</span></button>`).join("")}</div>
   ${list.length?`<div class="list">${list.map(th=>{ const last=th.msgs.filter(m=>m.from!=="sys").pop(); const u=th.user||{name:"?"};
@@ -2116,6 +2145,7 @@ screens.opPanel = () => {
   : `<div class="card empty">${I.headset}<p>${t("noTickets")}</p></div>`}
   <p class="tag-demo" style="text-align:left">${t("opDemo")}</p>`;
   document.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{ opFilter.st=b.dataset.st; render(); });
+  bindOpTabs();
   $("#opTeamBtn").onclick=()=>go("opTeam");
   document.querySelectorAll("[data-op]").forEach(b=>b.onclick=()=>go("opTicket",{id:b.dataset.op}));
 };
@@ -2138,11 +2168,11 @@ screens.opTicket = ({id}) => {
     <div class="row">${avatar(u,"sm")}<div style="flex:1;min-width:0"><b>${esc(u.name)}</b><div class="small" style="user-select:all">${esc(u.phone)}</div></div><span class="pill ${th.status==="closed"?"grey":""}">${t("tk_"+th.status)}</span></div>
     <div class="small"><span class="muted">${t("reasonLine",{r:""})}</span><b>${t("r_"+th.reason)}</b></div>
     ${orderLine?`<div class="small"><span class="muted">${t("orderLbl")}:</span> ${esc(orderLine)}</div>`:""}
-    ${drv?`<div class="small"><span class="muted">${t("driver")}:</span> <b>${esc(drv.name)}</b> <span style="user-select:all">${esc(drv.phone||"")}</span>${drvObj?.blocked?` <span class="pill red">${t("opBlocked")}</span>`:""}</div>`:""}
+    ${drv?`<div class="small"><span class="muted">${t("driver")}:</span> <b>${esc(drv.name)}</b> <span style="user-select:all">${esc(drv.phone||"")}</span>${userBlocked(drvObj)?` <span class="pill red">${t("opBlocked")}</span>`:""}</div>`:""}
     <div class="op-actions">
       ${o?`<button class="chip" id="opOrder">${I.box.replace("<svg",'<svg width="14" height="14"')} ${t("opOpenOrder")}</button>`:""}
       ${o && o.userId==="me" && !o.refunded ? `<button class="chip" id="opRefund">${t("opRefund",{n:o.price})}</button>`:""}
-      ${drvObj && !drvObj.blocked ? `<button class="chip" id="opBlock">${t("opBlock")}</button>`:""}
+      ${drvObj && !userBlocked(drvObj) ? `<button class="chip" id="opBlock">${t("opBlock")}</button>`:""}
       ${th.status!=="closed"?`<button class="chip" id="opClose">${t("opClose")}</button>`:""}
     </div>
   </div>
@@ -2162,10 +2192,125 @@ screens.opTicket = ({id}) => {
   if(B("opRefund")) B("opRefund").onclick=()=>confirmSheet(t("opRefundQ"),t("opRefundText",{n:o.price,name:u.name}),t("opRefund",{n:o.price}),()=>{
     const w=wallet(); w.balance+=o.price; w.tx.unshift({id:uid(),type:"refund",amount:o.price,at:Date.now()}); o.refunded=true;
     sys(t("opRefundSys",{n:o.price})); pushMsg(th,"peer",t("opRefundMsg",{n:o.price})); th.status="answered"; celebrate(t("opRefundDone")); render(); },false);
-  if(B("opBlock")) B("opBlock").onclick=()=>confirmSheet(t("opBlockQ"),t("opBlockText",{name:drvObj.name}),t("opBlock"),()=>{ drvObj.blocked=true; sys(t("opBlockSys",{name:drvObj.name})); save(); toast(t("opBlocked")); render(); });
+  if(B("opBlock")) B("opBlock").onclick=()=>confirmSheet(t("opBlockQ"),t("opBlockText",{name:drvObj.name}),t("opBlock"),()=>{ drvObj.blocked=true; addToBlacklist({name:drvObj.name,phone:drvObj.phone,reason:t("r_"+th.reason)}); sys(t("opBlockSys",{name:drvObj.name})); save(); toast(t("opBlocked")); render(); });
   if(B("opClose")) B("opClose").onclick=()=>{ th.status="closed"; sys(t("closedSys")); save(); render(); };
 };
 
+
+// ---------- driver document check + black list (operator) ----------
+// Demo: kept on this device. In the real app the list lives on the server and is checked at sign-in, at document check and when taking an order.
+const digits = v => String(v||"").replace(/\D/g,"");
+const normDoc = v => String(v||"").toUpperCase().replace(/\s/g,"");
+function blacklist(){ return S.blacklist = S.blacklist || [
+  {id:"b1",name:"Алымбек Т.",phone:"+996 700 13 13 13",pin:"21503198700123",doc:"",phones:[],reason:{ru:"Не доставил посылку, пропал с товаром",ky:"Посылканы жеткирбей, товар менен жоголду"},at:Date.now()-20*864e5,by:"admin"},
+  {id:"b2",name:"Жоомарт С.",phone:"+996 555 66 60 66",pin:"",doc:"ID1234567",phones:[],reason:{ru:"Поддельные документы",ky:"Жасалма документтер"},at:Date.now()-5*864e5,by:"admin"}]; }
+function blHit({phone,pin,doc}={}){
+  const p=digits(phone), n=digits(pin), d=normDoc(doc);
+  return blacklist().find(b=>(p&&(digits(b.phone)===p||(b.phones||[]).some(x=>digits(x)===p)))||(n&&b.pin&&digits(b.pin)===n)||(d&&b.doc&&normDoc(b.doc)===d))||null;
+}
+function meBlocked(){ if(!S.me) return null; const ps=S.me.driver?.passport||{}; return blHit({phone:S.me.phone,pin:ps.pin,doc:ps.num}); }
+const userBlocked = u => !!u && (!!u.blocked || !!blHit({phone:u.phone}));
+function addToBlacklist(e){
+  const hit=blHit(e);
+  if(hit){ ["name","phone","pin","doc"].forEach(k=>{ if(!hit[k]&&e[k]) hit[k]=e[k]; }); if(e.phone&&digits(e.phone)!==digits(hit.phone)) hit.phones=[...new Set([...(hit.phones||[]),e.phone])]; return hit; }
+  const x={id:uid(),phones:[],at:Date.now(),by:opMe()?.login||"admin",...e}; blacklist().unshift(x); return x;
+}
+const blReasonTxt = r => r && typeof r==="object" ? loc(r) : (r||"—");
+function blockedSheet(bl){
+  sheet(`<div class="limit-ic bl-ic">${I.lock}</div><h3 style="text-align:center">${t("blTitle")}</h3><p class="muted" style="margin:0;text-align:center">${t("blPhone")}</p>${bl?`<p class="small" style="margin:0;text-align:center">${esc(t("blReason",{r:blReasonTxt(bl.reason)}))}</p>`:""}<button class="btn ghost" id="cNo">OK</button>`, el=>{ el.querySelector("#cNo").onclick=closeSheet; });
+}
+screens.blocked = bl => {
+  topbar("Жолдош");
+  $("#screen").innerHTML = `<div class="card empty bl-card"><div class="limit-ic bl-ic">${I.lock}</div><h3>${t("blTitle")}</h3><p>${t("blText")}</p><p class="small"><b>${esc(t("blReason",{r:blReasonTxt(bl.reason)}))}</b></p>
+    <button class="btn" id="blOut" style="margin-top:12px">${t("logoutBtn")}</button></div>
+    <button class="linkbtn" id="blOp" style="display:block;margin:16px auto">${t("openOp")}</button>`;
+  $("#blOut").onclick=()=>{ S.me=null; stack=[]; tab="home"; render(); };
+  $("#blOp").onclick=()=>go("opPanel");
+};
+function kycQueue(){ return S.kyc = S.kyc || [
+  {id:"k1",name:"Мирлан Асанов",phone:"+996 705 21 43 65",car:"Toyota Alphard, 2012",passport:{type:"id",surname:"Асанов",first:"Мирлан",patr:"Бакытович",birth:"1991-04-12",num:"ID2345678",pin:"21204199100456",issued:"2021-06-01",auth:"МКК 211021",license:"AB 1234567"},photos:{},status:"pending",submittedAt:Date.now()-3*3600e3},
+  {id:"k2",name:"Канышай Бекова",phone:"+996 559 34 56 78",car:"Hyundai Porter, 2016",passport:{type:"id",surname:"Бекова",first:"Канышай",patr:"",birth:"1995-09-30",num:"ID3456789",pin:"10930199500789",issued:"2022-02-14",auth:"МКК 50-01",license:"BC 7654321"},photos:{},status:"pending",submittedAt:Date.now()-50*60e3},
+  {id:"k3",name:"Алмаз Т.",phone:"+996 772 99 88 77",car:"Honda Fit, 2009",passport:{type:"id",surname:"Т.",first:"Алымбек",patr:"",birth:"1987-03-15",num:"ID9876543",pin:"21503198700123",issued:"2019-11-20",auth:"МКК 211035",license:"B 1112223"},photos:{},status:"pending",submittedAt:Date.now()-15*60e3}]; }
+function kycItems(){
+  const list=kycQueue().filter(k=>k.status==="pending");
+  const d=S.me?.driver;
+  if(d && d.status==="pending") list.unshift({id:"me",name:S.me.name,phone:S.me.phone,car:S.me.car?`${S.me.car.brand} ${S.me.car.model}`:"",passport:d.passport||{},photos:d.photos||{},status:"pending",submittedAt:d.submittedAt,mine:true});
+  return list;
+}
+function kycSet(id,status,reason){
+  if(id==="me"){ const d=S.me.driver; d.status=status; d.rejectReason=reason; if(status==="verified") notify("verifiedNotif",{},"check"); else notify("rejectedNotif",{r:t("rej_"+reason)},"bell"); return; }
+  const k=kycQueue().find(x=>x.id===id); if(k){ k.status=status; k.rejectReason=reason; }
+}
+const opTabsHtml = v => `<div class="mode three op-tabs" role="tablist">${[["tickets","opTabTickets",I.headset],["kyc","opTabKyc",I.idcard],["bl","opTabBl",I.lock]].map(([k,l,ic])=>`<button role="tab" data-opv="${k}" class="${v===k?"on":""}" aria-selected="${v===k}">${t(l)}${k==="kyc"&&kycItems().length?` <b class="unread-dot">${kycItems().length}</b>`:""}</button>`).join("")}</div>`;
+function bindOpTabs(){ document.querySelectorAll("[data-opv]").forEach(b=>b.onclick=()=>{ opFilter.view=b.dataset.opv; render(); }); }
+const agoTxt = ms => { const m=Math.max(1,Math.round((Date.now()-ms)/60000)); return m<60?(S.lang==="ky"?`${m} мүн мурун`:`${m} мин назад`): m<1440?(S.lang==="ky"?`${Math.round(m/60)} саат мурун`:`${Math.round(m/60)} ч назад`) : dShort(iso(new Date(ms))); };
+function opKycList(){
+  const items=kycItems();
+  return items.length?`<div class="list">${items.map(k=>{ const hit=blHit({phone:k.phone,pin:k.passport.pin,doc:k.passport.num});
+    return `<button class="li" data-kyc="${k.id}" style="align-items:flex-start">${avatar({name:k.name},"sm")}<span class="grow" style="min-width:0"><span class="row between" style="gap:8px"><b style="font-weight:600">${esc(k.name)}</b><span class="small muted" style="flex:none">${agoTxt(k.submittedAt)}</span></span>
+      <span class="small muted" style="display:block">${esc(k.phone)}${k.car?" · "+esc(k.car):""}</span>
+      <span class="row" style="gap:6px;margin-top:4px"><span class="pill st st-onway"><i></i>${t("st_pending")}</span>${hit?`<span class="pill red">${t("blInList")}</span>`:""}${k.mine?`<span class="pill grey">${t("opThisDevice")}</span>`:""}</span></span>${I.chev}</button>`; }).join("")}</div>`
+  : `<div class="card empty">${I.shieldOk}<p>${t("kycEmpty")}</p></div>`;
+}
+function opBlList(){
+  const b=blacklist();
+  return `<p class="small muted" style="margin:0">${t("blHint")}</p><button class="btn" id="blAddBtn">${I.plus} ${t("blAdd")}</button>
+  ${b.length?`<div class="list">${b.map(x=>`<div class="li bl-li" style="align-items:flex-start"><span class="bl-dot">${I.lock}</span><span class="grow" style="min-width:0"><b style="font-weight:600">${esc(x.name||"—")}</b>
+    <span class="small" style="display:block;user-select:all">${[x.phone,x.pin&&("ПИН "+x.pin),x.doc].filter(Boolean).map(esc).join(" · ")}</span>
+    ${(x.phones||[]).length?`<span class="small" style="display:block;color:var(--danger)">${esc(t("blOtherPhones",{list:x.phones.join(", ")}))}</span>`:""}
+    <span class="small muted" style="display:block">${esc(blReasonTxt(x.reason))} · ${dShort(iso(new Date(x.at)))} · ${esc(t("blBy",{op:x.by||"admin"}))}</span>
+    <button class="chip" data-unbl="${x.id}" style="margin-top:8px">${t("blUnblock")}</button></span></div>`).join("")}</div>`
+  : `<div class="card empty">${I.shieldOk}<p>${t("blEmpty")}</p></div>`}`;
+}
+function bindBl(){
+  const add=$("#blAddBtn"); if(add) add.onclick=()=>blAddSheet({});
+  document.querySelectorAll("[data-unbl]").forEach(btn=>btn.onclick=()=>{ const x=blacklist().find(y=>y.id===btn.dataset.unbl);
+    confirmSheet(t("blUnblockQ",{name:x.name||x.phone||""}),t("blUnblockText"),t("blUnblock"),()=>{
+      S.blacklist=blacklist().filter(y=>y.id!==x.id);
+      S.users.forEach(u=>{ if(digits(u.phone)===digits(x.phone)) u.blocked=false; });
+      toast(t("blRemoved")); render(); },false); });
+}
+function blAddSheet(pre, after){
+  sheet(`<h3>${t("blAdd")}</h3>
+    <div class="field">${I.user}<input id="bN" maxlength="40" placeholder="${t("blName")}" value="${esc(pre.name||"")}"></div>
+    <div class="field">${I.phone}<input id="bP" inputmode="tel" placeholder="+996 555 00 00 00" value="${esc(pre.phone||"")}"></div>
+    <div class="field">${I.idcard}<input id="bD" maxlength="20" placeholder="${t("blPin")}" value="${esc(pre.pin||pre.doc||"")}"></div>
+    <div class="field">${I.edit}<input id="bR" maxlength="120" placeholder="${t("blReasonL")}" value="${esc(pre.reason||"")}"></div>
+    <button class="btn danger" id="bOk">${t("blAdd")}</button><button class="btn ghost" id="cNo">${t("back")}</button>`, el=>{
+    el.querySelector("#cNo").onclick=closeSheet;
+    el.querySelector("#bOk").onclick=()=>{
+      const name=el.querySelector("#bN").value.trim(), phone=el.querySelector("#bP").value.trim(), d=el.querySelector("#bD").value.trim(), reason=el.querySelector("#bR").value.trim();
+      if(!digits(phone)&&!d){ toast(t("blNeed")); return; }
+      const isPin=/^\d{14}$/.test(digits(d))&&!/[A-Za-z]/.test(d);
+      addToBlacklist({name,phone:digits(phone)?(validPhone(phone)?fmtPhone(phone):phone):"",pin:isPin?digits(d):(pre.pin||""),doc:isPin?(pre.doc||""):normDoc(d)||(pre.doc||""),reason:reason||"—"});
+      S.users.forEach(u=>{ if(digits(phone)&&digits(u.phone)===digits(phone)) u.blocked=true; });
+      closeSheet(); toast(t("blAdded")); if(after) after(); render();
+    };
+  });
+}
+screens.opKyc = ({id}) => {
+  if(!opGuard()) return;
+  const k=kycItems().find(x=>x.id===id); if(!k){ back(); return; }
+  const ps=k.passport||{}, hit=blHit({phone:k.phone,pin:ps.pin,doc:ps.num});
+  topbar(t("opTabKyc"),{sub:esc(k.name),canBack:true});
+  const row=(l,v)=>`<div class="kyc-kv"><span>${l}</span><b style="user-select:all">${esc(v||"—")}</b></div>`;
+  const ph=key=>`<div class="kyc-ph">${k.photos[key]?`<img src="${k.photos[key]}" alt="">`:`${I.camera}<small>${t("kNoPhoto")}</small>`}<span>${t({front:"phFront",back:"phBack",selfie:"phSelfie"}[key])}</span></div>`;
+  $("#screen").innerHTML = `
+  ${hit?`<div class="banner bl-banner">${I.lock}<span>${esc(t("blMatchWarn",{name:hit.name||hit.phone,r:blReasonTxt(hit.reason)}))}</span></div>`:""}
+  <div class="card stack" style="gap:6px">
+    <div class="row">${avatar({name:k.name},"sm")}<div style="flex:1;min-width:0"><b>${esc([ps.surname,ps.first,ps.patr].filter(Boolean).join(" ")||k.name)}</b><div class="small" style="user-select:all">${esc(k.phone)}</div></div><span class="pill st st-onway"><i></i>${t("st_pending")}</span></div>
+    ${row(t("kBirth"),ps.birth)}${row(t("kDoc"),ps.num)}${row("ПИН",ps.pin)}${row(t("kIssued"),[ps.issued,ps.auth].filter(Boolean).join(", "))}${row(t("kLic"),ps.license)}${k.car?row(t("kCar"),k.car):""}
+  </div>
+  <div class="kyc-phs">${ph("front")}${ph("back")}${ph("selfie")}</div>
+  <button class="btn" id="kOk">${I.check} ${t("kycApprove")}</button>
+  <div class="row" style="gap:10px"><button class="btn ghost" id="kNo" style="flex:1">${t("kycReject")}</button><button class="btn danger" id="kBl" style="flex:1">${t("kycBlock")}</button></div>`;
+  $("#kOk").onclick=()=>{ kycSet(k.id,"verified"); celebrate(t("kycApproved")); back(); };
+  $("#kNo").onclick=()=>sheet(`<h3>${t("kycRejectQ")}</h3><div class="list">${["photo","data","expired","selfie"].map(r=>`<button class="li" data-rr="${r}"><span class="grow">${t("rej_"+r)}</span>${I.chev}</button>`).join("")}</div><button class="btn ghost" id="cNo">${t("back")}</button>`, el=>{
+    el.querySelector("#cNo").onclick=closeSheet;
+    el.querySelectorAll("[data-rr]").forEach(b=>b.onclick=()=>{ closeSheet(); kycSet(k.id,"rejected",b.dataset.rr); toast(t("kycRejected")); back(); });
+  });
+  $("#kBl").onclick=()=>blAddSheet({name:k.name,phone:k.phone,pin:ps.pin,doc:ps.num,reason:hit?blReasonTxt(hit.reason):""},()=>{ kycSet(k.id,"rejected","data"); stack.pop(); });
+};
 
 // ---------- operator login ----------
 // Demo: accounts and password hashes are kept on this device. Real protection needs server-side auth.
@@ -2614,6 +2759,9 @@ screens.driverReg = () => {
     if(!/^[12]\d{13}$/.test(f.pin)){ toast(t("errPin")); return; }
     if(!f.photos.front||!f.photos.back||!f.photos.selfie){ toast(t("errPhotos")); return; }
     if(!f.consent){ toast(t("errConsent")); return; }
+    { const hit=blHit({pin:f.pin,doc:f.num}); if(hit){ hit.phones=[...new Set([...(hit.phones||[]),S.me.phone])];
+      S.me.driver={status:"rejected",rejectReason:"bl",submittedAt:Date.now(),passport:{type:f.type,surname:f.surname,first:f.first,patr:f.patr,birth:f.birth,num:f.num,pin:f.pin,issued:f.issued,auth:f.auth,license:f.license},photos:{}};
+      toast(t("blDocMatch")); stack=[]; render(); return; } }
     S.me.driver={status:"pending",submittedAt:Date.now(),passport:{type:f.type,surname:f.surname,first:f.first,patr:f.patr,birth:f.birth,num:f.num,pin:f.pin,issued:f.issued,auth:f.auth,license:f.license},photos:{...f.photos}};
     notify("docsNotif",{},"bell"); celebrate(t("docsSent"));
     if(stack.length) back(); else render();
@@ -2624,8 +2772,14 @@ screens.createTrip = () => {
   const me=S.me, st=me.driver?.status||"none";
   if(st==="none") return screens.driverReg();
   topbar(t("newTrip"),{canBack:stack.length>0});
+  if(st==="rejected"){
+    $("#screen").innerHTML=`<div class="card empty">${I.idcard.replace('class="ic"','style="width:56px;height:56px;color:var(--danger)"')}<h3 style="margin-top:8px">${t("rejTitle")}</h3><p>${t("rejText",{r:t("rej_"+(me.driver.rejectReason||"data"))})}</p><button class="btn" id="reSub" style="margin-top:12px">${t("resubmit")}</button></div>`;
+    $("#reSub").onclick=()=>{ S.me.driver={status:"none"}; render(); };
+    return;
+  }
   if(st==="pending"){
-    $("#screen").innerHTML=`<div class="card empty">${I.idcard.replace('class="ic"','style="width:56px;height:56px"')}<h3 style="margin-top:8px">${t("pendingTitle")}</h3><p>${t("pendingText")}</p><p class="small">${t("demoVerify")}</p></div>`;
+    $("#screen").innerHTML=`<div class="card empty">${I.idcard.replace('class="ic"','style="width:56px;height:56px"')}<h3 style="margin-top:8px">${t("pendingTitle")}</h3><p>${t("pendingText")}</p><p class="small">${t("demoVerify")}</p><button class="btn ghost" id="openOp" style="margin-top:10px">${t("openOp")}</button></div>`;
+    $("#openOp").onclick=()=>go("opPanel");
     return;
   }
   if(!me.car){
@@ -2741,7 +2895,7 @@ screens.profile = () => {
   $("#pChats").onclick=()=>go("chats");
   $("#pOp").onclick=()=>go("opPanel");
   $("#roleRow").onclick=()=>go("rolePick");
-  $("#drvSt").onclick=()=>{ if(st==="none") go("driverReg"); else if(st==="pending") toast(t("pendingTitle")); };
+  $("#drvSt").onclick=()=>{ if(st==="none") go("driverReg"); else if(st==="pending") toast(t("pendingTitle")); else if(st==="rejected") go("createTrip"); };
   document.querySelectorAll("[data-info]").forEach(b=>b.onclick=()=>go("info",{k:b.dataset.info}));
   $("#rate").onclick=()=>{ let v=5; sheet(`<h3>${t("likeApp")}</h3><div class="stargrab" id="sg">${[1,2,3,4,5].map(i=>`<button data-v="${i}" aria-label="${i}">${I.star}</button>`).join("")}</div><button class="btn" id="ok">${t("rate")}</button>`,el=>{
     const paint=()=>el.querySelectorAll("#sg button").forEach(b=>b.classList.toggle("off",+b.dataset.v>v));
