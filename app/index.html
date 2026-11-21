@@ -692,6 +692,10 @@ body.on-home .topbar .lang button.on{background:var(--surface);color:var(--accen
 .home-hero .balchip svg{color:var(--on-ink);opacity:.85}
 .forest i{color:color-mix(in srgb,var(--accent) 55%,#fff)}
 .cl-group{margin:12px 4px 4px;font:700 12px var(--f-display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.mode.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.mode.four button{font-size:12.5px;gap:4px;padding:0 2px}
+.mode.four button svg{width:16px!important;height:16px!important}
+.sizes.four{grid-template-columns:repeat(2,minmax(0,1fr))}
 </style>
 
 <div class="app">
@@ -720,6 +724,7 @@ const I = {
   headset:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="2"/><rect x="17" y="13" width="4" height="6" rx="2"/><path d="M19 19c0 1.5-2 2.5-5 2.5"/></svg>',
   sendArrow:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12 2-12 2Z"/></svg>',
   eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',
+  truck:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M2 6h11v10H2zM13 9h4.5l3.5 3.5V16h-8z"/><circle cx="6" cy="17.5" r="1.8" fill="currentColor"/><circle cx="17" cy="17.5" r="1.8" fill="currentColor"/></svg>',
   home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>',
   road:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 21 10 3M17 21 14 3M12 6v2M12 11v2M12 16v2"/></svg>',
   box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 3 7.5v9L12 21l9-4.5v-9Z"/><path d="M3 7.5 12 12l9-4.5M12 12v9M7.5 5.2l9 4.5"/></svg>',
@@ -817,7 +822,7 @@ ru:{
   payDemo:"Демо: настоящий платёж не проводится. В рабочей версии оплата идёт через платёжный шлюз.", pricesTitle:"Тарифы", fee_trip:"Публикация поездки", fee_order:"Публикация посылки", fee_take:"Взять посылку (водитель)", fee_book:"Бронирование места",
   pricesNote:"Первые {n} действий бесплатно, дальше оплата с баланса.", historyTitle:"История", txTopup:"Пополнение · {m}", noHistory:"Операций пока нет",
   minAmount:"Минимальная сумма — 50 с", paying:"Оплата…", topupDone:"Баланс пополнен на {n} с", topupNotif:"Баланс пополнен на {n} с ({m}).",
-  sts_none:"Нет", sts_pending:"Проверка", sts_verified:"Да ✓", colorTheme:"Цвет оформления", ratingLbl:"Рейтинг", tripsWord:"Поездки", changePhoto:"Сменить фото", photoSaved:"Фото обновлено", inBishkek:"По Бишкеку", useTyped:"Нет в списке — выбрать «{name}»", hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
+  sts_none:"Нет", sts_pending:"Проверка", sts_verified:"Да ✓", colorTheme:"Цвет оформления", ratingLbl:"Рейтинг", tripsWord:"Поездки", changePhoto:"Сменить фото", photoSaved:"Фото обновлено", fCargo:"Груз", sizeX:"Груз (Портер)", sizeXd:"до 1,5 тонны", cargoTag:"Груз", needPorter:"Чтобы брать грузы, укажите тип машины «Портер»", vehKind:"Тип машины", kind_car:"Легковая", kind_porter:"Портер (грузовой)", leavingFrom:"Откуда выезжает", inBishkek:"По Бишкеку", useTyped:"Нет в списке — выбрать «{name}»", hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
   allDays:"Все дни", found:"Найдено: {n}", resetFilters:"Сбросить фильтры", noOffers:"По этим фильтрам ничего нет",
   noOffersText:"Выберите другой город или дату. Можно отправить запрос всем водителям — вам позвонят.", askDrivers:"Отправить запрос водителям", advSearch:"Подробный поиск",
   tTrips:"Поездки", tSearch:"Поиск", tCreate:"Создать", tNotifs:"Уведомления", tProfile:"Профиль",
@@ -963,7 +968,7 @@ ky:{
   payDemo:"Демо: чыныгы төлөм жүргүзүлбөйт. Иштеген версияда төлөм төлөм шлюзу аркылуу өтөт.", pricesTitle:"Тарифтер", fee_trip:"Сапар жарыялоо", fee_order:"Посылка жарыялоо", fee_take:"Посылка алуу (айдоочу)", fee_book:"Орун брондоо",
   pricesNote:"Алгачкы {n} аракет акысыз, андан кийин баланстан төлөнөт.", historyTitle:"Тарых", txTopup:"Толтуруу · {m}", noHistory:"Азырынча операция жок",
   minAmount:"Эң аз сумма — 50 сом", paying:"Төлөнүүдө…", topupDone:"Баланс {n} сомго толукталды", topupNotif:"Баланс {n} сомго толукталды ({m}).",
-  sts_none:"Жок", sts_pending:"Текшерүүдө", sts_verified:"Ооба ✓", colorTheme:"Колдонмонун түсү", ratingLbl:"Рейтинг", tripsWord:"Сапарлар", changePhoto:"Сүрөттү алмаштыруу", photoSaved:"Сүрөт жаңыртылды", inBishkek:"Бишкек ичинде", useTyped:"Тизмеде жок — «{name}» деп тандоо", hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
+  sts_none:"Жок", sts_pending:"Текшерүүдө", sts_verified:"Ооба ✓", colorTheme:"Колдонмонун түсү", ratingLbl:"Рейтинг", tripsWord:"Сапарлар", changePhoto:"Сүрөттү алмаштыруу", photoSaved:"Сүрөт жаңыртылды", fCargo:"Жүк", sizeX:"Жүк (Портер)", sizeXd:"1,5 тоннага чейин", cargoTag:"Жүк", needPorter:"Жүк алуу үчүн машинаңыздын түрүн «Портер» деп белгилеңиз", vehKind:"Унаанын түрү", kind_car:"Жеңил унаа", kind_porter:"Портер (жүк ташуучу)", leavingFrom:"Кайдан чыгат", inBishkek:"Бишкек ичинде", useTyped:"Тизмеде жок — «{name}» деп тандоо", hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
   allDays:"Бардык күндөр", found:"Табылды: {n}", resetFilters:"Чыпкаларды тазалоо", noOffers:"Бул чыпкалар боюнча эч нерсе жок",
   noOffersText:"Башка шаарды же күндү тандаңыз. Бардык айдоочуларга суроо жөнөтсөңүз болот — сизге чалышат.", askDrivers:"Айдоочуларга суроо жөнөтүү", advSearch:"Кеңири издөө",
   tTrips:"Сапарлар", tSearch:"Издөө", tCreate:"Түзүү", tNotifs:"Билдирүүлөр", tProfile:"Профиль",
@@ -1119,6 +1124,7 @@ function seed(lang){
     {id:"u4",name:"Айгерим",phone:"+996 550 45 67 89",reg:"2024-11",verified:true,car:{brand:"Toyota",model:"Camry",year:2018,color:"white",wheel:"L"}},
     {id:"u5",name:"Нурлан",phone:"+996 705 11 22 33",reg:"2023-06",verified:true,car:{brand:"Honda",model:"Odyssey",year:2008,color:"grey",wheel:"R"}},
     {id:"u6",name:"Бакыт",phone:"+996 772 66 55 44",reg:"2022-12",verified:true,car:{brand:"Hyundai",model:"Sonata",year:2020,color:"white",wheel:"L"}},
+    {id:"u7",name:"Канат",phone:"+996 555 70 80 90",reg:"2024-03",verified:true,car:{kind:"porter",brand:"Hyundai",model:"Porter",year:2015,color:"blue",wheel:"L"}},
   ];
   const routes = [["Бишкек","Чолпон-Ата",4,400],["Бишкек","Ош",10,1800],["Бишкек","Каракол",6,700],["Бишкек","Нарын",5,600],["Бишкек","Талас",5,600],["Бишкек","Балыкчы",3,350],["Ош","Бишкек",10,1800],["Чолпон-Ата","Бишкек",4,400],["Бишкек","Жалал-Абад",9,1500],["Бишкек","Токмок",1,150],["Ош","Жалал-Абад",2,250],["Каракол","Бишкек",6,700],["Бишкек, Жал","Бишкек, Дордой базары",1,80],["Бишкек, Асанбай","Манас аэропорту",1,350],["Бишкек","Ананьево",4,450],["Ош","Гүлчө",2,300]];
   const times = ["06:00","07:30","09:00","10:30","12:00","14:00","16:30","18:00","20:00","21:30","23:00"];
@@ -1136,7 +1142,7 @@ function seed(lang){
         const dep=times[(ri*2+j*4+day)%times.length];
         const [h,m]=dep.split(":").map(Number);
         const ah=(h+r[2])%24;
-        const seats = d.car.model==="Odyssey"?6:4;
+        const seats = d.car.model==="Odyssey"?6:d.car.kind==="porter"?2:4;
         const bookedN = (k*7)%3;
         const parcel = k%3!==0;
         trips.push({id:"t"+k,driverId:d.id,from:r[0],to:r[1],date:addDays(day),dep,arr:String(ah).padStart(2,"0")+":"+String(m).padStart(2,"0"),
@@ -1166,7 +1172,7 @@ function load(){ try{ const raw=localStorage.getItem(KEY); if(raw){ S=JSON.parse
 function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){ try{ /* storage full: drop photos */ if(S.me?.driver?.photos){ S.me.driver.photos={}; localStorage.setItem(KEY,JSON.stringify(S)); } }catch(_){} } }
 load();
 (function refresh(){ const t=TODAY(); if(!S.trips.some(x=>x.date>=t && x.driverId!=="me")){ const fresh=seed(S.lang); const mine=S.trips.filter(x=>x.driverId==="me"); S={...fresh,me:S.me,notifs:S.notifs,requests:S.requests||[],trips:[...fresh.trips,...mine],orders:S.orders||[]}; save(); }
-  if((S.seedV||0)<2){ const fresh=seed(S.lang); S.trips=[...fresh.trips,...S.trips.filter(x=>x.driverId==="me")]; S.seedV=2; save(); }
+  if((S.seedV||0)<3){ const fresh=seed(S.lang); S.users=fresh.users; S.trips=[...fresh.trips,...S.trips.filter(x=>x.driverId==="me")]; S.orders=[...(S.orders||[]).filter(o=>o.userId==="me"||o.driverId==="me"),...seedOrders()]; S.seedV=3; save(); }
   S.orders=S.orders||[]; if(!S.orders.some(o=>o.userId!=="me"&&o.status==="open"&&o.date>=t)){ S.orders=[...S.orders.filter(o=>o.userId==="me"||o.driverId==="me"),...seedOrders()]; save(); } })();
 
 
@@ -1222,7 +1228,7 @@ const colorHex = k => (COLORS.find(c=>c[0]===k)||[,"#9e9e9e"])[1];
 const tripsCount = id => S.trips.filter(x=>x.driverId===id && isPast(x)).length;
 const isVerified = id => id==="me" ? S.me?.driver?.status==="verified" : !!user(id)?.verified;
 const okBadge = () => `<span class="badge-ok">${I.shieldOk}${t("verified")}</span>`;
-const sizePrice = (base,sz) => sz==="S"?base: sz==="M"? Math.round(base*1.5/10)*10 : base*2;
+const sizePrice = (base,sz) => sz==="S"?base: sz==="M"? Math.round(base*1.5/10)*10 : sz==="X"? base*4 : base*2;
 
 function toast(msg){ const el=document.createElement("div"); el.className="toast"; el.textContent=msg; el.setAttribute("role","status"); document.body.appendChild(el); setTimeout(()=>el.remove(),2600); }
 // notifications are stored as key+vars so they follow the chosen language
@@ -1461,15 +1467,17 @@ screens.home = () => {
   const f = S.feed = S.feed || {type:"all",from:"",to:"",date:"all"};
   document.body.classList.add("on-home");
   topbar(t("homeTitle"),{right:langSwitch()}); bindLang($("#topbar"));
-  const typeOk = x => f.type==="all" ? (seatsLeft(x)>0||x.parcel) : f.type==="ride" ? seatsLeft(x)>0 : x.parcel;
+  const typeOk = x => f.type==="cargo" ? false : f.type==="all" ? (seatsLeft(x)>0||x.parcel) : f.type==="ride" ? seatsLeft(x)>0 : x.parcel;
   const okDate = d => f.date==="all"||d===f.date;
-  const pool = S.trips.filter(x=>!isPast(x) && !user(x.driverId)?.blocked && typeOk(x) && okDate(x.date) && inPlace(x.from,f.from));
-  const opool = f.type==="ride" ? [] : (S.orders||[]).filter(o=>o.status==="open" && o.date>=TODAY() && okDate(o.date) && inPlace(o.from,f.from));
-  const counts = {}; [...pool,...opool].forEach(x=>{ const c=x.to.split(", ")[0]; counts[c]=(counts[c]||0)+1; });
+  const pool0 = S.trips.filter(x=>!isPast(x) && !user(x.driverId)?.blocked && typeOk(x) && okDate(x.date));
+  const pool = pool0.filter(x=>inPlace(x.from,f.from));
+  const opool0 = f.type==="ride" ? [] : (S.orders||[]).filter(o=>o.status==="open" && o.date>=TODAY() && okDate(o.date) && (f.type==="cargo" ? o.size==="X" : f.type==="parcel" ? o.size!=="X" : true));
+  const opool = opool0.filter(o=>inPlace(o.from,f.from));
+  const counts = {}; [...pool0,...opool0].filter(x=>inPlace(x.to,f.to)).forEach(x=>{ const c=x.from.split(", ")[0]; counts[c]=(counts[c]||0)+1; });
   const isIntra = f.from==="Бишкек" && f.to==="Бишкек";
   const intraN = [...pool,...opool].filter(x=>inPlace(x.from,"Бишкек")&&inPlace(x.to,"Бишкек")).length;
-  let cities = ["Ош","Бишкек","Жалал-Абад","Каракол","Чолпон-Ата","Нарын","Талас","Балыкчы","Токмок","Баткен"].filter(c=>c!==f.from);
-  if(f.to && !cities.includes(f.to)) cities.unshift(f.to);
+  let cities = ["Бишкек","Ош","Жалал-Абад","Каракол","Чолпон-Ата","Нарын","Талас","Балыкчы","Токмок","Баткен"].filter(c=>c!==f.to);
+  if(f.from && !isIntra && !cities.includes(f.from)) cities.unshift(f.from);
   const mode = f.type==="parcel" ? "parcel" : "ride";
   search.mode = mode;
   const items = [
@@ -1493,14 +1501,14 @@ screens.home = () => {
     <button class="qa" id="sendCta"><span class="qa-ic">${I.camera}</span><b>${t("sendCtaT")}</b><span>${t("sendCtaS")}</span></button>
     <button class="qa" id="qaTrip"><span class="qa-ic">${I.car}</span><b>${t("chTrip")}</b><span>${t("qaTripS")}</span></button>
   </div>
-  <div class="mode three" role="tablist">${[["all","fAll",I.road],["ride","fRide",I.users],["parcel","fParcel",I.box]].map(([k,l,ic])=>`<button role="tab" data-ft="${k}" class="${f.type===k?"on":""}" aria-selected="${f.type===k}">${ic} ${t(l)}</button>`).join("")}</div>
-  <div class="chips scroll" id="toChips" aria-label="${t("goingTo")}"><button class="chip ${!f.to?"on":""}" data-to="">${t("fAll")}<span class="cnt">${pool.length+opool.length}</span></button><button class="chip ${isIntra?"on":""}" id="fIntra">${t("inBishkek")}<span class="cnt">${intraN}</span></button>${cities.map(c=>`<button class="chip ${f.to===c&&!isIntra?"on":""}" data-to="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
+  <div class="mode four" role="tablist">${[["all","fAll",I.road],["ride","fRide",I.users],["parcel","fParcel",I.box],["cargo","fCargo",I.truck]].map(([k,l,ic])=>`<button role="tab" data-ft="${k}" class="${f.type===k?"on":""}" aria-selected="${f.type===k}">${ic} ${t(l)}</button>`).join("")}</div>
+  <span class="lbl">${t("leavingFrom")}</span><div class="chips scroll" id="fromChips" aria-label="${t("leavingFrom")}"><button class="chip ${!f.from?"on":""}" data-from="">${t("fAll")}<span class="cnt">${[...pool0,...opool0].filter(x=>inPlace(x.to,f.to)).length}</span></button><button class="chip ${isIntra?"on":""}" id="fIntra">${t("inBishkek")}<span class="cnt">${intraN}</span></button>${cities.map(c=>`<button class="chip ${f.from===c&&!isIntra?"on":""}" data-from="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
   <div class="chips scroll">${[["all","allDays"],[TODAY(),"today"],[addDays(1),"tomorrow"],[addDays(2),"afterTomorrow"]].map(([v,l])=>`<button class="chip ${f.date===v?"on":""}" data-fd="${v}">${t(l)}</button>`).join("")}</div>
   <div class="found"><span>${t("found",{n:items.length})}</span>${dirty?`<button class="linkbtn" id="fReset">${t("resetFilters")}</button>`:`<button class="linkbtn" id="fAdv">${t("advSearch")}</button>`}</div>
   ${items.length? body : `<div class="card empty">${f.type==="parcel"?I.box:I.road}<h3 style="margin-top:8px">${t("noOffers")}</h3><p>${t("noOffersText")}</p><button class="btn" id="fAsk" style="margin-top:12px">${t("askDrivers")}</button></div>`}`;
   const set = (k,v) => { f[k]=v; render(); };
   document.querySelectorAll("[data-ft]").forEach(b=>b.onclick=()=>set("type",b.dataset.ft));
-  document.querySelectorAll("[data-to]").forEach(b=>b.onclick=()=>set("to",b.dataset.to));
+  document.querySelectorAll("[data-from]").forEach(b=>b.onclick=()=>{ f.from=b.dataset.from; if(f.to==="Бишкек"&&f.from!=="Бишкек"&&isIntra) f.to=""; render(); });
   document.querySelectorAll("[data-fd]").forEach(b=>b.onclick=()=>set("date",b.dataset.fd));
   $("#sendCta").onclick=()=>go("orderNew");
   $("#balChip").onclick=()=>go("wallet");
@@ -1543,6 +1551,9 @@ function seedOrders(){
     mk(5,"Каракол","Бишкек",W("Лекарства","Дары-дармек"),"S",350,1,"Самара","+996 552 77 66 01",W("ул. Абдрахманова, 8","Абдрахманов көчөсү, 8"),"Чынара"),
     mk(6,"Бишкек","Жалал-Абад",W("Детские игрушки","Балдардын оюнчуктары"),"M",450,2,"Уланбек","+996 705 33 44 21",W("мкр. Асанбай, 12","Асанбай кичи району, 12"),"Жыпар"),
     mk(7,"Бишкек","Ош",W("Запчасти для авто","Унаанын тетиктери"),"L",700,1,"Тилек","+996 772 18 18 18",W("рынок «Кудайберген»","«Кудайберген» базары"),"Мирлан"),
+    mk(8,"Бишкек","Каракол",W("Мебель: диван и шкаф","Эмерек: диван жана шкаф"),"X",3000,1,"Нурбек","+996 555 77 88 99",W("мкр. Кок-Жар, 5","Кок-Жар кичи району, 5"),"Айжан"),
+    mk(9,"Ош","Жалал-Абад",W("Стройматериалы","Курулуш материалдары"),"X",2500,0,"Эрмек","+996 700 66 55 11",W("Ошский базар","Ош базары"),"Бакыт"),
+    mk(10,"Каракол","Бишкек",W("Картошка, 20 мешков","Картошка, 20 кап"),"X",3500,1,"Асан","+996 551 22 33 44",W("с. Ак-Суу","Ак-Суу айылы"),"Бектур"),
   ];
 }
 
@@ -1568,7 +1579,7 @@ const statusPill = o => `<span class="pill st st-${o.status}"><i></i>${t("ost_"+
 
 function orderCard(o){
   return `<button class="card ordercard" data-order="${o.id}" aria-label="${esc(loc(o.what))}, ${esc(o.from)} — ${esc(o.to)}">
-    <div class="othumb">${o.photo?`<img src="${o.photo}" alt="">`:I.box}</div>
+    <div class="othumb">${o.photo?`<img src="${o.photo}" alt="">`:(o.size==="X"?I.truck:I.box)}</div>
     <div class="obody">
       <div class="row between"><span class="pill">${I.box.replace("<svg",'<svg width="12" height="12" style="vertical-align:-2px"')} ${t("orderTag")}</span><span class="price">${o.price} с</span></div>
       <b class="otitle">${esc(loc(o.what))}</b>
@@ -1643,14 +1654,14 @@ function updateTracking(fromLoop){
 const od = {photo:"",what:"",size:"M",from:"Бишкек",pickup:"",to:"Ош",drop:"",date:TODAY(),price:"",payer:"me",rname:"",rphone:"+996 "};
 screens.orderNew = () => {
   topbar(t("orderNew"),{canBack:stack.length>0});
-  const o=od, pr=priceRange(o.from,o.to);
+  const o=od, pr0=priceRange(o.from,o.to), pr=pr0&&o.size==="X"?pr0.map(v=>Math.round(v*4/50)*50):pr0;
   $("#screen").innerHTML = `
   <form class="stack" id="of" novalidate>
     <label class="upl ${o.photo?"has":""}" style="aspect-ratio:16/10">${o.photo?`<img src="${o.photo}" alt=""><span class="ok">${I.check}</span>`:`${I.camera}<span style="font-size:14px">${t("takePhoto")}</span>`}<input type="file" accept="image/*" id="oPh" aria-label="${t("orderPhoto")}"></label>
     <label class="lbl" for="oWhat">${t("parcelWhat")}</label>
     <div class="field">${I.box}<input id="oWhat" maxlength="60" placeholder="${t("parcelWhatPh")}" value="${esc(o.what)}"></div>
     <span class="lbl">${t("parcelSize")}</span>
-    <div class="sizes" id="oSz">${["S","M","L"].map(z=>`<button type="button" data-z="${z}" class="${o.size===z?"on":""}"><b>${t("size"+z)}</b>${t("size"+z+"d")}</button>`).join("")}</div>
+    <div class="sizes four" id="oSz">${["S","M","L","X"].map(z=>`<button type="button" data-z="${z}" class="${o.size===z?"on":""}"><b>${t("size"+z)}</b>${t("size"+z+"d")}</button>`).join("")}</div>
     <div class="route-fields">
       <button type="button" class="field" id="oFrom" style="text-align:left">${I.pinO}<span style="padding:13px 0">${esc(o.from)||`<span class="muted">${t("from")}</span>`}</span></button>
       <button type="button" class="field" id="oTo" style="text-align:left">${I.pin}<span style="padding:13px 0">${esc(o.to)||`<span class="muted">${t("to")}</span>`}</span></button>
@@ -1750,6 +1761,7 @@ screens.order = ({id}) => {
   if(b("oRev")) b("oRev").onclick=()=>reviewSheet(o);
   if(b("oAcc")) b("oAcc").onclick=()=>{
     if(!isVerified("me")){ toast(t("needDriver")); go(S.me.driver?.status==="pending"?"createTrip":"driverReg"); return; }
+    if(o.size==="X" && S.me.car?.kind!=="porter"){ toast(t("needPorter")); go("car"); return; }
     charge("take",t("acceptText",{addr:loc(o.pickup),to:o.to}),t("acceptOk"),()=>{ o.status="accepted"; o.driverId="me"; o.acceptedAt=Date.now(); celebrate(t("accepted")); render(); },t("acceptQ"));
   };
   if(b("oPick")) b("oPick").onclick=()=>{ o.status="onway"; o.pickedAt=Date.now(); render(); };
@@ -2670,7 +2682,7 @@ screens.editName = () => {
 };
 
 screens.car = () => {
-  const me=S.me; const c=me.car?{...me.car}:{brand:"",model:"",year:"",plate:"",wheel:"L",color:"black"};
+  const me=S.me; const c=me.car?{kind:"car",...me.car}:{kind:"car",brand:"",model:"",year:"",plate:"",wheel:"L",color:"black"};
   topbar(t("carTitle"),{canBack:true});
   const draw=()=>{
   $("#screen").innerHTML=`<h2>${t("carQ")}</h2>
@@ -2682,6 +2694,8 @@ screens.car = () => {
     <div class="field">${I.plate}<input id="cpl" maxlength="12" placeholder="${t("plate")}" value="${esc(c.plate)}" aria-label="${t("plate")}" style="text-transform:uppercase"></div>
     <p class="small muted" style="margin:-4px 0 0 4px">${t("plateNote")}</p>
     <span class="lbl">${t("wheelLbl",{w:t("wheel_"+c.wheel)})}</span>
+    <span class="lbl">${t("vehKind")}</span>
+    <div class="seg"><button type="button" data-k="car" class="${c.kind==="car"?"on":""}">${t("kind_car")}</button><button type="button" data-k="porter" class="${c.kind==="porter"?"on":""}">${t("kind_porter")}</button></div>
     <div class="seg"><button type="button" data-w="L" class="${c.wheel==="L"?"on":""}">${t("leftBtn")}</button><button type="button" data-w="R" class="${c.wheel==="R"?"on":""}">${t("rightBtn")}</button></div>
     <span class="lbl">${t("colorLbl",{c:t("c_"+c.color)})}</span>
     <div class="colors">${COLORS.map(([n,h])=>`<button type="button" class="swatch ${c.color===n?"on":""}" data-c="${n}" style="background:${h};color:${["white","yellow"].includes(n)?"#222":"#fff"}" aria-label="${t("c_"+n)}">${c.color===n?I.check:""}</button>`).join("")}</div>
@@ -2690,9 +2704,10 @@ screens.car = () => {
   </form>`;
   const keep=()=>{ c.brand=$("#cb").value; c.model=$("#cm").value; c.year=$("#cy").value; c.plate=$("#cpl").value.toUpperCase(); };
   document.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{keep();c.wheel=b.dataset.w;draw();});
+  document.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{keep();c.kind=b.dataset.k;draw();});
   document.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{keep();c.color=b.dataset.c;draw();});
   $("#carf").onsubmit=e=>{e.preventDefault(); keep(); if(!c.brand.trim()||!c.model.trim()){toast(t("needBrand"));return;}
-    me.car={brand:c.brand.trim(),model:c.model.trim(),year:c.year?+c.year:"",plate:c.plate.trim(),wheel:c.wheel,color:c.color};
+    me.car={kind:c.kind,brand:c.brand.trim(),model:c.model.trim(),year:c.year?+c.year:"",plate:c.plate.trim(),wheel:c.wheel,color:c.color};
     toast(t("carSaved")); back(); };
   const rm=$("#rmCar"); if(rm) rm.onclick=()=>confirmSheet(t("removeCarQ"),t("removeCarText"),t("del"),()=>{me.car=null;back();});
   };
