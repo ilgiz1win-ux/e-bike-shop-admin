@@ -18,6 +18,14 @@ describe('places list', () => {
     expect(PLACES.find((g) => g.key === 'bishkek').items).toContain('Бишкек, Дордой базары');
     expect(ALL_PLACES).toContain('Ананьево');
   });
+
+  it('has bazaars of other towns, each a point inside its town, found once by search', () => {
+    const bz = PLACES.find((g) => g.key === 'bazaars').items;
+    expect(bz).toContain('Ош, Жайма базары');
+    expect(bz).toContain('Баткен, Борбордук базар');
+    expect(inPlace('Ош, Жайма базары', 'Ош')).toBe(true);
+    expect(searchPlaces('Дордой').filter((h) => h.label === 'Бишкек, Дордой базары')).toHaveLength(1);
+  });
 });
 
 describe('memory search with places', () => {

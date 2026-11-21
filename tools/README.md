@@ -14,5 +14,4 @@ mkdir -p /tmp/geo && cd /tmp/geo && npm pack @geomelon/kyrgyzstan && tar xzf *.t
 python3 -I tools/gen_places.py /tmp/geo/package/data.json web/src/ui/places.js tools/places_curated.json
 ```
 
-Базары: пока вручную (Бишкек). Полный список — из OpenStreetMap (`amenity=marketplace`),
-когда сервер Overpass доступен.
+Базары: только названия, вручную в `bazaars.json` (формат «город, базар»).

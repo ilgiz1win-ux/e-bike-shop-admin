@@ -87,10 +87,14 @@ js = ['// Places for the picker. Towns and villages: Wikidata via the @geomelon/
       'export const PLACES = [',
       f"  {{ key: 'bishkek', ky: 'Бишкектин ичинде', ru: 'Внутри Бишкека', items: {json.dumps(BISHKEK, ensure_ascii=False)} }},",
       f"  {{ key: 'cities', ky: 'Шаарлар', ru: 'Города', items: {json.dumps(cities, ensure_ascii=False)} }},"]
+# Bazaars: names only, written by hand in tools/bazaars.json ("<town>, <bazaar>").
+import os
+_bz = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bazaars.json'), encoding='utf-8'))
+js.append(f"  {{ key: 'bazaars', ky: 'Базарлар', ru: 'Базары', items: {json.dumps([f'{c}, {n}' for c, ns in _bz.items() for n in ns], ensure_ascii=False)} }},")
 for i, (ky, ru, items) in enumerate(groups):
     js.append(f"  {{ key: 'r{i}', ky: {json.dumps(ky, ensure_ascii=False)}, ru: {json.dumps(ru, ensure_ascii=False)}, items: {json.dumps(items, ensure_ascii=False)} }},")
 aliases = {r['label']: r['ru'] for r in uniq if r['ru'] and r['ru'] != r['name']}
-js += ['];', '', '// Russian names, so a search in Russian finds the place too.', f"export const RU_NAMES = {json.dumps(aliases, ensure_ascii=False)};", '', 'export const ALL_PLACES = PLACES.flatMap((g) => g.items);', '',
+js += ['];', '', '// Russian names, so a search in Russian finds the place too.', f"export const RU_NAMES = {json.dumps(aliases, ensure_ascii=False)};", '', 'export const ALL_PLACES = [...new Set(PLACES.flatMap((g) => g.items))];', '',
        '// A trip place matches a filter if it is the same place or a point inside it ("Бишкек, Жал" is in "Бишкек").',
        "export const inPlace = (value, filter) => !filter || value === filter || String(value).startsWith(filter + ', ');", '',
        '// Search by Kyrgyz or Russian name; names that start with the query come first.',
@@ -98,9 +102,11 @@ js += ['];', '', '// Russian names, so a search in Russian finds the place too.'
        '  const v = String(query).trim().toLowerCase();',
        '  if (!v) return [];',
        '  const hits = [];',
+       '  const seen = new Set();',
        '  for (const group of PLACES) for (const label of group.items) {',
+       '    if (seen.has(label)) continue;',
        '    const names = [label.toLowerCase(), (RU_NAMES[label] || "").toLowerCase()];',
-       '    if (names.some((n) => n.includes(v))) hits.push({ label, group, starts: names.some((n) => n.startsWith(v)) });',
+       '    if (names.some((n) => n.includes(v))) { seen.add(label); hits.push({ label, group, starts: names.some((n) => n.startsWith(v)) }); }',
        '  }',
        '  return hits.sort((a, b) => Number(b.starts) - Number(a.starts)).slice(0, limit);',
        '}', '']
