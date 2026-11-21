@@ -720,6 +720,15 @@ body.on-home .topbar .lang button.on{background:var(--surface);color:var(--accen
 .catopt small{font-size:11.5px;color:var(--muted);line-height:1.3}
 .catopt.on{border-color:var(--cat);background:color-mix(in srgb,var(--cat) 9%,var(--surface))}
 
+.acc-sum{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;background:color-mix(in srgb,var(--cat) 9%,var(--surface));border:1.5px solid color-mix(in srgb,var(--cat) 35%,transparent)}
+.acc-sum .cdot{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--cat) 16%,transparent);color:var(--cat);flex:none}
+.acc-sum .cdot svg{width:22px;height:22px}
+.acc-sum div{flex:1;min-width:0}.acc-sum b{display:block;font:700 15px var(--f-display)}.acc-sum small{color:var(--muted);font-size:12.5px}
+.acc-warn{display:flex;gap:8px;align-items:flex-start;margin:0;padding:10px 12px;border-radius:12px;background:var(--warn-bg);border:1px solid var(--warn-line);font-size:13px}
+.acc-warn svg{width:18px;height:18px;flex:none;color:var(--star)}
+.agree{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
+.agree input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--accent);flex:none}
+.btn:disabled{opacity:.45;pointer-events:none}
 .rolelist{display:flex;flex-direction:column;gap:10px}
 .roleopt{display:flex;align-items:center;gap:14px;padding:16px;border-radius:22px;background:var(--surface);box-shadow:var(--shadow);border:2px solid transparent;text-align:left;width:100%;--cat:var(--accent-ink)}
 .roleopt .cdot{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--cat) 14%,transparent);color:var(--cat);flex:none}
@@ -827,7 +836,7 @@ ru:{
   ost_open:"Ждёт водителя", ost_accepted:"Водитель едет забрать", ost_onway:"В пути", ost_delivered:"Доставлено", ost_cancelled:"Отменено",
   step_open:"Опубликовано", step_accepted:"Принял", step_onway:"В пути", step_delivered:"Доставлено",
   offeredPrice:"Предлагает", sender:"Отправитель", pickupLbl:"забрать:", dropLbl:"доставить:", acceptOrder:"Заберу · {price} с",
-  acceptQ:"Взять посылку?", acceptText:"Заберите посылку по адресу: {addr} и доставьте в {to}. Отправитель будет видеть, где вы едете.", acceptOk:"Беру", accepted:"Вы взяли посылку",
+  acceptQ:"Точно возьмёте этот заказ?", acceptAgree:"Обещаю забрать и доставить заказ вовремя и целым", acceptWarn:"Отправитель ждёт вас. Если откажетесь после принятия, рейтинг снизится.", acceptText:"Заберите посылку по адресу: {addr} и доставьте в {to}. Отправитель будет видеть, где вы едете.", acceptOk:"Да, беру", accepted:"Вы взяли посылку",
   needDriver:"Чтобы брать посылки, зарегистрируйтесь как водитель", pickedUp:"Посылку забрал, выезжаю", markDone:"Доставил получателю", orderCancelText:"Посылка исчезнет из ленты.",
   nAccepted:"{driver} взял(а) вашу посылку «{what}» и едет забрать. Тел.: {phone}", nOnway:"Посылка «{what}» в пути в {to}. Следите на карте.",
   trackTitle:"Где сейчас посылка", passed:"Проехал(а) {city}", atStart:"Выезжает из {city}", leftKm:"До {to}: {km} км", eta:"≈ {h} ч {m} мин",
@@ -973,7 +982,7 @@ ky:{
   ost_open:"Айдоочу күтүүдө", ost_accepted:"Айдоочу алганы келе жатат", ost_onway:"Жолдо", ost_delivered:"Жеткирилди", ost_cancelled:"Жокко чыгарылды",
   step_open:"Жарыяланды", step_accepted:"Алды", step_onway:"Жолдо", step_delivered:"Жеткирилди",
   offeredPrice:"Сунуштайт", sender:"Жөнөтүүчү", pickupLbl:"алуу:", dropLbl:"жеткирүү:", acceptOrder:"Алып кетем · {price} сом",
-  acceptQ:"Посылканы аласызбы?", acceptText:"Посылканы {addr} дарегинен алып, {to} шаарына жеткириңиз. Жөнөтүүчү жолдо кайда баратканыңызды көрүп турат.", acceptOk:"Алам", accepted:"Посылканы алдыңыз",
+  acceptQ:"Бул заказды так аласызбы?", acceptAgree:"Заказды убагында жана бүтүн жеткирем деп убада берем", acceptWarn:"Жөнөтүүчү сизди күтөт. Алгандан кийин баш тартсаңыз, рейтингиңиз төмөндөйт.", acceptText:"Посылканы {addr} дарегинен алып, {to} шаарына жеткириңиз. Жөнөтүүчү жолдо кайда баратканыңызды көрүп турат.", acceptOk:"Ооба, алам", accepted:"Посылканы алдыңыз",
   needDriver:"Посылка алуу үчүн айдоочу катары катталыңыз", pickedUp:"Посылканы алдым, жолго чыктым", markDone:"Алуучуга жеткирдим", orderCancelText:"Посылка тизмеден жоголот.",
   nAccepted:"{driver} «{what}» посылкаңызды алды, алып кеткени келе жатат. Тел.: {phone}", nOnway:"«{what}» посылкасы {to} шаарына жолдо. Картадан көрүп туруңуз.",
   trackTitle:"Посылка азыр кайда", passed:"{city} аркылуу өттү", atStart:"{city} шаарынан чыгып жатат", leftKm:"{to} чейин: {km} км", eta:"≈ {h} саат {m} мүн",
@@ -1883,7 +1892,7 @@ screens.order = ({id}) => {
       if(need==="truck" && kind!=="truck"){ toast(t("needTruck")); go("car"); return; }
       if(need==="porter" && kind!=="porter" && kind!=="truck"){ toast(t("needPorter")); go("car"); return; }
       if(need==="car" && kind==="courier"){ toast(t("needCar")); return; } }
-    charge("take",t("acceptText",{addr:loc(o.pickup),to:o.to}),t("acceptOk"),()=>{ o.status="accepted"; o.driverId="me"; o.acceptedAt=Date.now(); celebrate(t("accepted")); render(); },t("acceptQ"));
+    charge("take",t("acceptText",{addr:loc(o.pickup),to:o.to}),t("acceptOk"),()=>{ o.status="accepted"; o.driverId="me"; o.acceptedAt=Date.now(); celebrate(t("accepted")); render(); },t("acceptQ"),{agree:t("acceptAgree"),html:`<div class="acc-sum cat-${orderCat(o)}"><span class="cdot">${I[CAT_ICON[orderCat(o)]]}</span><div><b>${esc(loc(o.what))}</b><small>${esc(o.from)} → ${esc(o.to)} · ${dRel(o.date)}</small></div><span class="price">${o.price} с</span></div><p class="acc-warn">${I.info}<span>${t("acceptWarn")}</span></p>`});
   };
   if(b("oPick")) b("oPick").onclick=()=>{ o.status="onway"; o.pickedAt=Date.now(); render(); };
   if(b("oDone")) b("oDone").onclick=()=>{ o.status="delivered"; o.deliveredAt=Date.now(); notify("deliveredNotif",{what:loc(o.what),to:o.to},"check",null,o.id); celebrate(t("delivered")); render(); };
@@ -2291,7 +2300,7 @@ const TOPUPS = [100,200,500,1000];
 const PAY_METHODS = ["Мбанк","О!Деньги","Элсом","Bakai","Элкарт / Visa"];
 function wallet(){ const m=S.me; m.wallet=m.wallet||{balance:0,used:0,tx:[]}; return m.wallet; }
 const freeLeft = () => Math.max(0, FREE_LIMIT - wallet().used);
-function charge(kind, details, okLabel, onOk, title){
+function charge(kind, details, okLabel, onOk, title, opts={}){
   const w=wallet(), fee=FEES[kind], free=freeLeft();
   if(!free && w.balance<fee){
     sheet(`<div class="limit-ic">${I.wallet}</div><h3 style="text-align:center">${t("limitOver")}</h3>
@@ -2306,9 +2315,12 @@ function charge(kind, details, okLabel, onOk, title){
   const costLine = free
     ? `<div class="costbox free"><div><span>${t("costLbl")}</span><b>${t("freeWord")}</b></div><div><span>${t("freeLeftLbl")}</span><b>${free-1} / ${FREE_LIMIT}</b></div></div>`
     : `<div class="costbox"><div><span>${t("costLbl")}</span><b>${fee} с</b></div><div><span>${t("balanceAfter")}</span><b>${w.balance-fee} с</b></div></div>`;
-  sheet(`<h3>${esc(title||t("confirmAction"))}</h3><p class="muted" style="margin:0">${esc(details)}</p>${costLine}
-    <button class="btn" id="cOk">${esc(okLabel)}${free?"":` · ${fee} с`}</button><button class="btn ghost" id="cNo">${t("back")}</button>`, el=>{
+  sheet(`<h3>${esc(title||t("confirmAction"))}</h3>${opts.html||""}<p class="muted" style="margin:0">${esc(details)}</p>${costLine}
+    ${opts.agree?`<label class="agree"><input type="checkbox" id="cAgree"><span>${esc(opts.agree)}</span></label>`:""}
+    <button class="btn" id="cOk" ${opts.agree?"disabled":""}>${esc(okLabel)}${free?"":` · ${fee} с`}</button><button class="btn ghost" id="cNo">${t("back")}</button>`, el=>{
+    const ag=el.querySelector("#cAgree"); if(ag) ag.onchange=()=>{ el.querySelector("#cOk").disabled=!ag.checked; };
     el.querySelector("#cOk").onclick=()=>{
+      if(ag && !ag.checked) return;
       if(free){ w.used++; w.tx.unshift({id:uid(),type:"free",kind,amount:0,at:Date.now()}); }
       else { w.balance-=fee; w.tx.unshift({id:uid(),type:"fee",kind,amount:-fee,at:Date.now()}); }
       closeSheet(); onOk();
