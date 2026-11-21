@@ -718,6 +718,25 @@ body.on-home .topbar .lang button.on{background:var(--surface);color:var(--accen
 .catopt b{font:700 14px var(--f-display)}
 .catopt small{font-size:11.5px;color:var(--muted);line-height:1.3}
 .catopt.on{border-color:var(--cat);background:color-mix(in srgb,var(--cat) 9%,var(--surface))}
+
+.rolelist{display:flex;flex-direction:column;gap:10px}
+.roleopt{display:flex;align-items:center;gap:14px;padding:16px;border-radius:22px;background:var(--surface);box-shadow:var(--shadow);border:2px solid transparent;text-align:left;width:100%;--cat:var(--accent-ink)}
+.roleopt .cdot{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--cat) 14%,transparent);color:var(--cat);flex:none}
+.roleopt .cdot svg{width:26px;height:26px}
+.roleopt b{display:block;font:700 17px var(--f-display)}
+.roleopt small{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.roleopt.on{border-color:var(--cat)}
+.roleopt > svg{width:20px;height:20px;color:var(--muted);flex:none}
+.rolechip{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:7px 10px 7px 8px;border-radius:999px;background:rgba(255,255,255,.16);color:var(--on-ink);font-weight:600;font-size:13px;align-self:flex-start}
+.rolechip svg{width:16px;height:16px}
+.rolechip .chev{color:var(--on-ink);opacity:.7}
+.workbanner{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:20px;background:color-mix(in srgb,var(--cat) 12%,var(--surface));box-shadow:inset 5px 0 0 var(--cat)}
+.workbanner .cdot{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--cat);color:#fff;flex:none}
+.workbanner .cdot svg{width:24px;height:24px}
+.workbanner b{display:block;font:700 15px var(--f-display);color:color-mix(in srgb,var(--cat) 75%,var(--fg))}
+.workbanner span{font-size:13px;color:var(--muted)}
+.hello{flex-direction:column;align-items:flex-start}
+[hidden]{display:none!important}
 </style>
 
 <div class="app">
@@ -845,7 +864,7 @@ ru:{
   payDemo:"Демо: настоящий платёж не проводится. В рабочей версии оплата идёт через платёжный шлюз.", pricesTitle:"Тарифы", fee_trip:"Публикация поездки", fee_order:"Публикация посылки", fee_take:"Взять посылку (водитель)", fee_book:"Бронирование места",
   pricesNote:"Первые {n} действий бесплатно, дальше оплата с баланса.", historyTitle:"История", txTopup:"Пополнение · {m}", noHistory:"Операций пока нет",
   minAmount:"Минимальная сумма — 50 с", paying:"Оплата…", topupDone:"Баланс пополнен на {n} с", topupNotif:"Баланс пополнен на {n} с ({m}).",
-  sts_none:"Нет", sts_pending:"Проверка", sts_verified:"Да ✓", colorTheme:"Цвет оформления", ratingLbl:"Рейтинг", tripsWord:"Поездки", changePhoto:"Сменить фото", photoSaved:"Фото обновлено", fOrders:"Заказы", ordersFilter:"Тип заказа", whoDelivers:"Кто доставит?", cat_courier:"Курьер", cat_car:"Машина", cat_porter:"Портер", catHint_courier:"По городу, мелкое", catHint_car:"Между городами, до 20 кг", catHint_porter:"Груз до 1,5 т", kind_courier:"Курьер", needCar:"Этот заказ берут только водители с машиной", fCargo:"Груз", sizeX:"Груз (Портер)", sizeXd:"до 1,5 тонны", cargoTag:"Груз", needPorter:"Чтобы брать грузы, укажите тип машины «Портер»", vehKind:"Тип машины", kind_car:"Легковая", kind_porter:"Портер (грузовой)", leavingFrom:"Откуда выезжает", inBishkek:"По Бишкеку", useTyped:"Нет в списке — выбрать «{name}»", hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
+  sts_none:"Нет", sts_pending:"Проверка", sts_verified:"Да ✓", colorTheme:"Цвет оформления", ratingLbl:"Рейтинг", tripsWord:"Поездки", changePhoto:"Сменить фото", photoSaved:"Фото обновлено", roleQ:"Как вы будете пользоваться Жолдошем?", roleSub:"Режим можно сменить в любой момент на главной или в профиле.", role_client:"Клиент", roleD_client:"Ищу попутку, отправляю посылки и грузы", role_courier:"Курьер", roleD_courier:"Доставляю мелкие заказы по городу", role_car:"Водитель", roleD_car:"Беру посылки между городами на своей машине", role_porter:"Водитель Портера", roleD_porter:"Перевожу грузы до 1,5 т", workTitle:"Режим «{role}»", workText:"Показаны только подходящие вам заказы.", changeRole:"Сменить режим", modeLbl:"Режим", helloWork:"Какой заказ возьмёте сегодня?", fOrders:"Заказы", ordersFilter:"Тип заказа", whoDelivers:"Кто доставит?", cat_courier:"Курьер", cat_car:"Машина", cat_porter:"Портер", catHint_courier:"По городу, мелкое", catHint_car:"Между городами, до 20 кг", catHint_porter:"Груз до 1,5 т", kind_courier:"Курьер", needCar:"Этот заказ берут только водители с машиной", fCargo:"Груз", sizeX:"Груз (Портер)", sizeXd:"до 1,5 тонны", cargoTag:"Груз", needPorter:"Чтобы брать грузы, укажите тип машины «Портер»", vehKind:"Тип машины", kind_car:"Легковая", kind_porter:"Портер (грузовой)", leavingFrom:"Откуда выезжает", inBishkek:"По Бишкеку", useTyped:"Нет в списке — выбрать «{name}»", hello:"Салам, {name}!", helloSub:"Куда едем сегодня?", tHome:"Главная", homeTitle:"Объявления", fAll:"Все", fRide:"Попутки", fParcel:"Посылки", anyCity:"Любой город", goingTo:"Куда едут",
   allDays:"Все дни", found:"Найдено: {n}", resetFilters:"Сбросить фильтры", noOffers:"По этим фильтрам ничего нет",
   noOffersText:"Выберите другой город или дату. Можно отправить запрос всем водителям — вам позвонят.", askDrivers:"Отправить запрос водителям", advSearch:"Подробный поиск",
   tTrips:"Поездки", tSearch:"Поиск", tCreate:"Создать", tNotifs:"Уведомления", tProfile:"Профиль",
@@ -991,7 +1010,7 @@ ky:{
   payDemo:"Демо: чыныгы төлөм жүргүзүлбөйт. Иштеген версияда төлөм төлөм шлюзу аркылуу өтөт.", pricesTitle:"Тарифтер", fee_trip:"Сапар жарыялоо", fee_order:"Посылка жарыялоо", fee_take:"Посылка алуу (айдоочу)", fee_book:"Орун брондоо",
   pricesNote:"Алгачкы {n} аракет акысыз, андан кийин баланстан төлөнөт.", historyTitle:"Тарых", txTopup:"Толтуруу · {m}", noHistory:"Азырынча операция жок",
   minAmount:"Эң аз сумма — 50 сом", paying:"Төлөнүүдө…", topupDone:"Баланс {n} сомго толукталды", topupNotif:"Баланс {n} сомго толукталды ({m}).",
-  sts_none:"Жок", sts_pending:"Текшерүүдө", sts_verified:"Ооба ✓", colorTheme:"Колдонмонун түсү", ratingLbl:"Рейтинг", tripsWord:"Сапарлар", changePhoto:"Сүрөттү алмаштыруу", photoSaved:"Сүрөт жаңыртылды", fOrders:"Заказдар", ordersFilter:"Заказдын түрү", whoDelivers:"Ким жеткирсин?", cat_courier:"Курьер", cat_car:"Машина", cat_porter:"Портер", catHint_courier:"Шаар ичинде, майда", catHint_car:"Шаар аралык, 20 кг чейин", catHint_porter:"Жүк, 1,5 т чейин", kind_courier:"Курьер", needCar:"Бул заказды машинасы бар айдоочу гана алат", fCargo:"Жүк", sizeX:"Жүк (Портер)", sizeXd:"1,5 тоннага чейин", cargoTag:"Жүк", needPorter:"Жүк алуу үчүн машинаңыздын түрүн «Портер» деп белгилеңиз", vehKind:"Унаанын түрү", kind_car:"Жеңил унаа", kind_porter:"Портер (жүк ташуучу)", leavingFrom:"Кайдан чыгат", inBishkek:"Бишкек ичинде", useTyped:"Тизмеде жок — «{name}» деп тандоо", hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
+  sts_none:"Жок", sts_pending:"Текшерүүдө", sts_verified:"Ооба ✓", colorTheme:"Колдонмонун түсү", ratingLbl:"Рейтинг", tripsWord:"Сапарлар", changePhoto:"Сүрөттү алмаштыруу", photoSaved:"Сүрөт жаңыртылды", roleQ:"Жолдошту кантип колдоносуз?", roleSub:"Режимди каалаган убакта башкы беттен же профилден алмаштырсаңыз болот.", role_client:"Кардар", roleD_client:"Попутка издейм, посылка же жүк жөнөтөм", role_courier:"Курьер", roleD_courier:"Шаар ичинде майда заказдарды жеткирем", role_car:"Айдоочу", roleD_car:"Өз машинам менен шаар аралык посылка алам", role_porter:"Портер айдоочу", roleD_porter:"Жүк ташыйм (1,5 т чейин)", workTitle:"«{role}» режими", workText:"Сизге ылайыктуу заказдар гана көрсөтүлөт.", changeRole:"Режимди алмаштыруу", modeLbl:"Режим", helloWork:"Бүгүн кайсы заказды аласыз?", fOrders:"Заказдар", ordersFilter:"Заказдын түрү", whoDelivers:"Ким жеткирсин?", cat_courier:"Курьер", cat_car:"Машина", cat_porter:"Портер", catHint_courier:"Шаар ичинде, майда", catHint_car:"Шаар аралык, 20 кг чейин", catHint_porter:"Жүк, 1,5 т чейин", kind_courier:"Курьер", needCar:"Бул заказды машинасы бар айдоочу гана алат", fCargo:"Жүк", sizeX:"Жүк (Портер)", sizeXd:"1,5 тоннага чейин", cargoTag:"Жүк", needPorter:"Жүк алуу үчүн машинаңыздын түрүн «Портер» деп белгилеңиз", vehKind:"Унаанын түрү", kind_car:"Жеңил унаа", kind_porter:"Портер (жүк ташуучу)", leavingFrom:"Кайдан чыгат", inBishkek:"Бишкек ичинде", useTyped:"Тизмеде жок — «{name}» деп тандоо", hello:"Салам, {name}!", helloSub:"Бүгүн кайда барабыз?", tHome:"Башкы", homeTitle:"Жарыялар", fAll:"Баары", fRide:"Попутка", fParcel:"Посылка", anyCity:"Каалаган шаар", goingTo:"Кайда барат",
   allDays:"Бардык күндөр", found:"Табылды: {n}", resetFilters:"Чыпкаларды тазалоо", noOffers:"Бул чыпкалар боюнча эч нерсе жок",
   noOffersText:"Башка шаарды же күндү тандаңыз. Бардык айдоочуларга суроо жөнөтсөңүз болот — сизге чалышат.", askDrivers:"Айдоочуларга суроо жөнөтүү", advSearch:"Кеңири издөө",
   tTrips:"Сапарлар", tSearch:"Издөө", tCreate:"Түзүү", tNotifs:"Билдирүүлөр", tProfile:"Профиль",
@@ -1371,6 +1390,7 @@ function render(){
   document.documentElement.lang=S.lang;
   save();
   if(!S.me){ $(".tabs").hidden=true; screens.welcome(); animateScreen(); return; }
+  if(!S.me.role){ $(".tabs").hidden=true; screens.rolePick(); animateScreen(); return; }
   $(".tabs").hidden=false;
   renderTabs();
   const top=stack[stack.length-1];
@@ -1492,6 +1512,8 @@ screens.home = () => {
   document.body.classList.add("on-home");
   topbar(t("homeTitle"),{right:langSwitch()}); bindLang($("#topbar"));
   f.cats = f.cats || [];
+  const role = S.me.role || "client", work = role !== "client";
+  if(work){ f.type = "orders"; f.cats = ROLE_CATS[role]; }
   if(f.type==="parcel"||f.type==="cargo") f.type="orders";
   const typeOk = x => f.type==="orders" ? false : f.type==="all" ? (seatsLeft(x)>0||x.parcel) : f.type==="ride" ? seatsLeft(x)>0 : x.parcel;
   const okDate = d => f.date==="all"||d===f.date;
@@ -1511,12 +1533,12 @@ screens.home = () => {
     ...pool.filter(x=>inPlace(x.to,f.to)).map(x=>({date:x.date,k:x.date+"T"+x.dep,html:()=>tripCard(x,mode)})),
     ...opool.filter(o=>inPlace(o.to,f.to)).map(o=>({date:o.date,k:o.date+"T00:00",html:()=>orderCard(o)}))
   ].sort((a,b)=>a.k.localeCompare(b.k));
-  const dirty = f.type!=="all"||f.from||f.to||f.date!=="all"||(f.cats&&f.cats.length);
+  const dirty = f.type!=="all"||f.from||f.to||f.date!=="all"||(!work&&f.cats&&f.cats.length);
   let lastDate="", body="";
   items.slice(0,70).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
   $("#screen").innerHTML = `
   <section class="home-hero">
-    <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${t("helloSub")}</span></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
+    <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${work?t("helloWork"):t("helloSub")}</span><button class="rolechip ${work?"cat-"+ROLE_CATS[role][0]:""}" id="roleChip">${I[ROLE_ICON[role]]}<span>${t("role_"+role)}</span>${I.chev}</button></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
     <div class="route-card">
       <button class="rc-row" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
       <i class="rc-div"></i>
@@ -1524,12 +1546,13 @@ screens.home = () => {
       <button class="swap" id="fSwap" aria-label="${t("swap")}">${I.swap}</button>
     </div>
   </section>
-  <div class="quick">
+  ${work?`<div class="workbanner cat-${ROLE_CATS[role][0]}"><span class="cdot">${I[ROLE_ICON[role]]}</span><div><b>${t("workTitle",{role:t("role_"+role)})}</b><span>${t("workText")}</span></div></div>`:""}
+  <div class="quick" ${work?'hidden':''}>
     <button class="qa" id="sendCta"><span class="qa-ic">${I.camera}</span><b>${t("sendCtaT")}</b><span>${t("sendCtaS")}</span></button>
     <button class="qa" id="qaTrip"><span class="qa-ic">${I.car}</span><b>${t("chTrip")}</b><span>${t("qaTripS")}</span></button>
   </div>
-  <div class="mode three" role="tablist">${[["all","fAll",I.road],["ride","fRide",I.users],["orders","fOrders",I.box]].map(([k,l,ic])=>`<button role="tab" data-ft="${k}" class="${f.type===k?"on":""}" aria-selected="${f.type===k}">${ic} ${t(l)}</button>`).join("")}</div>
-  ${f.type!=="ride"?`<div class="catchips" role="group" aria-label="${t("ordersFilter")}">${["courier","car","porter"].map(c=>`<button class="catchip cat-${c} ${f.cats.includes(c)?"on":""}" data-cat="${c}" aria-pressed="${f.cats.includes(c)}"><span class="cdot">${I[CAT_ICON[c]]}</span><b>${t("cat_"+c)}</b><span class="cnt">${catCount(c)}</span></button>`).join("")}</div>`:""}
+  <div class="mode three" role="tablist" ${work?"hidden":""}>${[["all","fAll",I.road],["ride","fRide",I.users],["orders","fOrders",I.box]].map(([k,l,ic])=>`<button role="tab" data-ft="${k}" class="${f.type===k?"on":""}" aria-selected="${f.type===k}">${ic} ${t(l)}</button>`).join("")}</div>
+  ${f.type!=="ride"&&!work?`<div class="catchips" role="group" aria-label="${t("ordersFilter")}">${["courier","car","porter"].map(c=>`<button class="catchip cat-${c} ${f.cats.includes(c)?"on":""}" data-cat="${c}" aria-pressed="${f.cats.includes(c)}"><span class="cdot">${I[CAT_ICON[c]]}</span><b>${t("cat_"+c)}</b><span class="cnt">${catCount(c)}</span></button>`).join("")}</div>`:""}
   <span class="lbl">${t("leavingFrom")}</span><div class="chips scroll" id="fromChips" aria-label="${t("leavingFrom")}"><button class="chip ${!f.from?"on":""}" data-from="">${t("fAll")}<span class="cnt">${[...pool0,...opool0].filter(x=>inPlace(x.to,f.to)).length}</span></button><button class="chip ${isIntra?"on":""}" id="fIntra">${t("inBishkek")}<span class="cnt">${intraN}</span></button>${cities.map(c=>`<button class="chip ${f.from===c&&!isIntra?"on":""}" data-from="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
   <div class="chips scroll">${[["all","allDays"],[TODAY(),"today"],[addDays(1),"tomorrow"],[addDays(2),"afterTomorrow"]].map(([v,l])=>`<button class="chip ${f.date===v?"on":""}" data-fd="${v}">${t(l)}</button>`).join("")}</div>
   <div class="found"><span>${t("found",{n:items.length})}</span>${dirty?`<button class="linkbtn" id="fReset">${t("resetFilters")}</button>`:`<button class="linkbtn" id="fAdv">${t("advSearch")}</button>`}</div>
@@ -1542,6 +1565,7 @@ screens.home = () => {
   $("#sendCta").onclick=()=>go("orderNew");
   $("#balChip").onclick=()=>go("wallet");
   $("#qaTrip").onclick=()=>go("createTrip");
+  $("#roleChip").onclick=()=>go("rolePick");
   $("#fSwap").onclick=()=>{ [f.from,f.to]=[f.to,f.from]; render(); };
   $("#fIntra").onclick=()=>{ if(isIntra){ f.from=""; f.to=""; } else { f.from="Бишкек"; f.to="Бишкек"; } render(); };
   $("#fFrom").onclick=()=>citySheet(f.from,c=>{ f.from=c; render(); },true);
@@ -1609,6 +1633,21 @@ function tickOrders(){
 const orderProgress = o => o.status==="delivered"?1 : o.status==="onway"? Math.min(o.auto?1:0.97,(Date.now()-o.pickedAt)/TRIP_MS) : 0;
 const statusPill = o => `<span class="pill st st-${o.status}"><i></i>${t("ost_"+o.status)}</span>`;
 
+const ROLE_CATS = {client:[], courier:["courier"], car:["car"], porter:["porter"]};
+const ROLE_ICON = {client:"user", courier:"bag", car:"car", porter:"truck"};
+screens.rolePick = () => {
+  const inStack = stack.length>0;
+  topbar(inStack?t("changeRole"):"Жолдош",{canBack:inStack});
+  const cur=S.me.role;
+  $("#screen").innerHTML = `<div class="stack" style="gap:6px"><h2 style="margin:0">${t("roleQ")}</h2><p class="muted" style="margin:0">${t("roleSub")}</p></div>
+  <div class="rolelist">${["client","courier","car","porter"].map(r=>`<button class="roleopt ${r==="client"?"":"cat-"+ROLE_CATS[r][0]} ${cur===r?"on":""}" data-role="${r}"><span class="cdot">${I[ROLE_ICON[r]]}</span><span class="grow"><b>${t("role_"+r)}</b><small>${t("roleD_"+r)}</small></span>${cur===r?I.check:I.chev}</button>`).join("")}</div>`;
+  document.querySelectorAll("[data-role]").forEach(b=>b.onclick=()=>{
+    S.me.role=b.dataset.role;
+    S.feed={type:S.me.role==="client"?"all":"orders",from:"",to:"",date:"all",cats:ROLE_CATS[S.me.role]};
+    if(S.me.role!=="client" && S.me.car && !S.me.car.kind) S.me.car.kind = S.me.role==="courier"?"courier":S.me.role;
+    stack=[]; tab="home"; navDir="tab"; toast(t("role_"+S.me.role)); render();
+  });
+};
 const orderCat = o => o.cat || (o.size==="X" ? "porter" : "car");
 const CAT_ICON = {courier:"bag", car:"car", porter:"truck"};
 function orderCard(o){
@@ -2623,6 +2662,7 @@ screens.profile = () => {
     ${walletCard()}
   </section>
   <div class="list">
+    <button class="li" id="roleRow">${I[ROLE_ICON[S.me.role||"client"]].replace("<svg",'<svg class="ic"')}<span class="grow">${t("modeLbl")}<span class="small muted" style="display:block">${t("role_"+(S.me.role||"client"))}</span></span>${I.chev}</button>
     <button class="li" id="drvSt">${I.idcard}<span class="grow">${t("driverStatus")}</span><span class="pill ${st==="verified"?"":"grey"}">${t("st_"+st)}</span>${st==="none"?I.chev:""}</button>
     <div class="li">${I.globe}<span class="grow">${t("language")}</span>${langSwitch()}</div>
     <div class="li brand-li"><span class="ic-dot" style="background:var(--accent)"></span><span class="grow">${t("colorTheme")}<span class="small muted" style="display:block">${esc(BRANDS[S.brand].name[S.lang])}</span></span><span class="swatches">${Object.entries(BRANDS).map(([k,b])=>`<button class="bsw ${S.brand===k?"on":""}" data-brand="${k}" style="background:${b.sw}" aria-label="${esc(b.name[S.lang])}"></button>`).join("")}</span></div>
@@ -2646,6 +2686,7 @@ screens.profile = () => {
   $("#pSupport").onclick=()=>go("support");
   $("#pChats").onclick=()=>go("chats");
   $("#pOp").onclick=()=>go("opPanel");
+  $("#roleRow").onclick=()=>go("rolePick");
   $("#drvSt").onclick=()=>{ if(st==="none") go("driverReg"); else if(st==="pending") toast(t("pendingTitle")); };
   document.querySelectorAll("[data-info]").forEach(b=>b.onclick=()=>go("info",{k:b.dataset.info}));
   $("#rate").onclick=()=>{ let v=5; sheet(`<h3>${t("likeApp")}</h3><div class="stargrab" id="sg">${[1,2,3,4,5].map(i=>`<button data-v="${i}" aria-label="${i}">${I.star}</button>`).join("")}</div><button class="btn" id="ok">${t("rate")}</button>`,el=>{
