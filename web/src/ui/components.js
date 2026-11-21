@@ -1,6 +1,6 @@
 // Shared UI pieces: escaping, avatar, trip card, top bar, sheets, toasts.
 import { I } from './icons.js';
-import { PLACES, ALL_PLACES } from './places.js';
+import { PLACES, ALL_PLACES, searchPlaces } from './places.js';
 import { t, tp, getLang } from '../i18n/index.js';
 import { durationText } from '../lib/time.js';
 
@@ -68,8 +68,16 @@ export function citySheet(current, onPick, allowAny = false) {
       const item = (c) => `<button data-c="${esc(c)}">${I.pinO}<span>${esc(c)}</span>${c === current ? `<span class="pill" style="margin-left:auto">${t('selected')}</span>` : ''}</button>`;
       const typed = q.value.trim();
       const own = typed.length >= 2 && !ALL_PLACES.some((c) => c.toLowerCase() === v) ? `<button data-c="${esc(typed)}">${I.plus}<span>${t('useTyped', { name: esc(typed) })}</span></button>` : '';
-      const groups = PLACES.map((g) => ({ g, items: g.items.filter((c) => c.toLowerCase().includes(v)) })).filter((x) => x.items.length);
-      cl.innerHTML = any + own + groups.map(({ g, items }) => `<p class="cl-group">${esc(g[getLang()] ?? g.ky)}</p>${items.map(item).join('')}`).join('');
+      const gname = (g) => esc(g[getLang()] ?? g.ky);
+      if (v) {
+        // Search across all ~1900 places by Kyrgyz or Russian name.
+        cl.innerHTML = any + own + searchPlaces(v).map(({ label, group }) => item(label).replace('</span>', `</span><small class="cl-reg">${gname(group)}</small>`)).join('');
+      } else {
+        // Bishkek points and towns open; regions fold so the list stays short.
+        cl.innerHTML = any + PLACES.map((g) => (g.key === 'bishkek' || g.key === 'cities')
+          ? `<p class="cl-group">${gname(g)}</p>${g.items.map(item).join('')}`
+          : `<details class="cl-fold"><summary class="cl-group">${gname(g)} · ${g.items.length}</summary>${g.items.map(item).join('')}</details>`).join('');
+      }
     };
     q.oninput = draw; draw();
     cl.onclick = (e) => { const b = e.target.closest('button'); if (b) { closeSheet(); onPick(b.dataset.c); } };

@@ -30,3 +30,17 @@ describe('memory search with places', () => {
     expect((await api.trips.search({ from: 'Бишкек', to: 'Бишкек' })).map((x) => x.id)).toEqual(['a']);
   });
 });
+
+import { searchPlaces, RU_NAMES } from '../src/ui/places.js';
+describe('searchPlaces', () => {
+  it('finds a village by its Russian name', () => {
+    const ru = Object.entries(RU_NAMES)[0];
+    expect(searchPlaces(ru[1].toLowerCase()).map((x) => x.label)).toContain(ru[0]);
+  });
+  it('caps the number of results', () => {
+    expect(searchPlaces('а').length).toBeLessThanOrEqual(80);
+  });
+  it('finds Naryn villages', () => {
+    expect(searchPlaces('ат-башы').some((x) => x.label.startsWith('Ат-Башы'))).toBe(true);
+  });
+});
