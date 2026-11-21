@@ -729,7 +729,21 @@ body.on-home .topbar .lang button.on{background:var(--surface);color:var(--accen
 .agree{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
 .agree input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--accent);flex:none}
 .btn:disabled{opacity:.45;pointer-events:none}
-.op-tabs button{font-size:12px;gap:4px;padding-left:4px;padding-right:4px;white-space:nowrap}
+.op-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:4px;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+.op-tabs::-webkit-scrollbar{display:none}
+.op-tabs button{flex:none;display:inline-flex;align-items:center;gap:4px;padding:9px 13px;border-radius:14px;font:600 13px var(--f-body,inherit);color:var(--muted);white-space:nowrap}
+.op-tabs button.on{background:var(--accent-ink);color:var(--on-ink,#fff)}
+.op-cat{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;flex:none;background:color-mix(in srgb,var(--cat) 15%,transparent);color:var(--cat)}
+.op-cat svg{width:20px;height:20px}
+.op-tl{list-style:none;margin:0;padding:0}
+.op-tl li{display:flex;gap:12px;position:relative;padding:0 0 14px}
+.op-tl li:last-child{padding-bottom:0}
+.op-tl li:not(:last-child)::before{content:"";position:absolute;left:5px;top:14px;bottom:0;width:2px;background:var(--line)}
+.op-tl i{width:12px;height:12px;border-radius:50%;margin-top:4px;flex:none;background:var(--accent)}
+.op-tl li.warn i{background:var(--star)} .op-tl li.bad i{background:var(--danger)}
+.op-tl b{display:block;font-weight:600;font-size:14px} .op-tl li.bad b{color:var(--danger)}
+.op-tl span{font-size:12.5px;color:var(--muted)}
+.op-chatlog{max-height:none;padding:12px}
 .op-tabs .unread-dot{position:static;margin-left:2px}
 .kyc-kv{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:14px;padding:7px 0;border-top:1px solid var(--line)}
 .kyc-kv span{color:var(--muted)} .kyc-kv b{font-weight:600;text-align:right}
@@ -960,7 +974,7 @@ ru:{
   errDoc:"Номер документа: 2 буквы и 7 цифр, например ID1234567", errPin:"ПИН — 14 цифр, начинается с 1 или 2", errPhotos:"Загрузите все три фото", errConsent:"Подтвердите согласие",
   pendingTitle:"Документы на проверке", pendingText:"Обычно проверка занимает до 24 часов. Мы пришлём уведомление.", demoVerify:"Демо: откройте панель оператора → «Паспорта» и одобрите заявку.", demoVerifyOld:"Демо: проверка пройдёт автоматически через несколько секунд.",
   docsSent:"Документы отправлены", docsNotif:"Документы водителя отправлены на проверку.", verifiedNotif:"Документы проверены! Теперь вы можете публиковать поездки.",
-  driverStatus:"Статус водителя", st_none:"Не зарегистрирован", st_pending:"На проверке", st_verified:"Проверен", st_rejected:"Отклонено", sts_rejected:"Отказ", opTabTickets:"Обращения", opTabKyc:"Паспорта", opTabBl:"Чёрный список", kycEmpty:"Нет заявок на проверку", kycApprove:"Одобрить", kycReject:"Отклонить", kycBlock:"В чёрный список", kycRejectQ:"Причина отказа", rej_photo:"Фото нечёткое", rej_data:"Данные не совпадают с фото", rej_expired:"Документ просрочен", rej_selfie:"Селфи не совпадает с паспортом", rej_bl:"Паспорт в чёрном списке", kycApproved:"Водитель одобрен", kycRejected:"Заявка отклонена", rejectedNotif:"Документы отклонены: {r}. Исправьте и отправьте заново.", rejTitle:"Документы отклонены", rejText:"Причина: {r}", resubmit:"Отправить заново", openOp:"Открыть панель оператора", blTitle:"Аккаунт заблокирован", blText:"Администратор добавил ваш номер или паспорт в чёрный список. Вы можете отправлять посылки и грузы, но не можете брать заказы и публиковать поездки.", blShort:"Можно отправлять посылки. Брать заказы нельзя.", blReason:"Причина: {r}", blPhone:"Этот номер в чёрном списке. Вход запрещён.", blAdd:"Добавить в чёрный список", blName:"Имя", blPin:"ПИН или номер паспорта", blReasonL:"Причина", blUnblock:"Разблокировать", blUnblockQ:"Разблокировать {name}?", blUnblockText:"Человек снова сможет брать заказы и публиковать поездки.", blEmpty:"Чёрный список пуст", blNeed:"Укажите телефон или ПИН/паспорт", blAdded:"Добавлен в чёрный список", blRemoved:"Удалён из чёрного списка", blHint:"Заблокированный сможет только отправлять посылки: брать заказы и публиковать поездки нельзя, даже с новым номером и этим же паспортом.", blDocMatch:"Этот паспорт в чёрном списке. Брать заказы нельзя.", blInList:"В чёрном списке", blMatchWarn:"Совпадает с чёрным списком: {name} ({r})", blBy:"добавил @{op}", blOtherPhones:"Пытался войти с номерами: {list}", kBirth:"Дата рождения", kDoc:"Документ", kLic:"Права", kIssued:"Выдан", kCar:"Машина", kNoPhoto:"нет фото", kycSince:"подана {t}", logoutBtn:"Выйти", photoErr:"Не удалось прочитать фото", stepOf:"Шаг {a} из {b}",
+  driverStatus:"Статус водителя", st_none:"Не зарегистрирован", st_pending:"На проверке", st_verified:"Проверен", st_rejected:"Отклонено", sts_rejected:"Отказ", opTabOrders:"Заказы", opTaker:"Взял заказ", opComplaints:"Жалоб: {n}", opTakenN:"Взял: {n}", opDoneN:"Доставил: {n}", opActive:"В работе", opWithComplaints:"С жалобой", opTakers:"Кто брал", opAllDrivers:"Все водители", opNoOrders:"Заказов нет", opOrderTitle:"История заказа", opSender:"Отправитель", opHistory:"Что происходило", opEvCreated:"{name} создал(а) заказ", opEvAccepted:"{name} взял(а) заказ", opEvPicked:"Посылку забрали у отправителя", opEvDelivered:"Доставлено получателю", opEvComplaint:"Жалоба №{no}: {r}", opHasComplaint:"По этому заказу есть жалобы: {n}. Ниже — вся история.", opChatLog:"Переписка отправителя и водителя", opNoChat:"Переписки нет", opDrvOrders:"Все заказы водителя", opTabTickets:"Обращения", opTabKyc:"Паспорта", opTabBl:"Чёрный список", kycEmpty:"Нет заявок на проверку", kycApprove:"Одобрить", kycReject:"Отклонить", kycBlock:"В чёрный список", kycRejectQ:"Причина отказа", rej_photo:"Фото нечёткое", rej_data:"Данные не совпадают с фото", rej_expired:"Документ просрочен", rej_selfie:"Селфи не совпадает с паспортом", rej_bl:"Паспорт в чёрном списке", kycApproved:"Водитель одобрен", kycRejected:"Заявка отклонена", rejectedNotif:"Документы отклонены: {r}. Исправьте и отправьте заново.", rejTitle:"Документы отклонены", rejText:"Причина: {r}", resubmit:"Отправить заново", openOp:"Открыть панель оператора", blTitle:"Аккаунт заблокирован", blText:"Администратор добавил ваш номер или паспорт в чёрный список. Вы можете отправлять посылки и грузы, но не можете брать заказы и публиковать поездки.", blShort:"Можно отправлять посылки. Брать заказы нельзя.", blReason:"Причина: {r}", blPhone:"Этот номер в чёрном списке. Вход запрещён.", blAdd:"Добавить в чёрный список", blName:"Имя", blPin:"ПИН или номер паспорта", blReasonL:"Причина", blUnblock:"Разблокировать", blUnblockQ:"Разблокировать {name}?", blUnblockText:"Человек снова сможет брать заказы и публиковать поездки.", blEmpty:"Чёрный список пуст", blNeed:"Укажите телефон или ПИН/паспорт", blAdded:"Добавлен в чёрный список", blRemoved:"Удалён из чёрного списка", blHint:"Заблокированный сможет только отправлять посылки: брать заказы и публиковать поездки нельзя, даже с новым номером и этим же паспортом.", blDocMatch:"Этот паспорт в чёрном списке. Брать заказы нельзя.", blInList:"В чёрном списке", blMatchWarn:"Совпадает с чёрным списком: {name} ({r})", blBy:"добавил @{op}", blOtherPhones:"Пытался войти с номерами: {list}", kBirth:"Дата рождения", kDoc:"Документ", kLic:"Права", kIssued:"Выдан", kCar:"Машина", kNoPhoto:"нет фото", kycSince:"подана {t}", logoutBtn:"Выйти", photoErr:"Не удалось прочитать фото", stepOf:"Шаг {a} из {b}",
   notifsTitle:"Уведомления", clear:"Очистить", quiet:"Пока тихо", quietText:"Здесь появятся брони, посылки и ответы водителей.",
   justNow:"только что", minAgo:"{n} мин назад", hAgo:"{n} ч назад", tripGone:"Поездка больше недоступна",
   info:"Информация", personal:"Личные данные", about:"О приложении", safety:"Безопасность", terms:"Пользовательское соглашение", privacy:"Политика конфиденциальности",
@@ -1106,7 +1120,7 @@ ky:{
   errDoc:"Документтин номери: 2 тамга жана 7 сан, мисалы ID1234567", errPin:"ПИН — 14 сан, 1 же 2 менен башталат", errPhotos:"Үч сүрөттү тең жүктөңүз", errConsent:"Макулдугуңузду ырастаңыз",
   pendingTitle:"Документтер текшерүүдө", pendingText:"Адатта текшерүү 24 саатка чейин созулат. Билдирүү жөнөтөбүз.", demoVerify:"Демо: оператор панели → «Паспорт» бөлүмүнөн арызды ырастаңыз.",
   docsSent:"Документтер жөнөтүлдү", docsNotif:"Айдоочунун документтери текшерүүгө жөнөтүлдү.", verifiedNotif:"Документтер текшерилди! Эми сапар жарыялай аласыз.",
-  driverStatus:"Айдоочу статусу", st_none:"Катталган эмес", st_pending:"Текшерүүдө", st_verified:"Текшерилген", st_rejected:"Четке кагылды", sts_rejected:"Четке кагылды", opTabTickets:"Кайрылуу", opTabKyc:"Паспорт", opTabBl:"Кара тизме", kycEmpty:"Текшерүүгө арыз жок", kycApprove:"Ырастоо", kycReject:"Четке кагуу", kycBlock:"Кара тизмеге", kycRejectQ:"Четке кагуунун себеби", rej_photo:"Сүрөт бүдөмүк", rej_data:"Маалымат сүрөт менен дал келбейт", rej_expired:"Документтин мөөнөтү өткөн", rej_selfie:"Селфи паспорт менен дал келбейт", rej_bl:"Паспорт кара тизмеде", kycApproved:"Айдоочу ырасталды", kycRejected:"Арыз четке кагылды", rejectedNotif:"Документтер четке кагылды: {r}. Оңдоп, кайра жөнөтүңүз.", rejTitle:"Документтер четке кагылды", rejText:"Себеби: {r}", resubmit:"Кайра жөнөтүү", openOp:"Оператор панелин ачуу", blTitle:"Аккаунт бөгөттөлгөн", blText:"Администратор номериңизди же паспортуңузду кара тизмеге киргизген. Посылка жана жүк жөнөтө аласыз, бирок заказ ала албайсыз жана сапар жарыялай албайсыз.", blShort:"Посылка жөнөтө аласыз. Заказ алууга болбойт.", blReason:"Себеби: {r}", blPhone:"Бул номер кара тизмеде. Кирүүгө тыюу салынган.", blAdd:"Кара тизмеге кошуу", blName:"Аты", blPin:"ПИН же паспорт номери", blReasonL:"Себеби", blUnblock:"Бөгөттөн чыгаруу", blUnblockQ:"{name} бөгөттөн чыгарылсынбы?", blUnblockText:"Ал кайра заказ алып, сапар жарыялай алат.", blEmpty:"Кара тизме бош", blNeed:"Телефон же ПИН/паспорт жазыңыз", blAdded:"Кара тизмеге кошулду", blRemoved:"Кара тизмеден чыгарылды", blHint:"Бөгөттөлгөн адам посылка жөнөтө гана алат: заказ алууга жана сапар жарыялоого болбойт, жаңы номер менен ошол эле паспорт келсе да.", blDocMatch:"Бул паспорт кара тизмеде. Заказ алууга болбойт.", blInList:"Кара тизмеде", blMatchWarn:"Кара тизме менен дал келет: {name} ({r})", blBy:"кошкон @{op}", blOtherPhones:"Бул номерлер менен кирүүгө аракет кылган: {list}", kBirth:"Туулган күнү", kDoc:"Документ", kLic:"Айдоочулук күбөлүк", kIssued:"Берилген", kCar:"Унаа", kNoPhoto:"сүрөт жок", kycSince:"берилди {t}", logoutBtn:"Чыгуу", photoErr:"Сүрөттү окуу мүмкүн болгон жок", stepOf:"{b} кадамдын {a}-кадамы",
+  driverStatus:"Айдоочу статусу", st_none:"Катталган эмес", st_pending:"Текшерүүдө", st_verified:"Текшерилген", st_rejected:"Четке кагылды", sts_rejected:"Четке кагылды", opTabOrders:"Заказдар", opTaker:"Заказды алган", opComplaints:"Арыз: {n}", opTakenN:"Алган: {n}", opDoneN:"Жеткирген: {n}", opActive:"Аткарылууда", opWithComplaints:"Арыз түшкөн", opTakers:"Ким алган", opAllDrivers:"Бардык айдоочулар", opNoOrders:"Заказ жок", opOrderTitle:"Заказдын тарыхы", opSender:"Жөнөтүүчү", opHistory:"Эмне болду", opEvCreated:"{name} заказ берди", opEvAccepted:"{name} заказды алды", opEvPicked:"Посылка жөнөтүүчүдөн алынды", opEvDelivered:"Алуучуга жеткирилди", opEvComplaint:"№{no} арыз: {r}", opHasComplaint:"Бул заказ боюнча арыз түшкөн: {n}. Төмөндө толук тарыхы.", opChatLog:"Жөнөтүүчү менен айдоочунун кат алышуусу", opNoChat:"Кат алышуу жок", opDrvOrders:"Айдоочунун бардык заказдары", opTabTickets:"Кайрылуу", opTabKyc:"Паспорт", opTabBl:"Кара тизме", kycEmpty:"Текшерүүгө арыз жок", kycApprove:"Ырастоо", kycReject:"Четке кагуу", kycBlock:"Кара тизмеге", kycRejectQ:"Четке кагуунун себеби", rej_photo:"Сүрөт бүдөмүк", rej_data:"Маалымат сүрөт менен дал келбейт", rej_expired:"Документтин мөөнөтү өткөн", rej_selfie:"Селфи паспорт менен дал келбейт", rej_bl:"Паспорт кара тизмеде", kycApproved:"Айдоочу ырасталды", kycRejected:"Арыз четке кагылды", rejectedNotif:"Документтер четке кагылды: {r}. Оңдоп, кайра жөнөтүңүз.", rejTitle:"Документтер четке кагылды", rejText:"Себеби: {r}", resubmit:"Кайра жөнөтүү", openOp:"Оператор панелин ачуу", blTitle:"Аккаунт бөгөттөлгөн", blText:"Администратор номериңизди же паспортуңузду кара тизмеге киргизген. Посылка жана жүк жөнөтө аласыз, бирок заказ ала албайсыз жана сапар жарыялай албайсыз.", blShort:"Посылка жөнөтө аласыз. Заказ алууга болбойт.", blReason:"Себеби: {r}", blPhone:"Бул номер кара тизмеде. Кирүүгө тыюу салынган.", blAdd:"Кара тизмеге кошуу", blName:"Аты", blPin:"ПИН же паспорт номери", blReasonL:"Себеби", blUnblock:"Бөгөттөн чыгаруу", blUnblockQ:"{name} бөгөттөн чыгарылсынбы?", blUnblockText:"Ал кайра заказ алып, сапар жарыялай алат.", blEmpty:"Кара тизме бош", blNeed:"Телефон же ПИН/паспорт жазыңыз", blAdded:"Кара тизмеге кошулду", blRemoved:"Кара тизмеден чыгарылды", blHint:"Бөгөттөлгөн адам посылка жөнөтө гана алат: заказ алууга жана сапар жарыялоого болбойт, жаңы номер менен ошол эле паспорт келсе да.", blDocMatch:"Бул паспорт кара тизмеде. Заказ алууга болбойт.", blInList:"Кара тизмеде", blMatchWarn:"Кара тизме менен дал келет: {name} ({r})", blBy:"кошкон @{op}", blOtherPhones:"Бул номерлер менен кирүүгө аракет кылган: {list}", kBirth:"Туулган күнү", kDoc:"Документ", kLic:"Айдоочулук күбөлүк", kIssued:"Берилген", kCar:"Унаа", kNoPhoto:"сүрөт жок", kycSince:"берилди {t}", logoutBtn:"Чыгуу", photoErr:"Сүрөттү окуу мүмкүн болгон жок", stepOf:"{b} кадамдын {a}-кадамы",
   notifsTitle:"Билдирүүлөр", clear:"Тазалоо", quiet:"Азырынча тынч", quietText:"Бул жерде брондоолор, посылкалар жана айдоочулардын жооптору чыгат.",
   justNow:"азыр эле", minAgo:"{n} мүн. мурун", hAgo:"{n} саат мурун", tripGone:"Бул сапар жок болуп калды",
   info:"Маалымат", personal:"Жеке маалымат", about:"Колдонмо жөнүндө", safety:"Коопсуздук", terms:"Колдонуучу келишими", privacy:"Купуялык саясаты",
@@ -2129,13 +2143,14 @@ const opNeedsReply = th => th.status==="open";
 const opFilter = {st:"all"};
 screens.opPanel = () => {
   if(!opGuard()) return;
-  seedTickets();
+  seedTickets(); seedTakenOrders();
   const opm=opMe();
   topbar(t("opTitle"),{sub:"@"+opm.login,canBack:true,right:`<button class="icon-btn" id="opTeamBtn" aria-label="${t("opTeam")}">${I.user.replace("<svg",'<svg width="22" height="22"')}</button>`});
   const view=opFilter.view||"tickets";
   if(view!=="tickets"){
-    $("#screen").innerHTML = opTabsHtml(view) + (view==="kyc"?opKycList():opBlList()) + `<p class="tag-demo" style="text-align:left">${t("opDemo")}</p>`;
+    $("#screen").innerHTML = opTabsHtml(view) + (view==="kyc"?opKycList():view==="orders"?opOrdersView():opBlList()) + `<p class="tag-demo" style="text-align:left">${t("opDemo")}</p>`;
     bindOpTabs(); $("#opTeamBtn").onclick=()=>go("opTeam");
+    if(view==="orders") bindOpOrders();
     document.querySelectorAll("[data-kyc]").forEach(b=>b.onclick=()=>go("opKyc",{id:b.dataset.kyc}));
     bindBl(); return;
   }
@@ -2197,7 +2212,7 @@ screens.opTicket = ({id}) => {
   $("#opComp").onsubmit=e=>{ e.preventDefault(); reply($("#opIn").value); };
   document.querySelectorAll("[data-tpl]").forEach(b=>b.onclick=()=>{ const i=$("#opIn"); i.value=t(b.dataset.tpl,{name:u.name,driver:drv?.name||""}); i.focus(); });
   const B=x=>document.getElementById(x);
-  if(B("opOrder")) B("opOrder").onclick=()=>go("order",{id:o.id});
+  if(B("opOrder")) B("opOrder").onclick=()=>go("opOrder",{id:o.id});
   if(B("opRefund")) B("opRefund").onclick=()=>confirmSheet(t("opRefundQ"),t("opRefundText",{n:o.price,name:u.name}),t("opRefund",{n:o.price}),()=>{
     const w=wallet(); w.balance+=o.price; w.tx.unshift({id:uid(),type:"refund",amount:o.price,at:Date.now()}); o.refunded=true;
     sys(t("opRefundSys",{n:o.price})); pushMsg(th,"peer",t("opRefundMsg",{n:o.price})); th.status="answered"; celebrate(t("opRefundDone")); render(); },false);
@@ -2258,7 +2273,7 @@ function kycSet(id,status,reason){
   if(id==="me"){ const d=S.me.driver; d.status=status; d.rejectReason=reason; if(status==="verified") notify("verifiedNotif",{},"check"); else notify("rejectedNotif",{r:t("rej_"+reason)},"bell"); return; }
   const k=kycQueue().find(x=>x.id===id); if(k){ k.status=status; k.rejectReason=reason; }
 }
-const opTabsHtml = v => `<div class="mode three op-tabs" role="tablist">${[["tickets","opTabTickets",I.headset],["kyc","opTabKyc",I.idcard],["bl","opTabBl",I.lock]].map(([k,l,ic])=>`<button role="tab" data-opv="${k}" class="${v===k?"on":""}" aria-selected="${v===k}">${t(l)}${k==="kyc"&&kycItems().length?` <b class="unread-dot">${kycItems().length}</b>`:""}</button>`).join("")}</div>`;
+const opTabsHtml = v => `<div class="op-tabs" role="tablist">${[["tickets","opTabTickets",I.headset],["kyc","opTabKyc",I.idcard],["orders","opTabOrders",I.box],["bl","opTabBl",I.lock]].map(([k,l,ic])=>`<button role="tab" data-opv="${k}" class="${v===k?"on":""}" aria-selected="${v===k}">${t(l)}${k==="kyc"&&kycItems().length?` <b class="unread-dot">${kycItems().length}</b>`:""}</button>`).join("")}</div>`;
 function bindOpTabs(){ document.querySelectorAll("[data-opv]").forEach(b=>b.onclick=()=>{ opFilter.view=b.dataset.opv; render(); }); }
 const agoTxt = ms => { const m=Math.max(1,Math.round((Date.now()-ms)/60000)); return m<60?(S.lang==="ky"?`${m} мүн мурун`:`${m} мин назад`): m<1440?(S.lang==="ky"?`${Math.round(m/60)} саат мурун`:`${Math.round(m/60)} ч назад`) : dShort(iso(new Date(ms))); };
 function opKycList(){
@@ -2327,6 +2342,116 @@ screens.opKyc = ({id}) => {
     el.querySelectorAll("[data-rr]").forEach(b=>b.onclick=()=>{ closeSheet(); kycSet(k.id,"rejected",b.dataset.rr); toast(t("kycRejected")); back(); });
   });
   $("#kBl").onclick=()=>blAddSheet({name:k.name,phone:k.phone,pin:ps.pin,doc:ps.num,reason:hit?blReasonTxt(hit.reason):""},()=>{ kycSet(k.id,"rejected","data"); stack.pop(); });
+};
+
+// ---------- operator: orders that were taken, who took them, what happened ----------
+// Demo: a few taken orders with history are seeded so the panel has something to show.
+function seedTakenOrders(){
+  S.orders=S.orders||[];
+  if(S.orders.some(o=>o.demoTaken)) return;
+  const W=(ru,ky)=>({ru,ky}), H=3600e3, now=Date.now();
+  const mk=(id,drv,sender,sphone,from,to,what,cat,size,price,status,ago,extra={})=>{
+    const created=now-ago, acc=created+20*60e3, pick=acc+40*60e3, del=pick+5*H;
+    const o={id,demoTaken:true,userId:"x_"+id,senderName:sender,senderPhone:sphone,from,to,what,cat,size,price,date:iso(new Date(created)),pickup:W("центр","борбор"),drop:"",rname:extra.rname||"Айгүл",rphone:extra.rphone||"+996 555 40 41 42",payer:"me",status,driverId:drv,createdAt:created,photo:"",
+      acceptedAt:acc,pickedAt:status==="accepted"?undefined:pick,deliveredAt:status==="delivered"?del:undefined,events:extra.events||[],chatLog:extra.chat||[]};
+    return o;
+  };
+  const list=[
+    mk("ot1","u2","Гүлзат","+996 555 31 22 10","Бишкек","Ош",W("Сумка с одеждой","Кийим салынган сумка"),"car","L",500,"onway",30*H,{rname:"Нургүл",
+      events:[{at:now-6*H,ky:"Айдоочу Токтогулда токтоду, андан бери жылган жок",ru:"Водитель остановился в Токтогуле и больше не двигается"},{at:now-3*H,ky:"Айдоочу телефонду албай жатат (жөнөтүүчү 4 жолу чалды)",ru:"Водитель не берёт трубку (отправитель звонил 4 раза)"}],
+      chat:[["s","Саламатсызбы, качан жетесиз?",-20*H],["d","Кечинде жетем",-19*H],["s","Алуучу күтүп жатат, кайдасыз?",-5*H],["s","Жооп бериңизчи!",-3*H]]}),
+    mk("ot2","u4","Мээрим","+996 700 22 33 44","Бишкек","Каракол",W("Торт","Торт"),"car","M",400,"delivered",50*H,{chat:[["s","Этият алып барыңызчы",-49*H],["d","Макул, муздаткычым бар",-49*H]]}),
+    mk("ot3","u7","Нурбек","+996 555 77 88 99","Бишкек","Токмок",W("Холодильник","Муздаткыч"),"porter","X",2500,"delivered",28*H,{
+      events:[{at:now-20*H,ky:"Алуучу: муздаткычтын эшиги сынган",ru:"Получатель: у холодильника сломана дверца"}]}),
+    mk("ot4","u8","Алина","+996 555 40 50 60","Бишкек, Жал","Бишкек, Ала-Тоо аянты",W("Документы","Документтер"),"courier","S",150,"delivered",6*H),
+    mk("ot5","u9","Асан","+996 551 22 33 44","Кара-Балта","Бишкек",W("Кирпич, 3000 шт","Кыш, 3000 даана"),"truck","T",18000,"onway",5*H),
+    mk("ot6","u1","Тимур","+996 777 15 25 35","Бишкек","Чолпон-Ата",W("Ноутбук","Ноутбук"),"car","S",450,"accepted",1*H),
+    mk("ot7","u6","Айпери","+996 705 11 00 22","Ош","Бишкек",W("Сухофрукты","Кургатылган жемиштер"),"car","L",600,"delivered",75*H),
+  ];
+  S.orders.push(...list);
+  const T=threads();
+  if(T["support:1041"]){ T["support:1041"].orderId="ot1"; }
+  if(!T["support:1044"]){
+    const ago=19*H;
+    T["support:1044"]={id:"support:1044",kind:"support",ref:"1044",no:1044,peer:"",user:{name:"Нурбек",phone:"+996 555 77 88 99"},mine:false,reason:"damaged",orderId:"ot3",status:"open",unread:0,createdAt:now-ago,lastAt:now-ago+60000,
+      msgs:[{id:uid(),from:"sys",text:"№1044",at:now-ago,type:"text"},{id:uid(),from:"me",text:"Муздаткычты жеткиришти, бирок эшиги сынган. Жүктөөдө түшүрүп алышкан окшойт.",at:now-ago+60000,type:"text"}]};
+  }
+}
+const orderComplaints = o => Object.values(threads()).filter(th=>th.kind==="support"&&th.orderId===o.id);
+const takenOrders = () => (S.orders||[]).filter(o=>o.driverId);
+function orderTaker(o){ return o.driverId==="me"?S.me:user(o.driverId); }
+function opOrderRow(o){
+  const cat=orderCat(o), d=orderTaker(o), c=orderComplaints(o).length;
+  return `<button class="li" data-opo="${o.id}" style="align-items:flex-start"><span class="op-cat cat-${cat}">${I[CAT_ICON[cat]]}</span><span class="grow" style="min-width:0">
+    <span class="row between" style="gap:8px"><b style="font-weight:600">${esc(loc(o.what))}</b><span class="small" style="flex:none;font-weight:700">${o.price} с</span></span>
+    <span class="small muted" style="display:block">${esc(o.from)} → ${esc(o.to)}</span>
+    <span class="small" style="display:block">${t("opTaker")}: <b>${esc(d?.name||"—")}</b> <span class="muted">${esc(d?.phone||"")}</span></span>
+    <span class="row" style="gap:6px;margin-top:4px;flex-wrap:wrap">${statusPill(o)}${c?`<span class="pill red">${t("opComplaints",{n:c})}</span>`:""}${userBlocked(d)?`<span class="pill red">${t("blInList")}</span>`:""}</span></span>${I.chev}</button>`;
+}
+function opOrdersView(){
+  seedTakenOrders();
+  const f=opFilter.of||"all", all=takenOrders();
+  const by={all:()=>true, active:o=>o.status==="accepted"||o.status==="onway", delivered:o=>o.status==="delivered", complaints:o=>orderComplaints(o).length>0};
+  const drv=opFilter.drv;
+  if(f==="drivers" && !drv){
+    const ids=[...new Set(all.map(o=>o.driverId))];
+    const rows=ids.map(id=>{ const d=orderTaker({driverId:id}), mine=all.filter(o=>o.driverId===id); return {id,d,n:mine.length,done:mine.filter(o=>o.status==="delivered").length,c:mine.reduce((a,o)=>a+orderComplaints(o).length,0)}; }).sort((a,b)=>b.c-a.c||b.n-a.n);
+    return chips(f,all,by) + `<div class="list">${rows.map(r=>`<button class="li" data-opd="${r.id}">${avatar(r.d||{name:"?"},"sm")}<span class="grow" style="min-width:0"><b style="font-weight:600">${esc(r.d?.name||"—")}</b>
+      <span class="small muted" style="display:block">${esc(r.d?.phone||"")} · ${esc(r.d?.car?`${r.d.car.brand} ${r.d.car.model}`:"")}</span>
+      <span class="row" style="gap:6px;margin-top:4px;flex-wrap:wrap"><span class="pill grey">${t("opTakenN",{n:r.n})}</span><span class="pill">${t("opDoneN",{n:r.done})}</span>${r.c?`<span class="pill red">${t("opComplaints",{n:r.c})}</span>`:""}${userBlocked(r.d)?`<span class="pill red">${t("blInList")}</span>`:""}</span></span>${I.chev}</button>`).join("")}</div>`;
+  }
+  let list=drv?all.filter(o=>o.driverId===drv):all.filter(by[f]||by.all);
+  list=list.sort((a,b)=>(orderComplaints(b).length-orderComplaints(a).length)||((b.acceptedAt||0)-(a.acceptedAt||0)));
+  const head=drv?`<div class="row between" style="gap:8px"><b>${esc(orderTaker({driverId:drv})?.name||"")}</b><button class="linkbtn" id="opDrvClear">${t("opAllDrivers")}</button></div>`:"";
+  return chips(drv?"drivers":f,all,by) + head + (list.length?`<div class="list">${list.map(opOrderRow).join("")}</div>`:`<div class="card empty">${I.box}<p>${t("opNoOrders")}</p></div>`);
+  function chips(cur,all,by){ return `<div class="chips scroll">${[["all","fAll"],["active","opActive"],["delivered","ost_delivered"],["complaints","opWithComplaints"],["drivers","opTakers"]].map(([k,l])=>`<button class="chip ${cur===k?"on":""}" data-of="${k}">${t(l)}${k!=="drivers"?`<span class="cnt">${all.filter(by[k]).length}</span>`:""}</button>`).join("")}</div>`; }
+}
+function bindOpOrders(){
+  document.querySelectorAll("[data-of]").forEach(b=>b.onclick=()=>{ opFilter.of=b.dataset.of; opFilter.drv=""; render(); });
+  document.querySelectorAll("[data-opd]").forEach(b=>b.onclick=()=>{ opFilter.drv=b.dataset.opd; render(); });
+  document.querySelectorAll("[data-opo]").forEach(b=>b.onclick=()=>go("opOrder",{id:b.dataset.opo}));
+  const c=$("#opDrvClear"); if(c) c.onclick=()=>{ opFilter.drv=""; render(); };
+}
+screens.opOrder = ({id}) => {
+  if(!opGuard()) return;
+  const o=(S.orders||[]).find(x=>x.id===id); if(!o){ back(); return; }
+  const cat=orderCat(o), d=orderTaker(o), comps=orderComplaints(o);
+  const dAll=takenOrders().filter(x=>x.driverId===o.driverId), dComp=dAll.reduce((a,x)=>a+orderComplaints(x).length,0);
+  const sender=o.userId==="me"?{name:S.me.name,phone:S.me.phone}:{name:o.senderName,phone:o.senderPhone};
+  topbar(t("opOrderTitle"),{sub:`${esc(o.from)} → ${esc(o.to)}`,canBack:true});
+  const ev=[[o.createdAt,t("opEvCreated",{name:sender.name})],[o.acceptedAt,t("opEvAccepted",{name:d?.name||"—"})],[o.pickedAt,t("opEvPicked")],[o.deliveredAt,t("opEvDelivered")],[o.cancelledAt,t("ost_cancelled")]]
+    .filter(x=>x[0]).map(([at,text])=>({at,text,kind:"ok"}))
+    .concat((o.events||[]).map(e=>({at:e.at,text:loc(e),kind:"warn"})))
+    .concat(comps.map(th=>({at:th.createdAt,text:t("opEvComplaint",{no:th.no,r:t("r_"+th.reason)}),kind:"bad"})))
+    .sort((a,b)=>a.at-b.at);
+  const when=ts=>`${dShort(iso(new Date(ts)))}, ${hhmm(ts)}`;
+  const orderThread=threads()["order:"+o.id];
+  const chat=(o.chatLog||[]).map(([w,text,rel])=>({who:w==="d"?(d?.name||""):sender.name,mine:w==="s",text,at:Date.now()+rel*1}))
+    .concat(orderThread?orderThread.msgs.filter(m=>m.from!=="sys").map(m=>({who:m.from==="me"?sender.name:(d?.name||""),mine:m.from==="me",text:m.text,at:m.at})):[]);
+  const kv=(l,v)=>`<div class="kyc-kv"><span>${l}</span><b style="user-select:all">${v}</b></div>`;
+  $("#screen").innerHTML = `
+  ${comps.length?`<div class="banner bl-banner">${I.info}<span>${t("opHasComplaint",{n:comps.length})}</span></div>`:""}
+  <div class="card stack" style="gap:6px">
+    <div class="row" style="gap:12px"><span class="op-cat cat-${cat}">${I[CAT_ICON[cat]]}</span><div style="flex:1;min-width:0"><b>${esc(loc(o.what))}</b><div class="small muted">${t("cat_"+cat)} · ${t("size"+o.size)}</div></div><b>${o.price} с</b></div>
+    <div class="row" style="gap:6px">${statusPill(o)}</div>
+    ${kv(t("opSender"),`${esc(sender.name)} · ${esc(sender.phone||"")}`)}
+    ${kv(t("recipientName"),`${esc(o.rname||"—")} · ${esc(o.rphone||"")}`)}
+    ${kv(t("from"),esc(o.from)+(loc(o.pickup)?", "+esc(loc(o.pickup)):""))}${kv(t("to"),esc(o.to))}
+  </div>
+  <div class="section-title">${t("opTaker")}</div>
+  <div class="card stack" style="gap:8px">
+    <div class="row">${avatar(d||{name:"?"},"sm")}<div style="flex:1;min-width:0"><b>${esc(d?.name||"—")}</b> ${isVerified(o.driverId)?`<span class="badge-ok">${I.shieldOk}</span>`:""}<div class="small" style="user-select:all">${esc(d?.phone||"")}</div><div class="small muted">${esc(d?.car?`${d.car.brand} ${d.car.model}${d.car.year?", "+d.car.year:""}`:"")}</div></div>${userBlocked(d)?`<span class="pill red">${t("blInList")}</span>`:""}</div>
+    <div class="row" style="gap:6px;flex-wrap:wrap"><span class="pill grey">${t("opTakenN",{n:dAll.length})}</span><span class="pill">${t("opDoneN",{n:dAll.filter(x=>x.status==="delivered").length})}</span>${dComp?`<span class="pill red">${t("opComplaints",{n:dComp})}</span>`:""}${reviewsOf(o.driverId).length?`<span class="pill grey">★ ${ratingOf(o.driverId).toFixed(1)}</span>`:""}</div>
+    <div class="op-actions"><button class="chip" id="opDrvOrders">${t("opDrvOrders")}</button>${d&&o.driverId!=="me"&&!userBlocked(d)?`<button class="chip" id="opDrvBl">${t("kycBlock")}</button>`:""}</div>
+  </div>
+  <div class="section-title">${t("opHistory")}</div>
+  <div class="card"><ol class="op-tl">${ev.map(e=>`<li class="${e.kind}"><i></i><div><b>${esc(e.text)}</b><span>${when(e.at)}</span></div></li>`).join("")}</ol></div>
+  ${comps.length?`<div class="section-title">${t("opTabTickets")}</div><div class="list">${comps.map(th=>`<button class="li" data-opt="${esc(th.id)}"><span class="grow"><b style="font-weight:600">${t("ticketNo",{no:th.no})} · ${esc(th.user?.name||"")}</b><span class="small muted" style="display:block">${t("r_"+th.reason)}</span></span><span class="pill ${th.status==="closed"?"grey":""}">${t("tk_"+th.status)}</span>${I.chev}</button>`).join("")}</div>`:""}
+  <div class="section-title">${t("opChatLog")}</div>
+  ${chat.length?`<div class="card msgs op-chatlog">${chat.map(m=>`<div class="msg ${m.mine?"peer":"me"}"><b class="who">${esc(m.who)}</b><p>${esc(m.text)}</p></div>`).join("")}</div>`:`<p class="small muted" style="margin:0">${t("opNoChat")}</p>`}`;
+  document.querySelectorAll("[data-opt]").forEach(b=>b.onclick=()=>go("opTicket",{id:b.dataset.opt}));
+  $("#opDrvOrders").onclick=()=>{ opFilter.view="orders"; opFilter.of="drivers"; opFilter.drv=o.driverId; stack=stack.filter(x=>x.name==="opPanel"); render(); };
+  const bl=$("#opDrvBl"); if(bl) bl.onclick=()=>blAddSheet({name:d.name,phone:d.phone,reason:comps[0]?t("r_"+comps[0].reason):""},()=>{ d.blocked=true; });
 };
 
 // ---------- operator login ----------
