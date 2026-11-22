@@ -507,6 +507,8 @@ function applyBrand(){
 try{ matchMedia("(prefers-color-scheme: dark)").addEventListener("change",applyBrand); new MutationObserver(applyBrand).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]}); }catch(e){}
 
 // ---------- i18n helpers ----------
+// The operator panel published as its own artifact does not share data with the app.
+if(window.JOLDOSH_APP_URL){ L.ky.opDemo="Демо: бул өзүнчө админ колдонмосу, ичинде мисал маалыматтар. Азырынча колдонуучунун колдонмосу менен туташкан эмес; чыныгы версияда экөө бир серверге туташат."; L.ru.opDemo="Демо: отдельное приложение оператора с примерами данных. Пока не связано с приложением пользователя; в рабочей версии оба подключатся к одному серверу."; }
 const t = (k,v={}) => { let s=(L[S.lang]&&L[S.lang][k])??L.ru[k]??k; return typeof s==="string"? s.replace(/\{(\w+)\}/g,(_,x)=>v[x]??"") : s; };
 const tp = (n,k) => { const f=L[S.lang].P[k]; if(typeof f==="string") return f; const m10=n%10,m100=n%100; return m10===1&&m100!==11?f[0]:(m10>=2&&m10<=4&&(m100<10||m100>=20)?f[1]:f[2]); };
 const loc = c => c && typeof c==="object" ? (c[S.lang]||c.ru) : (c||"");
@@ -1516,7 +1518,7 @@ function adminNav(){
       ${item("team",I.user,t("opTeam"),0)}
     </div>
     <div class="an-foot">
-      <a class="an-item" href="./" target="_blank" rel="noopener">${I.chev}<span>${t("anOpenApp")}</span></a>
+      <a class="an-item" href="${window.JOLDOSH_APP_URL||"./"}" target="_blank" rel="noopener">${I.chev}<span>${t("anOpenApp")}</span></a>
       ${langSwitch()}
       ${opm?`<div class="an-me"><span>@${esc(opm.login)}</span><button class="linkbtn" id="anOut">${t("opLogout")}</button></div>`:""}
     </div>`;

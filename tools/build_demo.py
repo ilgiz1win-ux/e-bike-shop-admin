@@ -16,3 +16,15 @@ for name in ('index', 'admin'):
     out = src.replace('<!--APP_CSS-->', f'<style>\n{css}</style>').replace('<!--APP_JS-->', f'<script>\n{js}</script>')
     (APP / f'{name}.html').write_text(out, encoding='utf-8')
     print(f'{name}.html', len(out))
+
+# The operator panel as its own artifact: the host wraps the page in its own <html>/<head>/<body>,
+# so the outer tags go; the link back opens the app artifact.
+import re
+adm = (APP / 'admin.html').read_text(encoding='utf-8')
+head = adm[adm.index('<title>'):adm.index('</head>')]
+body = adm[adm.index('<body class="admin">') + len('<body class="admin">'):adm.index('</body>')]
+head = head.replace('<script>window.JOLDOSH_ADMIN = true;</script>',
+                    '<script>window.JOLDOSH_ADMIN = true; window.JOLDOSH_APP_URL = "https://claude.ai/artifact/2TtPMLGtp8aw42gsEMJbGe";</script>')
+out_dir = APP.parent / 'admin'; out_dir.mkdir(exist_ok=True)
+(out_dir / 'index.html').write_text(head + body, encoding='utf-8')
+print('admin/index.html', len(head + body))
