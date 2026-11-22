@@ -863,6 +863,44 @@ button.kyc-ph{cursor:zoom-in;padding:0}
 
 /* an h2 that keeps the look of a card heading (sign-in steps) */
 h2.h3{font:700 1rem/1.3 var(--f-display);margin:0;letter-spacing:0}
+
+/* ---------- motion layer ----------
+   One idea: things move along a road. Every animation states a change (arrival, selection, progress);
+   all run on transform/opacity and stop under prefers-reduced-motion (global rule above). */
+:root{--m-out:cubic-bezier(.23,1,.32,1);--m-spring:cubic-bezier(.34,1.56,.64,1)}
+/* home: a road under the route card where a car, a bike and a truck pass by */
+.hero-road{position:relative;height:30px;margin-top:12px;overflow:hidden;border-radius:10px;background:rgba(255,255,255,.08)}
+.hero-road::before{content:"";position:absolute;left:0;right:-48px;top:50%;height:2px;margin-top:-1px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 24px,transparent 24px 48px);animation:roadmove 1.6s linear infinite}
+.hero-road .mv{position:absolute;left:0;top:1px;width:28px;height:28px;color:#fff;opacity:.95;transform:translateX(-40px);animation:pass 11s linear infinite;will-change:transform}
+.hero-road .mv svg{width:28px;height:28px}
+.hero-road .mv.b{animation-duration:15s;animation-delay:-6s;opacity:.8}
+.hero-road .mv.c{animation-duration:19s;animation-delay:-12s}
+@keyframes pass{from{transform:translateX(-40px)}to{transform:translateX(520px)}}
+/* service tiles arrive one after another; the chosen tile's vehicle hops */
+.svc-grid.enter .svct{animation:tileIn .5s var(--m-out) both;animation-delay:calc(var(--k,0)*50ms)}
+@keyframes tileIn{from{opacity:0;transform:translateY(12px) scale(.95)}to{opacity:1;transform:none}}
+.svct .svct-art{transition:transform .25s var(--m-out),background-color .2s ease}
+.svct[aria-pressed="true"] .svct-art svg{animation:hop .55s var(--m-spring)}
+@keyframes hop{0%{transform:none}40%{transform:translateY(-7px) rotate(-8deg)}100%{transform:none}}
+/* cards and quick actions lift under a mouse, press in under a finger */
+.ordercard,.qa,.trip,.svct{transition:transform .2s var(--m-out),box-shadow .2s ease,border-color .15s ease,background-color .15s ease}
+@media (hover:hover) and (pointer:fine){
+  .ordercard:hover,.qa:hover,.trip:hover{transform:translateY(-2px)}
+  .svct:hover .svct-art{transform:scale(1.08)}
+}
+.qa .qa-ic{transition:transform .3s var(--m-spring)}
+.qa:active .qa-ic{transform:rotate(-10deg) scale(1.12)}
+/* choices in forms spring when picked */
+.catopt.on .cdot,.sizes button.on b,.seg button.on{animation:selPop .35s var(--m-spring)}
+@keyframes selPop{0%{transform:scale(.88)}60%{transform:scale(1.06)}100%{transform:none}}
+/* order status: the bar fills segment by segment */
+.steps.s-anim i.on{transform-origin:left center;animation:fillIn .45s var(--m-out) both;animation-delay:calc(var(--n,0)*110ms)}
+@keyframes fillIn{from{transform:scaleX(0)}to{transform:none}}
+/* sign-in: the words over the map rise in after the picture */
+.wl-copy > *{animation:rise .6s var(--m-out) both}
+.wl-copy > *:nth-child(2){animation-delay:.12s}
+.wl-copy > *:nth-child(3){animation-delay:.24s}
+@media (prefers-reduced-motion: reduce){.hero-road .mv{animation:none;transform:translateX(30px)}.hero-road .mv.b,.hero-road .mv.c{display:none}}
 </style>
 
 <div class="app">
@@ -1525,6 +1563,12 @@ function checkVerification(){
 setInterval(()=>{ if(!ADMIN && tickOrders()){ save(); renderTabs(); const top=stack[stack.length-1]; if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select") && (!top||top.name==="order")) render(); } updateTracking(); },1500);
 setInterval(()=>{ if(checkVerification()){ save(); if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select")) render(); else renderTabs(); toast(t("verifiedNotif")); } },2000);
 
+// numbers in the service tiles run up from zero when the home screen opens
+function countUp(els){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  els.forEach(el=>{ const m=el.textContent.match(/^(\d+)(.*)$/); if(!m) return; const n=+m[1], rest=m[2]; if(!n) return;
+    const t0=performance.now(), d=650; const step=now=>{ const k=Math.min(1,(now-t0)/d), e=1-Math.pow(1-k,3); el.textContent=Math.round(n*e)+rest; if(k<1) requestAnimationFrame(step); }; el.textContent="0"+rest; requestAnimationFrame(step); });
+}
 function calmVideos(){ try{ if(matchMedia("(prefers-reduced-motion: reduce)").matches) document.querySelectorAll("video.anim-vid").forEach(v=>{ v.removeAttribute("autoplay"); v.pause(); }); else document.querySelectorAll("video.anim-vid").forEach(v=>{ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }); }catch(e){} }
 function render(){
   if(!S.brand) S.brand="teal";
@@ -1689,6 +1733,7 @@ screens.home = () => {
     {k:"ride",label:t("fRide"),n:rideN,ic:I.users.replace(/ width="18" height="18"/,""),cls:"cat-ride"},
     ...CATS.map(c=>({k:c,label:t("cat_"+c),n:catCount(c),ic:I[CAT_ICON[c]],cls:"cat-"+c}))];
   const svcOn = v => v.k==="all" ? (f.type==="all"&&!f.cats.length) : v.k==="ride" ? f.type==="ride" : (f.type!=="ride"&&f.cats.length===1&&f.cats[0]===v.k);
+  const homeEnter = navDir==="tab" || !screens.home.seen;
   const dirty = (!work&&f.type!=="all")||f.from||f.to||f.date!=="all"||(!work&&f.cats&&f.cats.length);
   let lastDate="", body="";
   items.slice(0,150).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
@@ -1701,10 +1746,11 @@ screens.home = () => {
       <button class="rc-row" id="fTo">${I.pin}<span><small>${t("to")}</small><b>${esc(f.to)||t("anyCity")}</b></span></button>
       <button class="swap" id="fSwap" aria-label="${t("swap")}">${I.swap}</button>
     </div>
+    <div class="hero-road" aria-hidden="true"><span class="mv a">${I.car}</span><span class="mv b">${I.bike}</span><span class="mv c">${I.truck}</span></div>
   </section>
   ${work?`<div class="workbanner cat-${ROLE_CATS[role][0]}"><span class="cdot">${I[ROLE_ICON[role]]}</span><div><b>${t("workTitle",{role:t("role_"+role)})}</b><span>${t("workText")}</span></div></div>`:""}
   ${meBlocked()?`<button class="bl-strip" id="blStrip">${I.lock}<span><b>${t("blTitle")}</b>${t("blShort")}</span>${I.chev}</button>`:""}
-  ${work?"":`<div class="svc-grid" role="group" aria-label="${t("ordersFilter")}">${svcTiles.map(v=>{ const on=svcOn(v); return `<button class="svct ${v.cls}" data-svct="${v.k}" aria-pressed="${on}"><span class="svct-t"><b>${v.label}</b><small>${v.n} ${t("svcItems")}</small></span><span class="svct-art">${v.ic}</span></button>`; }).join("")}</div>`}
+  ${work?"":`<div class="svc-grid ${homeEnter?"enter":""}" role="group" aria-label="${t("ordersFilter")}">${svcTiles.map(v=>{ const on=svcOn(v); return `<button class="svct ${v.cls}" style="--k:${svcTiles.indexOf(v)}" data-svct="${v.k}" aria-pressed="${on}"><span class="svct-t"><b>${v.label}</b><small>${v.n} ${t("svcItems")}</small></span><span class="svct-art">${v.ic}</span></button>`; }).join("")}</div>`}
   <div class="quick" ${work?'hidden':''}>
     <button class="qa" id="sendCta"><span class="qa-ic">${I.camera}</span><b>${t("sendCtaT")}</b><span>${t("sendCtaS")}</span></button>
     <button class="qa" id="qaTrip"><span class="qa-ic">${I.car}</span><b>${t("chTrip")}</b><span>${t("qaTripS")}</span></button>
@@ -1733,6 +1779,7 @@ screens.home = () => {
   const r=$("#fReset"); if(r) r.onclick=()=>{ S.feed={type:"all",from:"",to:"",date:"all",cats:[]}; render(); };
   const a=$("#fAdv"); if(a) a.onclick=()=>{ search.all=false; go("search"); };
   const ask=$("#fAsk"); if(ask) ask.onclick=()=>{ Object.assign(search,{mode, from:f.from||search.from, to:f.to||search.to, date:f.date==="all"?search.date:f.date, all:true}); go("search"); };
+  if(homeEnter){ screens.home.seen=true; countUp($("#screen").querySelectorAll(".svct small")); }
   bindTrips(); bindOrders();
 };
 
@@ -2011,7 +2058,7 @@ screens.order = ({id}) => {
     <div class="sms-bubble"><small>SMS · ${esc(o.rphone)}</small>${esc(rcptWarnText(o))}</div>
     ${o.rcptWarnedAt?`<p class="small muted" style="margin:0">${t("rwSentAt",{when:dShort(iso(new Date(o.rcptWarnedAt)))+", "+hhmm(o.rcptWarnedAt)})}</p>`:""}
     <div class="contact"><button type="button" id="rwSms">${I.chat} ${o.rcptWarnedAt?t("rwResend"):t("rwSend")}</button><a href="https://wa.me/${digits(o.rphone)}?text=${encodeURIComponent(rcptWarnText(o))}" target="_blank" rel="noopener">${I.phone} WhatsApp</a></div></div>`:""}
-  ${o.status!=="cancelled"?`<div class="card"><div class="steps s-${o.status}">${steps.map((s,i)=>`<i class="${i<=si?"on":""}"></i>`).join("")}</div><div class="row between small muted" style="margin-top:6px">${steps.map((s,i)=>`<span style="${i===si?"color:var(--fg);font-weight:600":""}">${t("step_"+s)}</span>`).join("")}</div></div>`:""}
+  ${o.status!=="cancelled"?`<div class="card"><div class="steps s-anim s-${o.status}">${steps.map((s,i)=>`<i class="${i<=si?"on":""}" style="--n:${i}"></i>`).join("")}</div><div class="row between small muted" style="margin-top:6px">${steps.map((s,i)=>`<span style="${i===si?"color:var(--fg);font-weight:600":""}">${t("step_"+s)}</span>`).join("")}</div></div>`:""}
   ${showTrack?`<div class="section-title">${t("trackTitle")}</div>
     <div class="card stack" style="padding:12px"><canvas id="trkMap" data-id="${o.id}" style="width:100%;border-radius:12px;display:block" role="img" aria-label="${t("trackTitle")}"></canvas>
     <div class="row" style="gap:10px;align-items:flex-start"><div class="carpic" style="width:38px;height:38px;color:var(--accent-ink)">${I.car}</div><div id="trkInfo" class="small" style="flex:1"></div></div>

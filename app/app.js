@@ -650,6 +650,12 @@ function checkVerification(){
 setInterval(()=>{ if(!ADMIN && tickOrders()){ save(); renderTabs(); const top=stack[stack.length-1]; if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select") && (!top||top.name==="order")) render(); } updateTracking(); },1500);
 setInterval(()=>{ if(checkVerification()){ save(); if(!$("#overlay").innerHTML && !document.activeElement?.matches("input,textarea,select")) render(); else renderTabs(); toast(t("verifiedNotif")); } },2000);
 
+// numbers in the service tiles run up from zero when the home screen opens
+function countUp(els){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  els.forEach(el=>{ const m=el.textContent.match(/^(\d+)(.*)$/); if(!m) return; const n=+m[1], rest=m[2]; if(!n) return;
+    const t0=performance.now(), d=650; const step=now=>{ const k=Math.min(1,(now-t0)/d), e=1-Math.pow(1-k,3); el.textContent=Math.round(n*e)+rest; if(k<1) requestAnimationFrame(step); }; el.textContent="0"+rest; requestAnimationFrame(step); });
+}
 function calmVideos(){ try{ if(matchMedia("(prefers-reduced-motion: reduce)").matches) document.querySelectorAll("video.anim-vid").forEach(v=>{ v.removeAttribute("autoplay"); v.pause(); }); else document.querySelectorAll("video.anim-vid").forEach(v=>{ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }); }catch(e){} }
 function render(){
   if(!S.brand) S.brand="teal";
@@ -814,6 +820,7 @@ screens.home = () => {
     {k:"ride",label:t("fRide"),n:rideN,ic:I.users.replace(/ width="18" height="18"/,""),cls:"cat-ride"},
     ...CATS.map(c=>({k:c,label:t("cat_"+c),n:catCount(c),ic:I[CAT_ICON[c]],cls:"cat-"+c}))];
   const svcOn = v => v.k==="all" ? (f.type==="all"&&!f.cats.length) : v.k==="ride" ? f.type==="ride" : (f.type!=="ride"&&f.cats.length===1&&f.cats[0]===v.k);
+  const homeEnter = navDir==="tab" || !screens.home.seen;
   const dirty = (!work&&f.type!=="all")||f.from||f.to||f.date!=="all"||(!work&&f.cats&&f.cats.length);
   let lastDate="", body="";
   items.slice(0,150).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
@@ -826,10 +833,11 @@ screens.home = () => {
       <button class="rc-row" id="fTo">${I.pin}<span><small>${t("to")}</small><b>${esc(f.to)||t("anyCity")}</b></span></button>
       <button class="swap" id="fSwap" aria-label="${t("swap")}">${I.swap}</button>
     </div>
+    <div class="hero-road" aria-hidden="true"><span class="mv a">${I.car}</span><span class="mv b">${I.bike}</span><span class="mv c">${I.truck}</span></div>
   </section>
   ${work?`<div class="workbanner cat-${ROLE_CATS[role][0]}"><span class="cdot">${I[ROLE_ICON[role]]}</span><div><b>${t("workTitle",{role:t("role_"+role)})}</b><span>${t("workText")}</span></div></div>`:""}
   ${meBlocked()?`<button class="bl-strip" id="blStrip">${I.lock}<span><b>${t("blTitle")}</b>${t("blShort")}</span>${I.chev}</button>`:""}
-  ${work?"":`<div class="svc-grid" role="group" aria-label="${t("ordersFilter")}">${svcTiles.map(v=>{ const on=svcOn(v); return `<button class="svct ${v.cls}" data-svct="${v.k}" aria-pressed="${on}"><span class="svct-t"><b>${v.label}</b><small>${v.n} ${t("svcItems")}</small></span><span class="svct-art">${v.ic}</span></button>`; }).join("")}</div>`}
+  ${work?"":`<div class="svc-grid ${homeEnter?"enter":""}" role="group" aria-label="${t("ordersFilter")}">${svcTiles.map(v=>{ const on=svcOn(v); return `<button class="svct ${v.cls}" style="--k:${svcTiles.indexOf(v)}" data-svct="${v.k}" aria-pressed="${on}"><span class="svct-t"><b>${v.label}</b><small>${v.n} ${t("svcItems")}</small></span><span class="svct-art">${v.ic}</span></button>`; }).join("")}</div>`}
   <div class="quick" ${work?'hidden':''}>
     <button class="qa" id="sendCta"><span class="qa-ic">${I.camera}</span><b>${t("sendCtaT")}</b><span>${t("sendCtaS")}</span></button>
     <button class="qa" id="qaTrip"><span class="qa-ic">${I.car}</span><b>${t("chTrip")}</b><span>${t("qaTripS")}</span></button>
@@ -858,6 +866,7 @@ screens.home = () => {
   const r=$("#fReset"); if(r) r.onclick=()=>{ S.feed={type:"all",from:"",to:"",date:"all",cats:[]}; render(); };
   const a=$("#fAdv"); if(a) a.onclick=()=>{ search.all=false; go("search"); };
   const ask=$("#fAsk"); if(ask) ask.onclick=()=>{ Object.assign(search,{mode, from:f.from||search.from, to:f.to||search.to, date:f.date==="all"?search.date:f.date, all:true}); go("search"); };
+  if(homeEnter){ screens.home.seen=true; countUp($("#screen").querySelectorAll(".svct small")); }
   bindTrips(); bindOrders();
 };
 
@@ -1136,7 +1145,7 @@ screens.order = ({id}) => {
     <div class="sms-bubble"><small>SMS · ${esc(o.rphone)}</small>${esc(rcptWarnText(o))}</div>
     ${o.rcptWarnedAt?`<p class="small muted" style="margin:0">${t("rwSentAt",{when:dShort(iso(new Date(o.rcptWarnedAt)))+", "+hhmm(o.rcptWarnedAt)})}</p>`:""}
     <div class="contact"><button type="button" id="rwSms">${I.chat} ${o.rcptWarnedAt?t("rwResend"):t("rwSend")}</button><a href="https://wa.me/${digits(o.rphone)}?text=${encodeURIComponent(rcptWarnText(o))}" target="_blank" rel="noopener">${I.phone} WhatsApp</a></div></div>`:""}
-  ${o.status!=="cancelled"?`<div class="card"><div class="steps s-${o.status}">${steps.map((s,i)=>`<i class="${i<=si?"on":""}"></i>`).join("")}</div><div class="row between small muted" style="margin-top:6px">${steps.map((s,i)=>`<span style="${i===si?"color:var(--fg);font-weight:600":""}">${t("step_"+s)}</span>`).join("")}</div></div>`:""}
+  ${o.status!=="cancelled"?`<div class="card"><div class="steps s-anim s-${o.status}">${steps.map((s,i)=>`<i class="${i<=si?"on":""}" style="--n:${i}"></i>`).join("")}</div><div class="row between small muted" style="margin-top:6px">${steps.map((s,i)=>`<span style="${i===si?"color:var(--fg);font-weight:600":""}">${t("step_"+s)}</span>`).join("")}</div></div>`:""}
   ${showTrack?`<div class="section-title">${t("trackTitle")}</div>
     <div class="card stack" style="padding:12px"><canvas id="trkMap" data-id="${o.id}" style="width:100%;border-radius:12px;display:block" role="img" aria-label="${t("trackTitle")}"></canvas>
     <div class="row" style="gap:10px;align-items:flex-start"><div class="carpic" style="width:38px;height:38px;color:var(--accent-ink)">${I.car}</div><div id="trkInfo" class="small" style="flex:1"></div></div>

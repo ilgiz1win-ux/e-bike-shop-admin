@@ -858,3 +858,41 @@ button.kyc-ph{cursor:zoom-in;padding:0}
 
 /* an h2 that keeps the look of a card heading (sign-in steps) */
 h2.h3{font:700 1rem/1.3 var(--f-display);margin:0;letter-spacing:0}
+
+/* ---------- motion layer ----------
+   One idea: things move along a road. Every animation states a change (arrival, selection, progress);
+   all run on transform/opacity and stop under prefers-reduced-motion (global rule above). */
+:root{--m-out:cubic-bezier(.23,1,.32,1);--m-spring:cubic-bezier(.34,1.56,.64,1)}
+/* home: a road under the route card where a car, a bike and a truck pass by */
+.hero-road{position:relative;height:30px;margin-top:12px;overflow:hidden;border-radius:10px;background:rgba(255,255,255,.08)}
+.hero-road::before{content:"";position:absolute;left:0;right:-48px;top:50%;height:2px;margin-top:-1px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 24px,transparent 24px 48px);animation:roadmove 1.6s linear infinite}
+.hero-road .mv{position:absolute;left:0;top:1px;width:28px;height:28px;color:#fff;opacity:.95;transform:translateX(-40px);animation:pass 11s linear infinite;will-change:transform}
+.hero-road .mv svg{width:28px;height:28px}
+.hero-road .mv.b{animation-duration:15s;animation-delay:-6s;opacity:.8}
+.hero-road .mv.c{animation-duration:19s;animation-delay:-12s}
+@keyframes pass{from{transform:translateX(-40px)}to{transform:translateX(520px)}}
+/* service tiles arrive one after another; the chosen tile's vehicle hops */
+.svc-grid.enter .svct{animation:tileIn .5s var(--m-out) both;animation-delay:calc(var(--k,0)*50ms)}
+@keyframes tileIn{from{opacity:0;transform:translateY(12px) scale(.95)}to{opacity:1;transform:none}}
+.svct .svct-art{transition:transform .25s var(--m-out),background-color .2s ease}
+.svct[aria-pressed="true"] .svct-art svg{animation:hop .55s var(--m-spring)}
+@keyframes hop{0%{transform:none}40%{transform:translateY(-7px) rotate(-8deg)}100%{transform:none}}
+/* cards and quick actions lift under a mouse, press in under a finger */
+.ordercard,.qa,.trip,.svct{transition:transform .2s var(--m-out),box-shadow .2s ease,border-color .15s ease,background-color .15s ease}
+@media (hover:hover) and (pointer:fine){
+  .ordercard:hover,.qa:hover,.trip:hover{transform:translateY(-2px)}
+  .svct:hover .svct-art{transform:scale(1.08)}
+}
+.qa .qa-ic{transition:transform .3s var(--m-spring)}
+.qa:active .qa-ic{transform:rotate(-10deg) scale(1.12)}
+/* choices in forms spring when picked */
+.catopt.on .cdot,.sizes button.on b,.seg button.on{animation:selPop .35s var(--m-spring)}
+@keyframes selPop{0%{transform:scale(.88)}60%{transform:scale(1.06)}100%{transform:none}}
+/* order status: the bar fills segment by segment */
+.steps.s-anim i.on{transform-origin:left center;animation:fillIn .45s var(--m-out) both;animation-delay:calc(var(--n,0)*110ms)}
+@keyframes fillIn{from{transform:scaleX(0)}to{transform:none}}
+/* sign-in: the words over the map rise in after the picture */
+.wl-copy > *{animation:rise .6s var(--m-out) both}
+.wl-copy > *:nth-child(2){animation-delay:.12s}
+.wl-copy > *:nth-child(3){animation-delay:.24s}
+@media (prefers-reduced-motion: reduce){.hero-road .mv{animation:none;transform:translateX(30px)}.hero-road .mv.b,.hero-road .mv.c{display:none}}
