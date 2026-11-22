@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ky">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Жолдош Админ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<!--APP_CSS-->
+<style>
+/* Operator panel: the app's own tokens and components, laid out for a desk screen.
+   Left: a fixed sidebar of sections. Right: the section, up to 960px wide. */
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--fg)}
+body.admin .app{max-width:none;margin:0 0 0 252px;min-height:100%}
+body.admin main{max-width:960px;width:100%;margin:0 auto;box-sizing:border-box;padding-block:24px 64px;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
+body.admin .topbar{padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+body.admin .composer{left:252px}
+body.admin .composer .in{max-width:900px}
+body.admin.in-chat main{padding-bottom:180px}
+#adminNav{position:fixed;left:0;top:0;bottom:0;width:252px;box-sizing:border-box;z-index:30;background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:18px;padding:calc(18px + env(safe-area-inset-top,0px)) 14px calc(16px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left,0px));overflow-y:auto}
+.an-brand{display:flex;align-items:center;gap:10px;padding:0 6px}
+.an-logo{width:38px;height:38px;border-radius:12px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;flex:none}
+.an-logo svg{width:20px;height:20px}
+.an-brand b{display:block;font:800 17px var(--f-display);letter-spacing:-.01em}
+.an-brand small{display:block;font-size:12px;color:var(--muted)}
+.an-list,.an-foot{display:flex;flex-direction:column;gap:2px}
+.an-foot{margin-top:auto;gap:10px}
+.an-item{display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;min-height:42px;padding:0 12px;border-radius:12px;font-weight:600;font-size:14.5px;color:var(--fg);text-align:left;text-decoration:none;transition:background-color .15s ease}
+.an-item svg{width:20px;height:20px;color:var(--muted);flex:none}
+.an-item span{flex:1}
+.an-item b{min-width:22px;height:22px;padding:0 6px;box-sizing:border-box;border-radius:11px;display:grid;place-items:center;font-size:12px;background:var(--line);color:var(--fg)}
+.an-item b.warn{background:var(--accent);color:var(--on-accent)}
+@media (hover:hover) and (pointer:fine){.an-item:hover{background:var(--surface-2,var(--bg))}}
+.an-item.on{background:var(--accent-soft);color:var(--accent-ink)}
+.an-item.on svg{color:var(--accent-ink)}
+.an-item[disabled]{opacity:.45;cursor:default}
+.an-me{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-radius:12px;background:var(--bg);font-size:13px;color:var(--muted)}
+#adminNav .lang{align-self:flex-start}
+@media (max-width:899px){
+  #adminNav{position:sticky;top:0;bottom:auto;width:auto;flex-direction:row;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 10px max(12px,env(safe-area-inset-left,0px));border-right:0;border-bottom:1px solid var(--line);overflow-x:auto;overflow-y:hidden}
+  .an-brand small,.an-foot .an-item,.an-me{display:none}
+  .an-list{flex-direction:row;gap:4px}
+  .an-item{width:auto;white-space:nowrap}
+  .an-foot{margin:0 0 0 auto;flex-direction:row}
+  body.admin .app{margin:0}
+  body.admin main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  body.admin .composer{left:0}
+  body.admin .topbar{top:0}
+}
+</style>
+<script>window.JOLDOSH_ADMIN = true;</script>
+</head>
+<body class="admin">
+<nav id="adminNav" aria-label="Оператор панели"></nav>
+<div class="app">
+  <header class="topbar" id="topbar"></header>
+  <main id="screen"></main>
+</div>
+<div class="tabs" hidden><nav id="tabs"></nav></div>
+<div id="overlay"></div>
+<!--APP_JS-->
+</body>
+</html>
