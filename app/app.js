@@ -2553,7 +2553,8 @@ screens.profile = () => {
     <button class="li" id="rate">${I.starO}<span class="grow">${t("rateApp")}</span>${I.chev}</button>
   </div>
   <div class="list"><button class="li danger" id="out">${I.out}<span class="grow">${t("logout")}</span></button></div>
-  <p class="tag-demo">${t("version")}</p>`;
+  <p class="tag-demo">${t("version")}</p>
+  <a class="tag-demo" href="admin.html" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:underline;color:var(--muted)">${t("openOp")}</a>`;
   bindLang($("#screen"));
   document.querySelectorAll("[data-brand]").forEach(b=>b.onclick=()=>{ S.brand=b.dataset.brand; render(); toast(BRANDS[S.brand].name[S.lang]); });
   $("#pd").onclick=()=>go("personal");
