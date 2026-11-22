@@ -574,7 +574,7 @@ function citySheet(current,onPick,allowAny=false){
     cl.onclick=e=>{ const b=e.target.closest("button"); if(b){ closeSheet(); onPick(b.dataset.c); } };
   });
 }
-const langSwitch = () => `<div class="lang" role="group" aria-label="Тил / Язык"><button data-lang="ky" class="${S.lang==="ky"?"on":""}">KG</button><button data-lang="ru" class="${S.lang==="ru"?"on":""}">RU</button></div>`;
+const langSwitch = () => `<div class="lang" role="group" aria-label="Тил / Язык"><button data-lang="ky" aria-pressed="${S.lang==="ky"}" class="${S.lang==="ky"?"on":""}">KG</button><button data-lang="ru" aria-pressed="${S.lang==="ru"}" class="${S.lang==="ru"?"on":""}">RU</button></div>`;
 function bindLang(root=document){ root.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>{ S.lang=b.dataset.lang; document.documentElement.lang=S.lang; render(); }); }
 
 // ---------- OTP (SMS code) ----------
@@ -709,7 +709,7 @@ screens.welcome = () => {
     $("#screen").innerHTML = `${hero}
     <form class="card stack" id="reg" novalidate>
       <div class="steps"><i class="on"></i><i></i></div>
-      <h3>${t("login")}</h3>
+      <h2 class="h3">${t("login")}</h2>
       <label class="lbl" for="rName">${t("yourName")}</label>
       <div class="field">${I.user}<input id="rName" maxlength="30" placeholder="${t("namePh")}" autocomplete="given-name" value="${esc(auth.name)}"></div>
       <label class="lbl" for="rPhone">${t("phone")}</label>
@@ -726,7 +726,7 @@ screens.welcome = () => {
       sendCode(auth.phone); auth.step="code"; navDir="push"; render();
     };
   } else {
-    $("#screen").innerHTML = `${hero}<div class="card stack" id="otpBox"><div class="steps"><i class="on"></i><i class="on"></i></div><h3>${t("codeTitle")}</h3>${otpBlock()}</div>`;
+    $("#screen").innerHTML = `${hero}<div class="card stack" id="otpBox"><div class="steps"><i class="on"></i><i class="on"></i></div><h2 class="h3">${t("codeTitle")}</h2>${otpBlock()}</div>`;
     bindOtp($("#otpBox"),()=>{
       S.me={id:"me",name:auth.name,phone:auth.phone,phoneVerified:true,age:"",gender:"",reg:TODAY().slice(0,7),car:null,driver:{status:"none"}};
       notify("welcomeNotif",{name:auth.name},"bell");
@@ -835,8 +835,8 @@ screens.home = () => {
     <button class="qa" id="qaTrip"><span class="qa-ic">${I.car}</span><b>${t("chTrip")}</b><span>${t("qaTripS")}</span></button>
   </div>
 
-  <span class="lbl">${t("leavingFrom")}</span><div class="chips scroll" id="fromChips" aria-label="${t("leavingFrom")}"><button class="chip ${!f.from?"on":""}" data-from="">${t("fAll")}<span class="cnt">${[...pool0,...opool0].filter(x=>inPlace(x.to,f.to)).length}</span></button><button class="chip ${isIntra?"on":""}" id="fIntra">${t("inBishkek")}<span class="cnt">${intraN}</span></button>${cities.map(c=>`<button class="chip ${f.from===c&&!isIntra?"on":""}" data-from="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
-  <div class="chips scroll">${[["all","allDays"],[TODAY(),"today"],[addDays(1),"tomorrow"],[addDays(2),"afterTomorrow"]].map(([v,l])=>`<button class="chip ${f.date===v?"on":""}" data-fd="${v}">${t(l)}</button>`).join("")}</div>
+  <span class="lbl">${t("leavingFrom")}</span><div class="chips scroll" id="fromChips" aria-label="${t("leavingFrom")}"><button class="chip ${!f.from?"on":""}" aria-pressed="${!f.from}" data-from="">${t("fAll")}<span class="cnt">${[...pool0,...opool0].filter(x=>inPlace(x.to,f.to)).length}</span></button><button class="chip ${isIntra?"on":""}" aria-pressed="${isIntra}" id="fIntra">${t("inBishkek")}<span class="cnt">${intraN}</span></button>${cities.map(c=>`<button class="chip ${f.from===c&&!isIntra?"on":""}" aria-pressed="${f.from===c&&!isIntra}" data-from="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
+  <div class="chips scroll">${[["all","allDays"],[TODAY(),"today"],[addDays(1),"tomorrow"],[addDays(2),"afterTomorrow"]].map(([v,l])=>`<button class="chip ${f.date===v?"on":""}" aria-pressed="${f.date===v}" data-fd="${v}">${t(l)}</button>`).join("")}</div>
   <div class="found"><span>${t("found",{n:items.length})}</span>${dirty?`<button class="linkbtn" id="fReset">${t("resetFilters")}</button>`:`<button class="linkbtn" id="fAdv">${t("advSearch")}</button>`}</div>
   ${items.length? body : `<div class="card empty">${f.type==="parcel"?I.box:I.road}<h3 style="margin-top:8px">${t("noOffers")}</h3><p>${t("noOffersText")}</p><button class="btn" id="fAsk" style="margin-top:12px">${t("askDrivers")}</button></div>`}`;
   const set = (k,v) => { f[k]=v; render(); };
@@ -1048,13 +1048,13 @@ screens.orderNew = () => {
   const o=od, pr0=priceRange(o.from,o.to), pr=pr0&&(o.size==="X"||o.size==="T")?pr0.map(v=>Math.round(v*(o.size==="T"?10:4)/50)*50):pr0;
   $("#screen").innerHTML = `
   <form class="stack" id="of" novalidate>
-    <label class="upl ${o.photo?"has":""}" style="aspect-ratio:16/10">${o.photo?`<img src="${o.photo}" alt=""><span class="ok">${I.check}</span>`:`${I.camera}<span style="font-size:14px">${t("takePhoto")}</span>`}<input type="file" accept="image/*" id="oPh" aria-label="${t("orderPhoto")}"></label>
+    <label class="upl ${o.photo?"has":""}" style="aspect-ratio:16/10">${o.photo?`<img src="${o.photo}" alt=""><span class="ok">${I.check}</span>`:`${I.camera}<span style="font-size:0.875rem">${t("takePhoto")}</span>`}<input type="file" accept="image/*" id="oPh" aria-label="${t("orderPhoto")}"></label>
     <label class="lbl" for="oWhat">${t("parcelWhat")}</label>
     <div class="field">${I.box}<input id="oWhat" maxlength="60" placeholder="${t("parcelWhatPh")}" value="${esc(o.what)}"></div>
     <span class="lbl">${t("whoDelivers")}</span>
-    <div class="catpick" id="oCat">${CATS.map(c=>`<button type="button" class="catopt cat-${c} ${o.cat===c?"on":""}" data-oc="${c}"><span class="cdot">${I[CAT_ICON[c]]}</span><b>${t("cat_"+c)}</b><small>${t("catHint_"+c)}</small></button>`).join("")}</div>
+    <div class="catpick" id="oCat" role="radiogroup" aria-label="${t("whoDelivers")}">${CATS.map(c=>`<button type="button" role="radio" aria-checked="${o.cat===c}" class="catopt cat-${c} ${o.cat===c?"on":""}" data-oc="${c}"><span class="cdot">${I[CAT_ICON[c]]}</span><b>${t("cat_"+c)}</b><small>${t("catHint_"+c)}</small></button>`).join("")}</div>
     <span class="lbl">${t("parcelSize")}</span>
-    <div class="sizes four" id="oSz">${CAT_SIZES[o.cat].map(z=>`<button type="button" data-z="${z}" class="${o.size===z?"on":""}"><b>${t("size"+z)}</b>${t("size"+z+"d")}</button>`).join("")}</div>
+    <div class="sizes four" id="oSz" role="radiogroup" aria-label="${t("parcelSize")}">${CAT_SIZES[o.cat].map(z=>`<button type="button" role="radio" aria-checked="${o.size===z}" data-z="${z}" class="${o.size===z?"on":""}"><b>${t("size"+z)}</b>${t("size"+z+"d")}</button>`).join("")}</div>
     <label class="fragile-opt ${o.fragile?"on":""}"><input type="checkbox" id="oFrag" ${o.fragile?"checked":""}><span class="fr-ic">${I.fragile}</span><span class="grow"><b>${t("fragile")}</b><small>${t("fragileHint")}</small></span><i class="tgl"></i></label>
     ${o.fragile?`<label class="lbl" for="oWorth">${t("worthLbl")}</label><div class="field">${I.wallet}<input type="number" id="oWorth" inputmode="numeric" min="0" step="100" placeholder="20000" value="${esc(o.worth)}"></div>
     <label class="agree"><input type="checkbox" id="oWarnR" ${o.warnRcpt?"checked":""}><span>${t("warnRcptOpt")}</span></label>`:""}
@@ -1073,10 +1073,10 @@ screens.orderNew = () => {
     <label class="lbl" for="oDate">${t("whenSend")}</label>
     <label class="field" for="oDate">${I.cal}<input type="date" id="oDate" min="${TODAY()}" value="${o.date}"></label>
     <label class="lbl" for="oPrice">${t("yourPrice")}</label>
-    <div class="field">${I.wallet}<input type="number" id="oPrice" inputmode="numeric" min="0" step="10" placeholder="500" value="${esc(o.price)}" style="font-weight:700;font-size:18px"></div>
-    ${pr?`<div class="chips">${[pr[0],Math.round((pr[0]+pr[1])/100)*50,pr[1]].map(v=>`<button type="button" class="chip ${+o.price===v?"on":""}" data-pr="${v}">${v} с</button>`).join("")}</div><p class="small muted" style="margin:-4px 0 0">${t("priceHint",{a:pr[0],b:pr[1]})}</p>`:""}
+    <div class="field">${I.wallet}<input type="number" id="oPrice" inputmode="numeric" min="0" step="10" placeholder="500" value="${esc(o.price)}" style="font-weight:700;font-size:1.125rem"></div>
+    ${pr?`<div class="chips">${[pr[0],Math.round((pr[0]+pr[1])/100)*50,pr[1]].map(v=>`<button type="button" class="chip ${+o.price===v?"on":""}" aria-pressed="${+o.price===v}" data-pr="${v}">${v} с</button>`).join("")}</div><p class="small muted" style="margin:-4px 0 0">${t("priceHint",{a:pr[0],b:pr[1]})}</p>`:""}
     <span class="lbl">${t("whoPays")}</span>
-    <div class="seg"><button type="button" data-pay="me" class="${o.payer==="me"?"on":""}">${t("payMe")}</button><button type="button" data-pay="recipient" class="${o.payer==="recipient"?"on":""}">${t("payRecipient")}</button></div>
+    <div class="seg" role="radiogroup" aria-label="${t("whoPays")}"><button type="button" role="radio" aria-checked="${o.payer==="me"}" data-pay="me" class="${o.payer==="me"?"on":""}">${t("payMe")}</button><button type="button" role="radio" aria-checked="${o.payer==="recipient"}" data-pay="recipient" class="${o.payer==="recipient"?"on":""}">${t("payRecipient")}</button></div>
     <p class="small muted" style="margin:0">${t("parcelNote")}</p>
     <button class="btn" type="submit">${t("publishOrder")}</button>
   </form>`;
@@ -1875,7 +1875,7 @@ screens.opUser = ({id}) => {
   $("#screen").innerHTML = `
   ${bl?`<div class="banner bl-banner">${I.lock}<span>${esc(t("blInList"))}: ${esc(blReasonTxt(bl.reason))}</span></div>`:""}
   <div class="card stack" style="gap:10px">
-    <div class="row" style="gap:12px">${avatar(d,"md")}<div style="flex:1;min-width:0"><b style="font-size:18px">${esc(d.name)}</b> ${isVerified(id)?`<span class="badge-ok">${I.shieldOk}</span>`:""}
+    <div class="row" style="gap:12px">${avatar(d,"md")}<div style="flex:1;min-width:0"><b style="font-size:1.125rem">${esc(d.name)}</b> ${isVerified(id)?`<span class="badge-ok">${I.shieldOk}</span>`:""}
       <div class="small" style="user-select:all">${esc(d.phone||"")}</div>
       <div class="small muted">${k?`<span class="frag-tag cat-${k==="car"?"car":k}" style="background:color-mix(in srgb,var(--cat) 12%,transparent);border-color:transparent;color:var(--cat)">${I[CAT_ICON[k]]}${t("kind_"+k)}</span> `:""}${t("opSince",{d:esc(d.reg||"—")})}</div></div></div>
     <button type="button" class="us-docs" id="usDocs">${I.idcard}<span>${t("usDocsLine",{n:dx.x.relatives.length})}${dx.x.agreement?" · "+t("lbSigned"):""}</span>${I.chev}</button>
@@ -2151,7 +2151,7 @@ screens.wallet = ({need}={}) => {
   <div class="card stack">
     <div class="chips">${TOPUPS.map(v=>`<button type="button" class="chip ${+st.amount===v?"on":""}" data-amt="${v}">${v} с</button>`).join("")}</div>
     <label class="lbl" for="amt">${t("amountLbl")}</label>
-    <div class="field">${I.wallet}<input id="amt" type="number" inputmode="numeric" min="50" step="10" value="${esc(st.amount)}" style="font-weight:700;font-size:18px"></div>
+    <div class="field">${I.wallet}<input id="amt" type="number" inputmode="numeric" min="50" step="10" value="${esc(st.amount)}" style="font-weight:700;font-size:1.125rem"></div>
     <span class="lbl">${t("payMethod")}</span>
     <div class="paytiles">${PAY_METHODS.map(m=>`<button type="button" class="pt ${st.method===m?"on":""}" data-pm="${esc(m)}"><span class="pt-badge" style="background:${avColor(m)}">${esc(m[0])}</span>${esc(m)}</button>`).join("")}</div>
     <button class="btn" id="payBtn">${t("payFor",{n:`<span id="payN">${esc(st.amount)}</span>`})}</button>
@@ -2238,7 +2238,7 @@ screens.trip = ({id}) => {
       <div class="stop" style="margin-top:14px"><b>${tr.arr||"—"} ${esc(tr.to)}</b></div>
     </div>
     <div class="muted small">${t("paymentLbl",{p:t("pay_"+tr.payment)})}</div>
-    <div><span class="price" style="font-size:18px">${tr.price} с</span> <span class="muted small">${t("perSeat")}, ${left?t("leftSeats",{n:left,seats:tp(left,"seat")}):t("noSeats")}</span></div>
+    <div><span class="price" style="font-size:1.125rem">${tr.price} с</span> <span class="muted small">${t("perSeat")}, ${left?t("leftSeats",{n:left,seats:tp(left,"seat")}):t("noSeats")}</span></div>
     <div class="parcel-row"><div class="bx">${I.box}</div><div class="small">${tr.parcel?`<b>${t("parcelTakes")}</b><div class="muted">${t("parcelPrice",{p:tr.parcelPrice})}</div>`:`<span class="muted">${t("parcelNo")}</span>`}</div></div>
   </div>
   <div class="section-title">${t("driver")}</div>
@@ -2619,7 +2619,7 @@ function phoneSheet(){
   sheet(`<h3>${t("newPhone")}</h3><div class="field">${I.phone}<input id="np" inputmode="tel" value="+996 " aria-label="${t("newPhone")}"></div><button class="btn" id="ok">${t("getCode")}</button>`,el=>{
     el.querySelector("#ok").onclick=()=>{ const v=el.querySelector("#np").value.trim(); if(!validPhone(v)){toast(t("checkPhone"));return;}
       sendCode(fmtPhone(v));
-      sheet(`<h3>${t("codeTitle")}</h3>${otpBlock()}`, el2=>bindOtp(el2,()=>{ me.phone=otp.phone; S.trips.forEach(x=>x.booked.forEach(b=>{ if(b.userId==="me") b.phone=otp.phone; })); closeSheet(); toast(t("phoneUpdated")); render(); }, phoneSheet));
+      sheet(`<h2 class="h3">${t("codeTitle")}</h2>${otpBlock()}`, el2=>bindOtp(el2,()=>{ me.phone=otp.phone; S.trips.forEach(x=>x.booked.forEach(b=>{ if(b.userId==="me") b.phone=otp.phone; })); closeSheet(); toast(t("phoneUpdated")); render(); }, phoneSheet));
     };
   });
 }
