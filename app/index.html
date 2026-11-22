@@ -826,6 +826,17 @@ button.kyc-ph{cursor:zoom-in;padding:0}
 .dr-anim video{height:100%;width:auto;max-width:100%;object-fit:cover}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dr-anim{background:#000}:root:not([data-theme="light"]) .dr-anim video{filter:invert(1)}}
 :root[data-theme="dark"] .dr-anim{background:#000} :root[data-theme="dark"] .dr-anim video{filter:invert(1)}
+.cat-all{--cat:var(--accent-ink)} .cat-ride{--cat:var(--accent)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.svct{position:relative;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;min-height:104px;padding:12px 12px 10px;border-radius:22px;background:var(--surface);box-shadow:var(--shadow);border:2px solid transparent;text-align:left;overflow:hidden;transition:transform .16s cubic-bezier(.23,1,.32,1),border-color .15s ease,background-color .15s ease}
+.svct:active{transform:scale(.97)}
+.svct-t{position:relative;z-index:1;display:flex;flex-direction:column;gap:2px;padding-right:4px}
+.svct b{font:800 15px/1.15 var(--f-display);letter-spacing:-.01em;color:var(--fg)}
+.svct small{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.svct-art{position:absolute;right:-6px;bottom:-8px;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--cat) 14%,transparent);color:var(--cat)}
+.svct-art svg{width:30px;height:30px;margin:-6px 6px 0 0}
+.svct[aria-pressed="true"]{border-color:var(--cat);background:color-mix(in srgb,var(--cat) 8%,var(--surface))}
+.svct[aria-pressed="true"] .svct-art{background:var(--cat);color:var(--surface)}
 .rolelist{display:flex;flex-direction:column;gap:10px}
 .roleopt{display:flex;align-items:center;gap:14px;padding:16px;border-radius:22px;background:var(--surface);box-shadow:var(--shadow);border:2px solid transparent;text-align:left;width:100%;--cat:var(--accent-ink)}
 .roleopt .cdot{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--cat) 14%,transparent);color:var(--cat);flex:none}
@@ -940,7 +951,7 @@ ru:{
   trackTitle:"Где сейчас посылка", passed:"Проехал(а) {city}", atStart:"Выезжает из {city}", leftKm:"До {to}: {km} км", eta:"≈ {h} ч {m} мин",
   waitingDriver:"Как только водитель возьмёт посылку, здесь появится карта с его местоположением.", pickupSoon:"Водитель едет к вам забрать посылку",
   trackDemo:"Демо: движение машины смоделировано и ускорено. В реальном приложении используется GPS телефона водителя.",
-  iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", sendCtaT:"Отправить посылку", qaTripS:"Возьмите попутчиков и посылки", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
+  iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", svcItems:"объявл.", sendCtaT:"Отправить посылку", qaTripS:"Возьмите попутчиков и посылки", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
   opShowPw:"Показать пароль", opSetupTitle:"Создайте аккаунт администратора", opSetupText:"Панель оператора открывается только по логину и паролю. Этот аккаунт сможет добавлять других операторов.",
   opName:"Имя", opLogin:"Логин", opPassword:"Пароль", opPassword2:"Повторите пароль", opPwRules:"Пароль: не меньше 8 символов, буквы и цифры.", opLoginRules:"Логин: 3–20 символов, латинские буквы, цифры, точка или _.",
   opPwMismatch:"Пароли не совпадают", opCreate:"Создать и войти", opCreated:"Аккаунт создан", opLoginTitle:"Вход для операторов", opLoginText:"Введите логин и пароль, чтобы увидеть обращения.",
@@ -1086,7 +1097,7 @@ ky:{
   trackTitle:"Посылка азыр кайда", passed:"{city} аркылуу өттү", atStart:"{city} шаарынан чыгып жатат", leftKm:"{to} чейин: {km} км", eta:"≈ {h} саат {m} мүн",
   waitingDriver:"Айдоочу посылканы алаары менен бул жерде анын кайда экени картада көрүнөт.", pickupSoon:"Айдоочу посылканы алганы сизге келе жатат",
   trackDemo:"Демо: машинанын кыймылы симуляция жана тездетилген. Чыныгы колдонмодо айдоочунун телефонундагы GPS колдонулат.",
-  iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", sendCtaT:"Посылка жөнөтүү", qaTripS:"Жүргүнчү жана посылка алыңыз", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
+  iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", svcItems:"жарыя", sendCtaT:"Посылка жөнөтүү", qaTripS:"Жүргүнчү жана посылка алыңыз", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
   opShowPw:"Сырсөздү көрсөтүү", opSetupTitle:"Администратордун аккаунтун түзүңүз", opSetupText:"Оператор панели логин жана сырсөз менен гана ачылат. Бул аккаунт башка операторлорду кошо алат.",
   opName:"Аты", opLogin:"Логин", opPassword:"Сырсөз", opPassword2:"Сырсөздү кайталаңыз", opPwRules:"Сырсөз: кеминде 8 белги, тамга жана сан болушу керек.", opLoginRules:"Логин: 3–20 белги, латын тамгалары, сандар, чекит же _.",
   opPwMismatch:"Сырсөздөр дал келбейт", opCreate:"Түзүү жана кирүү", opCreated:"Аккаунт түзүлдү", opLoginTitle:"Операторлор үчүн кирүү", opLoginText:"Арыздарды көрүү үчүн логин жана сырсөздү жазыңыз.",
@@ -1659,6 +1670,14 @@ screens.home = () => {
     ...pool.filter(x=>inPlace(x.to,f.to)).map(x=>({date:x.date,k:x.date+"T"+x.dep,html:()=>tripCard(x,mode)})),
     ...opool.filter(o=>inPlace(o.to,f.to)).map(o=>({date:o.date,k:o.date+"T00:00",html:()=>orderCard(o)}))
   ].sort((a,b)=>a.k.localeCompare(b.k));
+  // tile counts do not depend on which tile is selected
+  const tripsAll = S.trips.filter(x=>!isPast(x) && !userBlocked(user(x.driverId)) && (seatsLeft(x)>0||x.parcel) && okDate(x.date) && inPlace(x.from,f.from) && inPlace(x.to,f.to));
+  const rideN = tripsAll.filter(x=>seatsLeft(x)>0).length;
+  const svcTiles = [
+    {k:"all",label:t("fAll"),n:tripsAll.length+CATS.reduce((n,c)=>n+catCount(c),0),ic:I.road,cls:"cat-all"},
+    {k:"ride",label:t("fRide"),n:rideN,ic:I.users.replace(/ width="18" height="18"/,""),cls:"cat-ride"},
+    ...CATS.map(c=>({k:c,label:t("cat_"+c),n:catCount(c),ic:I[CAT_ICON[c]],cls:"cat-"+c}))];
+  const svcOn = v => v.k==="all" ? (f.type==="all"&&!f.cats.length) : v.k==="ride" ? f.type==="ride" : (f.type!=="ride"&&f.cats.length===1&&f.cats[0]===v.k);
   const dirty = (!work&&f.type!=="all")||f.from||f.to||f.date!=="all"||(!work&&f.cats&&f.cats.length);
   let lastDate="", body="";
   items.slice(0,150).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
@@ -1674,22 +1693,24 @@ screens.home = () => {
   </section>
   ${work?`<div class="workbanner cat-${ROLE_CATS[role][0]}"><span class="cdot">${I[ROLE_ICON[role]]}</span><div><b>${t("workTitle",{role:t("role_"+role)})}</b><span>${t("workText")}</span></div></div>`:""}
   ${meBlocked()?`<button class="bl-strip" id="blStrip">${I.lock}<span><b>${t("blTitle")}</b>${t("blShort")}</span>${I.chev}</button>`:""}
+  ${work?"":`<div class="svc-grid" role="group" aria-label="${t("ordersFilter")}">${svcTiles.map(v=>{ const on=svcOn(v); return `<button class="svct ${v.cls}" data-svct="${v.k}" aria-pressed="${on}"><span class="svct-t"><b>${v.label}</b><small>${v.n} ${t("svcItems")}</small></span><span class="svct-art">${v.ic}</span></button>`; }).join("")}</div>`}
   <div class="quick" ${work?'hidden':''}>
     <button class="qa" id="sendCta"><span class="qa-ic">${I.camera}</span><b>${t("sendCtaT")}</b><span>${t("sendCtaS")}</span></button>
     <button class="qa" id="qaTrip"><span class="qa-ic">${I.car}</span><b>${t("chTrip")}</b><span>${t("qaTripS")}</span></button>
   </div>
-  <div class="mode three" role="tablist" ${work?"hidden":""}>${[["all","fAll",I.road],["ride","fRide",I.users],["orders","fOrders",I.box]].map(([k,l,ic])=>`<button role="tab" data-ft="${k}" class="${f.type===k?"on":""}" aria-selected="${f.type===k}">${ic} ${t(l)}</button>`).join("")}</div>
-  ${f.type!=="ride"&&!work?`<div class="catchips" role="group" aria-label="${t("ordersFilter")}">${CATS.map(c=>`<button class="catchip cat-${c} ${f.cats.includes(c)?"on":""}" data-cat="${c}" aria-pressed="${f.cats.includes(c)}"><span class="cdot">${I[CAT_ICON[c]]}</span><b>${t("cat_"+c)}</b><span class="cnt">${catCount(c)}</span></button>`).join("")}</div>`:""}
+
   <span class="lbl">${t("leavingFrom")}</span><div class="chips scroll" id="fromChips" aria-label="${t("leavingFrom")}"><button class="chip ${!f.from?"on":""}" data-from="">${t("fAll")}<span class="cnt">${[...pool0,...opool0].filter(x=>inPlace(x.to,f.to)).length}</span></button><button class="chip ${isIntra?"on":""}" id="fIntra">${t("inBishkek")}<span class="cnt">${intraN}</span></button>${cities.map(c=>`<button class="chip ${f.from===c&&!isIntra?"on":""}" data-from="${esc(c)}">${esc(c)}<span class="cnt">${counts[c]||0}</span></button>`).join("")}</div>
   <div class="chips scroll">${[["all","allDays"],[TODAY(),"today"],[addDays(1),"tomorrow"],[addDays(2),"afterTomorrow"]].map(([v,l])=>`<button class="chip ${f.date===v?"on":""}" data-fd="${v}">${t(l)}</button>`).join("")}</div>
   <div class="found"><span>${t("found",{n:items.length})}</span>${dirty?`<button class="linkbtn" id="fReset">${t("resetFilters")}</button>`:`<button class="linkbtn" id="fAdv">${t("advSearch")}</button>`}</div>
   ${items.length? body : `<div class="card empty">${f.type==="parcel"?I.box:I.road}<h3 style="margin-top:8px">${t("noOffers")}</h3><p>${t("noOffersText")}</p><button class="btn" id="fAsk" style="margin-top:12px">${t("askDrivers")}</button></div>`}`;
   const set = (k,v) => { f[k]=v; render(); };
-  document.querySelectorAll("[data-ft]").forEach(b=>b.onclick=()=>set("type",b.dataset.ft));
+  document.querySelectorAll("[data-svct]").forEach(b=>b.onclick=()=>{ const k=b.dataset.svct;
+    if(k==="all"||b.getAttribute("aria-pressed")==="true"){ f.type="all"; f.cats=[]; }
+    else if(k==="ride"){ f.type="ride"; f.cats=[]; } else { f.type="orders"; f.cats=[k]; } render(); });
   document.querySelectorAll("[data-from]").forEach(b=>b.onclick=()=>{ f.from=b.dataset.from; if(f.to==="Бишкек"&&f.from!=="Бишкек"&&isIntra) f.to=""; render(); });
   document.querySelectorAll("[data-fd]").forEach(b=>b.onclick=()=>set("date",b.dataset.fd));
   document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{ const c=b.dataset.cat; f.cats=f.cats.includes(c)?f.cats.filter(x=>x!==c):[...f.cats,c]; render(); });
-  $("#sendCta").onclick=()=>go("orderNew");
+  $("#sendCta").onclick=()=>{ if(f.cats.length===1){ od.cat=f.cats[0]; if(!CAT_SIZES[od.cat].includes(od.size)) od.size=CAT_SIZES[od.cat][CAT_SIZES[od.cat].length-1]; } go("orderNew"); };
   $("#balChip").onclick=()=>go("wallet");
   $("#qaTrip").onclick=()=>go("createTrip");
   $("#roleChip").onclick=()=>go("rolePick");
