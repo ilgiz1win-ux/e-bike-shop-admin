@@ -351,11 +351,11 @@ button.card:active .price{transform:scale(1.06)}
 .celebrate{position:fixed;inset:0;z-index:70;display:grid;place-items:center;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fadeIn .2s ease;pointer-events:none}
 .celebrate.leaving{animation:fadeIn .25s ease reverse forwards}
 .celebrate .box{display:flex;flex-direction:column;align-items:center;gap:12px;animation:pop .45s ease}
-.celebrate svg{width:92px;height:92px}
-.celebrate circle{fill:var(--accent);stroke:none}
-.celebrate path{fill:none;stroke:var(--on-accent);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .4s .25s ease forwards}
+.celebrate .cel-check{width:92px;height:92px}
+.celebrate .cel-check circle{fill:var(--accent);stroke:none}
+.celebrate .cel-check path{fill:none;stroke:var(--on-accent);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .4s .25s ease forwards}
 .celebrate b{font:600 1.0625rem var(--f-display);text-align:center;max-width:260px}
-@media (prefers-reduced-motion: reduce){.celebrate path{stroke-dashoffset:0}#screen>*{opacity:1!important}}
+@media (prefers-reduced-motion: reduce){.celebrate .cel-check path{stroke-dashoffset:0}#screen>*{opacity:1!important}}
 
 .wallet-card{display:flex;flex-direction:column;gap:6px;width:100%;text-align:left;background:var(--ink);color:var(--on-ink);border-radius:24px;padding:18px;position:relative;overflow:hidden}
 .wallet-card::before{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:var(--accent);opacity:.18}
@@ -900,6 +900,54 @@ h2.h3{font:700 1rem/1.3 var(--f-display);margin:0;letter-spacing:0}
 .wl-copy > *:nth-child(2){animation-delay:.12s}
 .wl-copy > *:nth-child(3){animation-delay:.24s}
 @media (prefers-reduced-motion: reduce){.hero-road .mv{animation:none;transform:translateX(30px)}.hero-road .mv.b,.hero-road .mv.c{display:none}}
+
+/* ---------- motion layer 2: arrival, celebration, depth ---------- */
+/* splash: once per visit */
+.splash{position:fixed;inset:0;z-index:90;display:grid;place-items:center;background:linear-gradient(160deg,var(--ink),var(--ink2));color:var(--on-ink);transition:opacity .35s ease,transform .35s var(--m-out)}
+.splash.out{opacity:0;transform:scale(1.04)}
+.sp-in{display:flex;flex-direction:column;align-items:center;gap:12px}
+.sp-logo{width:76px;height:76px;border-radius:24px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;box-shadow:0 18px 40px rgba(0,0,0,.25);animation:spPop .6s var(--m-spring) both}
+.sp-logo svg{width:40px;height:40px}
+.sp-in b{font:800 1.875rem var(--f-display);letter-spacing:-.02em;animation:rise .5s .2s var(--m-out) both}
+.sp-road{position:relative;width:180px;height:30px;margin-top:4px}
+.sp-road i{position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;border-radius:2px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.75) 0 16px,transparent 16px 28px);transform-origin:left;animation:spDraw .6s .35s var(--m-out) both}
+.sp-road span{position:absolute;left:0;top:0;width:30px;height:30px;color:#fff;animation:spCar 1s .55s cubic-bezier(.65,0,.35,1) both}
+.sp-road span svg{width:30px;height:30px}
+@keyframes spPop{from{opacity:0;transform:scale(.6) rotate(-12deg)}to{opacity:1;transform:none}}
+@keyframes spDraw{from{transform:scaleX(0)}to{transform:none}}
+@keyframes spCar{from{transform:translateX(-10px);opacity:0}20%{opacity:1}to{transform:translateX(150px);opacity:1}}
+
+/* home hero: two ridges drifting at different speeds */
+.home-hero{position:relative;overflow:hidden;isolation:isolate}
+.home-hero > *:not(.hero-scene){position:relative;z-index:1}
+.hero-scene{position:absolute;left:0;right:0;bottom:0;height:150px;z-index:0;pointer-events:none;overflow:hidden}
+.hero-scene .mt{position:absolute;left:0;bottom:0;width:200%;height:100%;fill:#fff}
+.hero-scene .mt-b{opacity:.09;height:120%;animation:ridge 70s linear infinite}
+.hero-scene .mt-f{opacity:.14;height:80%;animation:ridge 40s linear infinite}
+@keyframes ridge{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* celebrations */
+.celebrate{cursor:pointer}
+.celebrate .cel-check{width:92px;height:92px}
+.cel-scene{position:relative;width:220px;height:130px}
+.cel-arc{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.cel-arc path{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;stroke-dasharray:4 9;opacity:.75;animation:fadeIn .3s ease both}
+.cel-fly{position:absolute;left:0;top:0;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:14px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;box-shadow:0 10px 24px rgba(0,0,0,.18);
+  offset-path:path("M24 112 Q110 -14 196 78");offset-rotate:0deg;offset-distance:100%;animation:fly 1s .15s cubic-bezier(.45,0,.2,1) both}
+.cel-fly svg{width:24px;height:24px}
+@keyframes fly{from{offset-distance:0%;transform:scale(.7)}50%{transform:scale(1.1)}to{offset-distance:100%;transform:scale(.9)}}
+.cel-pin{position:absolute;left:196px;top:78px;width:40px;height:40px;margin:-38px 0 0 -20px;color:var(--danger,#e5484d);animation:pinDrop .5s 1.05s var(--m-spring) both}
+.cel-pin svg{width:40px;height:40px}
+@keyframes pinDrop{from{opacity:0;transform:translateY(-26px) scale(.6)}to{opacity:1;transform:none}}
+.celebrate.is-parcel .box{animation:none}
+.cel-road .cel-lane{position:absolute;left:0;right:0;top:86px;height:4px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--muted) 0 18px,transparent 18px 32px);opacity:.5}
+.cel-car{position:absolute;left:0;top:44px;width:56px;height:56px;color:var(--accent);animation:carIn 1s cubic-bezier(.2,.9,.25,1) both}
+.cel-car svg{width:56px;height:56px}
+@keyframes carIn{from{transform:translateX(-120px)}75%{transform:translateX(88px) rotate(-3deg)}to{transform:translateX(82px)}}
+.cel-badge{position:absolute;right:6px;top:0;animation:pop .45s .85s ease both}
+.cel-badge .cel-check{width:52px;height:52px}
+.celebrate.is-car .box{animation:none}
+@media (prefers-reduced-motion: reduce){.cel-fly{offset-distance:100%}.cel-car{transform:translateX(82px)}}
 </style>
 <style>
 /* Operator panel: the app's own tokens and components, laid out for a desk screen.
@@ -1577,11 +1625,18 @@ function animateScreen(){
   el.classList.add("nav-"+navDir); navDir=null;
   clearTimeout(animateScreen.t); animateScreen.t=setTimeout(()=>el.classList.remove("nav-push","nav-pop","nav-tab"),900);
 }
-function celebrate(msg){
-  const el=document.createElement("div"); el.className="celebrate"; el.setAttribute("role","status");
-  el.innerHTML=`<div class="box"><svg viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25"/><path d="M15 27l7 7 15-16"/></svg><b>${esc(msg)}</b></div>`;
+function celebrate(msg, kind){
+  const el=document.createElement("div"); el.className="celebrate"+(kind?" is-"+kind:""); el.setAttribute("role","status");
+  const check=`<svg class="cel-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25"/><path d="M15 27l7 7 15-16"/></svg>`;
+  const scene = kind==="parcel"
+    ? `<div class="cel-scene" aria-hidden="true"><svg class="cel-arc" viewBox="0 0 220 130"><path d="M24 112 Q110 -14 196 78"/></svg><span class="cel-pin">${I.pin}</span><span class="cel-fly">${I.box}</span></div>`
+    : kind==="car"
+    ? `<div class="cel-scene cel-road" aria-hidden="true"><i class="cel-lane"></i><span class="cel-car">${I.car}</span><span class="cel-badge">${check}</span></div>`
+    : check;
+  el.innerHTML=`<div class="box">${scene}<b>${esc(msg)}</b></div>`;
   document.body.appendChild(el);
-  setTimeout(()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),260); },1250);
+  el.onclick=()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),260); };
+  setTimeout(()=>{ if(!el.isConnected) return; el.classList.add("leaving"); setTimeout(()=>el.remove(),260); }, kind?2000:1250);
 }
 
 function topbar(title,{sub="",canBack=false,right=""}={}){
@@ -1781,6 +1836,7 @@ screens.home = () => {
   items.slice(0,150).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
   $("#screen").innerHTML = `
   <section class="home-hero">
+    <div class="hero-scene" aria-hidden="true"><svg class="mt mt-b" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/><path transform="translate(400 0)" d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/></svg><svg class="mt mt-f" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/><path transform="translate(400 0)" d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/></svg></div>
     <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${work?t("helloWork"):t("helloSub")}</span><button class="rolechip ${work?"cat-"+ROLE_CATS[role][0]:""}" id="roleChip">${I[ROLE_ICON[role]]}<span>${t("modeLbl")}: ${t("role_"+role)}</span>${I.chev}</button></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
     <div class="route-card">
       <button class="rc-row" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
@@ -2069,7 +2125,7 @@ screens.orderNew = () => {
     S.orders.unshift(ord);
     notify("orderPublishedNotif",{what:ord.what,from:ord.from,to:ord.to,price},"box",null,ord.id);
     Object.assign(od,{photo:"",what:"",fragile:false,worth:"",warnRcpt:true,pickup:"",drop:"",price:"",rname:"",rphone:"+996 "});
-    celebrate(t("orderPublished"));
+    celebrate(t("orderPublished"),"parcel");
     stack=[]; tab="trips"; go("order",{id:ord.id});
     });
   };
@@ -2135,7 +2191,7 @@ screens.order = ({id}) => {
       if(need==="truck" && kind!=="truck"){ toast(t("needTruck")); go("car"); return; }
       if(need==="porter" && kind!=="porter" && kind!=="truck"){ toast(t("needPorter")); go("car"); return; }
       if(need==="car" && kind==="courier"){ toast(t("needCar")); return; } }
-    const take = liab => charge("take",t("acceptText",{addr:loc(o.pickup),to:o.to}),t("acceptOk"),()=>{ if(liab) o.liability=liab; o.status="accepted"; o.driverId="me"; o.acceptedAt=Date.now(); celebrate(t("accepted")); render(); },t("acceptQ"),{agree:t("acceptAgree"),html:`<div class="acc-sum cat-${orderCat(o)}"><span class="cdot">${I[CAT_ICON[orderCat(o)]]}</span><div><b>${esc(loc(o.what))}</b><small>${esc(o.from)} → ${esc(o.to)} · ${dRel(o.date)}</small></div><span class="price">${o.price} с</span></div>${o.fragile?`<p class="acc-warn frag-warn">${I.fragile}<span>${t("fwShort",{worth:o.worth})}</span></p>`:""}<p class="acc-warn">${I.info}<span>${t("acceptWarn")}</span></p>`});
+    const take = liab => charge("take",t("acceptText",{addr:loc(o.pickup),to:o.to}),t("acceptOk"),()=>{ if(liab) o.liability=liab; o.status="accepted"; o.driverId="me"; o.acceptedAt=Date.now(); celebrate(t("accepted"),"car"); render(); },t("acceptQ"),{agree:t("acceptAgree"),html:`<div class="acc-sum cat-${orderCat(o)}"><span class="cdot">${I[CAT_ICON[orderCat(o)]]}</span><div><b>${esc(loc(o.what))}</b><small>${esc(o.from)} → ${esc(o.to)} · ${dRel(o.date)}</small></div><span class="price">${o.price} с</span></div>${o.fragile?`<p class="acc-warn frag-warn">${I.fragile}<span>${t("fwShort",{worth:o.worth})}</span></p>`:""}<p class="acc-warn">${I.info}<span>${t("acceptWarn")}</span></p>`});
     if(o.fragile) fragileWarn(o,()=>contractSheet(o,take)); else take(null);
   };
   if(b("oContract")) b("oContract").onclick=()=>contractView(o);
@@ -3641,6 +3697,15 @@ checkVerification(); if(!ADMIN) tickOrders();
 addEventListener("storage",e=>{ if(e.key!==KEY||!e.newValue) return; try{ S=JSON.parse(e.newValue); }catch(_){ return; }
   if(document.activeElement?.matches("input,textarea,select")||$("#overlay").innerHTML){ if(!ADMIN&&S.me) renderTabs(); else if(ADMIN) adminNav(); return; }
   render(); });
+(function splash(){
+  try{ if(sessionStorage.getItem("jsplash")) return; sessionStorage.setItem("jsplash","1"); }catch(e){ return; }
+  if(ADMIN || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const el=document.createElement("div"); el.className="splash"; el.setAttribute("aria-hidden","true");
+  el.innerHTML=`<div class="sp-in"><span class="sp-logo">${I.road}</span><b>Жолдош</b><div class="sp-road"><i></i><span>${I.car}</span></div></div>`;
+  document.body.appendChild(el);
+  const go=()=>{ el.classList.add("out"); setTimeout(()=>el.remove(),380); };
+  el.onclick=go; setTimeout(go,1500);
+})();
 render();
 })();
 </script>

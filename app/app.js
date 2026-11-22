@@ -622,11 +622,18 @@ function animateScreen(){
   el.classList.add("nav-"+navDir); navDir=null;
   clearTimeout(animateScreen.t); animateScreen.t=setTimeout(()=>el.classList.remove("nav-push","nav-pop","nav-tab"),900);
 }
-function celebrate(msg){
-  const el=document.createElement("div"); el.className="celebrate"; el.setAttribute("role","status");
-  el.innerHTML=`<div class="box"><svg viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25"/><path d="M15 27l7 7 15-16"/></svg><b>${esc(msg)}</b></div>`;
+function celebrate(msg, kind){
+  const el=document.createElement("div"); el.className="celebrate"+(kind?" is-"+kind:""); el.setAttribute("role","status");
+  const check=`<svg class="cel-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="25"/><path d="M15 27l7 7 15-16"/></svg>`;
+  const scene = kind==="parcel"
+    ? `<div class="cel-scene" aria-hidden="true"><svg class="cel-arc" viewBox="0 0 220 130"><path d="M24 112 Q110 -14 196 78"/></svg><span class="cel-pin">${I.pin}</span><span class="cel-fly">${I.box}</span></div>`
+    : kind==="car"
+    ? `<div class="cel-scene cel-road" aria-hidden="true"><i class="cel-lane"></i><span class="cel-car">${I.car}</span><span class="cel-badge">${check}</span></div>`
+    : check;
+  el.innerHTML=`<div class="box">${scene}<b>${esc(msg)}</b></div>`;
   document.body.appendChild(el);
-  setTimeout(()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),260); },1250);
+  el.onclick=()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),260); };
+  setTimeout(()=>{ if(!el.isConnected) return; el.classList.add("leaving"); setTimeout(()=>el.remove(),260); }, kind?2000:1250);
 }
 
 function topbar(title,{sub="",canBack=false,right=""}={}){
@@ -826,6 +833,7 @@ screens.home = () => {
   items.slice(0,150).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
   $("#screen").innerHTML = `
   <section class="home-hero">
+    <div class="hero-scene" aria-hidden="true"><svg class="mt mt-b" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/><path transform="translate(400 0)" d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/></svg><svg class="mt mt-f" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/><path transform="translate(400 0)" d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/></svg></div>
     <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${work?t("helloWork"):t("helloSub")}</span><button class="rolechip ${work?"cat-"+ROLE_CATS[role][0]:""}" id="roleChip">${I[ROLE_ICON[role]]}<span>${t("modeLbl")}: ${t("role_"+role)}</span>${I.chev}</button></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
     <div class="route-card">
       <button class="rc-row" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
@@ -1114,7 +1122,7 @@ screens.orderNew = () => {
     S.orders.unshift(ord);
     notify("orderPublishedNotif",{what:ord.what,from:ord.from,to:ord.to,price},"box",null,ord.id);
     Object.assign(od,{photo:"",what:"",fragile:false,worth:"",warnRcpt:true,pickup:"",drop:"",price:"",rname:"",rphone:"+996 "});
-    celebrate(t("orderPublished"));
+    celebrate(t("orderPublished"),"parcel");
     stack=[]; tab="trips"; go("order",{id:ord.id});
     });
   };
@@ -1180,7 +1188,7 @@ screens.order = ({id}) => {
       if(need==="truck" && kind!=="truck"){ toast(t("needTruck")); go("car"); return; }
       if(need==="porter" && kind!=="porter" && kind!=="truck"){ toast(t("needPorter")); go("car"); return; }
       if(need==="car" && kind==="courier"){ toast(t("needCar")); return; } }
-    const take = liab => charge("take",t("acceptText",{addr:loc(o.pickup),to:o.to}),t("acceptOk"),()=>{ if(liab) o.liability=liab; o.status="accepted"; o.driverId="me"; o.acceptedAt=Date.now(); celebrate(t("accepted")); render(); },t("acceptQ"),{agree:t("acceptAgree"),html:`<div class="acc-sum cat-${orderCat(o)}"><span class="cdot">${I[CAT_ICON[orderCat(o)]]}</span><div><b>${esc(loc(o.what))}</b><small>${esc(o.from)} → ${esc(o.to)} · ${dRel(o.date)}</small></div><span class="price">${o.price} с</span></div>${o.fragile?`<p class="acc-warn frag-warn">${I.fragile}<span>${t("fwShort",{worth:o.worth})}</span></p>`:""}<p class="acc-warn">${I.info}<span>${t("acceptWarn")}</span></p>`});
+    const take = liab => charge("take",t("acceptText",{addr:loc(o.pickup),to:o.to}),t("acceptOk"),()=>{ if(liab) o.liability=liab; o.status="accepted"; o.driverId="me"; o.acceptedAt=Date.now(); celebrate(t("accepted"),"car"); render(); },t("acceptQ"),{agree:t("acceptAgree"),html:`<div class="acc-sum cat-${orderCat(o)}"><span class="cdot">${I[CAT_ICON[orderCat(o)]]}</span><div><b>${esc(loc(o.what))}</b><small>${esc(o.from)} → ${esc(o.to)} · ${dRel(o.date)}</small></div><span class="price">${o.price} с</span></div>${o.fragile?`<p class="acc-warn frag-warn">${I.fragile}<span>${t("fwShort",{worth:o.worth})}</span></p>`:""}<p class="acc-warn">${I.info}<span>${t("acceptWarn")}</span></p>`});
     if(o.fragile) fragileWarn(o,()=>contractSheet(o,take)); else take(null);
   };
   if(b("oContract")) b("oContract").onclick=()=>contractView(o);
@@ -2686,5 +2694,14 @@ checkVerification(); if(!ADMIN) tickOrders();
 addEventListener("storage",e=>{ if(e.key!==KEY||!e.newValue) return; try{ S=JSON.parse(e.newValue); }catch(_){ return; }
   if(document.activeElement?.matches("input,textarea,select")||$("#overlay").innerHTML){ if(!ADMIN&&S.me) renderTabs(); else if(ADMIN) adminNav(); return; }
   render(); });
+(function splash(){
+  try{ if(sessionStorage.getItem("jsplash")) return; sessionStorage.setItem("jsplash","1"); }catch(e){ return; }
+  if(ADMIN || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const el=document.createElement("div"); el.className="splash"; el.setAttribute("aria-hidden","true");
+  el.innerHTML=`<div class="sp-in"><span class="sp-logo">${I.road}</span><b>Жолдош</b><div class="sp-road"><i></i><span>${I.car}</span></div></div>`;
+  document.body.appendChild(el);
+  const go=()=>{ el.classList.add("out"); setTimeout(()=>el.remove(),380); };
+  el.onclick=go; setTimeout(go,1500);
+})();
 render();
 })();
