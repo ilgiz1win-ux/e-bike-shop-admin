@@ -490,9 +490,9 @@ load();
 
 // ---------- brand colour themes (switchable in Profile) ----------
 const BRANDS = {
-  mono:{name:{ky:"Жашыл жана ак",ru:"Зелёный и белый"},sw:"#1eaf54",
-    light:{accent:"#189246","accent-strong":"#147d3c","accent-soft":"#e7fcee","accent-ink":"#147d3c","on-accent":"#ffffff",ink:"#147d3c",ink2:"#0f632f","sel-bg":"#189246","sel-fg":"#ffffff","sel-ic":"#ffffff",bg:"#ffffff",field:"#f2fdf6",line:"#dafbe6",fg:"#0d582a",muted:"#2f6b45","st-onway":"#189246","st-accepted":"#189246"},
-    dark:{accent:"#34cb6c","accent-strong":"#86e6a8","accent-soft":"#0c5629","accent-ink":"#86e6a8","on-accent":"#0a4d25",ink:"#0f632f",ink2:"#0b4e25","sel-bg":"#34cb6c","sel-fg":"#0a4d25","sel-ic":"#0a4d25",bg:"#094722",field:"#0c5629",line:"#106631",fg:"#effdf4",muted:"#7ee3a3","st-onway":"#86e6a8","st-accepted":"#86e6a8"}},
+  mono:{name:{ky:"Асман көк жана ак",ru:"Небесно-голубой и белый"},sw:"#0ea5e9",
+    light:{accent:"#0ea5e9","accent-strong":"#0284c7","accent-soft":"#e0f2fe","accent-ink":"#0284c7","on-accent":"#ffffff",ink:"#0284c7",ink2:"#075985","sel-bg":"#0ea5e9","sel-fg":"#ffffff","sel-ic":"#ffffff",bg:"#ffffff",field:"#f0f9ff",line:"#e0f2fe",fg:"#0c4a6e",muted:"#4b7a96","st-onway":"#0ea5e9","st-accepted":"#0ea5e9"},
+    dark:{accent:"#0d9fe2","accent-strong":"#8cd5f8","accent-soft":"#055583","accent-ink":"#8cd5f8","on-accent":"#05517d",ink:"#045b8c",ink2:"#05527e","sel-bg":"#0d9fe2","sel-fg":"#05517d","sel-ic":"#05517d",bg:"#054e79",field:"#055583",line:"#045d8e",fg:"#f4fbff",muted:"#7ecff6","st-onway":"#8cd5f8","st-accepted":"#8cd5f8"}},
   tayan:{name:{ky:"TAYAN",ru:"TAYAN"},sw:"#0f5c40",
     light:{accent:"#137a53","accent-strong":"#0f6646","accent-soft":"#e1f1e8","accent-ink":"#0d5c3f","on-accent":"#ffffff",ink:"#0d4130",ink2:"#062a1e","sel-bg":"#0d4130","sel-fg":"#ffffff","sel-ic":"#f0c46a",bg:"#f2f5f1",field:"#e7eee8",line:"#dbe4dc",fg:"#0f1f18",muted:"#55675d"},
     dark:{accent:"#2fae78","accent-strong":"#4cc792","accent-soft":"#123022","accent-ink":"#7fdcb0","on-accent":"#03140c",ink:"#0e3d2c",ink2:"#06241a","sel-bg":"#2fae78","sel-fg":"#03140c","sel-ic":"#03140c",bg:"#08110d",field:"#16221c",line:"#20302a",fg:"#e7f0ea",muted:"#a1b4a9"}},
