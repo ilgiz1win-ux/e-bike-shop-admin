@@ -542,7 +542,7 @@ const isVerified = id => id==="me" ? S.me?.driver?.status==="verified" : !!user(
 const okBadge = () => `<span class="badge-ok">${I.shieldOk}${t("verified")}</span>`;
 const sizePrice = (base,sz) => sz==="S"?base: sz==="M"? Math.round(base*1.5/10)*10 : sz==="X"? base*4 : sz==="T"? base*10 : base*2;
 
-function toast(msg){ const el=document.createElement("div"); el.className="toast"; el.textContent=msg; el.setAttribute("role","status"); document.body.appendChild(el); setTimeout(()=>el.remove(),2600); }
+function toast(msg){ const el=document.createElement("div"); el.className="toast"; el.textContent=msg; el.setAttribute("role","status"); document.body.appendChild(el); setTimeout(()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),170); },2600); }
 // notifications are stored as key+vars so they follow the chosen language
 function notify(key,vars={},icon="bell",tripId=null,orderId=null,chatId=null){ S.notifs.unshift({id:uid(),key,vars,icon,tripId,orderId,chatId,at:Date.now(),read:false}); }
 function notifText(n){ const v={...n.vars}; if(v.date) v.date=dShort(v.date); if(v.seatsN!=null) v.seats=tp(v.seatsN,"seat"); return n.key? t(n.key,v) : n.text; }
@@ -554,7 +554,7 @@ function sheet(html,onMount){
   wrap.addEventListener("click",e=>{ if(e.target===wrap) closeSheet(); });
   onMount && onMount(wrap.firstElementChild);
 }
-function closeSheet(){ const ov=$("#overlay"), w=ov.firstElementChild; if(!w){ return; } ov.innerHTML=""; w.classList.add("leaving"); document.body.appendChild(w); setTimeout(()=>w.remove(),220); }
+function closeSheet(){ const ov=$("#overlay"), w=ov.firstElementChild; if(!w){ return; } ov.innerHTML=""; w.classList.add("leaving"); document.body.appendChild(w); setTimeout(()=>w.remove(),170); }
 function confirmSheet(title,text,okLabel,onOk,danger=true){
   sheet(`<h3>${esc(title)}</h3><p class="muted" style="margin:0">${esc(text)}</p>
     <button class="btn ${danger?"danger":""}" id="cOk">${esc(okLabel)}</button><button class="btn ghost" id="cNo">${t("back")}</button>`, el=>{
@@ -636,8 +636,8 @@ function celebrate(msg, kind){
     : check;
   el.innerHTML=`<div class="box">${scene}<b>${esc(msg)}</b></div>`;
   document.body.appendChild(el);
-  el.onclick=()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),260); };
-  setTimeout(()=>{ if(!el.isConnected) return; el.classList.add("leaving"); setTimeout(()=>el.remove(),260); }, kind?2000:1250);
+  el.onclick=()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),170); };
+  setTimeout(()=>{ if(!el.isConnected) return; el.classList.add("leaving"); setTimeout(()=>el.remove(),170); }, kind?2000:1250);
 }
 
 function topbar(title,{sub="",canBack=false,right=""}={}){
@@ -2157,7 +2157,7 @@ function walletCard(compact){
   return `<button class="wallet-card" id="walletCard" aria-label="${t("walletTitle")}">
     <div class="row between"><span class="wc-l">${t("balanceLbl")}</span><span class="wc-top">${t("topUp")} +</span></div>
     <b class="wc-b">${w.balance} <small>сом</small></b>
-    <div class="wc-free"><span>${t("freeLeftLbl")}: <b>${left} / ${FREE_LIMIT}</b></span><div class="bar"><i style="width:${left/FREE_LIMIT*100}%"></i></div></div>
+    <div class="wc-free"><span>${t("freeLeftLbl")}: <b>${left} / ${FREE_LIMIT}</b></span><div class="bar"><i style="transform:scaleX(${left/FREE_LIMIT})"></i></div></div>
   </button>`;
 }
 screens.wallet = ({need}={}) => {
@@ -2704,7 +2704,7 @@ function showSplash(){
   const el=document.createElement("div"); el.className="splash"; el.setAttribute("aria-hidden","true");
   el.innerHTML=`<div class="sp-glow"></div><div class="sp-in"><div class="sp-logo sp-svg">${tayanSVG("sp",{motto:t("brandLine")})}</div></div>`;
   document.body.appendChild(el);
-  const go=()=>{ if(!el.isConnected) return; el.classList.add("out"); setTimeout(()=>el.remove(),420); };
+  const go=()=>{ if(!el.isConnected) return; el.classList.add("out"); setTimeout(()=>el.remove(),300); };
   el.onclick=go; setTimeout(go,3600);
 }
 (function(){ try{ if(sessionStorage.getItem("jsplash")) return; sessionStorage.setItem("jsplash","1"); }catch(e){ return; } showSplash(); })();

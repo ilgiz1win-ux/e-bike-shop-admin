@@ -3,6 +3,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
 <style>
+:root{--ease-out-quint:cubic-bezier(.23,1,.32,1);--ease-in-out-cubic:cubic-bezier(.645,.045,.355,1);--ease-in-cubic:cubic-bezier(.32,0,.67,0)}
 /* Layout: phone-shaped single column app shell, sticky top bar, fixed bottom tab bar */
 :root{
   /* Layout: phone-shaped single column, translucent top bar, floating bottom bar; trust blue as the brand colour */
@@ -43,7 +44,7 @@ button{cursor:pointer;border:0;background:none}
 .topbar h1{margin:0;text-align:center;font:700 1rem/1.2 var(--f-display);text-wrap:balance}
 .topbar .sub{display:block;font:500 0.75rem var(--f-body);color:var(--muted)}
 .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;color:var(--accent-ink)}
-.icon-btn:hover{background:var(--accent-soft)}
+@media (hover:hover) and (pointer:fine){.icon-btn:hover{background:var(--accent-soft)}}
 main{flex:1;padding-block:16px 110px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);
   padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
@@ -78,16 +79,16 @@ label.lbl{font-size:0.8125rem;color:var(--muted);font-weight:500}
 .chip{padding:8px 14px;border-radius:999px;background:var(--field);font-weight:500;font-size:0.875rem}
 .chip.on{background:var(--accent);color:var(--on-accent)}
 .switch{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:0.8125rem;color:var(--muted)}
-.toggle{width:64px;height:32px;border-radius:16px;background:var(--line);position:relative;flex:none;transition:background .2s}
+.toggle{width:64px;height:32px;border-radius:16px;background:var(--line);position:relative;flex:none;transition:background-color .2s ease}
 .toggle::after{content:attr(data-label);position:absolute;right:10px;top:7px;font-size:0.6875rem;font-weight:700;color:var(--muted)}
-.toggle i{position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s}
+.toggle i{position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s var(--ease-out-quint)}
 .toggle.on{background:var(--accent)}
 .toggle.on::after{left:10px;right:auto;color:var(--on-accent)}
-.toggle.on i{left:35px}
+.toggle.on i{transform:translateX(32px)}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:12px;background:var(--accent);color:var(--on-accent);font:700 1rem var(--f-display);letter-spacing:.02em;width:100%;padding:0 16px}
-.btn:hover{background:var(--accent-strong)}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:var(--accent-strong)}}
 .btn.ghost{background:transparent;color:var(--accent-ink);border:1.5px solid var(--accent)}
-.btn.ghost:hover{background:var(--accent-soft)}
+@media (hover:hover) and (pointer:fine){.btn.ghost:hover{background:var(--accent-soft)}}
 .btn.danger{background:var(--danger);color:#fff}
 .btn.sm{min-height:38px;font-size:0.875rem;width:auto}
 .btn:disabled{opacity:.5;cursor:default}
@@ -241,7 +242,7 @@ h3{font:600 0.9375rem/1.35 var(--f-display)}
 .field{border-radius:14px}
 .btn{border-radius:16px;font:600 0.9375rem var(--f-display);letter-spacing:0;min-height:54px}
 .btn.ghost{color:var(--fg);border:1.5px solid var(--line);background:var(--surface)}
-.btn.ghost:hover{background:var(--field)}
+@media (hover:hover) and (pointer:fine){.btn.ghost:hover{background:var(--field)}}
 .chip{background:var(--surface);border:1px solid var(--line)}
 .chip.on{background:var(--sel-bg);color:var(--sel-fg);border-color:var(--sel-bg)}
 .chip.on .cnt{color:var(--sel-ic)}
@@ -312,7 +313,9 @@ main{padding-bottom:124px}
 @keyframes rise{from{transform:translateY(14px);opacity:.01}to{transform:none;opacity:1}}
 @keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
 @keyframes fadeIn{from{opacity:0}}
-@keyframes drive{from{left:8%}to{left:50%}}
+@keyframes fadeOut{to{opacity:0}}
+@keyframes toastOut{to{transform:translate(-50%,10px);opacity:0}}
+@keyframes drive{from{transform:translateX(calc(-50% - 90px));opacity:0}to{transform:translateX(-50%);opacity:1}}
 @keyframes roadmove{to{transform:translateX(-48px)}}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 @keyframes shine{0%,70%{transform:translateX(-120%)}100%{transform:translateX(220%)}}
@@ -324,7 +327,7 @@ main{padding-bottom:124px}
 #screen.nav-push>*{animation:slideL .32s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*35ms)}
 #screen.nav-pop>*{animation:slideR .28s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*25ms)}
 #screen.nav-tab>*{animation:rise .36s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0)*40ms)}
-.btn,.chip,.card,.mode button,.tab,.li,.swap,.sendcta,.icon-btn,.seg button,.sizes button,.swatch,.toggle{transition:transform .14s ease,background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease}
+.btn,.chip,.card,.mode button,.tab,.li,.swap,.sendcta,.icon-btn,.seg button,.sizes button,.swatch,.toggle{transition:transform .12s var(--ease-out-quint),background-color .15s ease,color .15s ease,border-color .15s ease,box-shadow .15s ease}
 .btn:active,.chip:active,button.card:active,.mode button:active,.li:active,.sendcta:active,.seg button:active,.sizes button:active,.swatch:active{transform:scale(.97)}
 .swap:active{transform:translateY(-50%) rotate(180deg) scale(.95)}
 .swap{transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
@@ -333,10 +336,11 @@ main{padding-bottom:124px}
 .tab.fab:active i{transform:scale(.9)}
 .tab.fab.on i svg{transform:rotate(45deg);transition:transform .3s}
 .tab .dot.pop{animation:pop .4s ease}
-.toast{animation:toastIn .28s cubic-bezier(.2,.8,.2,1)}
-.sheet-wrap{animation:fadeIn .2s ease}
-.sheet-wrap.leaving{animation:fadeIn .2s ease reverse forwards;pointer-events:none}
-.sheet-wrap.leaving .sheet{animation:sheetOut .2s ease forwards}
+.toast{animation:toastIn .26s var(--ease-out-quint)}
+.toast.leaving{animation:toastOut .16s var(--ease-in-cubic) forwards}
+.sheet-wrap{animation:fadeIn .2s linear}
+.sheet-wrap.leaving{animation:fadeOut .15s var(--ease-in-cubic) forwards;pointer-events:none}
+.sheet-wrap.leaving .sheet{animation:sheetOut .16s var(--ease-in-cubic) forwards}
 .trip2 .ln em{animation:drive .9s cubic-bezier(.2,.8,.2,1) both}
 .sendcta{position:relative;overflow:hidden}
 .sendcta::after{content:"";position:absolute;inset:0 auto 0 0;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);animation:shine 4.5s ease-in-out infinite;pointer-events:none}
@@ -350,7 +354,7 @@ button.card:active .price{transform:scale(1.06)}
 .road-strip span{position:absolute;z-index:1;left:18%;top:1px;width:28px;height:28px;color:var(--accent);animation:bob .5s ease-in-out infinite}
 .road-strip span svg{width:28px;height:28px}
 .celebrate{position:fixed;inset:0;z-index:70;display:grid;place-items:center;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);animation:fadeIn .2s ease;pointer-events:none}
-.celebrate.leaving{animation:fadeIn .25s ease reverse forwards}
+.celebrate.leaving{animation:fadeOut .16s var(--ease-in-cubic) forwards}
 .celebrate .box{display:flex;flex-direction:column;align-items:center;gap:12px;animation:pop .45s ease}
 .celebrate .cel-check{width:92px;height:92px}
 .celebrate .cel-check circle{fill:var(--accent);stroke:none}
@@ -367,7 +371,7 @@ button.card:active .price{transform:scale(1.06)}
 .wc-free{display:flex;flex-direction:column;gap:6px;font-size:0.7812rem;color:var(--ink-muted);margin-top:4px}
 .wc-free b{color:var(--on-ink)}
 .wc-free .bar{background:rgba(255,255,255,.14)}
-.wc-free .bar i{background:var(--accent);transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.wc-free .bar i{display:block;width:100%;background:var(--accent);transform-origin:left center;transition:transform .5s var(--ease-out-quint)}
 .balchip{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-weight:600;font-size:0.8125rem;white-space:nowrap;flex:none}
 .balchip svg{width:18px;height:18px;color:var(--accent-ink)}
 .costbox{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--field);border-radius:14px;padding:12px 14px}
@@ -453,7 +457,7 @@ h3{font:700 0.9375rem/1.35 var(--f-display)}
 .field{border-radius:12px}
 .btn{border-radius:12px;font:700 1rem var(--f-display);letter-spacing:.03em;min-height:52px;box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 35%,transparent)}
 .btn.ghost{color:var(--accent-ink);border:1.5px solid var(--accent);background:var(--surface);box-shadow:none}
-.btn.ghost:hover{background:var(--accent-soft)}
+@media (hover:hover) and (pointer:fine){.btn.ghost:hover{background:var(--accent-soft)}}
 .btn.danger{box-shadow:none}
 .chip{background:var(--surface);border:1px solid var(--line);color:var(--fg)}
 .chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
@@ -867,7 +871,7 @@ h2.h3{font:700 1rem/1.3 var(--f-display);margin:0;letter-spacing:0}
 /* ---------- motion layer ----------
    One idea: things move along a road. Every animation states a change (arrival, selection, progress);
    all run on transform/opacity and stop under prefers-reduced-motion (global rule above). */
-:root{--m-out:cubic-bezier(.23,1,.32,1);--m-spring:cubic-bezier(.34,1.56,.64,1)}
+:root{--m-out:cubic-bezier(.23,1,.32,1);--m-spring:cubic-bezier(.34,1.56,.64,1);--ease-out-quint:cubic-bezier(.23,1,.32,1);--ease-in-out-cubic:cubic-bezier(.645,.045,.355,1);--ease-in-cubic:cubic-bezier(.32,0,.67,0)}
 /* home: a road under the route card where a car, a bike and a truck pass by */
 .hero-road{position:relative;height:30px;margin-top:12px;overflow:hidden;border-radius:10px;background:rgba(255,255,255,.08)}
 .hero-road::before{content:"";position:absolute;left:0;right:-48px;top:50%;height:2px;margin-top:-1px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 24px,transparent 24px 48px);animation:roadmove 1.6s linear infinite}
@@ -970,7 +974,7 @@ h2.h3{font:700 1rem/1.3 var(--f-display);margin:0;letter-spacing:0}
 .th-copy span{font-size:.9rem;opacity:.85;line-height:1.4}
 .th-road{width:calc(100% + 36px);margin:10px -18px 0;border-radius:0}
 /* splash */
-.splash{position:fixed;inset:0;z-index:90;display:grid;place-items:center;overflow:hidden;background:radial-gradient(120% 80% at 50% 30%,#155c43 0%,#0b3a2a 45%,#04190f 100%);color:#fff;transition:opacity .4s ease,transform .4s var(--m-out)}
+.splash{position:fixed;inset:0;z-index:90;display:grid;place-items:center;overflow:hidden;background:radial-gradient(120% 80% at 50% 30%,#155c43 0%,#0b3a2a 45%,#04190f 100%);color:#fff;transition:opacity .28s var(--ease-in-cubic),transform .28s var(--ease-in-cubic)}
 .splash.out{opacity:0;transform:scale(1.05)}
 .sp-glow{position:absolute;left:50%;top:50%;width:420px;height:420px;margin:-260px 0 0 -210px;border-radius:50%;background:radial-gradient(circle,rgba(243,207,122,.30),transparent 62%);animation:glow 2.4s ease-in-out infinite}
 .sp-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:16px}
@@ -1653,7 +1657,7 @@ const isVerified = id => id==="me" ? S.me?.driver?.status==="verified" : !!user(
 const okBadge = () => `<span class="badge-ok">${I.shieldOk}${t("verified")}</span>`;
 const sizePrice = (base,sz) => sz==="S"?base: sz==="M"? Math.round(base*1.5/10)*10 : sz==="X"? base*4 : sz==="T"? base*10 : base*2;
 
-function toast(msg){ const el=document.createElement("div"); el.className="toast"; el.textContent=msg; el.setAttribute("role","status"); document.body.appendChild(el); setTimeout(()=>el.remove(),2600); }
+function toast(msg){ const el=document.createElement("div"); el.className="toast"; el.textContent=msg; el.setAttribute("role","status"); document.body.appendChild(el); setTimeout(()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),170); },2600); }
 // notifications are stored as key+vars so they follow the chosen language
 function notify(key,vars={},icon="bell",tripId=null,orderId=null,chatId=null){ S.notifs.unshift({id:uid(),key,vars,icon,tripId,orderId,chatId,at:Date.now(),read:false}); }
 function notifText(n){ const v={...n.vars}; if(v.date) v.date=dShort(v.date); if(v.seatsN!=null) v.seats=tp(v.seatsN,"seat"); return n.key? t(n.key,v) : n.text; }
@@ -1665,7 +1669,7 @@ function sheet(html,onMount){
   wrap.addEventListener("click",e=>{ if(e.target===wrap) closeSheet(); });
   onMount && onMount(wrap.firstElementChild);
 }
-function closeSheet(){ const ov=$("#overlay"), w=ov.firstElementChild; if(!w){ return; } ov.innerHTML=""; w.classList.add("leaving"); document.body.appendChild(w); setTimeout(()=>w.remove(),220); }
+function closeSheet(){ const ov=$("#overlay"), w=ov.firstElementChild; if(!w){ return; } ov.innerHTML=""; w.classList.add("leaving"); document.body.appendChild(w); setTimeout(()=>w.remove(),170); }
 function confirmSheet(title,text,okLabel,onOk,danger=true){
   sheet(`<h3>${esc(title)}</h3><p class="muted" style="margin:0">${esc(text)}</p>
     <button class="btn ${danger?"danger":""}" id="cOk">${esc(okLabel)}</button><button class="btn ghost" id="cNo">${t("back")}</button>`, el=>{
@@ -1747,8 +1751,8 @@ function celebrate(msg, kind){
     : check;
   el.innerHTML=`<div class="box">${scene}<b>${esc(msg)}</b></div>`;
   document.body.appendChild(el);
-  el.onclick=()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),260); };
-  setTimeout(()=>{ if(!el.isConnected) return; el.classList.add("leaving"); setTimeout(()=>el.remove(),260); }, kind?2000:1250);
+  el.onclick=()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),170); };
+  setTimeout(()=>{ if(!el.isConnected) return; el.classList.add("leaving"); setTimeout(()=>el.remove(),170); }, kind?2000:1250);
 }
 
 function topbar(title,{sub="",canBack=false,right=""}={}){
@@ -3268,7 +3272,7 @@ function walletCard(compact){
   return `<button class="wallet-card" id="walletCard" aria-label="${t("walletTitle")}">
     <div class="row between"><span class="wc-l">${t("balanceLbl")}</span><span class="wc-top">${t("topUp")} +</span></div>
     <b class="wc-b">${w.balance} <small>сом</small></b>
-    <div class="wc-free"><span>${t("freeLeftLbl")}: <b>${left} / ${FREE_LIMIT}</b></span><div class="bar"><i style="width:${left/FREE_LIMIT*100}%"></i></div></div>
+    <div class="wc-free"><span>${t("freeLeftLbl")}: <b>${left} / ${FREE_LIMIT}</b></span><div class="bar"><i style="transform:scaleX(${left/FREE_LIMIT})"></i></div></div>
   </button>`;
 }
 screens.wallet = ({need}={}) => {
@@ -3815,7 +3819,7 @@ function showSplash(){
   const el=document.createElement("div"); el.className="splash"; el.setAttribute("aria-hidden","true");
   el.innerHTML=`<div class="sp-glow"></div><div class="sp-in"><div class="sp-logo sp-svg">${tayanSVG("sp",{motto:t("brandLine")})}</div></div>`;
   document.body.appendChild(el);
-  const go=()=>{ if(!el.isConnected) return; el.classList.add("out"); setTimeout(()=>el.remove(),420); };
+  const go=()=>{ if(!el.isConnected) return; el.classList.add("out"); setTimeout(()=>el.remove(),300); };
   el.onclick=go; setTimeout(go,3600);
 }
 (function(){ try{ if(sessionStorage.getItem("jsplash")) return; sessionStorage.setItem("jsplash","1"); }catch(e){ return; } showSplash(); })();
