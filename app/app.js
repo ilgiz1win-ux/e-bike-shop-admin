@@ -491,7 +491,7 @@ load();
 // ---------- brand colour themes (switchable in Profile) ----------
 const BRANDS = {
   mono:{name:{ky:"Асман көк жана ак",ru:"Небесно-голубой и белый"},sw:"#0ea5e9",
-    light:{accent:"#0ea5e9","accent-strong":"#0284c7","accent-soft":"#e0f2fe","accent-ink":"#0284c7","on-accent":"#ffffff",ink:"#0284c7",ink2:"#075985","sel-bg":"#0ea5e9","sel-fg":"#ffffff","sel-ic":"#ffffff",bg:"#ffffff",field:"#f0f9ff",line:"#e0f2fe",fg:"#0c4a6e",muted:"#4b7a96","st-onway":"#0ea5e9","st-accepted":"#0ea5e9"},
+    light:{accent:"#0ea5e9","accent-strong":"#0284c7","accent-soft":"#e0f2fe","accent-ink":"#000000","on-accent":"#000000",ink:"#0284c7",ink2:"#075985","sel-bg":"#0ea5e9","sel-fg":"#000000","sel-ic":"#000000",bg:"#ffffff",field:"#f0f9ff",line:"#e0f2fe",fg:"#000000",muted:"#000000","st-onway":"#000000","st-accepted":"#000000"},
     dark:{accent:"#0d9fe2","accent-strong":"#8cd5f8","accent-soft":"#055583","accent-ink":"#8cd5f8","on-accent":"#05517d",ink:"#045b8c",ink2:"#05527e","sel-bg":"#0d9fe2","sel-fg":"#05517d","sel-ic":"#05517d",bg:"#054e79",field:"#055583",line:"#045d8e",fg:"#f4fbff",muted:"#7ecff6","st-onway":"#8cd5f8","st-accepted":"#8cd5f8"}},
   tayan:{name:{ky:"TAYAN",ru:"TAYAN"},sw:"#0f5c40",
     light:{accent:"#137a53","accent-strong":"#0f6646","accent-soft":"#e1f1e8","accent-ink":"#0d5c3f","on-accent":"#ffffff",ink:"#0d4130",ink2:"#062a1e","sel-bg":"#0d4130","sel-fg":"#ffffff","sel-ic":"#f0c46a",bg:"#f2f5f1",field:"#e7eee8",line:"#dbe4dc",fg:"#0f1f18",muted:"#55675d"},

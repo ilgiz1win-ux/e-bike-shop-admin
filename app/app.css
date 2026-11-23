@@ -1145,3 +1145,27 @@ html.mono{--cat-courier:var(--accent);--cat-car:var(--accent);--cat-porter:var(-
   --danger:#03679e;--star:#0987c5;--st-open:#4b7a96;--st-accepted:#0574ae;--st-onway:#0574ae;--warn-bg:#f6fcff;--warn-line:#def3fe;--card-line:#e7f6fe;
   --shadow:0 1px 2px rgba(8,47,73,.06),0 6px 20px rgba(8,47,73,.07)}
 html.mono .pill.red{background:#eff9ff;color:#03679e}
+
+/* text is pure black; every surface, button, badge and banner is sky blue */
+html.mono{--st-open:#000;--danger:#000;--cat-all:var(--accent)}
+html.mono .cat-all,html.mono .cat-ride{--cat:var(--accent)}
+html.mono .promo{background:radial-gradient(120% 120% at 80% 0%,#7dd3fc,#38bdf8 55%,#0ea5e9);box-shadow:0 10px 28px rgba(14,165,233,.28)}
+html.mono .promo-txt{color:#000}
+html.mono .promo-txt small{opacity:1}
+html.mono .promo-tag{background:#fff;color:#000}
+html.mono .promo-art{background:rgba(255,255,255,.35);color:#000}
+html.mono .splash,html.mono .wl-hero.tayan-hero{background:radial-gradient(120% 80% at 50% 0%,#7dd3fc,#38bdf8 50%,#0ea5e9);color:#000}
+html.mono .wl-hero.tayan-hero *{color:#000}
+html.mono .ot-badge{background:var(--accent);color:#000}
+html.mono .ot-badge.ot-frag{background:#bae6fd;color:#000}
+html.mono .svct[aria-pressed="true"] .svct-art{background:var(--accent);color:#000}
+html.mono .dots i.on{background:var(--accent)}
+html.mono .ordercard{box-shadow:inset 4px 0 0 var(--accent),var(--shadow)}
+html.mono .toast{background:var(--accent);color:#000}
+html.mono .gps-ic,html.mono .geo-nav a{background:var(--accent);color:#000}
+html.mono .gps-btn,html.mono .geo-card{border-color:var(--accent)}
+html.mono .pill.red{background:#e0f2fe;color:#000}
+html.mono .avatar{color:#000}
+html.mono .svct[aria-pressed="true"],html.mono .fragile-opt.on,html.mono .pm.on{border-color:var(--accent)}
+html.mono .tr-line .ln i,html.mono .tr-line .ln i:last-child,html.mono .geo-ring{border-color:var(--accent)}
+html.mono .geo-pin{color:var(--accent)}
