@@ -1108,3 +1108,9 @@ html.mono .dots i.on{background:var(--fg)}
 html.mono .tab.on svg{background:var(--field);color:var(--fg)}
 html.mono .pill.st i{background:currentColor}
 html.mono .badge-ok svg{color:var(--fg)}
+
+/* city picker steps */
+.citylist .cl-more svg:last-child{width:16px;height:16px;color:var(--muted);flex:none}
+.citylist .cl-more .cl-reg{margin-left:auto}
+.citylist .cl-back{color:var(--muted);font-weight:600}
+.citylist .cl-whole{font-weight:700}

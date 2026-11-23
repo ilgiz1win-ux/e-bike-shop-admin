@@ -1113,6 +1113,12 @@ html.mono .dots i.on{background:var(--fg)}
 html.mono .tab.on svg{background:var(--field);color:var(--fg)}
 html.mono .pill.st i{background:currentColor}
 html.mono .badge-ok svg{color:var(--fg)}
+
+/* city picker steps */
+.citylist .cl-more svg:last-child{width:16px;height:16px;color:var(--muted);flex:none}
+.citylist .cl-more .cl-reg{margin-left:auto}
+.citylist .cl-back{color:var(--muted);font-weight:600}
+.citylist .cl-whole{font-weight:700}
 /* TAYAN animated mark (see tayan-logo.js). Resting styles = finished logo; keyframes start from hidden. */
 .tayan-svg{display:block;width:100%;height:auto;overflow:visible}
 .tayan-svg *{transform-box:fill-box}
@@ -1465,7 +1471,7 @@ ru:{
   g4t:"4. Отменяйте заранее", g4:"Если планы поменялись, отмените бронь и предупредите водителя.",
   chooseCities:"Выберите города отправления и прибытия", citiesDiffer:"Города должны отличаться",
   requestNotif:"Запрос {from} → {to} на {date} отправлен водителям ({n}). Они свяжутся с вами.", requestSent:"Запрос отправлен водителям",
-  chooseCity:"Выберите город или село", startTyping:"Начните вводить…", selected:"выбран", cancel:"Отмена", back:"Назад",
+  wholeTown:"Весь город {town}", placeInTown:"Или место в городе {town}", townsLbl:"Города", regionsLbl:"Области", chooseCity:"Выберите город или село", startTyping:"Начните вводить…", selected:"выбран", cancel:"Отмена", back:"Назад",
   noTrips:"На эту дату поездок нет", noTripsText:"Попробуйте другую дату или включите «Отправить запрос всем водителям» — вам позвонят, когда появится машина.",
   nearest:"Ближайшие по этому маршруту", you:"вы", seatsFree:"Свободно мест: {n}", takesParcels:"берёт посылки",
   trip:"Поездка", yourTrip:"Это ваша поездка", youBooked:"Вы забронировали {n} {seats}", paymentLbl:"Оплата: {p}",
@@ -1611,7 +1617,7 @@ ky:{
   g4t:"4. Алдын ала жокко чыгарыңыз", g4:"Пландар өзгөрсө, брондоону жокко чыгарып, айдоочуга эскертиңиз.",
   chooseCities:"Кайдан жана кайда экенин тандаңыз", citiesDiffer:"Шаарлар ар башка болушу керек",
   requestNotif:"{from} → {to} ({date}) суроосу айдоочуларга жөнөтүлдү ({n}). Алар сиз менен байланышат.", requestSent:"Суроо айдоочуларга жөнөтүлдү",
-  chooseCity:"Шаар же айылды тандаңыз", startTyping:"Жаза баштаңыз…", selected:"тандалды", cancel:"Жокко чыгаруу", back:"Артка",
+  wholeTown:"Бүт {town} шаары", placeInTown:"Же {town} ичиндеги жер", townsLbl:"Шаарлар", regionsLbl:"Облустар", chooseCity:"Шаар же айылды тандаңыз", startTyping:"Жаза баштаңыз…", selected:"тандалды", cancel:"Жокко чыгаруу", back:"Артка",
   noTrips:"Бул күнгө сапар жок", noTripsText:"Башка күндү тандаңыз же «Бардык айдоочуларга суроо жөнөтүү» дегенди күйгүзүңүз — машина чыкканда сизге чалышат.",
   nearest:"Бул маршрут боюнча жакынкылар", you:"сиз", seatsFree:"Бош орун: {n}", takesParcels:"посылка алат",
   trip:"Сапар", yourTrip:"Бул сиздин сапарыңыз", youBooked:"Сиз {n} {seats} брондодуңуз", paymentLbl:"Төлөм: {p}",
@@ -1838,6 +1844,7 @@ const BRAND_KEYS=["accent","accent-strong","accent-soft","accent-ink","on-accent
 function isDark(){ const r=document.documentElement; return r.dataset.theme==="dark" || (r.dataset.theme!=="light" && matchMedia("(prefers-color-scheme: dark)").matches); }
 function applyBrand(){
   document.documentElement.classList.toggle("mono", S.brand==="mono");
+  { const want=S.theme||"light"; if(document.documentElement.getAttribute("data-theme")!==want) document.documentElement.setAttribute("data-theme",want); }
   const b=BRANDS[S.brand]||BRANDS.tayan, set=isDark()?b.dark:b.light, st=document.documentElement.style;
   BRAND_KEYS.forEach(k=>{ if(set[k]) st.setProperty("--"+k,set[k]); else st.removeProperty("--"+k); });
 }
@@ -1895,20 +1902,46 @@ function confirmSheet(title,text,okLabel,onOk,danger=true){
     el.querySelector("#cNo").onclick=closeSheet;
   });
 }
+// City picker in steps: towns and regions first; Bishkek (and any town with points inside it)
+// asks "the whole town or which place?"; a region opens its villages. Search looks everywhere.
+function placeKids(town){ return [...new Set(ALL_PLACES.filter(p=>p.startsWith(town+", ")))]; }
 function citySheet(current,onPick,allowAny=false){
-  sheet(`<h3>${t("chooseCity")}</h3>
+  sheet(`<h3 id="clTitle">${t("chooseCity")}</h3>
     <div class="field">${I.search}<input id="cq" placeholder="${t("startTyping")}" autocomplete="off"></div>
     <div class="citylist" id="cl"></div>`, el=>{
-    const q=el.querySelector("#cq"), cl=el.querySelector("#cl");
+    const q=el.querySelector("#cq"), cl=el.querySelector("#cl"), title=el.querySelector("#clTitle");
+    let level=null; // null = top; {town:"Бишкек"} or {region:key}
+    const gname=g=>esc(g[S.lang]||g.ky);
+    const sel=c=>c===current?`<span class="pill" style="margin-left:auto">${t("selected")}</span>`:"";
+    const item=(c,label)=>`<button data-c="${esc(c)}">${I.pinO}<span>${esc(label||c)}</span>${sel(c)}</button>`;
+    const more=(attr,val,label,n)=>`<button ${attr}="${esc(val)}" class="cl-more">${I.pinO}<span>${esc(label)}</span><small class="cl-reg">${n}</small>${I.chev}</button>`;
+    const shortName=(town,p)=>p.slice(town.length+2);
     const draw=()=>{ const v=q.value.trim().toLowerCase();
-      const extra = v.length>=2 && !CITIES.some(c=>c.toLowerCase()===v) ? `<button data-c="${esc(q.value.trim())}">${I.plus}<span>${t("useTyped",{name:esc(q.value.trim())})}</span></button>`:"";
-      const any = allowAny && !v ? `<button data-c="">${I.road}<span>${t("anyCity")}</span>${!current?`<span class="pill" style="margin-left:auto">${t("selected")}</span>`:""}</button>` : "";
-      const item=c=>`<button data-c="${esc(c)}">${I.pinO}<span>${esc(c)}</span>${c===current?`<span class="pill" style="margin-left:auto">${t("selected")}</span>`:""}</button>`;
-      const gname=g=>esc(g[S.lang]||g.ky);
-      if(v){ cl.innerHTML = extra + searchPlaces(v).map(({label,group})=>item(label).replace("</span>",`</span><small class="cl-reg">${gname(group)}</small>`)).join(""); }
-      else { cl.innerHTML = any + PLACES.map(g=>(g.key==="bishkek"||g.key==="cities") ? `<p class="cl-group">${gname(g)}</p>${g.items.map(item).join("")}` : `<details class="cl-fold"><summary class="cl-group">${gname(g)} · ${g.items.length}</summary>${g.items.map(item).join("")}</details>`).join(""); } };
+      if(v){ title.textContent=t("chooseCity");
+        const extra = v.length>=2 && !CITIES.some(c=>c.toLowerCase()===v) ? `<button data-c="${esc(q.value.trim())}">${I.plus}<span>${t("useTyped",{name:esc(q.value.trim())})}</span></button>`:"";
+        cl.innerHTML = extra + searchPlaces(v).map(({label,group})=>item(label).replace("</span>",`</span><small class="cl-reg">${gname(group)}</small>`)).join(""); return; }
+      if(level && level.town){ const town=level.town, kids=placeKids(town);
+        title.textContent=town;
+        cl.innerHTML=`<button class="cl-back" data-back="1">${I.back}<span>${t("back")}</span></button>
+          <button data-c="${esc(town)}" class="cl-whole">${I.road}<span>${t("wholeTown",{town:esc(town)})}</span>${sel(town)}</button>
+          <p class="cl-group">${t("placeInTown",{town:esc(town)})}</p>${kids.map(p=>item(p,shortName(town,p))).join("")}`; return; }
+      if(level && level.region){ const g=PLACES.find(x=>x.key===level.region);
+        title.textContent=g[S.lang]||g.ky;
+        cl.innerHTML=`<button class="cl-back" data-back="1">${I.back}<span>${t("back")}</span></button>${g.items.map(c=>item(c)).join("")}`; return; }
+      title.textContent=t("chooseCity");
+      const any = allowAny ? `<button data-c="">${I.road}<span>${t("anyCity")}</span>${!current?`<span class="pill" style="margin-left:auto">${t("selected")}</span>`:""}</button>` : "";
+      const towns=PLACES.find(g=>g.key==="cities").items;
+      const townRow=c=>{ const n=placeKids(c).length; return n? more("data-town",c,c,n) : item(c); };
+      const regions=PLACES.filter(g=>/^r\d/.test(g.key));
+      cl.innerHTML = any + `<p class="cl-group">${t("townsLbl")}</p>` + towns.map(townRow).join("")
+        + `<p class="cl-group">${t("regionsLbl")}</p>` + regions.map(g=>more("data-region",g.key,g[S.lang]||g.ky,g.items.length)).join("");
+    };
     q.oninput=draw; draw(); setTimeout(()=>q.focus(),50);
-    cl.onclick=e=>{ const b=e.target.closest("button"); if(b){ closeSheet(); onPick(b.dataset.c); } };
+    cl.onclick=e=>{ const b=e.target.closest("button"); if(!b) return;
+      if(b.dataset.back){ level=null; draw(); cl.scrollTop=0; return; }
+      if(b.dataset.town){ level={town:b.dataset.town}; draw(); cl.scrollTop=0; return; }
+      if(b.dataset.region){ level={region:b.dataset.region}; draw(); cl.scrollTop=0; return; }
+      closeSheet(); onPick(b.dataset.c); };
   });
 }
 const langSwitch = () => `<div class="lang" role="group" aria-label="Тил / Язык"><button data-lang="ky" aria-pressed="${S.lang==="ky"}" class="${S.lang==="ky"?"on":""}">KG</button><button data-lang="ru" aria-pressed="${S.lang==="ru"}" class="${S.lang==="ru"?"on":""}">RU</button></div>`;
