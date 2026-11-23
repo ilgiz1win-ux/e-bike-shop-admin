@@ -898,20 +898,6 @@ h2.h3{font:700 1rem/1.3 var(--f-display);margin:0;letter-spacing:0}
 @media (prefers-reduced-motion: reduce){.hero-road .mv{animation:none;transform:translateX(30px)}.hero-road .mv.b,.hero-road .mv.c{display:none}}
 
 /* ---------- motion layer 2: arrival, celebration, depth ---------- */
-/* splash: once per visit */
-.splash{position:fixed;inset:0;z-index:90;display:grid;place-items:center;background:linear-gradient(160deg,var(--ink),var(--ink2));color:var(--on-ink);transition:opacity .35s ease,transform .35s var(--m-out)}
-.splash.out{opacity:0;transform:scale(1.04)}
-.sp-in{display:flex;flex-direction:column;align-items:center;gap:12px}
-.sp-logo{width:76px;height:76px;border-radius:24px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;box-shadow:0 18px 40px rgba(0,0,0,.25);animation:spPop .6s var(--m-spring) both}
-.sp-logo svg{width:40px;height:40px}
-.sp-in b{font:800 1.875rem var(--f-display);letter-spacing:-.02em;animation:rise .5s .2s var(--m-out) both}
-.sp-road{position:relative;width:180px;height:30px;margin-top:4px}
-.sp-road i{position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;border-radius:2px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.75) 0 16px,transparent 16px 28px);transform-origin:left;animation:spDraw .6s .35s var(--m-out) both}
-.sp-road span{position:absolute;left:0;top:0;width:30px;height:30px;color:#fff;animation:spCar 1s .55s cubic-bezier(.65,0,.35,1) both}
-.sp-road span svg{width:30px;height:30px}
-@keyframes spPop{from{opacity:0;transform:scale(.6) rotate(-12deg)}to{opacity:1;transform:none}}
-@keyframes spDraw{from{transform:scaleX(0)}to{transform:none}}
-@keyframes spCar{from{transform:translateX(-10px);opacity:0}20%{opacity:1}to{transform:translateX(150px);opacity:1}}
 
 /* home hero: two ridges drifting at different speeds */
 .home-hero{position:relative;overflow:hidden;isolation:isolate}
@@ -944,3 +930,57 @@ h2.h3{font:700 1rem/1.3 var(--f-display);margin:0;letter-spacing:0}
 .cel-badge .cel-check{width:52px;height:52px}
 .celebrate.is-car .box{animation:none}
 @media (prefers-reduced-motion: reduce){.cel-fly{offset-distance:100%}.cel-car{transform:translateX(82px)}}
+
+/* ---------- TAYAN brand: deep green, gold, white ---------- */
+:root{--gold:#d6a649;--gold-2:#f3cf7a;--gold-ink:#8a6420}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--gold:#e2b45a;--gold-2:#f6d78f;--gold-ink:#e2b45a}}
+:root[data-theme="dark"]{--gold:#e2b45a;--gold-2:#f6d78f;--gold-ink:#e2b45a}
+.brand-h{display:inline-flex;align-items:center;gap:8px;letter-spacing:.08em}
+.brand-h img{border-radius:8px}
+/* gold details on the dark green hero */
+.home-hero .hero-scene .mt{fill:var(--gold)}
+.home-hero .hero-scene .mt-b{opacity:.10}
+.home-hero .hero-scene .mt-f{opacity:.16}
+.hero-road .mv{color:var(--gold-2)}
+.hero-road::before{background:repeating-linear-gradient(90deg,color-mix(in srgb,var(--gold-2) 70%,transparent) 0 24px,transparent 24px 48px)}
+.home-hero .rolechip svg,.home-hero .balchip svg{color:var(--gold-2)}
+.svct.cat-all{--cat:var(--gold-ink)}
+.price{color:var(--accent-ink)}
+/* the sheen: a gold light passing over the mark */
+.th-sheen{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+.th-sheen::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,236,180,.55),transparent);transform:skewX(-18deg) translateX(0);animation:sheen 3.6s 1s cubic-bezier(.45,0,.2,1) infinite}
+@keyframes sheen{0%{transform:skewX(-18deg) translateX(0)}35%,100%{transform:skewX(-18deg) translateX(420%)}}
+/* welcome hero */
+.wl-hero.tayan-hero{aspect-ratio:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding:26px 18px 0;background:radial-gradient(120% 80% at 50% 0%,#145a41 0%,var(--ink) 45%,var(--ink2) 100%);color:#fff;text-align:center;overflow:hidden}
+.th-glow{position:absolute;left:50%;top:40px;width:260px;height:260px;margin-left:-130px;border-radius:50%;background:radial-gradient(circle,rgba(243,207,122,.28),transparent 65%);animation:glow 4s ease-in-out infinite}
+@keyframes glow{50%{transform:scale(1.12);opacity:.7}}
+.th-logo{position:relative;width:180px;height:180px;border-radius:40px;box-shadow:0 22px 50px rgba(0,0,0,.35);animation:logoIn .8s var(--m-spring) both,float 5s 1s ease-in-out infinite}
+.th-logo img{display:block;width:100%;height:100%;border-radius:inherit}
+@keyframes logoIn{from{opacity:0;transform:translateY(16px) scale(.8) rotate(-6deg)}to{opacity:1;transform:none}}
+@keyframes float{50%{transform:translateY(-6px)}}
+.th-line{display:flex;align-items:center;gap:8px;margin:2px 0 0;color:var(--gold-2);font:600 italic .9375rem var(--f-display);letter-spacing:.01em;white-space:nowrap;animation:rise .6s .35s var(--m-out) both}
+.th-line i{display:block;flex:none;width:18px;height:2px;border-radius:1px;background:var(--gold)}
+.th-copy{display:flex;flex-direction:column;gap:6px;max-width:320px;animation:rise .6s .5s var(--m-out) both}
+.th-copy b{font:800 1.375rem/1.2 var(--f-display);text-wrap:balance}
+.th-copy span{font-size:.9rem;opacity:.85;line-height:1.4}
+.th-road{width:calc(100% + 36px);margin:10px -18px 0;border-radius:0}
+/* splash */
+.splash{position:fixed;inset:0;z-index:90;display:grid;place-items:center;overflow:hidden;background:radial-gradient(120% 80% at 50% 30%,#155c43 0%,#0b3a2a 45%,#04190f 100%);color:#fff;transition:opacity .4s ease,transform .4s var(--m-out)}
+.splash.out{opacity:0;transform:scale(1.05)}
+.sp-glow{position:absolute;left:50%;top:50%;width:420px;height:420px;margin:-260px 0 0 -210px;border-radius:50%;background:radial-gradient(circle,rgba(243,207,122,.30),transparent 62%);animation:glow 2.4s ease-in-out infinite}
+.sp-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:16px}
+.sp-logo{position:relative;width:168px;height:168px;border-radius:38px;box-shadow:0 26px 60px rgba(0,0,0,.45);animation:spLogo .9s var(--m-spring) both}
+.sp-logo img{display:block;width:100%;height:100%;border-radius:inherit}
+.sp-logo .th-sheen::after{animation:sheen 1.6s .7s cubic-bezier(.45,0,.2,1) 1 both}
+@keyframes spLogo{from{opacity:0;transform:scale(.55) rotate(-10deg)}to{opacity:1;transform:none}}
+.sp-line{display:flex;align-items:center;gap:10px;margin:0;color:#f3cf7a;font:600 italic 1.0625rem var(--f-display);animation:rise .6s .55s var(--m-out) both}
+.sp-line i{display:block;width:30px;height:2px;border-radius:1px;background:#d6a649;transform-origin:center;animation:spDraw .5s .75s var(--m-out) both}
+.sp-road{position:relative;width:200px;height:30px}
+.sp-road i{position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;border-radius:2px;background:repeating-linear-gradient(90deg,#d6a649 0 18px,transparent 18px 30px);transform-origin:left;animation:spDraw .6s .8s var(--m-out) both}
+.sp-road span{position:absolute;left:0;top:0;width:30px;height:30px;color:#fff;animation:spCar 1.1s 1s cubic-bezier(.65,0,.35,1) both}
+.sp-road span svg{width:30px;height:30px}
+@keyframes spDraw{from{transform:scaleX(0)}to{transform:none}}
+@keyframes spCar{from{transform:translateX(-10px);opacity:0}20%{opacity:1}to{transform:translateX(170px);opacity:1}}
+/* admin mark */
+.an-logo-img{width:40px;height:40px;border-radius:11px;flex:none}
+@media (prefers-reduced-motion: reduce){.th-sheen::after{display:none}}
