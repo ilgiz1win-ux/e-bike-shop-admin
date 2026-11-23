@@ -1043,6 +1043,8 @@ html.motion-off .tayan-svg *{animation:none!important}
 .hero-drive{position:relative;height:132px;margin:2px calc(-1*max(16px,env(safe-area-inset-left,0px))) -6px;overflow:hidden}
 .hd-svg{position:absolute;left:0;bottom:0;width:100%;height:100%;overflow:visible}
 .hd-svg *{transform-box:fill-box}
+/* wheels use plain SVG coordinates: the hub sits at 0 0 of each wheel, and the spokes' rotate() attributes and the spin must turn around it */
+.hd-svg .hd-wheel,.hd-svg .hd-wheel *{transform-box:view-box}
 .hd-dashes{animation:hdRoad .45s linear infinite}
 .hd-posts{animation:hdPosts 1.1s linear infinite}
 @keyframes hdRoad{to{transform:translateX(-48px)}}
@@ -1050,7 +1052,7 @@ html.motion-off .tayan-svg *{animation:none!important}
 .hd-car{transform-origin:50% 100%}
 .hd-body{animation:hdBob .55s ease-in-out infinite alternate}
 @keyframes hdBob{to{transform:translateY(-1.6px)}}
-.hd-spokes{transform-origin:center;animation:hdSpin .35s linear infinite}
+/* wheel spin: SMIL in tayan-car.js (exact hub centre in Safari) */
 @keyframes hdSpin{to{transform:rotate(360deg)}}
 .hd-speed path{animation:hdSpeed .9s linear infinite}
 .hd-speed path:nth-child(2){animation-delay:.3s}.hd-speed path:nth-child(3){animation-delay:.6s}
@@ -1201,7 +1203,7 @@ function tayanCar(id, opts){
   const o=opts||{};
   const wheel=(cx)=>`<g class="hd-wheel" transform="translate(${cx} 90)">
       <circle r="23" fill="#141a17"/><circle r="16" fill="url(#${id}rim)"/>
-      <g class="hd-spokes">${[0,72,144,216,288].map(a=>`<rect x="-2" y="-15" width="4" height="13" rx="2" fill="#5d6a63" transform="rotate(${a})"/>`).join("")}</g>
+      <g class="hd-spokes">${[0,72,144,216,288].map(a=>`<rect x="-2" y="-15" width="4" height="13" rx="2" fill="#5d6a63" transform="rotate(${a})"/>`).join("")}${o.still?"":`<animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="0.35s" repeatCount="indefinite"/>`}</g>
       <circle r="4" fill="#d6a649"/></g>`;
   return `<svg class="hd-svg" viewBox="0 0 360 130" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
   <defs>
@@ -1892,7 +1894,7 @@ function celebrate(msg, kind){
   const scene = kind==="parcel"
     ? `<div class="cel-scene" aria-hidden="true"><svg class="cel-arc" viewBox="0 0 220 130"><path d="M24 112 Q110 -14 196 78"/></svg><span class="cel-pin">${I.pin}</span><span class="cel-fly">${I.box}</span></div>`
     : kind==="car"
-    ? `<div class="cel-scene cel-bigcar" aria-hidden="true"><div class="hero-drive cel-wave">${tayanCar("cc"+Date.now(),{driver:true})}</div><span class="cel-badge">${check}</span></div>`
+    ? `<div class="cel-scene cel-bigcar" aria-hidden="true"><div class="hero-drive cel-wave">${tayanCar("cc"+Date.now(),{driver:true,still:motionOff()})}</div><span class="cel-badge">${check}</span></div>`
     : check;
   el.innerHTML=`<div class="box">${scene}<b>${esc(msg)}</b></div>`;
   document.body.appendChild(el);
@@ -2100,7 +2102,7 @@ screens.home = () => {
   <section class="home-hero">
     <div class="hero-scene" aria-hidden="true"><svg class="mt mt-b" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/><path transform="translate(400 0)" d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/></svg><svg class="mt mt-f" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/><path transform="translate(400 0)" d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/></svg></div>
     <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${work?t("helloWork"):t("helloSub")}</span><button class="rolechip ${work?"cat-"+ROLE_CATS[role][0]:""}" id="roleChip">${I[ROLE_ICON[role]]}<span>${t("modeLbl")}: ${t("role_"+role)}</span>${I.chev}</button></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
-    <div class="hero-drive ${homeEnter?"enter":""}">${tayanCar("hc")}</div>
+    <div class="hero-drive ${homeEnter?"enter":""}">${tayanCar("hc",{still:motionOff()})}</div>
     <div class="route-card">
       <button class="rc-row" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
       <i class="rc-div"></i>

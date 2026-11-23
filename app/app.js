@@ -635,7 +635,7 @@ function celebrate(msg, kind){
   const scene = kind==="parcel"
     ? `<div class="cel-scene" aria-hidden="true"><svg class="cel-arc" viewBox="0 0 220 130"><path d="M24 112 Q110 -14 196 78"/></svg><span class="cel-pin">${I.pin}</span><span class="cel-fly">${I.box}</span></div>`
     : kind==="car"
-    ? `<div class="cel-scene cel-bigcar" aria-hidden="true"><div class="hero-drive cel-wave">${tayanCar("cc"+Date.now(),{driver:true})}</div><span class="cel-badge">${check}</span></div>`
+    ? `<div class="cel-scene cel-bigcar" aria-hidden="true"><div class="hero-drive cel-wave">${tayanCar("cc"+Date.now(),{driver:true,still:motionOff()})}</div><span class="cel-badge">${check}</span></div>`
     : check;
   el.innerHTML=`<div class="box">${scene}<b>${esc(msg)}</b></div>`;
   document.body.appendChild(el);
@@ -843,7 +843,7 @@ screens.home = () => {
   <section class="home-hero">
     <div class="hero-scene" aria-hidden="true"><svg class="mt mt-b" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/><path transform="translate(400 0)" d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/></svg><svg class="mt mt-f" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/><path transform="translate(400 0)" d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/></svg></div>
     <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${work?t("helloWork"):t("helloSub")}</span><button class="rolechip ${work?"cat-"+ROLE_CATS[role][0]:""}" id="roleChip">${I[ROLE_ICON[role]]}<span>${t("modeLbl")}: ${t("role_"+role)}</span>${I.chev}</button></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
-    <div class="hero-drive ${homeEnter?"enter":""}">${tayanCar("hc")}</div>
+    <div class="hero-drive ${homeEnter?"enter":""}">${tayanCar("hc",{still:motionOff()})}</div>
     <div class="route-card">
       <button class="rc-row" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
       <i class="rc-div"></i>

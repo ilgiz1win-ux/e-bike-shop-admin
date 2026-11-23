@@ -5,7 +5,7 @@ function tayanCar(id, opts){
   const o=opts||{};
   const wheel=(cx)=>`<g class="hd-wheel" transform="translate(${cx} 90)">
       <circle r="23" fill="#141a17"/><circle r="16" fill="url(#${id}rim)"/>
-      <g class="hd-spokes">${[0,72,144,216,288].map(a=>`<rect x="-2" y="-15" width="4" height="13" rx="2" fill="#5d6a63" transform="rotate(${a})"/>`).join("")}</g>
+      <g class="hd-spokes">${[0,72,144,216,288].map(a=>`<rect x="-2" y="-15" width="4" height="13" rx="2" fill="#5d6a63" transform="rotate(${a})"/>`).join("")}${o.still?"":`<animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="0.35s" repeatCount="indefinite"/>`}</g>
       <circle r="4" fill="#d6a649"/></g>`;
   return `<svg class="hd-svg" viewBox="0 0 360 130" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
   <defs>
