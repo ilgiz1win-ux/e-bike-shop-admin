@@ -2,10 +2,10 @@
 // Order: the tile appears, the gold arc draws, ridges rise, the gold peak fills in, the road draws,
 // the car drives toward the viewer, the wordmark strokes write themselves, the motto rises, a sheen passes.
 // Every element's resting style is its final look, so with reduced motion it simply shows the finished logo.
-// Turquoise + white look: every colour in an SVG string is mapped by its lightness onto one turquoise ramp.
+// Green + white look: every colour in an SVG string is mapped by its lightness onto one green ramp.
 function tealize(svg){
   if(!document.documentElement.classList.contains("mono")) return svg;
-  const S=[[0,[5,48,44]],[0.35,[15,118,110]],[0.6,[20,184,166]],[0.82,[153,233,223]],[1,[255,255,255]]], hx=n=>n.toString(16).padStart(2,"0");
+  const S=[[0,[4,46,22]],[0.35,[21,128,61]],[0.6,[34,197,94]],[0.82,[187,247,208]],[1,[255,255,255]]], hx=n=>n.toString(16).padStart(2,"0");
   return svg.replace(/#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b/g,(m,h)=>{ if(h.length===3) h=h.split("").map(c=>c+c).join("");
     const r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16), L=(0.299*r+0.587*g+0.114*b)/255;
     for(let i=1;i<S.length;i++){ const [a,ca]=S[i-1],[e,cb]=S[i]; if(L<=e){ const k=e>a?(L-a)/(e-a):0; return "#"+[0,1,2].map(j=>hx(Math.round(ca[j]+(cb[j]-ca[j])*k))).join(""); } }

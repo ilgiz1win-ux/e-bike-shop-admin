@@ -1081,25 +1081,25 @@ body.on-home .topbar .lang button.on{background:var(--accent);color:var(--on-acc
 .promo-txt b{font-size:1.2rem}
 
 /* ---------- black & white (html.mono): no colour except black, white and greys ---------- */
-html.mono{--cat-courier:var(--fg);--cat-car:var(--fg);--cat-porter:var(--fg);--cat-truck:var(--fg);--gold:var(--fg);--gold-2:#a4ebe2;--gold-ink:var(--fg);
+html.mono{--cat-courier:var(--fg);--cat-car:var(--fg);--cat-porter:var(--fg);--cat-truck:var(--fg);--gold:var(--fg);--gold-2:#c0f8d4;--gold-ink:var(--fg);
   --page:#ffffff;--card:#ffffff;--card-line:#e5e5e5;--st-open:#6b6b6b;--star:#111111;--warn-bg:#f5f5f5;--warn-line:#e0e0e0}
-@media (prefers-color-scheme: dark){html.mono:not([data-theme="light"]){--page:#05302c;--card:#073c37;--card-line:#094e48;--st-open:#16b9a7;--star:#e9faf8;--warn-bg:#07403b;--warn-line:#0a514b;--gold-2:#0d6a63}}
-html.mono[data-theme="dark"]{--page:#05302c;--card:#073c37;--card-line:#094e48;--st-open:#16b9a7;--star:#e9faf8;--warn-bg:#07403b;--warn-line:#0a514b;--gold-2:#0d6a63}
+@media (prefers-color-scheme: dark){html.mono:not([data-theme="light"]){--page:#0b4e25;--card:#0c5629;--card-line:#0f622f;--st-open:#1eb154;--star:#f0fdf4;--warn-bg:#0d592a;--warn-line:#0f6430;--gold-2:#137538}}
+html.mono[data-theme="dark"]{--page:#0b4e25;--card:#0c5629;--card-line:#0f622f;--st-open:#1eb154;--star:#f0fdf4;--warn-bg:#0d592a;--warn-line:#0f6430;--gold-2:#137538}
 html.mono .cat-all,html.mono .cat-ride{--cat:var(--fg)}
-html.mono .promo{background:#073d39;box-shadow:0 10px 28px rgba(8,63,59,.18)}
-html.mono .promo-tag{color:#073d39}
-html.mono .promo-art{background:rgba(223,246,242,.08);color:#ffffff}
+html.mono .promo{background:#0c5729;box-shadow:0 10px 28px rgba(5,60,25,.18)}
+html.mono .promo-tag{color:#0c5729}
+html.mono .promo-art{background:rgba(220,252,231,.08);color:#ffffff}
 html.mono .ot-img{background:var(--field)}
 html.mono .ot-badge{background:var(--fg);color:var(--page)}
-html.mono .ot-badge.ot-frag{background:#0f736b;color:#ffffff}
+html.mono .ot-badge.ot-frag{background:#147b3b;color:#ffffff}
 html.mono .svct .svct-art{background:var(--field);color:var(--fg)}
 html.mono .svct[aria-pressed="true"]{border-color:var(--fg);background:var(--field)}
 html.mono .svct[aria-pressed="true"] .svct-art{background:var(--fg);color:var(--page)}
 html.mono .catpill{background:var(--field)!important;color:var(--fg)!important}
 html.mono .ordercard{box-shadow:inset 4px 0 0 var(--fg),var(--shadow)}
-html.mono .splash{background:#05302c}
-html.mono .sp-glow,html.mono .th-glow{background:radial-gradient(circle,rgba(223,246,242,.10),transparent 65%)}
-html.mono .wl-hero.tayan-hero{background:#073d39}
+html.mono .splash{background:#0b4e25}
+html.mono .sp-glow,html.mono .th-glow{background:radial-gradient(circle,rgba(220,252,231,.10),transparent 65%)}
+html.mono .wl-hero.tayan-hero{background:#0c5729}
 html.mono .cel-pin{color:var(--fg)}
 html.mono .fragile-opt.on{border-color:var(--fg)}
 html.mono .fragile-opt .fr-ic,html.mono .frag-banner > svg,html.mono .frag-tag{color:var(--fg)}
@@ -1140,8 +1140,8 @@ html.mono .badge-ok svg{color:var(--fg)}
 .gps-pill{display:inline-flex;align-items:center;gap:4px;margin-top:4px}
 .gps-pill svg{width:12px;height:12px}
 
-/* turquoise + white only: categories, gold, status, errors and stars all use the turquoise family */
-html.mono{--cat-courier:var(--accent);--cat-car:var(--accent);--cat-porter:var(--accent);--cat-truck:var(--accent);--gold:var(--accent);--gold-ink:var(--accent-strong);--gold-2:#99e9df;
-  --danger:#0f766e;--star:#14b8a6;--st-open:#3d7d76;--st-accepted:#0d9488;--st-onway:#0d9488;--warn-bg:#eefaf8;--warn-line:#bfece5;--card-line:#d3efeb;
-  --shadow:0 1px 2px rgba(8,63,59,.06),0 6px 20px rgba(8,63,59,.07)}
-html.mono .pill.red{background:#dff6f2;color:#0f766e}
+/* green + white only: categories, gold, status, errors and stars all use the green family */
+html.mono{--cat-courier:var(--accent);--cat-car:var(--accent);--cat-porter:var(--accent);--cat-truck:var(--accent);--gold:var(--accent);--gold-ink:var(--accent-strong);--gold-2:#b8f6ce;
+  --danger:#147d3c;--star:#1eaf54;--st-open:#2f6b45;--st-accepted:#189246;--st-onway:#189246;--warn-bg:#f2fdf6;--warn-line:#cef9dd;--card-line:#dafbe6;
+  --shadow:0 1px 2px rgba(5,60,25,.06),0 6px 20px rgba(5,60,25,.07)}
+html.mono .pill.red{background:#e7fcee;color:#147d3c}
