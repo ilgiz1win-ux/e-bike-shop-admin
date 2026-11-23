@@ -3,25 +3,27 @@
 // so it reads as driving without leaving the frame. CSS classes .hd-* in tayan-car.css.
 function tayanCar(id, opts){
   const o=opts||{};
+  // black & white: the gold and green parts turn grey
+  const G1=o.mono?'#6b6b6b':'#b9842f', G2=o.mono?'#d6d6d6':'#f3cf7a', GL1=o.mono?'#3a3a3a':'#1c5a44', GL2=o.mono?'#0d0d0d':'#082a1e', HUB=o.mono?'#111':'#d6a649', ARCH=o.mono?'#111':'#0d2a20', SHIRT=o.mono?'#333':'#1d6b4c';
   const wheel=(cx)=>`<g class="hd-wheel" transform="translate(${cx} 90)">
       <circle r="23" fill="#141a17"/><circle r="16" fill="url(#${id}rim)"/>
       <g class="hd-spokes">${[0,72,144,216,288].map(a=>`<rect x="-2" y="-15" width="4" height="13" rx="2" fill="#5d6a63" transform="rotate(${a})"/>`).join("")}${o.still?"":`<animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="0.35s" repeatCount="indefinite"/>`}</g>
-      <circle r="4" fill="#d6a649"/></g>`;
+      <circle r="4" fill="${HUB}"/></g>`;
   return `<svg class="hd-svg" viewBox="0 0 360 130" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
   <defs>
     <linearGradient id="${id}body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#eef1ee"/><stop offset="1" stop-color="#c9d1cc"/></linearGradient>
-    <linearGradient id="${id}glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1c5a44"/><stop offset="1" stop-color="#082a1e"/></linearGradient>
+    <linearGradient id="${id}glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${GL1}"/><stop offset="1" stop-color="${GL2}"/></linearGradient>
     <radialGradient id="${id}rim"><stop offset="0" stop-color="#e9eeea"/><stop offset="1" stop-color="#9aa6a0"/></radialGradient>
     <linearGradient id="${id}beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff6d6" stop-opacity=".75"/><stop offset="1" stop-color="#fff6d6" stop-opacity="0"/></linearGradient>
-    <linearGradient id="${id}gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b9842f"/><stop offset=".5" stop-color="#f3cf7a"/><stop offset="1" stop-color="#b9842f"/></linearGradient>
+    <linearGradient id="${id}gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${G1}"/><stop offset=".5" stop-color="${G2}"/><stop offset="1" stop-color="${G1}"/></linearGradient>
   </defs>
   <!-- road -->
   <rect x="-20" y="108" width="400" height="22" fill="rgba(0,0,0,.18)"/>
   <rect x="-20" y="107" width="400" height="2.5" fill="url(#${id}gold)"/>
   <g class="hd-dashes"><rect x="-40" y="118" width="480" height="3" fill="url(#${id}dash)"/></g>
-  <g class="hd-posts">${[0,90,180,270,360].map(x=>`<rect x="${x}" y="88" width="3" height="20" rx="1.5" fill="#d6a649" opacity=".55"/>`).join("")}</g>
+  <g class="hd-posts">${[0,90,180,270,360].map(x=>`<rect x="${x}" y="88" width="3" height="20" rx="1.5" fill="${G2}" opacity=".55"/>`).join("")}</g>
   <!-- speed lines behind -->
-  <g class="hd-speed" stroke="#f3cf7a" stroke-linecap="round" stroke-width="2.5">
+  <g class="hd-speed" stroke="${G2}" stroke-linecap="round" stroke-width="2.5">
     <path d="M4 66H34" opacity=".7"/><path d="M14 80H40" opacity=".5"/><path d="M0 94H26" opacity=".4"/>
   </g>
   <g class="hd-car">
@@ -32,29 +34,29 @@ function tayanCar(id, opts){
       <path d="M44 92C40 92 38 89 38 85V76C38 66 46 60 58 58L104 52C120 36 140 27 166 26H214C236 26 254 34 272 50L312 56C326 58 334 66 334 78V85C334 89 331 92 327 92Z" fill="url(#${id}body)"/>
       <path d="M118 52C132 39 148 33 168 33H200V52Z" fill="url(#${id}glass)"/>
       <path d="M206 33H214C232 33 248 40 262 52H206Z" fill="url(#${id}glass)"/>
-      <path d="M130 46C142 38 154 36 168 36" stroke="#9fd7bd" stroke-width="2" stroke-linecap="round" fill="none" opacity=".6"/>
+      <path d="M130 46C142 38 154 36 168 36" stroke="${o.mono?"#bbb":"#9fd7bd"}" stroke-width="2" stroke-linecap="round" fill="none" opacity=".6"/>
       <path d="M56 74H318" stroke="url(#${id}gold)" stroke-width="3" stroke-linecap="round"/>
       <path d="M203 54V88M140 56V88" stroke="#c4ccc7" stroke-width="1.5"/>
       <rect x="168" y="62" width="14" height="3" rx="1.5" fill="#9aa6a0"/><rect x="230" y="62" width="14" height="3" rx="1.5" fill="#9aa6a0"/>
       <path class="hd-head" d="M318 62L332 64C333 67 333 70 332 72L318 70Z" fill="#fff8de"/>
-      <path d="M40 66L48 64V74L40 75Z" fill="#e5484d"/>
+      <path d="M40 66L48 64V74L40 75Z" fill="${o.mono?"#555":"#e5484d"}"/>
     </g>
     ${o.driver?`<clipPath id="${id}sill"><rect x="196" y="-60" width="90" height="112"/></clipPath>
     <g clip-path="url(#${id}sill)"><g class="hd-person">
       <g class="hd-arm" style="transform-box:view-box;transform-origin:240px 50px">
         <path d="M240 50L250 30L256 18" stroke="#d9a47a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        <path d="M240 50L246 38" stroke="#1d6b4c" stroke-width="9" stroke-linecap="round"/>
+        <path d="M240 50L246 38" stroke="${SHIRT}" stroke-width="9" stroke-linecap="round"/>
         <circle cx="256" cy="15" r="5" fill="#e8b98f"/>
       </g>
       <circle cx="228" cy="38" r="10" fill="#e8b98f"/>
       <path d="M218 36C218 28 224 25 229 25C235 25 239 29 239 34C235 31 230 31 224 33C222 34 220 35 218 36Z" fill="#2b2019"/>
       <circle cx="233" cy="38" r="1.4" fill="#2b2019"/>
       <path d="M231 43Q234 45 236 43" stroke="#7a4a30" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-      <path d="M220 52C220 46 224 44 229 44C234 44 238 46 238 52Z" fill="#1d6b4c"/>
+      <path d="M220 52C220 46 224 44 229 44C234 44 238 46 238 52Z" fill="${SHIRT}"/>
     </g></g>`:""}
-    <circle cx="96" cy="90" r="27" fill="#0d2a20"/><circle cx="274" cy="90" r="27" fill="#0d2a20"/>
+    <circle cx="96" cy="90" r="27" fill="${ARCH}"/><circle cx="274" cy="90" r="27" fill="${ARCH}"/>
     ${wheel(96)}${wheel(274)}
   </g>
-  <pattern id="${id}dashp" width="48" height="3" patternUnits="userSpaceOnUse"><rect width="26" height="3" rx="1.5" fill="#f3cf7a" opacity=".8"/></pattern>
+  <pattern id="${id}dashp" width="48" height="3" patternUnits="userSpaceOnUse"><rect width="26" height="3" rx="1.5" fill="${G2}" opacity=".8"/></pattern>
   </svg>`.replace(`url(#${id}dash)`,`url(#${id}dashp)`);
 }

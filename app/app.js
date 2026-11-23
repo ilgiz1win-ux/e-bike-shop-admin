@@ -488,6 +488,9 @@ load();
 
 // ---------- brand colour themes (switchable in Profile) ----------
 const BRANDS = {
+  mono:{name:{ky:"Ак-кара",ru:"Чёрно-белый"},sw:"#111111",
+    light:{accent:"#111111","accent-strong":"#000000","accent-soft":"#efefef","accent-ink":"#111111","on-accent":"#ffffff",ink:"#111111",ink2:"#000000","sel-bg":"#111111","sel-fg":"#ffffff","sel-ic":"#ffffff",bg:"#ffffff",field:"#f2f2f2",line:"#e5e5e5",fg:"#111111",muted:"#6b6b6b","st-onway":"#111111","st-accepted":"#111111"},
+    dark:{accent:"#ffffff","accent-strong":"#e5e5e5","accent-soft":"#222222","accent-ink":"#ffffff","on-accent":"#000000",ink:"#0a0a0a",ink2:"#000000","sel-bg":"#ffffff","sel-fg":"#000000","sel-ic":"#000000",bg:"#000000",field:"#161616",line:"#262626",fg:"#f5f5f5",muted:"#9a9a9a","st-onway":"#f5f5f5","st-accepted":"#f5f5f5"}},
   tayan:{name:{ky:"TAYAN",ru:"TAYAN"},sw:"#0f5c40",
     light:{accent:"#137a53","accent-strong":"#0f6646","accent-soft":"#e1f1e8","accent-ink":"#0d5c3f","on-accent":"#ffffff",ink:"#0d4130",ink2:"#062a1e","sel-bg":"#0d4130","sel-fg":"#ffffff","sel-ic":"#f0c46a",bg:"#f2f5f1",field:"#e7eee8",line:"#dbe4dc",fg:"#0f1f18",muted:"#55675d"},
     dark:{accent:"#2fae78","accent-strong":"#4cc792","accent-soft":"#123022","accent-ink":"#7fdcb0","on-accent":"#03140c",ink:"#0e3d2c",ink2:"#06241a","sel-bg":"#2fae78","sel-fg":"#03140c","sel-ic":"#03140c",bg:"#08110d",field:"#16221c",line:"#20302a",fg:"#e7f0ea",muted:"#a1b4a9"}},
@@ -508,6 +511,7 @@ const BRANDS = {
 const BRAND_KEYS=["accent","accent-strong","accent-soft","accent-ink","on-accent","ink","ink2","sel-bg","sel-fg","sel-ic","bg","field","line","fg","muted","st-onway","st-accepted"];
 function isDark(){ const r=document.documentElement; return r.dataset.theme==="dark" || (r.dataset.theme!=="light" && matchMedia("(prefers-color-scheme: dark)").matches); }
 function applyBrand(){
+  document.documentElement.classList.toggle("mono", S.brand==="mono");
   const b=BRANDS[S.brand]||BRANDS.tayan, set=isDark()?b.dark:b.light, st=document.documentElement.style;
   BRAND_KEYS.forEach(k=>{ if(set[k]) st.setProperty("--"+k,set[k]); else st.removeProperty("--"+k); });
 }
@@ -528,7 +532,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const user = id => id==="me"?S.me:S.users.find(u=>u.id===id);
 const avColor = s => AV[[...String(s)].reduce((a,c)=>a+c.charCodeAt(0),0)%AV.length];
-const avatar = (u,cls="") => u?.photo ? `<div class="avatar ${cls}" style="background:var(--field) url(${u.photo}) center/cover"></div>` : `<div class="avatar ${cls}" style="background:${avColor(u?.name||"?")}">${esc((u?.name||"?").trim()[0]||"?").toUpperCase()}</div>`;
+const avatar = (u,cls="") => u?.photo ? `<div class="avatar ${cls}" style="background:var(--field) url(${u.photo}) center/cover"></div>` : `<div class="avatar ${cls}" style="background:${S.brand==="mono"?"#111":avColor(u?.name||"?")}">${esc((u?.name||"?").trim()[0]||"?").toUpperCase()}</div>`;
 const reviewsOf = id => S.reviews.filter(r=>r.toId===id);
 const ratingOf = id => { const r=reviewsOf(id); return r.length? r.reduce((a,b)=>a+b.rating,0)/r.length : 0; };
 const stars = v => `<span class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=Math.round(v)?"":"off"}">${I.star}</span>`).join("")}</span>`;
@@ -635,7 +639,7 @@ function celebrate(msg, kind){
   const scene = kind==="parcel"
     ? `<div class="cel-scene" aria-hidden="true"><svg class="cel-arc" viewBox="0 0 220 130"><path d="M24 112 Q110 -14 196 78"/></svg><span class="cel-pin">${I.pin}</span><span class="cel-fly">${I.box}</span></div>`
     : kind==="car"
-    ? `<div class="cel-scene cel-bigcar" aria-hidden="true"><div class="hero-drive cel-wave">${tayanCar("cc"+Date.now(),{driver:true,still:motionOff()})}</div><span class="cel-badge">${check}</span></div>`
+    ? `<div class="cel-scene cel-bigcar" aria-hidden="true"><div class="hero-drive cel-wave">${tayanCar("cc"+Date.now(),{driver:true,still:motionOff(),mono:S.brand==="mono"})}</div><span class="cel-badge">${check}</span></div>`
     : check;
   el.innerHTML=`<div class="box">${scene}<b>${esc(msg)}</b></div>`;
   document.body.appendChild(el);
@@ -672,7 +676,7 @@ function countUp(els){
 }
 function calmVideos(){ try{ if(motionOff()) document.querySelectorAll("video.anim-vid").forEach(v=>{ v.removeAttribute("autoplay"); v.pause(); }); else document.querySelectorAll("video.anim-vid").forEach(v=>{ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }); }catch(e){} }
 function render(){
-  if(!S.brand || !S.brandTayan){ S.brand="tayan"; S.brandTayan=1; }
+  if(!S.brand || !S.brandMono){ S.brand="mono"; S.brandMono=1; }
   applyBrand(); applyMotion();
   document.body.classList.remove("in-chat","on-home");
   document.documentElement.lang=S.lang;
@@ -850,7 +854,7 @@ screens.home = () => {
       <div><b>${I.shieldOk}</b><span>${t("stSafe")}</span></div>
       <div><b>24/7</b><span>${t("stSupport")}</span></div></div>`}
     <div class="promo ${homeEnter?"enter":""}" id="promo">
-      <div class="promo-slide on" data-go="orderNew"><div class="hero-drive ${homeEnter?"enter":""}">${tayanCar("hc",{still:motionOff()})}</div>
+      <div class="promo-slide on" data-go="orderNew"><div class="hero-drive ${homeEnter?"enter":""}">${tayanCar("hc",{still:motionOff(),mono:S.brand==="mono"})}</div>
         <div class="promo-txt"><span class="promo-tag">${I.box}${t("promoTag1")}</span><b>${t("promoT1")}</b><small>${t("promoS1")}</small></div></div>
       <div class="promo-slide" data-go="driverReg"><div class="promo-art">${I.idcard}</div>
         <div class="promo-txt"><span class="promo-tag">${I.shieldOk}${t("promoTag2")}</span><b>${t("promoT2")}</b><small>${t("promoS2")}</small></div></div>
