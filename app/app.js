@@ -86,7 +86,7 @@ ru:{
   trackTitle:"Где сейчас посылка", passed:"Проехал(а) {city}", atStart:"Выезжает из {city}", leftKm:"До {to}: {km} км", eta:"≈ {h} ч {m} мин",
   waitingDriver:"Как только водитель возьмёт посылку, здесь появится карта с его местоположением.", pickupSoon:"Водитель едет к вам забрать посылку",
   trackDemo:"Демо: движение машины смоделировано и ускорено. В реальном приложении используется GPS телефона водителя.",
-  iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", svcItems:"объявл.", sendCtaT:"Отправить посылку", qaTripS:"Возьмите попутчиков и посылки", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
+  iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", svcItems:"объявл.", stOrders:"заказов", stRides:"попуток", stSafe:"проверено", stSupport:"поддержка", catsTitle:"Категории", promoTag1:"Новое", promoT1:"Отправьте посылку сегодня", promoS1:"Сфотографируйте и назначьте цену", promoTag2:"Водителям", promoT2:"Зарабатывайте по пути", promoS2:"Пройдите проверку и берите заказы", sendCtaT:"Отправить посылку", qaTripS:"Возьмите попутчиков и посылки", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
   opShowPw:"Показать пароль", opSetupTitle:"Создайте аккаунт администратора", opSetupText:"Панель оператора открывается только по логину и паролю. Этот аккаунт сможет добавлять других операторов.",
   opName:"Имя", opLogin:"Логин", opPassword:"Пароль", opPassword2:"Повторите пароль", opPwRules:"Пароль: не меньше 8 символов, буквы и цифры.", opLoginRules:"Логин: 3–20 символов, латинские буквы, цифры, точка или _.",
   opPwMismatch:"Пароли не совпадают", opCreate:"Создать и войти", opCreated:"Аккаунт создан", opLoginTitle:"Вход для операторов", opLoginText:"Введите логин и пароль, чтобы увидеть обращения.",
@@ -232,7 +232,7 @@ ky:{
   trackTitle:"Посылка азыр кайда", passed:"{city} аркылуу өттү", atStart:"{city} шаарынан чыгып жатат", leftKm:"{to} чейин: {km} км", eta:"≈ {h} саат {m} мүн",
   waitingDriver:"Айдоочу посылканы алаары менен бул жерде анын кайда экени картада көрүнөт.", pickupSoon:"Айдоочу посылканы алганы сизге келе жатат",
   trackDemo:"Демо: машинанын кыймылы симуляция жана тездетилген. Чыныгы колдонмодо айдоочунун телефонундагы GPS колдонулат.",
-  iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", svcItems:"жарыя", sendCtaT:"Посылка жөнөтүү", qaTripS:"Жүргүнчү жана посылка алыңыз", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
+  iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", svcItems:"жарыя", stOrders:"заказ", stRides:"попутка", stSafe:"текшерилген", stSupport:"колдоо", catsTitle:"Категориялар", promoTag1:"Жаңы", promoT1:"Посылкаңызды бүгүн жөнөтүңүз", promoS1:"Сүрөткө тартып, баасын коюңуз", promoTag2:"Айдоочуларга", promoT2:"Жолуңузда акча табыңыз", promoS2:"Текшерүүдөн өтүп, заказ алыңыз", sendCtaT:"Посылка жөнөтүү", qaTripS:"Жүргүнчү жана посылка алыңыз", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
   opShowPw:"Сырсөздү көрсөтүү", opSetupTitle:"Администратордун аккаунтун түзүңүз", opSetupText:"Оператор панели логин жана сырсөз менен гана ачылат. Бул аккаунт башка операторлорду кошо алат.",
   opName:"Аты", opLogin:"Логин", opPassword:"Сырсөз", opPassword2:"Сырсөздү кайталаңыз", opPwRules:"Сырсөз: кеминде 8 белги, тамга жана сан болушу керек.", opLoginRules:"Логин: 3–20 белги, латын тамгалары, сандар, чекит же _.",
   opPwMismatch:"Сырсөздөр дал келбейт", opCreate:"Түзүү жана кирүү", opCreated:"Аккаунт түзүлдү", opLoginTitle:"Операторлор үчүн кирүү", opLoginText:"Арыздарды көрүү үчүн логин жана сырсөздү жазыңыз.",
@@ -825,7 +825,7 @@ screens.home = () => {
   search.mode = mode;
   const items = [
     ...pool.filter(x=>inPlace(x.to,f.to)).map(x=>({date:x.date,k:x.date+"T"+x.dep,html:()=>tripCard(x,mode)})),
-    ...opool.filter(o=>inPlace(o.to,f.to)).map(o=>({date:o.date,k:o.date+"T00:00",html:()=>orderCard(o)}))
+    ...opool.filter(o=>inPlace(o.to,f.to)).map(o=>({date:o.date,k:o.date+"T00:00",html:()=>orderTile(o)}))
   ].sort((a,b)=>a.k.localeCompare(b.k));
   // tile counts do not depend on which tile is selected
   const tripsAll = S.trips.filter(x=>!isPast(x) && !userBlocked(user(x.driverId)) && (seatsLeft(x)>0||x.parcel) && okDate(x.date) && inPlace(x.from,f.from) && inPlace(x.to,f.to));
@@ -838,12 +838,24 @@ screens.home = () => {
   const homeEnter = navDir==="tab" || !screens.home.seen;
   const dirty = (!work&&f.type!=="all")||f.from||f.to||f.date!=="all"||(!work&&f.cats&&f.cats.length);
   let lastDate="", body="";
-  items.slice(0,150).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
+  items.slice(0,150).forEach(x=>{ if(x.date!==lastDate){ if(lastDate) body+=`</div>`; lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div><div class="feed-grid">`; } body+=x.html(); });
+  if(lastDate) body+=`</div>`;
+  const openOrders=(S.orders||[]).filter(o=>o.status==="open"&&o.date>=TODAY()).length;
   $("#screen").innerHTML = `
-  <section class="home-hero">
-    <div class="hero-scene" aria-hidden="true"><svg class="mt mt-b" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/><path transform="translate(400 0)" d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/></svg><svg class="mt mt-f" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/><path transform="translate(400 0)" d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/></svg></div>
+  <section class="shop-hero">
     <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${work?t("helloWork"):t("helloSub")}</span><button class="rolechip ${work?"cat-"+ROLE_CATS[role][0]:""}" id="roleChip">${I[ROLE_ICON[role]]}<span>${t("modeLbl")}: ${t("role_"+role)}</span>${I.chev}</button></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
-    <div class="hero-drive ${homeEnter?"enter":""}">${tayanCar("hc",{still:motionOff()})}</div>
+    ${work?"":`<div class="stats">
+      <div><b>${openOrders}</b><span>${t("stOrders")}</span></div>
+      <div><b>${rideN}</b><span>${t("stRides")}</span></div>
+      <div><b>${I.shieldOk}</b><span>${t("stSafe")}</span></div>
+      <div><b>24/7</b><span>${t("stSupport")}</span></div></div>`}
+    <div class="promo ${homeEnter?"enter":""}" id="promo">
+      <div class="promo-slide on" data-go="orderNew"><div class="hero-drive ${homeEnter?"enter":""}">${tayanCar("hc",{still:motionOff()})}</div>
+        <div class="promo-txt"><span class="promo-tag">${I.box}${t("promoTag1")}</span><b>${t("promoT1")}</b><small>${t("promoS1")}</small></div></div>
+      <div class="promo-slide" data-go="driverReg"><div class="promo-art">${I.idcard}</div>
+        <div class="promo-txt"><span class="promo-tag">${I.shieldOk}${t("promoTag2")}</span><b>${t("promoT2")}</b><small>${t("promoS2")}</small></div></div>
+    </div>
+    <div class="dots" aria-hidden="true"><i class="on"></i><i></i></div>
     <div class="route-card">
       <button class="rc-row" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
       <i class="rc-div"></i>
@@ -853,6 +865,7 @@ screens.home = () => {
   </section>
   ${work?`<div class="workbanner cat-${ROLE_CATS[role][0]}"><span class="cdot">${I[ROLE_ICON[role]]}</span><div><b>${t("workTitle",{role:t("role_"+role)})}</b><span>${t("workText")}</span></div></div>`:""}
   ${meBlocked()?`<button class="bl-strip" id="blStrip">${I.lock}<span><b>${t("blTitle")}</b>${t("blShort")}</span>${I.chev}</button>`:""}
+  ${work?"":`<h2 class="sec-h">${t("catsTitle")}</h2>`}
   ${work?"":`<div class="svc-grid ${homeEnter?"enter":""}" role="group" aria-label="${t("ordersFilter")}">${svcTiles.map(v=>{ const on=svcOn(v); return `<button class="svct ${v.cls}" style="--k:${svcTiles.indexOf(v)}" data-svct="${v.k}" aria-pressed="${on}"><span class="svct-t"><b>${v.label}</b><small>${v.n} ${t("svcItems")}</small></span><span class="svct-art">${v.ic}</span></button>`; }).join("")}</div>`}
   <div class="quick" ${work?'hidden':''}>
     <button class="qa" id="sendCta"><span class="qa-ic">${I.camera}</span><b>${t("sendCtaT")}</b><span>${t("sendCtaS")}</span></button>
@@ -870,6 +883,11 @@ screens.home = () => {
   document.querySelectorAll("[data-from]").forEach(b=>b.onclick=()=>{ f.from=b.dataset.from; if(f.to==="Бишкек"&&f.from!=="Бишкек"&&isIntra) f.to=""; render(); });
   document.querySelectorAll("[data-fd]").forEach(b=>b.onclick=()=>set("date",b.dataset.fd));
   document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{ const c=b.dataset.cat; f.cats=f.cats.includes(c)?f.cats.filter(x=>x!==c):[...f.cats,c]; render(); });
+  document.querySelectorAll(".promo-slide").forEach(sl=>sl.onclick=()=>go(sl.dataset.go));
+  clearInterval(screens.home.promoT);
+  if(!motionOff()) screens.home.promoT=setInterval(()=>{ const p=$("#promo"); if(!p){ clearInterval(screens.home.promoT); return; }
+    const sl=[...p.querySelectorAll(".promo-slide")], d=[...document.querySelectorAll(".dots i")], k=(sl.findIndex(x=>x.classList.contains("on"))+1)%sl.length;
+    sl.forEach((x,n)=>x.classList.toggle("on",n===k)); d.forEach((x,n)=>x.classList.toggle("on",n===k)); },5000);
   $("#sendCta").onclick=()=>{ if(f.cats.length===1){ od.cat=f.cats[0]; if(!CAT_SIZES[od.cat].includes(od.size)) od.size=CAT_SIZES[od.cat][CAT_SIZES[od.cat].length-1]; } go("orderNew"); };
   $("#balChip").onclick=()=>go("wallet");
   $("#qaTrip").onclick=()=>go("createTrip");
@@ -1004,6 +1022,19 @@ function orderCard(o){
     </div>
   </button>`;
 }
+// Home feed tile: an order shown like a product in a shop (picture, badges, title, price, action).
+function orderTile(o){
+  const cat=orderCat(o), mine=o.userId==="me"||o.driverId==="me";
+  return `<button class="otile cat-${cat}" data-order="${o.id}" aria-label="${esc(loc(o.what))}, ${esc(o.from)} — ${esc(o.to)}, ${o.price} ${t("som")}">
+    <span class="ot-img">${o.photo?`<img src="${o.photo}" alt="">`:`<span class="ot-ic">${I[CAT_ICON[cat]]}</span>`}
+      <span class="ot-badge">${t("cat_"+cat)}</span>${o.fragile?`<span class="ot-badge ot-frag">${I.fragile}${t("fragileTag")}</span>`:""}</span>
+    <b class="ot-title">${esc(loc(o.what))}</b>
+    <span class="ot-route">${esc(o.from)} → ${esc(o.to)}</span>
+    <span class="ot-meta">${dRel(o.date)} · ${t("size"+o.size)}${mine?" · "+statusPill(o):""}</span>
+    <span class="ot-foot"><span class="ot-price">${fmtSom(o.price)}</span><span class="ot-go" aria-hidden="true">${I.box}</span></span>
+  </button>`;
+}
+const fmtSom = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" сом";
 function bindOrders(root=document){ root.querySelectorAll("[data-order]").forEach(b=>b.onclick=()=>go("order",{id:b.dataset.order})); }
 
 function drawTrack(cv,o){

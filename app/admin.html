@@ -1010,6 +1010,84 @@ html.motion-off .th-sheen::after{display:none}
 
 .motion-li .lang{flex:none;display:inline-flex;flex-wrap:nowrap;width:auto;max-width:none}
 .motion-li .lang button{min-width:0;width:auto;padding:0 10px;white-space:nowrap}
+
+/* ---------- shop look: white page, product-style order cards (like the e-bike shop) ---------- */
+:root{--card:#ffffff;--card-line:#e6ebe8;--page:#f4f6f5}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--card:#121b17;--card-line:#22302a;--page:#08110d}}
+:root[data-theme="dark"]{--card:#121b17;--card-line:#22302a;--page:#08110d}
+body,.app{background:var(--page)}
+body.on-home .topbar{background:var(--page)}
+.shop-hero{display:flex;flex-direction:column;gap:14px}
+.shop-hero .hello b{color:var(--fg);font-size:1.5rem}
+.shop-hero .hello span{color:var(--muted)}
+.shop-hero .rolechip{background:var(--card);color:var(--fg);border:1px solid var(--card-line)}
+.shop-hero .rolechip svg{color:var(--accent-ink)}
+.shop-hero .balchip{background:var(--card);color:var(--fg);border:1px solid var(--card-line)}
+.shop-hero .balchip svg{color:var(--gold-ink)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.stats div{background:var(--card);border:1px solid var(--card-line);border-radius:18px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.stats b{font:800 1.25rem var(--f-display);color:var(--accent-ink);display:flex;align-items:center;height:28px}
+.stats b svg{width:26px;height:26px}
+.stats span{font-size:.75rem;color:var(--muted);line-height:1.2}
+.promo{position:relative;height:178px;border-radius:26px;overflow:hidden;background:radial-gradient(120% 120% at 80% 0%,#1a6b4c,var(--ink) 55%,var(--ink2));box-shadow:0 10px 28px rgba(6,41,29,.18)}
+.promo-slide{position:absolute;inset:0;opacity:0;transform:translateX(16px);transition:opacity .35s var(--ease-out-quint),transform .45s var(--ease-out-quint);cursor:pointer;pointer-events:none}
+.promo-slide.on{opacity:1;transform:none;pointer-events:auto}
+.promo .hero-drive{position:absolute;left:0;right:0;bottom:-4px;height:118px;margin:0}
+.promo-txt{position:absolute;left:18px;top:16px;right:18px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;color:#fff}
+.promo-tag{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#c2410c;font:700 .8rem var(--f-display);padding:4px 10px;border-radius:999px}
+.promo-tag svg{width:14px;height:14px}
+.promo-txt b{font:800 1.25rem/1.15 var(--f-display);text-wrap:balance;max-width:85%}
+.promo-txt small{font-size:.85rem;opacity:.8}
+.promo-art{position:absolute;right:-10px;bottom:-14px;width:150px;height:150px;border-radius:50%;background:rgba(243,207,122,.16);display:grid;place-items:center;color:var(--gold-2)}
+.promo-art svg{width:70px;height:70px}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:-4px}
+.dots i{width:7px;height:7px;border-radius:4px;background:var(--card-line);transition:width .3s var(--ease-out-quint),background-color .3s ease}
+.dots i.on{width:26px;background:var(--accent)}
+.shop-hero .route-card{background:var(--card);border:1px solid var(--card-line);box-shadow:none}
+.sec-h{font:800 1.25rem var(--f-display);margin:6px 0 -2px}
+/* categories: white tiles, round icon on top, label under it */
+.svct{align-items:center;justify-content:flex-start;text-align:center;min-height:0;padding:14px 8px 12px;gap:8px;background:var(--card);border:1px solid var(--card-line);box-shadow:none;border-radius:20px}
+.svct .svct-art{position:static;order:-1;width:60px;height:60px;margin:0}
+.svct .svct-art svg{width:28px;height:28px;margin:0}
+.svct-t{align-items:center;padding:0}
+.svct b{font-size:.875rem}
+.svct small{font-size:.7rem}
+.svct[aria-pressed="true"]{background:color-mix(in srgb,var(--cat) 6%,var(--card))}
+/* quick actions on white */
+.qa{background:var(--card);border:1px solid var(--card-line);box-shadow:none}
+/* order tiles: two columns like products */
+.feed-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.feed-grid > .card,.feed-grid > .trip,.feed-grid > button.card{grid-column:1/-1}
+.otile{display:flex;flex-direction:column;align-items:stretch;gap:4px;text-align:left;background:var(--card);border:1px solid var(--card-line);border-radius:22px;padding:10px 10px 12px;min-width:0}
+.ot-img{position:relative;display:grid;place-items:center;aspect-ratio:1/0.82;border-radius:16px;overflow:hidden;background:color-mix(in srgb,var(--cat) 10%,var(--card));margin-bottom:4px}
+.ot-img img{width:100%;height:100%;object-fit:cover}
+.ot-ic{color:var(--cat)}
+.ot-ic svg{width:54px;height:54px}
+.ot-badge{position:absolute;left:8px;top:8px;display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;background:var(--cat);color:#fff;font:700 .7rem var(--f-display)}
+.ot-badge.ot-frag{left:auto;right:8px;background:#e8820c}
+.ot-badge svg{width:12px;height:12px}
+.ot-title{font:700 .95rem/1.25 var(--f-display);color:var(--fg);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.5em}
+.ot-route{font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ot-meta{font-size:.72rem;color:var(--muted);display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.ot-foot{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:4px}
+.ot-price{font:800 1.15rem var(--f-display);color:var(--accent-ink);white-space:nowrap}
+.ot-go{width:42px;height:42px;flex:none;border-radius:14px;background:var(--accent);color:#fff;display:grid;place-items:center;transition:transform .12s var(--ease-out-quint)}
+.ot-go svg{width:20px;height:20px}
+.otile:active{transform:scale(.98)}
+.otile:active .ot-go{transform:scale(.92)}
+@media (hover:hover) and (pointer:fine){.otile:hover{transform:translateY(-2px)}}
+.otile{transition:transform .2s var(--ease-out-quint)}
+@media (min-width:600px){.feed-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* home on a light page: dark title in the top bar */
+body.on-home .topbar{background:var(--page);color:var(--fg);border-bottom:0}
+body.on-home .topbar h1{color:var(--fg)}
+body.on-home .topbar .lang{background:var(--card);border:1px solid var(--card-line)}
+body.on-home .topbar .lang button{color:var(--muted)}
+body.on-home .topbar .lang button.on{background:var(--accent);color:#fff}
+.promo{height:222px}
+.promo .hero-drive{height:98px;bottom:-2px}
+.promo-txt b{font-size:1.2rem}
 /* TAYAN animated mark (see tayan-logo.js). Resting styles = finished logo; keyframes start from hidden. */
 .tayan-svg{display:block;width:100%;height:auto;overflow:visible}
 .tayan-svg *{transform-box:fill-box}
@@ -1351,7 +1429,7 @@ ru:{
   trackTitle:"Где сейчас посылка", passed:"Проехал(а) {city}", atStart:"Выезжает из {city}", leftKm:"До {to}: {km} км", eta:"≈ {h} ч {m} мин",
   waitingDriver:"Как только водитель возьмёт посылку, здесь появится карта с его местоположением.", pickupSoon:"Водитель едет к вам забрать посылку",
   trackDemo:"Демо: движение машины смоделировано и ускорено. В реальном приложении используется GPS телефона водителя.",
-  iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", svcItems:"объявл.", sendCtaT:"Отправить посылку", qaTripS:"Возьмите попутчиков и посылки", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
+  iCourier:"я везу", payBySender:"платит отправитель", payByRecipient:"платит получатель", svcItems:"объявл.", stOrders:"заказов", stRides:"попуток", stSafe:"проверено", stSupport:"поддержка", catsTitle:"Категории", promoTag1:"Новое", promoT1:"Отправьте посылку сегодня", promoS1:"Сфотографируйте и назначьте цену", promoTag2:"Водителям", promoT2:"Зарабатывайте по пути", promoS2:"Пройдите проверку и берите заказы", sendCtaT:"Отправить посылку", qaTripS:"Возьмите попутчиков и посылки", sendCtaS:"Сфотографируйте, укажите цену — водитель заберёт",
   opShowPw:"Показать пароль", opSetupTitle:"Создайте аккаунт администратора", opSetupText:"Панель оператора открывается только по логину и паролю. Этот аккаунт сможет добавлять других операторов.",
   opName:"Имя", opLogin:"Логин", opPassword:"Пароль", opPassword2:"Повторите пароль", opPwRules:"Пароль: не меньше 8 символов, буквы и цифры.", opLoginRules:"Логин: 3–20 символов, латинские буквы, цифры, точка или _.",
   opPwMismatch:"Пароли не совпадают", opCreate:"Создать и войти", opCreated:"Аккаунт создан", opLoginTitle:"Вход для операторов", opLoginText:"Введите логин и пароль, чтобы увидеть обращения.",
@@ -1497,7 +1575,7 @@ ky:{
   trackTitle:"Посылка азыр кайда", passed:"{city} аркылуу өттү", atStart:"{city} шаарынан чыгып жатат", leftKm:"{to} чейин: {km} км", eta:"≈ {h} саат {m} мүн",
   waitingDriver:"Айдоочу посылканы алаары менен бул жерде анын кайда экени картада көрүнөт.", pickupSoon:"Айдоочу посылканы алганы сизге келе жатат",
   trackDemo:"Демо: машинанын кыймылы симуляция жана тездетилген. Чыныгы колдонмодо айдоочунун телефонундагы GPS колдонулат.",
-  iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", svcItems:"жарыя", sendCtaT:"Посылка жөнөтүү", qaTripS:"Жүргүнчү жана посылка алыңыз", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
+  iCourier:"мен ташыйм", payBySender:"жөнөтүүчү төлөйт", payByRecipient:"алуучу төлөйт", svcItems:"жарыя", stOrders:"заказ", stRides:"попутка", stSafe:"текшерилген", stSupport:"колдоо", catsTitle:"Категориялар", promoTag1:"Жаңы", promoT1:"Посылкаңызды бүгүн жөнөтүңүз", promoS1:"Сүрөткө тартып, баасын коюңуз", promoTag2:"Айдоочуларга", promoT2:"Жолуңузда акча табыңыз", promoS2:"Текшерүүдөн өтүп, заказ алыңыз", sendCtaT:"Посылка жөнөтүү", qaTripS:"Жүргүнчү жана посылка алыңыз", sendCtaS:"Сүрөткө тартып, баасын коюңуз — айдоочу алып кетет",
   opShowPw:"Сырсөздү көрсөтүү", opSetupTitle:"Администратордун аккаунтун түзүңүз", opSetupText:"Оператор панели логин жана сырсөз менен гана ачылат. Бул аккаунт башка операторлорду кошо алат.",
   opName:"Аты", opLogin:"Логин", opPassword:"Сырсөз", opPassword2:"Сырсөздү кайталаңыз", opPwRules:"Сырсөз: кеминде 8 белги, тамга жана сан болушу керек.", opLoginRules:"Логин: 3–20 белги, латын тамгалары, сандар, чекит же _.",
   opPwMismatch:"Сырсөздөр дал келбейт", opCreate:"Түзүү жана кирүү", opCreated:"Аккаунт түзүлдү", opLoginTitle:"Операторлор үчүн кирүү", opLoginText:"Арыздарды көрүү үчүн логин жана сырсөздү жазыңыз.",
@@ -2090,7 +2168,7 @@ screens.home = () => {
   search.mode = mode;
   const items = [
     ...pool.filter(x=>inPlace(x.to,f.to)).map(x=>({date:x.date,k:x.date+"T"+x.dep,html:()=>tripCard(x,mode)})),
-    ...opool.filter(o=>inPlace(o.to,f.to)).map(o=>({date:o.date,k:o.date+"T00:00",html:()=>orderCard(o)}))
+    ...opool.filter(o=>inPlace(o.to,f.to)).map(o=>({date:o.date,k:o.date+"T00:00",html:()=>orderTile(o)}))
   ].sort((a,b)=>a.k.localeCompare(b.k));
   // tile counts do not depend on which tile is selected
   const tripsAll = S.trips.filter(x=>!isPast(x) && !userBlocked(user(x.driverId)) && (seatsLeft(x)>0||x.parcel) && okDate(x.date) && inPlace(x.from,f.from) && inPlace(x.to,f.to));
@@ -2103,12 +2181,24 @@ screens.home = () => {
   const homeEnter = navDir==="tab" || !screens.home.seen;
   const dirty = (!work&&f.type!=="all")||f.from||f.to||f.date!=="all"||(!work&&f.cats&&f.cats.length);
   let lastDate="", body="";
-  items.slice(0,150).forEach(x=>{ if(x.date!==lastDate){ lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div>`; } body+=x.html(); });
+  items.slice(0,150).forEach(x=>{ if(x.date!==lastDate){ if(lastDate) body+=`</div>`; lastDate=x.date; body+=`<div class="section-title">${dRel(x.date)}${x.date===TODAY()||x.date===addDays(1)?" · "+dShort(x.date):""}</div><div class="feed-grid">`; } body+=x.html(); });
+  if(lastDate) body+=`</div>`;
+  const openOrders=(S.orders||[]).filter(o=>o.status==="open"&&o.date>=TODAY()).length;
   $("#screen").innerHTML = `
-  <section class="home-hero">
-    <div class="hero-scene" aria-hidden="true"><svg class="mt mt-b" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/><path transform="translate(400 0)" d="M0 120V70l40-22 30 14 40-32 40 28 40-22 40 24 40-34 40 28 40-14 50 24v60z"/></svg><svg class="mt mt-f" viewBox="0 0 800 120" preserveAspectRatio="none"><path d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/><path transform="translate(400 0)" d="M0 120V88l50-18 40 14 50-24 50 26 50-20 50 24 50-18 60 20v28z"/></svg></div>
+  <section class="shop-hero">
     <div class="row between" style="align-items:flex-start;gap:12px"><div class="hello"><b>${t("hello",{name:esc(S.me.name)})}</b><span>${work?t("helloWork"):t("helloSub")}</span><button class="rolechip ${work?"cat-"+ROLE_CATS[role][0]:""}" id="roleChip">${I[ROLE_ICON[role]]}<span>${t("modeLbl")}: ${t("role_"+role)}</span>${I.chev}</button></div><button class="balchip" id="balChip">${I.wallet}<span>${freeLeft()?t("freeChip",{n:freeLeft()}):wallet().balance+" с"}</span></button></div>
-    <div class="hero-drive ${homeEnter?"enter":""}">${tayanCar("hc",{still:motionOff()})}</div>
+    ${work?"":`<div class="stats">
+      <div><b>${openOrders}</b><span>${t("stOrders")}</span></div>
+      <div><b>${rideN}</b><span>${t("stRides")}</span></div>
+      <div><b>${I.shieldOk}</b><span>${t("stSafe")}</span></div>
+      <div><b>24/7</b><span>${t("stSupport")}</span></div></div>`}
+    <div class="promo ${homeEnter?"enter":""}" id="promo">
+      <div class="promo-slide on" data-go="orderNew"><div class="hero-drive ${homeEnter?"enter":""}">${tayanCar("hc",{still:motionOff()})}</div>
+        <div class="promo-txt"><span class="promo-tag">${I.box}${t("promoTag1")}</span><b>${t("promoT1")}</b><small>${t("promoS1")}</small></div></div>
+      <div class="promo-slide" data-go="driverReg"><div class="promo-art">${I.idcard}</div>
+        <div class="promo-txt"><span class="promo-tag">${I.shieldOk}${t("promoTag2")}</span><b>${t("promoT2")}</b><small>${t("promoS2")}</small></div></div>
+    </div>
+    <div class="dots" aria-hidden="true"><i class="on"></i><i></i></div>
     <div class="route-card">
       <button class="rc-row" id="fFrom">${I.pinO}<span><small>${t("from")}</small><b>${esc(f.from)||t("anyCity")}</b></span></button>
       <i class="rc-div"></i>
@@ -2118,6 +2208,7 @@ screens.home = () => {
   </section>
   ${work?`<div class="workbanner cat-${ROLE_CATS[role][0]}"><span class="cdot">${I[ROLE_ICON[role]]}</span><div><b>${t("workTitle",{role:t("role_"+role)})}</b><span>${t("workText")}</span></div></div>`:""}
   ${meBlocked()?`<button class="bl-strip" id="blStrip">${I.lock}<span><b>${t("blTitle")}</b>${t("blShort")}</span>${I.chev}</button>`:""}
+  ${work?"":`<h2 class="sec-h">${t("catsTitle")}</h2>`}
   ${work?"":`<div class="svc-grid ${homeEnter?"enter":""}" role="group" aria-label="${t("ordersFilter")}">${svcTiles.map(v=>{ const on=svcOn(v); return `<button class="svct ${v.cls}" style="--k:${svcTiles.indexOf(v)}" data-svct="${v.k}" aria-pressed="${on}"><span class="svct-t"><b>${v.label}</b><small>${v.n} ${t("svcItems")}</small></span><span class="svct-art">${v.ic}</span></button>`; }).join("")}</div>`}
   <div class="quick" ${work?'hidden':''}>
     <button class="qa" id="sendCta"><span class="qa-ic">${I.camera}</span><b>${t("sendCtaT")}</b><span>${t("sendCtaS")}</span></button>
@@ -2135,6 +2226,11 @@ screens.home = () => {
   document.querySelectorAll("[data-from]").forEach(b=>b.onclick=()=>{ f.from=b.dataset.from; if(f.to==="Бишкек"&&f.from!=="Бишкек"&&isIntra) f.to=""; render(); });
   document.querySelectorAll("[data-fd]").forEach(b=>b.onclick=()=>set("date",b.dataset.fd));
   document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{ const c=b.dataset.cat; f.cats=f.cats.includes(c)?f.cats.filter(x=>x!==c):[...f.cats,c]; render(); });
+  document.querySelectorAll(".promo-slide").forEach(sl=>sl.onclick=()=>go(sl.dataset.go));
+  clearInterval(screens.home.promoT);
+  if(!motionOff()) screens.home.promoT=setInterval(()=>{ const p=$("#promo"); if(!p){ clearInterval(screens.home.promoT); return; }
+    const sl=[...p.querySelectorAll(".promo-slide")], d=[...document.querySelectorAll(".dots i")], k=(sl.findIndex(x=>x.classList.contains("on"))+1)%sl.length;
+    sl.forEach((x,n)=>x.classList.toggle("on",n===k)); d.forEach((x,n)=>x.classList.toggle("on",n===k)); },5000);
   $("#sendCta").onclick=()=>{ if(f.cats.length===1){ od.cat=f.cats[0]; if(!CAT_SIZES[od.cat].includes(od.size)) od.size=CAT_SIZES[od.cat][CAT_SIZES[od.cat].length-1]; } go("orderNew"); };
   $("#balChip").onclick=()=>go("wallet");
   $("#qaTrip").onclick=()=>go("createTrip");
@@ -2269,6 +2365,19 @@ function orderCard(o){
     </div>
   </button>`;
 }
+// Home feed tile: an order shown like a product in a shop (picture, badges, title, price, action).
+function orderTile(o){
+  const cat=orderCat(o), mine=o.userId==="me"||o.driverId==="me";
+  return `<button class="otile cat-${cat}" data-order="${o.id}" aria-label="${esc(loc(o.what))}, ${esc(o.from)} — ${esc(o.to)}, ${o.price} ${t("som")}">
+    <span class="ot-img">${o.photo?`<img src="${o.photo}" alt="">`:`<span class="ot-ic">${I[CAT_ICON[cat]]}</span>`}
+      <span class="ot-badge">${t("cat_"+cat)}</span>${o.fragile?`<span class="ot-badge ot-frag">${I.fragile}${t("fragileTag")}</span>`:""}</span>
+    <b class="ot-title">${esc(loc(o.what))}</b>
+    <span class="ot-route">${esc(o.from)} → ${esc(o.to)}</span>
+    <span class="ot-meta">${dRel(o.date)} · ${t("size"+o.size)}${mine?" · "+statusPill(o):""}</span>
+    <span class="ot-foot"><span class="ot-price">${fmtSom(o.price)}</span><span class="ot-go" aria-hidden="true">${I.box}</span></span>
+  </button>`;
+}
+const fmtSom = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" сом";
 function bindOrders(root=document){ root.querySelectorAll("[data-order]").forEach(b=>b.onclick=()=>go("order",{id:b.dataset.order})); }
 
 function drawTrack(cv,o){

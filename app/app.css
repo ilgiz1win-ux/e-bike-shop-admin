@@ -1001,3 +1001,81 @@ html.motion-off .th-sheen::after{display:none}
 
 .motion-li .lang{flex:none;display:inline-flex;flex-wrap:nowrap;width:auto;max-width:none}
 .motion-li .lang button{min-width:0;width:auto;padding:0 10px;white-space:nowrap}
+
+/* ---------- shop look: white page, product-style order cards (like the e-bike shop) ---------- */
+:root{--card:#ffffff;--card-line:#e6ebe8;--page:#f4f6f5}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--card:#121b17;--card-line:#22302a;--page:#08110d}}
+:root[data-theme="dark"]{--card:#121b17;--card-line:#22302a;--page:#08110d}
+body,.app{background:var(--page)}
+body.on-home .topbar{background:var(--page)}
+.shop-hero{display:flex;flex-direction:column;gap:14px}
+.shop-hero .hello b{color:var(--fg);font-size:1.5rem}
+.shop-hero .hello span{color:var(--muted)}
+.shop-hero .rolechip{background:var(--card);color:var(--fg);border:1px solid var(--card-line)}
+.shop-hero .rolechip svg{color:var(--accent-ink)}
+.shop-hero .balchip{background:var(--card);color:var(--fg);border:1px solid var(--card-line)}
+.shop-hero .balchip svg{color:var(--gold-ink)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.stats div{background:var(--card);border:1px solid var(--card-line);border-radius:18px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.stats b{font:800 1.25rem var(--f-display);color:var(--accent-ink);display:flex;align-items:center;height:28px}
+.stats b svg{width:26px;height:26px}
+.stats span{font-size:.75rem;color:var(--muted);line-height:1.2}
+.promo{position:relative;height:178px;border-radius:26px;overflow:hidden;background:radial-gradient(120% 120% at 80% 0%,#1a6b4c,var(--ink) 55%,var(--ink2));box-shadow:0 10px 28px rgba(6,41,29,.18)}
+.promo-slide{position:absolute;inset:0;opacity:0;transform:translateX(16px);transition:opacity .35s var(--ease-out-quint),transform .45s var(--ease-out-quint);cursor:pointer;pointer-events:none}
+.promo-slide.on{opacity:1;transform:none;pointer-events:auto}
+.promo .hero-drive{position:absolute;left:0;right:0;bottom:-4px;height:118px;margin:0}
+.promo-txt{position:absolute;left:18px;top:16px;right:18px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;color:#fff}
+.promo-tag{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#c2410c;font:700 .8rem var(--f-display);padding:4px 10px;border-radius:999px}
+.promo-tag svg{width:14px;height:14px}
+.promo-txt b{font:800 1.25rem/1.15 var(--f-display);text-wrap:balance;max-width:85%}
+.promo-txt small{font-size:.85rem;opacity:.8}
+.promo-art{position:absolute;right:-10px;bottom:-14px;width:150px;height:150px;border-radius:50%;background:rgba(243,207,122,.16);display:grid;place-items:center;color:var(--gold-2)}
+.promo-art svg{width:70px;height:70px}
+.dots{display:flex;justify-content:center;gap:6px;margin-top:-4px}
+.dots i{width:7px;height:7px;border-radius:4px;background:var(--card-line);transition:width .3s var(--ease-out-quint),background-color .3s ease}
+.dots i.on{width:26px;background:var(--accent)}
+.shop-hero .route-card{background:var(--card);border:1px solid var(--card-line);box-shadow:none}
+.sec-h{font:800 1.25rem var(--f-display);margin:6px 0 -2px}
+/* categories: white tiles, round icon on top, label under it */
+.svct{align-items:center;justify-content:flex-start;text-align:center;min-height:0;padding:14px 8px 12px;gap:8px;background:var(--card);border:1px solid var(--card-line);box-shadow:none;border-radius:20px}
+.svct .svct-art{position:static;order:-1;width:60px;height:60px;margin:0}
+.svct .svct-art svg{width:28px;height:28px;margin:0}
+.svct-t{align-items:center;padding:0}
+.svct b{font-size:.875rem}
+.svct small{font-size:.7rem}
+.svct[aria-pressed="true"]{background:color-mix(in srgb,var(--cat) 6%,var(--card))}
+/* quick actions on white */
+.qa{background:var(--card);border:1px solid var(--card-line);box-shadow:none}
+/* order tiles: two columns like products */
+.feed-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.feed-grid > .card,.feed-grid > .trip,.feed-grid > button.card{grid-column:1/-1}
+.otile{display:flex;flex-direction:column;align-items:stretch;gap:4px;text-align:left;background:var(--card);border:1px solid var(--card-line);border-radius:22px;padding:10px 10px 12px;min-width:0}
+.ot-img{position:relative;display:grid;place-items:center;aspect-ratio:1/0.82;border-radius:16px;overflow:hidden;background:color-mix(in srgb,var(--cat) 10%,var(--card));margin-bottom:4px}
+.ot-img img{width:100%;height:100%;object-fit:cover}
+.ot-ic{color:var(--cat)}
+.ot-ic svg{width:54px;height:54px}
+.ot-badge{position:absolute;left:8px;top:8px;display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;background:var(--cat);color:#fff;font:700 .7rem var(--f-display)}
+.ot-badge.ot-frag{left:auto;right:8px;background:#e8820c}
+.ot-badge svg{width:12px;height:12px}
+.ot-title{font:700 .95rem/1.25 var(--f-display);color:var(--fg);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.5em}
+.ot-route{font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ot-meta{font-size:.72rem;color:var(--muted);display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.ot-foot{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:4px}
+.ot-price{font:800 1.15rem var(--f-display);color:var(--accent-ink);white-space:nowrap}
+.ot-go{width:42px;height:42px;flex:none;border-radius:14px;background:var(--accent);color:#fff;display:grid;place-items:center;transition:transform .12s var(--ease-out-quint)}
+.ot-go svg{width:20px;height:20px}
+.otile:active{transform:scale(.98)}
+.otile:active .ot-go{transform:scale(.92)}
+@media (hover:hover) and (pointer:fine){.otile:hover{transform:translateY(-2px)}}
+.otile{transition:transform .2s var(--ease-out-quint)}
+@media (min-width:600px){.feed-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* home on a light page: dark title in the top bar */
+body.on-home .topbar{background:var(--page);color:var(--fg);border-bottom:0}
+body.on-home .topbar h1{color:var(--fg)}
+body.on-home .topbar .lang{background:var(--card);border:1px solid var(--card-line)}
+body.on-home .topbar .lang button{color:var(--muted)}
+body.on-home .topbar .lang button.on{background:var(--accent);color:#fff}
+.promo{height:222px}
+.promo .hero-drive{height:98px;bottom:-2px}
+.promo-txt b{font-size:1.2rem}
