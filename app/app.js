@@ -2,6 +2,9 @@
 // The same code runs two pages: index.html (the app) and admin.html (the operator panel, window.JOLDOSH_ADMIN).
 // Both read and write one localStorage record, so a change in one tab shows up in the other.
 const ADMIN = !!window.JOLDOSH_ADMIN;
+// Motion: "auto" follows the phone's reduce-motion setting; "on"/"off" is the user's own choice.
+function motionOff(){ const m=(typeof S!=="undefined"&&S&&S.motion)||"auto"; return m==="off" || (m==="auto" && matchMedia("(prefers-reduced-motion: reduce)").matches); }
+function applyMotion(){ document.documentElement.classList.toggle("motion-off", motionOff()); }
 const LOGO = "__TAYAN_LOGO_512__", LOGO_S = "__TAYAN_LOGO_160__";
 // ---------- icons ----------
 const I = {
@@ -184,7 +187,7 @@ ru:{
   notifsTitle:"Уведомления", clear:"Очистить", quiet:"Пока тихо", quietText:"Здесь появятся брони, посылки и ответы водителей.",
   justNow:"только что", minAgo:"{n} мин назад", hAgo:"{n} ч назад", tripGone:"Поездка больше недоступна",
   info:"Информация", personal:"Личные данные", about:"О приложении", safety:"Безопасность", terms:"Пользовательское соглашение", privacy:"Политика конфиденциальности",
-  feedback:"Обратная связь", contacts:"Контакты", rateApp:"Оценить приложение", logout:"Выход", language:"Тил / Язык",
+  feedback:"Обратная связь", contacts:"Контакты", rateApp:"Оценить приложение", logout:"Выход", motionLbl:"Анимации", motionHint:"Авто: как в настройках телефона", motion_auto:"Авто", motion_on:"Вкл", motion_off:"Выкл", motionLbl:"Анимациялар", motionHint:"Авто: телефондун жөндөөсүндөй", motion_auto:"Авто", motion_on:"Күйүк", motion_off:"Өчүк", language:"Тил / Язык",
   likeApp:"Нравится TAYAN?", rate:"Оценить", thanksGood:"Спасибо! Нам очень приятно", thanksBad:"Спасибо, мы станем лучше",
   logoutQ:"Выйти из аккаунта?", logoutText:"Ваши поездки, брони и документы на этом устройстве будут удалены.", logoutOk:"Выйти", version:"TAYAN · демо-версия 2.0",
   regDate:"Дата регистрации:", tripsLbl:"Поездки:", nameAgeGender:"Имя, возраст, пол", male:"мужской", female:"женский", maleBtn:"Мужской", femaleBtn:"Женский",
@@ -663,14 +666,14 @@ setInterval(()=>{ if(checkVerification()){ save(); if(!$("#overlay").innerHTML &
 
 // numbers in the service tiles run up from zero when the home screen opens
 function countUp(els){
-  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if(motionOff()) return;
   els.forEach(el=>{ const m=el.textContent.match(/^(\d+)(.*)$/); if(!m) return; const n=+m[1], rest=m[2]; if(!n) return;
     const t0=performance.now(), d=650; const step=now=>{ const k=Math.min(1,(now-t0)/d), e=1-Math.pow(1-k,3); el.textContent=Math.round(n*e)+rest; if(k<1) requestAnimationFrame(step); }; el.textContent="0"+rest; requestAnimationFrame(step); });
 }
-function calmVideos(){ try{ if(matchMedia("(prefers-reduced-motion: reduce)").matches) document.querySelectorAll("video.anim-vid").forEach(v=>{ v.removeAttribute("autoplay"); v.pause(); }); else document.querySelectorAll("video.anim-vid").forEach(v=>{ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }); }catch(e){} }
+function calmVideos(){ try{ if(motionOff()) document.querySelectorAll("video.anim-vid").forEach(v=>{ v.removeAttribute("autoplay"); v.pause(); }); else document.querySelectorAll("video.anim-vid").forEach(v=>{ const p=v.play(); if(p&&p.catch) p.catch(()=>{}); }); }catch(e){} }
 function render(){
   if(!S.brand || !S.brandTayan){ S.brand="tayan"; S.brandTayan=1; }
-  applyBrand();
+  applyBrand(); applyMotion();
   document.body.classList.remove("in-chat","on-home");
   document.documentElement.lang=S.lang;
   save();
@@ -1058,7 +1061,7 @@ function trackInfo(o,info){
 let trkRaf=0, trkLast=0;
 function trackLoop(ts){ const cv=document.getElementById("trkMap"); if(!cv){ trkRaf=0; return; } if(ts-trkLast>60){ trkLast=ts; updateTracking(true); } trkRaf=requestAnimationFrame(trackLoop); }
 function updateTracking(fromLoop){
-  if(!fromLoop && !trkRaf && document.getElementById("trkMap") && !matchMedia("(prefers-reduced-motion: reduce)").matches) trkRaf=requestAnimationFrame(trackLoop);
+  if(!fromLoop && !trkRaf && document.getElementById("trkMap") && !motionOff()) trkRaf=requestAnimationFrame(trackLoop);
   const cv=document.getElementById("trkMap"); if(!cv) return;
   const o=(S.orders||[]).find(x=>x.id===cv.dataset.id); if(!o) return;
   const info=drawTrack(cv,o); const el=document.getElementById("trkInfo"); if(el) el.innerHTML=trackInfo(o,info);
@@ -2565,6 +2568,7 @@ screens.profile = () => {
     <button class="li" id="roleRow">${I[ROLE_ICON[S.me.role||"client"]].replace("<svg",'<svg class="ic"')}<span class="grow">${t("modeLbl")}<span class="small muted" style="display:block">${t("role_"+(S.me.role||"client"))}</span></span>${I.chev}</button>
     <button class="li" id="drvSt">${I.idcard}<span class="grow">${t("driverStatus")}</span><span class="pill ${st==="verified"?"":"grey"}">${t("st_"+st)}</span>${st==="none"?I.chev:""}</button>
     <div class="li">${I.globe}<span class="grow">${t("language")}</span>${langSwitch()}</div>
+    <div class="li motion-li">${I.road.replace("<svg",'<svg class="ic"')}<span class="grow" style="min-width:0">${t("motionLbl")}<span class="small muted" style="display:block">${t("motionHint")}</span></span><span class="lang" role="group" aria-label="${t("motionLbl")}">${["auto","on","off"].map(k=>`<button data-motion="${k}" aria-pressed="${(S.motion||"auto")===k}" class="${(S.motion||"auto")===k?"on":""}">${t("motion_"+k)}</button>`).join("")}</span></div>
     <div class="li brand-li"><span class="ic-dot" style="background:var(--accent)"></span><span class="grow">${t("colorTheme")}<span class="small muted" style="display:block">${esc(BRANDS[S.brand].name[S.lang])}</span></span><span class="swatches">${Object.entries(BRANDS).map(([k,b])=>`<button class="bsw ${S.brand===k?"on":""}" data-brand="${k}" style="background:${b.sw}" aria-label="${esc(b.name[S.lang])}"></button>`).join("")}</span></div>
   </div>
   <div class="section-title">${t("info")}</div>
@@ -2582,6 +2586,7 @@ screens.profile = () => {
   bindLang($("#screen"));
   document.querySelectorAll("[data-brand]").forEach(b=>b.onclick=()=>{ S.brand=b.dataset.brand; render(); toast(BRANDS[S.brand].name[S.lang]); });
   $("#pd").onclick=()=>go("personal");
+  document.querySelectorAll("[data-motion]").forEach(b=>b.onclick=()=>{ S.motion=b.dataset.motion; applyMotion(); render(); toast(t("motion_"+S.motion)); });
   $("#walletCard").onclick=()=>go("wallet");
   $("#pSupport").onclick=()=>go("support");
   $("#pChats").onclick=()=>go("chats");
@@ -2700,7 +2705,7 @@ addEventListener("storage",e=>{ if(e.key!==KEY||!e.newValue) return; try{ S=JSON
   if(document.activeElement?.matches("input,textarea,select")||$("#overlay").innerHTML){ if(!ADMIN&&S.me) renderTabs(); else if(ADMIN) adminNav(); return; }
   render(); });
 function showSplash(){
-  if(ADMIN || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if(ADMIN || motionOff()) return;
   const el=document.createElement("div"); el.className="splash"; el.setAttribute("aria-hidden","true");
   el.innerHTML=`<div class="sp-glow"></div><div class="sp-in"><div class="sp-logo sp-svg">${tayanSVG("sp",{motto:t("brandLine")})}</div></div>`;
   document.body.appendChild(el);

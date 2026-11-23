@@ -31,4 +31,4 @@
 @keyframes tlSheenLoop{0%{transform:skewX(-16deg) translateX(0)}30%,100%{transform:skewX(-16deg) translateX(980px)}}
 @keyframes tlLamp{50%{opacity:.55}}
 .tl-sheen{transform:skewX(-16deg) translateX(980px)}
-@media (prefers-reduced-motion: reduce){.tayan-svg *{animation:none!important}}
+html.motion-off .tayan-svg *{animation:none!important}

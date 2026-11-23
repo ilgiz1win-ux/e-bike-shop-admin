@@ -19,7 +19,7 @@
 /* arrival: on opening the home screen the car drives in from the left and settles */
 .hero-drive.enter .hd-car{animation:hdArrive 1.1s cubic-bezier(.23,1,.32,1) both}
 @keyframes hdArrive{from{transform:translateX(-115%)}80%{transform:translateX(2%)}to{transform:none}}
-@media (prefers-reduced-motion: reduce){.hero-drive *{animation:none!important}}
+html.motion-off .hero-drive *{animation:none!important}
 
 /* "order taken": arrive, lean out and wave, back in, drive off */
 .cel-wave .hd-car{animation:hdArrive 1s cubic-bezier(.23,1,.32,1) both,hdLeave .9s 3s cubic-bezier(.55,0,.75,.2) forwards}
@@ -28,4 +28,4 @@
 @keyframes hdLean{0%{transform:translateY(50px)}18%,82%{transform:none}100%{transform:translateY(50px)}}
 .hd-arm{animation:hdWave 1.2s 1.35s ease-in-out both}
 @keyframes hdWave{0%,100%{transform:rotate(0)}15%{transform:rotate(-22deg)}35%{transform:rotate(14deg)}55%{transform:rotate(-22deg)}75%{transform:rotate(14deg)}}
-@media (prefers-reduced-motion: reduce){.hd-person{transform:none}}
+html.motion-off .hd-person{transform:none}
