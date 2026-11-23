@@ -1118,6 +1118,31 @@ html.mono .badge-ok svg{color:var(--fg)}
 .citylist .cl-more .cl-reg{margin-left:auto}
 .citylist .cl-back{color:var(--muted);font-weight:600}
 .citylist .cl-whole{font-weight:700}
+
+/* GPS precise pickup point */
+.gps-btn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;border:1.5px dashed var(--fg);border-radius:14px;background:var(--card,var(--bg));color:var(--fg);font:inherit;cursor:pointer}
+.gps-btn b{display:block;font-size:0.9375rem}
+.gps-btn small{display:block;color:var(--muted);font-size:0.8125rem;margin-top:2px}
+.gps-btn>svg:last-child{width:16px;height:16px;color:var(--muted);flex:none}
+.gps-ic{width:38px;height:38px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;flex:none}
+.gps-ic svg{width:22px;height:22px}
+.gps-btn.busy .gps-ic svg{animation:gpsSpin 1s linear infinite}
+@keyframes gpsSpin{to{transform:rotate(360deg)}}
+.gps-btn:active{transform:scale(.98)}
+.geo-card{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--fg);border-radius:14px;background:var(--card,var(--bg))}
+.geo-card b{display:block}
+.geo-card small{display:block;color:var(--muted);font-size:0.8125rem;margin:2px 0 4px;font-variant-numeric:tabular-nums}
+.geo-pin{position:relative;width:42px;height:42px;flex:none;display:grid;place-items:center;color:var(--fg)}
+.geo-pin svg{width:26px;height:26px;position:relative;z-index:1;animation:geoDrop .5s var(--ease-out-quint,cubic-bezier(.22,1,.36,1)) both}
+.geo-ring{position:absolute;inset:6px;border:2px solid var(--fg);border-radius:50%;opacity:0;animation:geoPing 1.8s ease-out infinite}
+.geo-ring.r2{animation-delay:.9s}
+@keyframes geoPing{0%{transform:scale(.4);opacity:.7}100%{transform:scale(1.4);opacity:0}}
+@keyframes geoDrop{0%{transform:translateY(-14px);opacity:0}100%{transform:none;opacity:1}}
+.geo-nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.geo-nav a{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;border-radius:999px;background:var(--fg);color:var(--bg);font-size:0.8125rem;font-weight:600;text-decoration:none}
+.geo-nav a svg{width:14px;height:14px}
+.gps-pill{display:inline-flex;align-items:center;gap:4px;margin-top:4px}
+.gps-pill svg{width:12px;height:12px}
 /* TAYAN animated mark (see tayan-logo.js). Resting styles = finished logo; keyframes start from hidden. */
 .tayan-svg{display:block;width:100%;height:auto;overflow:visible}
 .tayan-svg *{transform-box:fill-box}
@@ -1383,6 +1408,8 @@ const LOGO = "data:image/webp;base64,UklGRqZuAABXRUJQVlA4WAoAAAAQAAAA/wEA/wEAQUx
 // ---------- icons ----------
 const I = {
   pin:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>',
+  gps:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.6" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
+  nav:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11 21 3l-8 18-2-8-8-2Z"/></svg>',
   pinO:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-6.5-7.2-6.5-12a6.5 6.5 0 0 1 13 0c0 4.8-6.5 12-6.5 12Z"/><circle cx="12" cy="9" r="2.3"/></svg>',
   cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>',
   clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
@@ -1449,7 +1476,7 @@ ru:{
   createChoose:"Что вы хотите сделать?", chSendParcel:"Отправить посылку", chSendParcelText:"Сфотографируйте вещь и назначьте цену — любой водитель по пути заберёт её", chTrip:"Создать поездку", chTripText:"Для водителей: возьмите попутчиков и посылки, разделите расходы",
   orderNew:"Новая посылка", orderPhoto:"Фото посылки", takePhoto:"Сфотографировать или выбрать фото", pickupAddr:"Адрес, откуда забрать", pickupPh:"Например, мкр. Джал, 15", dropAddr:"Адрес доставки (необязательно)", dropPh:"Улица, дом или ориентир",
   whenSend:"Когда отправить", yourPrice:"Сколько вы платите водителю, сом", priceHint:"Обычно по этому маршруту: {a}–{b} с", whoPays:"Кто платит", payMe:"Я (отправитель)", payRecipient:"Получатель",
-  publishOrder:"Опубликовать посылку", errPhoto:"Добавьте фото посылки", errPickup:"Укажите адрес, откуда забрать", orderPublished:"Посылка опубликована, водители по пути её увидят",
+  publishOrder:"Опубликовать посылку", errPhoto:"Добавьте фото посылки", errPickup:"Укажите адрес, откуда забрать",gpsBtn:"Отметить, где я сейчас (GPS)",gpsHint:"Точный адрес без Google Карт — водитель приедет прямо к вам",gpsWait:"Определяем место…",gpsOk:"Точное место отмечено",gpsTownSet:"Место отмечено, город: {town}",gpsHere:"Точка по GPS",gpsSaved:"Точное место отмечено по GPS",gpsPoint:"Точное место (GPS)",gpsAcc:"точность ±{m} м",gpsRedo:"Отметить заново",gpsMarked:"GPS",pickNotePh:"Подъезд, этаж, квартира, ориентир",gpsFailT:"Не удалось определить место",gpsDenied:"Доступ к геолокации запрещён.",gpsNoFix:"GPS не ответил вовремя.",gpsNoApi:"Это устройство не умеет определять место.",gpsFailHelp:"Разрешите доступ к местоположению в настройках браузера или впишите адрес вручную.",gpsDemo:"Демо: поставить точку в Бишкеке",gpsManual:"Впишу адрес сам", orderPublished:"Посылка опубликована, водители по пути её увидят",
   orderPublishedNotif:"Посылка «{what}» {from} → {to} опубликована за {price} с. Ждём водителя.", orderTag:"Заказ", orderLbl:"Посылка",
   ost_open:"Ждёт водителя", ost_accepted:"Водитель едет забрать", ost_onway:"В пути", ost_delivered:"Доставлено", ost_cancelled:"Отменено",
   step_open:"Опубликовано", step_accepted:"Принял", step_onway:"В пути", step_delivered:"Доставлено",
@@ -1595,7 +1622,7 @@ ky:{
   createChoose:"Эмне кылгыңыз келет?", chSendParcel:"Посылка жөнөтүү", chSendParcelText:"Буюмду сүрөткө тартып, баасын коюңуз — жолу түшкөн каалаган айдоочу алып кетет", chTrip:"Сапар түзүү", chTripText:"Айдоочулар үчүн: жүргүнчү жана посылка алып, чыгымды бөлүшүңүз",
   orderNew:"Жаңы посылка", orderPhoto:"Посылканын сүрөтү", takePhoto:"Сүрөткө тартуу же сүрөт тандоо", pickupAddr:"Кайдан алып кетүү керек (дареги)", pickupPh:"Мисалы, Жал кичи району, 15-үй", dropAddr:"Жеткирүү дареги (милдеттүү эмес)", dropPh:"Көчө, үй же белги",
   whenSend:"Качан жөнөтүү керек", yourPrice:"Айдоочуга канча төлөйсүз, сом", priceHint:"Бул маршрутта адатта: {a}–{b} сом", whoPays:"Ким төлөйт", payMe:"Мен (жөнөтүүчү)", payRecipient:"Алуучу",
-  publishOrder:"Посылканы жарыялоо", errPhoto:"Посылканын сүрөтүн кошуңуз", errPickup:"Кайдан алып кетүү керектигин жазыңыз", orderPublished:"Посылка жарыяланды, жолу түшкөн айдоочулар көрүшөт",
+  publishOrder:"Посылканы жарыялоо", errPhoto:"Посылканын сүрөтүн кошуңуз", errPickup:"Кайдан алып кетүү керектигин жазыңыз",gpsBtn:"Мен турган жерди белгилөө (GPS)",gpsHint:"Гугл карта ачпай эле так дарек — айдоочу түз сизге келет",gpsWait:"Жер аныкталууда…",gpsOk:"Так жер белгиленди",gpsTownSet:"Жер белгиленди, шаар: {town}",gpsHere:"GPS боюнча чекит",gpsSaved:"Так жер GPS менен белгиленди",gpsPoint:"Так жер (GPS)",gpsAcc:"тактыгы ±{m} м",gpsRedo:"Кайра белгилөө",gpsMarked:"GPS",pickNotePh:"Подъезд, кабат, батир, белги",gpsFailT:"Жерди аныктай алган жокбуз",gpsDenied:"Жайгашкан жерге уруксат берилген жок.",gpsNoFix:"GPS убагында жооп бербеди.",gpsNoApi:"Бул түзмөк жерди аныктай албайт.",gpsFailHelp:"Браузердин жөндөөлөрүнөн жайгашкан жерге уруксат бериңиз же даректи колго жазыңыз.",gpsDemo:"Демо: Бишкектен чекит коюу",gpsManual:"Даректи өзүм жазам", orderPublished:"Посылка жарыяланды, жолу түшкөн айдоочулар көрүшөт",
   orderPublishedNotif:"«{what}» посылкасы {from} → {to} {price} сомго жарыяланды. Айдоочу күтүлүүдө.", orderTag:"Заказ", orderLbl:"Посылка",
   ost_open:"Айдоочу күтүүдө", ost_accepted:"Айдоочу алганы келе жатат", ost_onway:"Жолдо", ost_delivered:"Жеткирилди", ost_cancelled:"Жокко чыгарылды",
   step_open:"Жарыяланды", step_accepted:"Алды", step_onway:"Жолдо", step_delivered:"Жеткирилди",
@@ -2503,7 +2530,28 @@ function updateTracking(fromLoop){
   const info=drawTrack(cv,o); const el=document.getElementById("trkInfo"); if(el) el.innerHTML=trackInfo(o,info);
 }
 
-const od = {photo:"",what:"",fragile:false,worth:"",warnRcpt:true,cat:"car",size:"M",from:"Бишкек",pickup:"",to:"Ош",drop:"",date:TODAY(),price:"",payer:"me",rname:"",rphone:"+996 "};
+const od = {photo:"",what:"",fragile:false,worth:"",warnRcpt:true,cat:"car",size:"M",from:"Бишкек",pickup:"",pickNote:"",geo:null,to:"Ош",drop:"",date:TODAY(),price:"",payer:"me",rname:"",rphone:"+996 "};
+// Precise pickup point from the phone's GPS: no map app needed. The nearest known town is filled in
+// locally (no network lookup); the driver gets one-tap links to Google Maps, 2GIS and Yandex.
+function nearestTown(lat,lng){ let best=null,bd=1e9; for(const c in GEO){ const d=hav([lat,lng],GEO[c]); if(d<bd){ bd=d; best=c; } } return bd<=25?best:null; }
+function geoLinks(g){ const ll=g.lat.toFixed(6)+","+g.lng.toFixed(6), lr=g.lng.toFixed(6)+","+g.lat.toFixed(6);
+  return {google:"https://www.google.com/maps/dir/?api=1&destination="+ll, gis:"https://2gis.kg/geo/"+lr, yandex:"https://yandex.com/maps/?rtext=~"+ll+"&rtt=auto"}; }
+function geoCard(g,editable){ const L=geoLinks(g);
+  return `<div class="geo-card"><div class="geo-pin" aria-hidden="true"><span class="geo-ring"></span><span class="geo-ring r2"></span>${I.pin}</div>
+    <div class="grow"><b>${editable?t("gpsSaved"):t("gpsPoint")}</b><small>${g.lat.toFixed(5)}, ${g.lng.toFixed(5)} · ${t("gpsAcc",{m:g.acc})}${g.demo?" · demo":""}</small>
+    ${editable?`<button type="button" class="linkbtn" id="geoDel">${t("gpsRedo")}</button>`:`<div class="geo-nav"><a href="${L.google}" target="_blank" rel="noopener">${I.nav} Google</a><a href="${L.gis}" target="_blank" rel="noopener">${I.nav} 2GIS</a><a href="${L.yandex}" target="_blank" rel="noopener">${I.nav} Яндекс</a></div>`}</div></div>`; }
+function locateMe(btn,done){
+  const fallback=why=>sheet(`<h3>${t("gpsFailT")}</h3><p class="muted">${why}</p><p class="small muted">${t("gpsFailHelp")}</p>
+      <button class="btn" id="gDemo">${I.gps} ${t("gpsDemo")}</button><button class="btn ghost" id="gMan">${t("gpsManual")}</button>`, el=>{
+      el.querySelector("#gDemo").onclick=()=>{ closeSheet(); const lat=42.8746+(Math.random()-.5)*.02, lng=74.5698+(Math.random()-.5)*.03; done({lat,lng,acc:12,town:nearestTown(lat,lng),at:Date.now(),demo:true}); };
+      el.querySelector("#gMan").onclick=()=>{ closeSheet(); setTimeout(()=>$("#oPick")?.focus(),60); }; });
+  if(!("geolocation" in navigator)){ fallback(t("gpsNoApi")); return; }
+  btn.classList.add("busy"); btn.querySelector("small").textContent=t("gpsWait");
+  navigator.geolocation.getCurrentPosition(p=>{ btn.classList.remove("busy");
+      const {latitude:lat,longitude:lng,accuracy}=p.coords; done({lat,lng,acc:Math.max(1,Math.round(accuracy)),town:nearestTown(lat,lng),at:Date.now()}); },
+    e=>{ btn.classList.remove("busy"); btn.querySelector("small").textContent=t("gpsHint"); fallback(e&&e.code===1?t("gpsDenied"):t("gpsNoFix")); },
+    {enableHighAccuracy:true,timeout:12000,maximumAge:30000});
+}
 screens.orderNew = () => {
   topbar(t("orderNew"),{canBack:stack.length>0});
   const o=od, pr0=priceRange(o.from,o.to), pr=pr0&&(o.size==="X"||o.size==="T")?pr0.map(v=>Math.round(v*(o.size==="T"?10:4)/50)*50):pr0;
@@ -2526,6 +2574,8 @@ screens.orderNew = () => {
     </div>
     <label class="lbl" for="oPick">${t("pickupAddr")}</label>
     <div class="field">${I.pinO}<input id="oPick" maxlength="80" placeholder="${t("pickupPh")}" value="${esc(o.pickup)}"></div>
+    ${o.geo?geoCard(o.geo,true):`<button type="button" class="gps-btn" id="oGps"><span class="gps-ic">${I.gps}</span><span class="grow"><b>${t("gpsBtn")}</b><small>${t("gpsHint")}</small></span>${I.chev}</button>`}
+    <div class="field">${I.info}<input id="oPickNote" maxlength="60" placeholder="${t("pickNotePh")}" aria-label="${t("pickNotePh")}" value="${esc(o.pickNote)}"></div>
     <label class="lbl" for="oDrop">${t("dropAddr")}</label>
     <div class="field">${I.pin}<input id="oDrop" maxlength="80" placeholder="${t("dropPh")}" value="${esc(o.drop)}"></div>
     <span class="lbl">${t("recipient")}</span>
@@ -2541,7 +2591,7 @@ screens.orderNew = () => {
     <p class="small muted" style="margin:0">${t("parcelNote")}</p>
     <button class="btn" type="submit">${t("publishOrder")}</button>
   </form>`;
-  const keep=()=>{ if($("#oWorth")) o.worth=$("#oWorth").value; if($("#oWarnR")) o.warnRcpt=$("#oWarnR").checked; o.what=$("#oWhat").value; o.pickup=$("#oPick").value; o.drop=$("#oDrop").value; o.rname=$("#oRn").value; o.rphone=$("#oRp").value; o.date=$("#oDate").value; o.price=$("#oPrice").value; };
+  const keep=()=>{ if($("#oWorth")) o.worth=$("#oWorth").value; if($("#oWarnR")) o.warnRcpt=$("#oWarnR").checked; o.what=$("#oWhat").value; o.pickup=$("#oPick").value; o.pickNote=$("#oPickNote").value; o.drop=$("#oDrop").value; o.rname=$("#oRn").value; o.rphone=$("#oRp").value; o.date=$("#oDate").value; o.price=$("#oPrice").value; };
   $("#oPh").onchange=async e=>{ const file=e.target.files[0]; if(!file) return; keep(); try{ o.photo=await readPhoto(file); render(); }catch(_){ toast(t("photoErr")); } };
   document.querySelectorAll("[data-z]").forEach(b=>b.onclick=()=>{ keep(); o.size=b.dataset.z; render(); });
   document.querySelectorAll("[data-oc]").forEach(b=>b.onclick=()=>{ keep(); o.cat=b.dataset.oc; const ok=CAT_SIZES[o.cat]; if(!ok.includes(o.size)) o.size=ok[ok.length-1]; render(); });
@@ -2550,22 +2600,26 @@ screens.orderNew = () => {
   document.querySelectorAll("[data-pr]").forEach(b=>b.onclick=()=>{ keep(); o.price=b.dataset.pr; render(); });
   $("#oFrom").onclick=()=>{ keep(); citySheet(o.from,c=>{o.from=c;render();}); };
   $("#oTo").onclick=()=>{ keep(); citySheet(o.to,c=>{o.to=c;render();}); };
-  $("#oSwap").onclick=()=>{ keep(); [o.from,o.to]=[o.to,o.from]; render(); };
+  $("#oSwap").onclick=()=>{ keep(); [o.from,o.to]=[o.to,o.from]; o.geo=null; render(); };
+  if($("#oGps")) $("#oGps").onclick=()=>{ keep(); locateMe($("#oGps"),g=>{ o.geo=g;
+      if(g.town && g.town!==o.from){ o.from=g.town; toast(t("gpsTownSet",{town:g.town})); } else toast(t("gpsOk"));
+      if(!o.pickup.trim()) o.pickup=t("gpsHere"); render(); }); };
+  if($("#geoDel")) $("#geoDel").onclick=()=>{ keep(); o.geo=null; render(); };
   $("#of").onsubmit=e=>{ e.preventDefault(); keep();
     if(!o.photo){ toast(t("errPhoto")); return; }
     if(!o.what.trim()||o.rname.trim().length<2){ toast(t("parcelFill")); return; }
     if(!o.from||!o.to){ toast(t("bothCities")); return; }
     if(o.from===o.to){ toast(t("citiesDiffer")); return; }
-    if(!o.pickup.trim()){ toast(t("errPickup")); return; }
+    if(!o.pickup.trim()&&!o.geo){ toast(t("errPickup")); return; }
     if(!validPhone(o.rphone)){ toast(t("checkPhone")); return; }
     const price=parseInt(o.price,10); if(!(price>0)){ toast(t("needParcelPrice")); return; }
     const worth=parseInt(o.worth,10); if(o.fragile && !(worth>0)){ toast(t("needWorth")); return; }
     charge("order",t("chargeOrderText",{what:o.what.trim(),from:o.from,to:o.to}),t("publishOrder"),()=>{
-    const ord={id:"o"+uid(),userId:"me",senderName:S.me.name,senderPhone:S.me.phone,from:o.from,to:o.to,what:o.what.trim(),cat:o.cat,size:o.size,price,date:o.date||TODAY(),pickup:o.pickup.trim(),drop:o.drop.trim(),rname:o.rname.trim(),rphone:fmtPhone(o.rphone),payer:o.payer,status:"open",createdAt:Date.now(),photo:o.photo,auto:true};
+    const ord={id:"o"+uid(),userId:"me",senderName:S.me.name,senderPhone:S.me.phone,from:o.from,to:o.to,what:o.what.trim(),cat:o.cat,size:o.size,price,date:o.date||TODAY(),pickup:o.pickup.trim()||t("gpsHere"),pickNote:(o.pickNote||"").trim(),geo:o.geo||undefined,drop:o.drop.trim(),rname:o.rname.trim(),rphone:fmtPhone(o.rphone),payer:o.payer,status:"open",createdAt:Date.now(),photo:o.photo,auto:true};
     if(o.fragile){ ord.fragile=true; ord.worth=worth; if(o.warnRcpt){ ord.rcptWarnedAt=Date.now(); setTimeout(()=>toast(t("rcptWarnSent",{phone:ord.rphone})),1600); } }
     S.orders.unshift(ord);
     notify("orderPublishedNotif",{what:ord.what,from:ord.from,to:ord.to,price},"box",null,ord.id);
-    Object.assign(od,{photo:"",what:"",fragile:false,worth:"",warnRcpt:true,pickup:"",drop:"",price:"",rname:"",rphone:"+996 "});
+    Object.assign(od,{photo:"",what:"",fragile:false,worth:"",warnRcpt:true,pickup:"",pickNote:"",geo:null,drop:"",price:"",rname:"",rphone:"+996 "});
     celebrate(t("orderPublished"),"parcel");
     stack=[]; tab="trips"; go("order",{id:ord.id});
     });
@@ -2588,10 +2642,11 @@ screens.order = ({id}) => {
     <div class="row" style="gap:6px;flex-wrap:wrap">${statusPill(o)}<span class="pill grey">${o.payer==="me"?t("payBySender"):t("payByRecipient")}</span></div>
     <div class="tl">
       <div class="rail">${I.pinO}<span class="dots"></span>${I.pin}</div>
-      <div class="stop"><b>${esc(o.from)}</b><div class="small muted">${t("pickupLbl")} ${esc(loc(o.pickup))}</div></div>
+      <div class="stop"><b>${esc(o.from)}</b><div class="small muted">${t("pickupLbl")} ${esc(loc(o.pickup))}${o.pickNote?" · "+esc(o.pickNote):""}</div>${o.geo&&!(mineS||mineD)?`<span class="pill gps-pill">${I.gps}${t("gpsMarked")}</span>`:""}</div>
       <div class="stop" style="margin-top:10px"><b>${esc(o.to)}</b>${o.drop?`<div class="small muted">${t("dropLbl")} ${esc(o.drop)}</div>`:""}</div>
     </div>
   </div>
+  ${o.geo&&(mineS||mineD)?geoCard(o.geo,false):""}
   ${o.fragile?`<div class="frag-banner">${I.fragile}<div><b>${t("fragileBanner",{worth:o.worth})}</b>${o.rcptWarnedAt&&!mineS?`<span>${t("rwDriverNote")}</span>`:""}<span>${o.liability?t("lbSignedBy",{name:esc(o.liability.name),when:dShort(iso(new Date(o.liability.signedAt)))+", "+hhmm(o.liability.signedAt)}):t("notSignedYet")}</span>${o.liability?`<button type="button" class="linkbtn" id="oContract">${t("viewContract")}</button>`:""}</div></div>`:""}
   ${o.fragile && mineS ? `<div class="card stack rw-card" style="gap:10px"><div class="row" style="gap:10px">${I.phone}<b style="flex:1">${t("rwTitle",{name:esc(o.rname)})}</b>${o.rcptWarnedAt?`<span class="pill">${t("rwSent")}</span>`:`<span class="pill grey">${t("rwNotSent")}</span>`}</div>
     <div class="sms-bubble"><small>SMS · ${esc(o.rphone)}</small>${esc(rcptWarnText(o))}</div>
@@ -3229,7 +3284,7 @@ screens.opOrder = ({id}) => {
     <div class="row" style="gap:6px">${statusPill(o)}</div>
     ${kv(t("opSender"),`${esc(sender.name)} · ${esc(sender.phone||"")}`)}
     ${kv(t("recipientName"),`${esc(o.rname||"—")} · ${esc(o.rphone||"")}`)}
-    ${kv(t("from"),esc(o.from)+(loc(o.pickup)?", "+esc(loc(o.pickup)):""))}${kv(t("to"),esc(o.to))}
+    ${kv(t("from"),esc(o.from)+(loc(o.pickup)?", "+esc(loc(o.pickup)):"")+(o.pickNote?" · "+esc(o.pickNote):""))}${o.geo?kv("GPS",`<a href="${geoLinks(o.geo).google}" target="_blank" rel="noopener">${o.geo.lat.toFixed(5)}, ${o.geo.lng.toFixed(5)}</a> · ±${o.geo.acc} м`):""}${kv(t("to"),esc(o.to))}
   </div>
   <div class="section-title">${t("opTaker")}</div>
   <div class="card stack" style="gap:8px">
