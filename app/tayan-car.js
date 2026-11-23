@@ -1,7 +1,8 @@
 // Big TAYAN car for the home hero: a white sedan in side view cruising along a gold-edged road.
 // The car stays put while the world moves (road dashes, roadside posts, the ridges behind),
 // so it reads as driving without leaving the frame. CSS classes .hd-* in tayan-car.css.
-function tayanCar(id){
+function tayanCar(id, opts){
+  const o=opts||{};
   const wheel=(cx)=>`<g class="hd-wheel" transform="translate(${cx} 90)">
       <circle r="23" fill="#141a17"/><circle r="16" fill="url(#${id}rim)"/>
       <g class="hd-spokes">${[0,72,144,216,288].map(a=>`<rect x="-2" y="-15" width="4" height="13" rx="2" fill="#5d6a63" transform="rotate(${a})"/>`).join("")}</g>
@@ -38,6 +39,19 @@ function tayanCar(id){
       <path class="hd-head" d="M318 62L332 64C333 67 333 70 332 72L318 70Z" fill="#fff8de"/>
       <path d="M40 66L48 64V74L40 75Z" fill="#e5484d"/>
     </g>
+    ${o.driver?`<clipPath id="${id}sill"><rect x="196" y="-60" width="90" height="112"/></clipPath>
+    <g clip-path="url(#${id}sill)"><g class="hd-person">
+      <g class="hd-arm" style="transform-box:view-box;transform-origin:240px 50px">
+        <path d="M240 50L250 30L256 18" stroke="#d9a47a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M240 50L246 38" stroke="#1d6b4c" stroke-width="9" stroke-linecap="round"/>
+        <circle cx="256" cy="15" r="5" fill="#e8b98f"/>
+      </g>
+      <circle cx="228" cy="38" r="10" fill="#e8b98f"/>
+      <path d="M218 36C218 28 224 25 229 25C235 25 239 29 239 34C235 31 230 31 224 33C222 34 220 35 218 36Z" fill="#2b2019"/>
+      <circle cx="233" cy="38" r="1.4" fill="#2b2019"/>
+      <path d="M231 43Q234 45 236 43" stroke="#7a4a30" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      <path d="M220 52C220 46 224 44 229 44C234 44 238 46 238 52Z" fill="#1d6b4c"/>
+    </g></g>`:""}
     <circle cx="96" cy="90" r="27" fill="#0d2a20"/><circle cx="274" cy="90" r="27" fill="#0d2a20"/>
     ${wheel(96)}${wheel(274)}
   </g>

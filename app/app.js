@@ -632,12 +632,12 @@ function celebrate(msg, kind){
   const scene = kind==="parcel"
     ? `<div class="cel-scene" aria-hidden="true"><svg class="cel-arc" viewBox="0 0 220 130"><path d="M24 112 Q110 -14 196 78"/></svg><span class="cel-pin">${I.pin}</span><span class="cel-fly">${I.box}</span></div>`
     : kind==="car"
-    ? `<div class="cel-scene cel-bigcar" aria-hidden="true"><div class="hero-drive enter">${tayanCar("cc"+Date.now())}</div><span class="cel-badge">${check}</span></div>`
+    ? `<div class="cel-scene cel-bigcar" aria-hidden="true"><div class="hero-drive cel-wave">${tayanCar("cc"+Date.now(),{driver:true})}</div><span class="cel-badge">${check}</span></div>`
     : check;
   el.innerHTML=`<div class="box">${scene}<b>${esc(msg)}</b></div>`;
   document.body.appendChild(el);
   el.onclick=()=>{ el.classList.add("leaving"); setTimeout(()=>el.remove(),170); };
-  setTimeout(()=>{ if(!el.isConnected) return; el.classList.add("leaving"); setTimeout(()=>el.remove(),170); }, kind?2000:1250);
+  setTimeout(()=>{ if(!el.isConnected) return; el.classList.add("leaving"); setTimeout(()=>el.remove(),170); }, kind==="car"?4000:kind?2000:1250);
 }
 
 function topbar(title,{sub="",canBack=false,right=""}={}){
