@@ -9,7 +9,7 @@ function tayanCar(id, opts){
       <circle r="23" fill="#141a17"/><circle r="16" fill="url(#${id}rim)"/>
       <g class="hd-spokes">${[0,72,144,216,288].map(a=>`<rect x="-2" y="-15" width="4" height="13" rx="2" fill="#5d6a63" transform="rotate(${a})"/>`).join("")}${o.still?"":`<animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="0.35s" repeatCount="indefinite"/>`}</g>
       <circle r="4" fill="${HUB}"/></g>`;
-  return `<svg class="hd-svg" viewBox="0 0 360 130" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+  return tealize(`<svg class="hd-svg" viewBox="0 0 360 130" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
   <defs>
     <linearGradient id="${id}body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#eef1ee"/><stop offset="1" stop-color="#c9d1cc"/></linearGradient>
     <linearGradient id="${id}glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${GL1}"/><stop offset="1" stop-color="${GL2}"/></linearGradient>
@@ -58,5 +58,5 @@ function tayanCar(id, opts){
     ${wheel(96)}${wheel(274)}
   </g>
   <pattern id="${id}dashp" width="48" height="3" patternUnits="userSpaceOnUse"><rect width="26" height="3" rx="1.5" fill="${G2}" opacity=".8"/></pattern>
-  </svg>`.replace(`url(#${id}dash)`,`url(#${id}dashp)`);
+  </svg>`.replace(`url(#${id}dash)`,`url(#${id}dashp)`));
 }

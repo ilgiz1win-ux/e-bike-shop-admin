@@ -2,13 +2,22 @@
 // Order: the tile appears, the gold arc draws, ridges rise, the gold peak fills in, the road draws,
 // the car drives toward the viewer, the wordmark strokes write themselves, the motto rises, a sheen passes.
 // Every element's resting style is its final look, so with reduced motion it simply shows the finished logo.
+// Turquoise + white look: every colour in an SVG string is mapped by its lightness onto one turquoise ramp.
+function tealize(svg){
+  if(!document.documentElement.classList.contains("mono")) return svg;
+  const S=[[0,[5,48,44]],[0.35,[15,118,110]],[0.6,[20,184,166]],[0.82,[153,233,223]],[1,[255,255,255]]], hx=n=>n.toString(16).padStart(2,"0");
+  return svg.replace(/#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b/g,(m,h)=>{ if(h.length===3) h=h.split("").map(c=>c+c).join("");
+    const r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16), L=(0.299*r+0.587*g+0.114*b)/255;
+    for(let i=1;i<S.length;i++){ const [a,ca]=S[i-1],[e,cb]=S[i]; if(L<=e){ const k=e>a?(L-a)/(e-a):0; return "#"+[0,1,2].map(j=>hx(Math.round(ca[j]+(cb[j]-ca[j])*k))).join(""); } }
+    return "#ffffff"; });
+}
 function tayanSVG(id, opts){
   const o=Object.assign({motto:"Ишеним менен жолго чык", loop:false}, opts||{});
   const g=id; // gradient ids must be unique per copy on the page
   const L=(d,k)=>`<path class="tl-w tl-w${k}" pathLength="1" d="${d}"/>`;
   // wordmark: T Λ Y A N drawn as strokes, cap line 346, baseline 410
   const T='M50 346H114M82 346V410', LAM='M128 410L166 346L204 410', Y='M220 346L254 382L288 346M254 382V410', A='M302 410L340 346L378 410M318 386H362', N='M396 410V346L456 410V346';
-  return `<svg class="tayan-svg${o.loop?" tl-loop":""}" viewBox="0 0 512 512" role="img" aria-label="TAYAN. ${o.motto}">
+  return tealize(`<svg class="tayan-svg${o.loop?" tl-loop":""}" viewBox="0 0 512 512" role="img" aria-label="TAYAN. ${o.motto}">
   <defs>
     <linearGradient id="${g}bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10583e"/><stop offset=".55" stop-color="#0a3d2b"/><stop offset="1" stop-color="#06291d"/></linearGradient>
     <radialGradient id="${g}hl" cx=".5" cy=".28" r=".6"><stop offset="0" stop-color="#1d7a55" stop-opacity=".55"/><stop offset="1" stop-color="#1d7a55" stop-opacity="0"/></radialGradient>
@@ -66,5 +75,5 @@ function tayanSVG(id, opts){
     </g>
     <!-- sheen -->
     <rect class="tl-sheen" x="-200" y="0" width="160" height="512" fill="url(#${g}sheen)" transform="skewX(-16)"/>
-  </g></svg>`;
+  </g></svg>`);
 }

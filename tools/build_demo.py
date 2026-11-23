@@ -14,7 +14,7 @@ js = (APP / 'app.js').read_text(encoding='utf-8')
 js = (APP / 'tayan-logo.js').read_text(encoding='utf-8') + '\n' + (APP / 'tayan-car.js').read_text(encoding='utf-8') + '\n' + js
 # the TAYAN mark goes in as data URIs so every page (and the separate admin artifact) carries it
 import base64
-for key, f in (('__TAYAN_LOGO_512__', 'tayan-512.webp'), ('__TAYAN_LOGO_160__', 'tayan-160.webp')):
+for key, f in (('__TAYAN_LOGO_512__', 'tayan-teal-512.webp'), ('__TAYAN_LOGO_160__', 'tayan-teal-160.webp')):
     js = js.replace(key, 'data:image/webp;base64,' + base64.b64encode((APP / 'media' / f).read_bytes()).decode())
 for name in ('index', 'admin'):
     src = (APP / f'{name}.src.html').read_text(encoding='utf-8')

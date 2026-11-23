@@ -490,9 +490,9 @@ load();
 
 // ---------- brand colour themes (switchable in Profile) ----------
 const BRANDS = {
-  mono:{name:{ky:"Ак-кара",ru:"Чёрно-белый"},sw:"#111111",
-    light:{accent:"#111111","accent-strong":"#000000","accent-soft":"#efefef","accent-ink":"#111111","on-accent":"#ffffff",ink:"#111111",ink2:"#000000","sel-bg":"#111111","sel-fg":"#ffffff","sel-ic":"#ffffff",bg:"#ffffff",field:"#f2f2f2",line:"#e5e5e5",fg:"#111111",muted:"#6b6b6b","st-onway":"#111111","st-accepted":"#111111"},
-    dark:{accent:"#ffffff","accent-strong":"#e5e5e5","accent-soft":"#222222","accent-ink":"#ffffff","on-accent":"#000000",ink:"#0a0a0a",ink2:"#000000","sel-bg":"#ffffff","sel-fg":"#000000","sel-ic":"#000000",bg:"#000000",field:"#161616",line:"#262626",fg:"#f5f5f5",muted:"#9a9a9a","st-onway":"#f5f5f5","st-accepted":"#f5f5f5"}},
+  mono:{name:{ky:"Бирюза жана ак",ru:"Бирюза и белый"},sw:"#14b8a6",
+    light:{accent:"#0d9488","accent-strong":"#0f766e","accent-soft":"#dff6f2","accent-ink":"#0f766e","on-accent":"#ffffff",ink:"#0f766e",ink2:"#0b4f4a","sel-bg":"#0d9488","sel-fg":"#ffffff","sel-ic":"#ffffff",bg:"#ffffff",field:"#eefaf8",line:"#d3efeb",fg:"#083f3b",muted:"#3d7d76","st-onway":"#0d9488","st-accepted":"#0d9488"},
+    dark:{accent:"#2dd4bf","accent-strong":"#5eead4","accent-soft":"#0b3a36","accent-ink":"#5eead4","on-accent":"#042f2e",ink:"#0b4f4a",ink2:"#062f2c","sel-bg":"#2dd4bf","sel-fg":"#042f2e","sel-ic":"#042f2e",bg:"#042522",field:"#0b3a36",line:"#125049",fg:"#e6fbf8",muted:"#8fcfc6","st-onway":"#5eead4","st-accepted":"#5eead4"}},
   tayan:{name:{ky:"TAYAN",ru:"TAYAN"},sw:"#0f5c40",
     light:{accent:"#137a53","accent-strong":"#0f6646","accent-soft":"#e1f1e8","accent-ink":"#0d5c3f","on-accent":"#ffffff",ink:"#0d4130",ink2:"#062a1e","sel-bg":"#0d4130","sel-fg":"#ffffff","sel-ic":"#f0c46a",bg:"#f2f5f1",field:"#e7eee8",line:"#dbe4dc",fg:"#0f1f18",muted:"#55675d"},
     dark:{accent:"#2fae78","accent-strong":"#4cc792","accent-soft":"#123022","accent-ink":"#7fdcb0","on-accent":"#03140c",ink:"#0e3d2c",ink2:"#06241a","sel-bg":"#2fae78","sel-fg":"#03140c","sel-ic":"#03140c",bg:"#08110d",field:"#16221c",line:"#20302a",fg:"#e7f0ea",muted:"#a1b4a9"}},
@@ -513,7 +513,7 @@ const BRANDS = {
 const BRAND_KEYS=["accent","accent-strong","accent-soft","accent-ink","on-accent","ink","ink2","sel-bg","sel-fg","sel-ic","bg","field","line","fg","muted","st-onway","st-accepted"];
 function isDark(){ const r=document.documentElement; return r.dataset.theme==="dark" || (r.dataset.theme!=="light" && matchMedia("(prefers-color-scheme: dark)").matches); }
 function applyBrand(){
-  document.documentElement.classList.toggle("mono", S.brand==="mono");
+  S.brand="mono"; document.documentElement.classList.add("mono");
   { const want=S.theme||"light"; if(document.documentElement.getAttribute("data-theme")!==want) document.documentElement.setAttribute("data-theme",want); }
   const b=BRANDS[S.brand]||BRANDS.tayan, set=isDark()?b.dark:b.light, st=document.documentElement.style;
   BRAND_KEYS.forEach(k=>{ if(set[k]) st.setProperty("--"+k,set[k]); else st.removeProperty("--"+k); });
@@ -535,7 +535,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const user = id => id==="me"?S.me:S.users.find(u=>u.id===id);
 const avColor = s => AV[[...String(s)].reduce((a,c)=>a+c.charCodeAt(0),0)%AV.length];
-const avatar = (u,cls="") => u?.photo ? `<div class="avatar ${cls}" style="background:var(--field) url(${u.photo}) center/cover"></div>` : `<div class="avatar ${cls}" style="background:${S.brand==="mono"?"#111":avColor(u?.name||"?")}">${esc((u?.name||"?").trim()[0]||"?").toUpperCase()}</div>`;
+const avatar = (u,cls="") => u?.photo ? `<div class="avatar ${cls}" style="background:var(--field) url(${u.photo}) center/cover"></div>` : `<div class="avatar ${cls}" style="background:${S.brand==="mono"?"var(--accent)":avColor(u?.name||"?")}">${esc((u?.name||"?").trim()[0]||"?").toUpperCase()}</div>`;
 const reviewsOf = id => S.reviews.filter(r=>r.toId===id);
 const ratingOf = id => { const r=reviewsOf(id); return r.length? r.reduce((a,b)=>a+b.rating,0)/r.length : 0; };
 const stars = v => `<span class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=Math.round(v)?"":"off"}">${I.star}</span>`).join("")}</span>`;
@@ -2661,7 +2661,6 @@ screens.profile = () => {
     <button class="li" id="drvSt">${I.idcard}<span class="grow">${t("driverStatus")}</span><span class="pill ${st==="verified"?"":"grey"}">${t("st_"+st)}</span>${st==="none"?I.chev:""}</button>
     <div class="li">${I.globe}<span class="grow">${t("language")}</span>${langSwitch()}</div>
     <div class="li motion-li">${I.road.replace("<svg",'<svg class="ic"')}<span class="grow" style="min-width:0">${t("motionLbl")}<span class="small muted" style="display:block">${t("motionHint")}</span></span><span class="lang" role="group" aria-label="${t("motionLbl")}">${["auto","on","off"].map(k=>`<button data-motion="${k}" aria-pressed="${(S.motion||"auto")===k}" class="${(S.motion||"auto")===k?"on":""}">${t("motion_"+k)}</button>`).join("")}</span></div>
-    <div class="li brand-li"><span class="ic-dot" style="background:var(--accent)"></span><span class="grow">${t("colorTheme")}<span class="small muted" style="display:block">${esc(BRANDS[S.brand].name[S.lang])}</span></span><span class="swatches">${Object.entries(BRANDS).map(([k,b])=>`<button class="bsw ${S.brand===k?"on":""}" data-brand="${k}" style="background:${b.sw}" aria-label="${esc(b.name[S.lang])}"></button>`).join("")}</span></div>
   </div>
   <div class="section-title">${t("info")}</div>
   <div class="list">${infoItems.map(([k,ic])=>`<button class="li" data-info="${k}">${ic}<span class="grow">${t(k)}</span>${I.chev}</button>`).join("")}</div>
