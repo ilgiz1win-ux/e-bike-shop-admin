@@ -1,0 +1,34 @@
+/* TAYAN animated mark (see tayan-logo.js). Resting styles = finished logo; keyframes start from hidden. */
+.tayan-svg{display:block;width:100%;height:auto;overflow:visible}
+.tayan-svg *{transform-box:fill-box}
+.tl-tile{transform-origin:center;animation:tlTile .5s cubic-bezier(.34,1.56,.64,1) both}
+.tl-orn{animation:tlFade .8s 1.9s ease both}
+.tl-ridge{animation:tlRise .7s .25s cubic-bezier(.23,1,.32,1) both}
+.tl-ridge-r{animation-delay:.35s}
+.tl-arc{stroke-dasharray:1;stroke-dashoffset:0;animation:tlDraw 1.1s .2s cubic-bezier(.65,0,.35,1) both}
+.tl-peak{transform-origin:50% 100%;animation:tlPeak .8s .45s cubic-bezier(.23,1,.32,1) both}
+.tl-road{stroke-dasharray:1;stroke-dashoffset:0;animation:tlDraw .9s .85s cubic-bezier(.65,0,.35,1) both}
+.tl-road2{animation-delay:.95s}
+.tl-dash{animation:tlFade .4s 1.55s ease both}
+.tl-car{transform-origin:50% 100%;animation:tlCar .9s 1.1s cubic-bezier(.2,.8,.25,1) both}
+.tl-lamp{transform-origin:center;animation:tlFade .3s 1.8s ease both}
+.tl-w{stroke-dasharray:1;stroke-dashoffset:0;animation:tlDraw .45s cubic-bezier(.65,0,.35,1) both}
+.tl-w1{animation-delay:1.55s}.tl-w2{animation-delay:1.65s}.tl-w3{animation-delay:1.75s}.tl-w4{animation-delay:1.85s}.tl-w5{animation-delay:1.95s}
+.tl-tri{transform-origin:50% 100%;animation:tlPop .45s 2.15s cubic-bezier(.34,1.56,.64,1) both}
+.tl-motto{animation:tlRise .6s 2.25s cubic-bezier(.23,1,.32,1) both}
+.tl-sheen{animation:tlSheen 1.4s 2.6s cubic-bezier(.45,0,.2,1) both}
+/* on the welcome screen the logo keeps a quiet life: lamps breathe, the sheen comes back */
+.tl-loop .tl-sheen{animation:tlSheen 1.4s 2.6s cubic-bezier(.45,0,.2,1) both,tlSheenLoop 6s 4.2s cubic-bezier(.45,0,.2,1) infinite}
+.tl-loop .tl-lamp{animation:tlFade .3s 1.8s ease both,tlLamp 2.8s 2.4s ease-in-out infinite}
+@keyframes tlTile{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:none}}
+@keyframes tlFade{from{opacity:0}}
+@keyframes tlRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes tlDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes tlPeak{from{opacity:0;transform:translateY(26px) scaleY(.6)}to{opacity:1;transform:none}}
+@keyframes tlCar{from{opacity:0;transform:translate(150px,-62px) scale(.28)}60%{opacity:1}to{opacity:1;transform:none}}
+@keyframes tlPop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:none}}
+@keyframes tlSheen{from{transform:skewX(-16deg) translateX(0)}to{transform:skewX(-16deg) translateX(980px)}}
+@keyframes tlSheenLoop{0%{transform:skewX(-16deg) translateX(0)}30%,100%{transform:skewX(-16deg) translateX(980px)}}
+@keyframes tlLamp{50%{opacity:.55}}
+.tl-sheen{transform:skewX(-16deg) translateX(980px)}
+@media (prefers-reduced-motion: reduce){.tayan-svg *{animation:none!important}}

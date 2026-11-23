@@ -9,7 +9,9 @@ from pathlib import Path
 
 APP = Path(__file__).resolve().parents[1] / 'app'
 css = (APP / 'app.css').read_text(encoding='utf-8')
+css += (APP / 'tayan-logo.css').read_text(encoding='utf-8')
 js = (APP / 'app.js').read_text(encoding='utf-8')
+js = (APP / 'tayan-logo.js').read_text(encoding='utf-8') + '\n' + js
 # the TAYAN mark goes in as data URIs so every page (and the separate admin artifact) carries it
 import base64
 for key, f in (('__TAYAN_LOGO_512__', 'tayan-512.webp'), ('__TAYAN_LOGO_160__', 'tayan-160.webp')):

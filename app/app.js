@@ -720,8 +720,7 @@ screens.welcome = () => {
   // Hero: the TAYAN mark floats over the ridge line, a gold light passes over it, the brand line follows.
   const hero = `<div class="wl-hero tayan-hero">
     <div class="th-glow" aria-hidden="true"></div>
-    <div class="th-logo"><img src="${LOGO}" alt="TAYAN" width="180" height="180"><i class="th-sheen" aria-hidden="true"></i></div>
-    <p class="th-line"><i></i><span>${t("brandLine")}</span><i></i></p>
+    <div class="th-logo th-svg">${tayanSVG("wl",{motto:t("brandLine"),loop:true})}</div>
     <div class="th-copy"><b>${t("welcomeTitle")}</b><span>${t("welcomeText")}</span></div>
     <div class="hero-road th-road" aria-hidden="true"><span class="mv a">${I.car}</span><span class="mv b">${I.bike}</span><span class="mv c">${I.truck}</span></div></div>`;
   if(auth.step==="phone"){
@@ -2703,12 +2702,10 @@ addEventListener("storage",e=>{ if(e.key!==KEY||!e.newValue) return; try{ S=JSON
 function showSplash(){
   if(ADMIN || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const el=document.createElement("div"); el.className="splash"; el.setAttribute("aria-hidden","true");
-  el.innerHTML=`<div class="sp-glow"></div><div class="sp-in"><div class="sp-logo"><img src="${LOGO}" alt="" width="168" height="168"><i class="th-sheen"></i></div>
-    <p class="sp-line"><i></i><span>${t("brandLine")}</span><i></i></p>
-    <div class="sp-road"><i></i><span>${I.car}</span></div></div>`;
+  el.innerHTML=`<div class="sp-glow"></div><div class="sp-in"><div class="sp-logo sp-svg">${tayanSVG("sp",{motto:t("brandLine")})}</div></div>`;
   document.body.appendChild(el);
   const go=()=>{ if(!el.isConnected) return; el.classList.add("out"); setTimeout(()=>el.remove(),420); };
-  el.onclick=go; setTimeout(go,2200);
+  el.onclick=go; setTimeout(go,3600);
 }
 (function(){ try{ if(sessionStorage.getItem("jsplash")) return; sessionStorage.setItem("jsplash","1"); }catch(e){ return; } showSplash(); })();
 render();
